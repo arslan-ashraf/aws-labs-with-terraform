@@ -1,6 +1,6 @@
 locals {
   public_subnets = {
-    for key, config in var.subnet_config : key => config if config.public == true    
+    for key, config in var.subnet_config : key => config if config.public == true
   }
 
   private_subnets = {
@@ -48,40 +48,35 @@ data "aws_availability_zones" "AZs" {
 
 resource "aws_vpc" "example_vpc" {
   cidr_block = var.vpc_config.cidr_block
-  tags = { Name = var.vpc_config.name }
+  tags       = { Name = var.vpc_config.name }
 }
 
 # multple subnets with for_each loop
 resource "aws_subnet" "subnets_in_example_vpc" {
-  for_each = var.subnet_config
-  vpc_id = aws_vpc.example_vpc.id
+  for_each          = var.subnet_config
+  vpc_id            = aws_vpc.example_vpc.id
   availability_zone = each.value.AZ
-  cidr_block = each.value.cidr_block
+  cidr_block        = each.value.cidr_block
 
   tags = {
-    Name = "${each.value.public}_${each.key}"
+    Name = "${each.value.public == true ? "public" : "private"}_${each.key}"
   }
 
   lifecycle {
     precondition {
-      condition = contains(data.aws_availability_zones.available.names, each.value.AZ)
-      error_message = <<-EOT
-      The AZ "${each.value.AZ}" provided for the subnet "${each.key}" is invalid.
-
-      The applied AWS region "${data.aws_availability_zones.available.id}" supports
-      the following AZs [${join(", ", data.aws_availability_zones.available.names)}].
-      EOT
+      condition     = contains(data.aws_availability_zones.AZs.names, each.value.AZ)
+      error_message = "Invalid AZ provided: only allowed AZs [${join(", ", data.aws_availability_zones.AZs.names)}]."
     }
   }
 }
 
 resource "aws_internet_gateway" "example_internet_gateway" {
-  count = length(local.public_subnets) > 0 ? 1 : 0
+  count  = length(local.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.example_vpc.id
 }
 
 resource "aws_route_table" "route_table_in_example_vpc" {
-  count = length(local.public_subnets) > 0 ? 1 : 0
+  count  = length(local.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.example_vpc.id
 
   route {
@@ -95,8 +90,8 @@ resource "aws_route_table" "route_table_in_example_vpc" {
 
 # note: a subnet can only be attached to a single route table
 resource "aws_route_table_association" "route_table_for_public_subnets" {
-  for_each = local.public_subnets     # as listed at the top of file
+  for_each = local.public_subnets # as listed at the top of file
 
-  subnet_id = aws_subnet.subnets_in_example_vpc[each.key].id
+  subnet_id      = aws_subnet.subnets_in_example_vpc[each.key].id
   route_table_id = aws_route_table.route_table_in_example_vpc[0].id
 }

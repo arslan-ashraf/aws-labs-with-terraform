@@ -1,20 +1,20 @@
-variable vpc_config {
+variable "vpc_config" {
   type = object({
     cidr_block = string
-    name = string
+    name       = string
   })
 
   validation {
-    condition = can(cidrnetmask(var.vpc_config.cidr_block))
+    condition     = can(cidrnetmask(var.vpc_config.cidr_block))
     error_message = "The VPC cidr_block must be valid."
   }
 }
 
-variable subnet_config {
+variable "subnet_config" {
   type = map(object({
     cidr_block = string
-    public = optional(bool, false)
-    AZ = string
+    public     = optional(bool, false)
+    AZ         = string
   }))
 
   validation {
