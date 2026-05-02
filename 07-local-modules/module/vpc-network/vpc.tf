@@ -73,3 +73,8 @@ resource "aws_subnet" "example_subnets" {
     }
   }
 }
+
+resource "aws_internet_gateway" "example_internet_gateway" {
+  count = length(local.public_subnets) > 0 ? 1 : 0
+  vpc_id = aws_vpc.example_vpc.id
+}

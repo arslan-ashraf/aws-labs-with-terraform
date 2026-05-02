@@ -31,7 +31,7 @@ variable "ec2_instance_config_map" {
     condition = alltrue([
       for config in values(var.ec2_instance_config_map) : contains(["ubuntu", "debian"], config.ami)
     ])
-    error_message = "Only \"ubuntu\" and \"debian\" amis are allowed."
+    error_message = "Only \"ubuntu\" and \"debian\" AMIs are allowed."
   }
 }
 

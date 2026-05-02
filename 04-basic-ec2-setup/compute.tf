@@ -99,7 +99,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
 
   # to allow ingress traffic on only one port, set both to 80
   # otherwise set from_port to the lowest number in a range
-  # and to port to highest number in range, ex: from_port = 1025, to_port = 65545
+  # and to_port to highest number in range, ex: from_port = 1025, to_port = 65545
   from_port = 80
   to_port   = 80
 
