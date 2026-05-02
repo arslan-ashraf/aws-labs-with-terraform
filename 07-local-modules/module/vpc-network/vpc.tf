@@ -51,6 +51,7 @@ resource "aws_vpc" "example_vpc" {
   tags = { Name = var.vpc_config.name }
 }
 
+# multple subnets with for_each loop
 resource "aws_subnet" "subnets_in_example_vpc" {
   for_each = var.subnet_config
   vpc_id = aws_vpc.example_vpc.id
@@ -85,13 +86,16 @@ resource "aws_route_table" "route_table_in_example_vpc" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    # there may be multiple internet gateways depending on the number of
-    # public subnets, but in this example there is only 1 public gateway
+    # there may be 0 or 1 internet gateway if there is at least one public subnet
+    # in this example there is only 1 public subnet and the internet gateway is
     # wrapped inside an array, hence: example_internet_gateway[0]
     gateway_id = aws_internet_gateway.example_internet_gateway[0].id
   }
 }
 
 resource "aws_route_table_association" "route_table_for_public_subnets" {
-  
+  for_each = local.public_subnets     # as listed at the top of file
+
+  subnet_id = aws_subnet.subnets_in_example_vpc[each.key].id
+  route_table_id = aws_route_table.route_table_in_example_vpc[0].id
 }
