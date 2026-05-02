@@ -1,4 +1,4 @@
-# local.public_subnets below are like this (see vpc.tf file):
+# local.public_subnets below are like this (see vpc-network.tf file):
 # public_subnets = {
 #   subnet_a = {
 #     cidr_block = "10.0.1.0/24"
