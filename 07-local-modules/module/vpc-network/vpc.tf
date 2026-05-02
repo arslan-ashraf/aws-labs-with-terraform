@@ -8,7 +8,7 @@ locals {
   }
 }
 
-# if the subnet_config defined in variables.tf looks like this:
+# if the subnet_config defined in the module file variables.tf looks like this:
 # subnet_config = {
 #   subnet_a = {
 #     cidr_block = "10.0.1.0/24"
@@ -93,6 +93,7 @@ resource "aws_route_table" "route_table_in_example_vpc" {
   }
 }
 
+# note: a subnet can only be attached to a single route table
 resource "aws_route_table_association" "route_table_for_public_subnets" {
   for_each = local.public_subnets     # as listed at the top of file
 

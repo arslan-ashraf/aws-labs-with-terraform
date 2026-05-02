@@ -50,6 +50,7 @@ resource "aws_route_table" "route_table_for_public_subnet_in_example_vpc" {
 }
 
 # attach the route table to one of the subnets to make it public
+# note: a subnet can only be attached to a single route table
 resource "aws_route_table_association" "route_table_association_public_subnet_example_vpc" {
   subnet_id      = aws_subnet.public_subnet_in_example_vpc.id
   route_table_id = aws_route_table.route_table_for_public_subnet_in_example_vpc.id
