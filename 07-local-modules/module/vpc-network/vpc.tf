@@ -51,7 +51,7 @@ resource "aws_vpc" "example_vpc" {
   tags = { Name = var.vpc_config.name }
 }
 
-resource "aws_subnet" "example_subnets" {
+resource "aws_subnet" "subnets_in_example_vpc" {
   for_each = var.subnet_config
   vpc_id = aws_vpc.example_vpc.id
   availability_zone = each.value.AZ
@@ -77,4 +77,21 @@ resource "aws_subnet" "example_subnets" {
 resource "aws_internet_gateway" "example_internet_gateway" {
   count = length(local.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.example_vpc.id
+}
+
+resource "aws_route_table" "route_table_in_example_vpc" {
+  count = length(local.public_subnets) > 0 ? 1 : 0
+  vpc_id = aws_vpc.example_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    # there may be multiple internet gateways depending on the number of
+    # public subnets, but in this example there is only 1 public gateway
+    # wrapped inside an array, hence: example_internet_gateway[0]
+    gateway_id = aws_internet_gateway.example_internet_gateway[0].id
+  }
+}
+
+resource "aws_route_table_association" "route_table_for_public_subnets" {
+  
 }

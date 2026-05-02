@@ -52,7 +52,7 @@ resource "aws_instance" "create_instances_from_map" {
   for_each = var.ec2_instance_config_map
 
   # local.ami_ids map holds dynamically fetched ami ids and each.value.ami
-  # provides the keys to look into the local.ami_ids maps
+  # provides the keys to look into the local.ami_ids map
   ami = local.ami_ids[each.value.ami]
 
   instance_type = each.value.instance_type
