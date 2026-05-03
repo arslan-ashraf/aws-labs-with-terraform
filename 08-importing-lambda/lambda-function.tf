@@ -42,3 +42,8 @@ import {
   to = aws_lambda_function.example_lambda_function
   from = "manually-created-lambda"
 }
+
+resource "aws_lambda_function_url" "example_lambda_url" {
+  function_name = aws_lambda_function.example_lambda_function.function_name
+  authorization_type = "NONE"
+}
