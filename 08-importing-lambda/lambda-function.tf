@@ -6,6 +6,7 @@ data "archive_file" "zipping_function_code" {
   output_path = "lambda_js_code_zipped.zip"
 }
 
+# this lambda function is not to be created but imported as below
 resource "aws_lambda_function" "example_lambda_function" {
   
   function_name = "manually-created-lambda"

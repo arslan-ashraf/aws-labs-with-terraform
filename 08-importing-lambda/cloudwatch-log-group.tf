@@ -1,3 +1,4 @@
+# this cloud watch log group is not to be created but imported as below
 resource "aws_cloudwatch_log_group" "lambda_log_group" {
   name = "/aws/lambda/manually-created-lambda"
 }
