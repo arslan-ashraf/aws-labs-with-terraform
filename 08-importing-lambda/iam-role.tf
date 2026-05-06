@@ -69,3 +69,10 @@ import {
   to = aws_iam_policy.lambda_policy
   id = "arn:aws:iam::${data.aws_caller_identity.user.account_id}:policy/service-role/AWSLambdaBasicExecutionRole-eb89ac7f-22a0-4f9d-b7a7-2decd747f19e"
 }
+
+
+# here we attach the policy to the role
+resource "aws_iam_role_policy_attachment" "lambda_role_policy" {
+  role = aws_iam_role.lambda_execution_role
+  policy_arn = aws_iam_policy.lambda_policy.arn
+}
