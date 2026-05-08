@@ -95,7 +95,7 @@ resource "aws_security_group" "security_group_public_traffic" {
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
   security_group_id = aws_security_group.security_group_public_traffic.id
-  cidr_ipv4         = "0.0.0.0/0"
+  cidr_ipv4         = "0.0.0.0/0"     # where is the traffic coming from
 
   # to allow ingress traffic on only one port, set both to 80
   # otherwise set from_port to the lowest number in a range
