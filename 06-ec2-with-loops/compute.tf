@@ -49,7 +49,7 @@ locals {
 
 # create multiple ec2 intstances with for_each loop
 resource "aws_instance" "create_instances_from_map" {
-  for_each = var.ec2_instance_config_map
+  for_each = var.ec2_instance_config
 
   # local.ami_ids map holds dynamically fetched ami ids and each.value.ami
   # provides the keys to look into the local.ami_ids map

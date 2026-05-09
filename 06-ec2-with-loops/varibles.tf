@@ -13,7 +13,7 @@ variable "subnet_config" {
 }
 
 
-variable "ec2_instance_config_map" {
+variable "ec2_instance_config" {
   type = map(object({
     instance_type = string
     ami           = string
@@ -22,14 +22,14 @@ variable "ec2_instance_config_map" {
 
   validation {
     condition = alltrue([
-      for config in values(var.ec2_instance_config_map) : contains(["t2.nano"], config.instance_type)
+      for config in values(var.ec2_instance_config) : contains(["t2.nano"], config.instance_type)
     ])
     error_message = "Only t2.nano instances are allowed."
   }
 
   validation {
     condition = alltrue([
-      for config in values(var.ec2_instance_config_map) : contains(["ubuntu", "debian"], config.ami)
+      for config in values(var.ec2_instance_config) : contains(["ubuntu", "debian"], config.ami)
     ])
     error_message = "Only \"ubuntu\" and \"debian\" AMIs are allowed."
   }

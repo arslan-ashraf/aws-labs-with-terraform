@@ -3,7 +3,7 @@ subnet_config = {
   public_subnet  = { cidr_block = "10.0.1.0/24" }
 }
 
-ec2_instance_config_map = {
+ec2_instance_config = {
   instance1 = {
     instance_type = "t2.nano"
     ami           = "ubuntu"
