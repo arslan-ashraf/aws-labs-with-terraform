@@ -3,7 +3,7 @@
 #################################################################################
 
 resource "aws_vpc" "vpc_in_US_east" {
-  region = aws.region_US_east
+  provider = aws.region_US_east
   cidr_block = "10.0.0.0/16"
   tags       = { Name = "vpc_in_US_east" }
 }
@@ -76,7 +76,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_US_east" {
 
 
 resource "aws_vpc" "vpc_in_Tokyo" {
-  region = aws.region_Tokyo
+  provider = aws.region_Tokyo
   cidr_block = "90.0.0.0/16"
   tags       = { Name = "vpc_in_Tokyo" }
 }

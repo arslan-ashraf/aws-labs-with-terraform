@@ -22,7 +22,7 @@ data "aws_ami" "debian_ami" {
 }
 
 resource "aws_instance" "ec2_instances_US_east" {
-  region                      = aws.region_US_east
+  region                      = "us-east-1"
   availability_zone           = "us-east-1a"
   ami                         = data.aws_ami.debian_ami.id
   instance_type               = "t2.nano"
@@ -71,7 +71,7 @@ data "aws_ami" "ubuntu_ami" {
 }
 
 resource "aws_instance" "ec2_instances_Tokyo" {
-  region                      = aws.region_Tokyo
+  region                      = "ap-northeast-1"
   availability_zone           = "apne1-az1"
   ami                         = data.aws_ami.ubuntu_ami.id
   instance_type               = "t2.nano"
