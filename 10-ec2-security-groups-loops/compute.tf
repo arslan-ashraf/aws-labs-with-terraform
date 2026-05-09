@@ -58,7 +58,7 @@ resource "aws_instance" "create_instances_from_map" {
   instance_type               = each.value.instance_type
   subnet_id                   = aws_subnet.subnets_in_example_vpc[each.value.subnet_name].id
   availability_zone           = "us-east-1a"
-  associate_public_ip_address = each.value.security_group == "private_traffic_sg" ? false : true
+  associate_public_ip_address = each.value.subnet_name == "private_subnet" ? false : true
   key_name                    = "key-for-ec2-connection"
 
   vpc_security_group_ids = [

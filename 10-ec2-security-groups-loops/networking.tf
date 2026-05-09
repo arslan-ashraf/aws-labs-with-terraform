@@ -46,7 +46,7 @@ resource "aws_security_group" "mulitple_security_groups" {
   tags     = { Name = each.key }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
+resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_public_sg" {
   security_group_id = aws_security_group.multiple_security_groups["public_traffic_sg"].id
   cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
 
@@ -55,4 +55,27 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
   to_port   = 22
 
   ip_protocol = "tcp"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_private_sg" {
+  security_group_id = aws_security_group.multiple_security_groups["private_traffic_sg"].id
+  cidr_ipv4         = "10.0.0.0/16" # where is the traffic coming from, from within VPC
+
+  # to allow ingress traffic for ssh but only from within VPC
+  from_port = 22
+  to_port   = 22
+
+  ip_protocol = "tcp"
+}
+
+
+resource "aws_vpc_security_group_ingress_rule" "ping_connection_rule_private_sg" {
+  security_group_id = aws_security_group.multiple_security_groups["private_traffic_sg"].id
+  cidr_ipv4         = "10.0.0.0/16" # where is the traffic coming from, from within VPC
+
+  # to allow ping but only from within VPC
+  from_port = 8
+  to_port   = 0
+
+  ip_protocol = "icmp"
 }
