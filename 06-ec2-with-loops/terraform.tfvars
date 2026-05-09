@@ -7,6 +7,7 @@ ec2_instance_config_map = {
   instance1 = {
     instance_type = "t2.nano"
     ami           = "ubuntu"
+    # subnet_name = "private_subnet"   # default option in variables.tf
   }
 
   instance2 = {
