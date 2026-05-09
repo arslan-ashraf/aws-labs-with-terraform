@@ -3,7 +3,7 @@
 #################################################################################
 
 resource "aws_vpc" "vpc_in_US_east" {
-  region = "us-east-1"
+  region = aws.region_US_east
   cidr_block = "10.0.0.0/16"
   tags       = { Name = "vpc_in_US_east" }
 }
@@ -48,7 +48,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_US_east" {
   description = "Allow only outbound ICMP echo requests (using ping)"
 
   security_group_id = aws_security_group.security_group_US_east.id
-  cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
+  cidr_ipv4         = "90.0.0.0/16" # where is the traffic going
 
   from_port = 8
   to_port   = 0
@@ -60,7 +60,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_US_east" {
   description = "Allow only inbound ICMP echo packets (using ping)"
 
   security_group_id = aws_security_group.security_group_US_east.id
-  cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
+  cidr_ipv4         = "90.0.0.0/16" # where is the traffic coming from
 
   # to allow ping but only from within VPC
   from_port = 8
@@ -76,7 +76,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_US_east" {
 
 
 resource "aws_vpc" "vpc_in_Tokyo" {
-  region = "ap-northeast-1"
+  region = aws.region_Tokyo
   cidr_block = "90.0.0.0/16"
   tags       = { Name = "vpc_in_Tokyo" }
 }
@@ -121,7 +121,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_Tokyo" {
   description = "Allow only outbound ICMP echo requests (using ping)"
 
   security_group_id = aws_security_group.security_group_Tokyo.id
-  cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
+  cidr_ipv4         = "10.0.0.0/16" # where is the traffic going
 
   from_port = 8
   to_port   = 0
@@ -133,7 +133,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_Tokyo" {
   description = "Allow only inbound ICMP echo packets (using ping)"
 
   security_group_id = aws_security_group.security_group_Tokyo.id
-  cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
+  cidr_ipv4         = "10.0.0.0/16" # where is the traffic coming from
 
   # to allow ping but only from within VPC
   from_port = 8

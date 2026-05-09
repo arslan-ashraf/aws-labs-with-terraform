@@ -22,10 +22,11 @@ data "aws_ami" "debian_ami" {
 }
 
 resource "aws_instance" "ec2_instances_US_east" {
+  region                      = aws.region_US_east
+  availability_zone           = "us-east-1a"
   ami                         = data.aws_ami.debian_ami.id
   instance_type               = "t2.nano"
   subnet_id                   = aws_subnet.subnet_in_US_east.id
-  availability_zone           = "us-east-1a"
   associate_public_ip_address = true
 
   vpc_security_group_ids = [
@@ -70,10 +71,11 @@ data "aws_ami" "ubuntu_ami" {
 }
 
 resource "aws_instance" "ec2_instances_Tokyo" {
+  region                      = aws.region_Tokyo
+  availability_zone           = "apne1-az1"
   ami                         = data.aws_ami.ubuntu_ami.id
   instance_type               = "t2.nano"
   subnet_id                   = aws_subnet.subnet_in_Tokyo.id
-  availability_zone           = "apne1-az1"
   associate_public_ip_address = true
 
   vpc_security_group_ids = [
