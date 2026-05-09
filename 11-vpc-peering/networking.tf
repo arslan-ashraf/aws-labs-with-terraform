@@ -24,9 +24,7 @@ resource "aws_internet_gateway" "internet_gateway_for_vpc_in_Tokyo" {
 
 }
 
-# create multiple subnets with for_each loop
-resource "aws_subnet" "subnets_in_example_vpc" {
-  for_each          = var.subnet_config
+resource "aws_subnet" "subnet_in_US_east" {
   vpc_id            = aws_vpc.example_vpc.id
   availability_zone = "us-east-1a"
   cidr_block        = each.value.cidr_block
