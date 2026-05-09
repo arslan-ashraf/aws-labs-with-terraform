@@ -22,9 +22,10 @@ variable "security_group_config" {
 
 variable "ec2_instance_config" {
   type = map(object({
-    instance_type = string
-    ami           = string
-    subnet_name   = optional(string, "private_subnet")
+    instance_type  = string
+    ami            = string
+    subnet_name    = optional(string, "private_subnet")
+    security_group = string
   }))
 
   validation {

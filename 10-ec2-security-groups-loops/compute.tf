@@ -3,17 +3,17 @@ data "aws_ami" "ubuntu_ami" {
 
   # Canonical's account ID, ensures the image is from Canonical and not
   # community or elsewhere
-  owners      = ["099720109477"]
+  owners = ["099720109477"]
 
   filter {
-    name = "name"      # the AMI name field in AWS
+    name = "name" # the AMI name field in AWS
     # to find the string inside the values array, use:
     # aws ec2 describe-images --region us-east-1 --image-ids ami-0ec10929233384c7f
     values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-20260313"]
   }
 
   filter {
-    name = "virtualization-type"
+    name   = "virtualization-type"
     values = ["hvm"]
 
   }
@@ -22,17 +22,17 @@ data "aws_ami" "ubuntu_ami" {
 
 data "aws_ami" "debian_ami" {
   most_recent = true
-  owners = ["136693071363"]
+  owners      = ["136693071363"]
 
   filter {
-    name = "name"      # the AMI name field in AWS
+    name = "name" # the AMI name field in AWS
     # to find the string inside the values array, use:
     # aws ec2 describe-images --region us-east-1 --image-ids ami-0b75f821522bcff85
     values = ["debian-13-amd64-20260316-2418"]
   }
 
   filter {
-    name = "virtualization-type"
+    name   = "virtualization-type"
     values = ["hvm"]
 
   }
@@ -55,11 +55,16 @@ resource "aws_instance" "create_instances_from_map" {
   # provides the keys to look into the local.ami_ids map
   ami = local.ami_ids[each.value.ami]
 
-  instance_type = each.value.instance_type
-  subnet_id = aws_subnet.subnets_in_example_vpc[each.value.subnet_name].id
-  availability_zone = "us-east-1a"
-  associate_public_ip_address = false
-  
+  instance_type               = each.value.instance_type
+  subnet_id                   = aws_subnet.subnets_in_example_vpc[each.value.subnet_name].id
+  availability_zone           = "us-east-1a"
+  associate_public_ip_address = each.value.security_group == "private_traffic_sg" ? false : true
+  key_name                    = "key-for-ec2-connection"
+
+  vpc_security_group_ids = [
+    aws_security_group.multiple_security_groups[each.value.security_group].id
+  ]
+
   tags = {
     Name = "${each.value.ami}-machine"
   }
@@ -70,4 +75,9 @@ resource "aws_instance" "create_instances_from_map" {
   lifecycle {
     ignore_changes = [ami]
   }
+}
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "key-for-ec2-connection"
+  public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
