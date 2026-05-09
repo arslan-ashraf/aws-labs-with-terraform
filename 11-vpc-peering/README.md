@@ -1,0 +1,1 @@
+This lab creates one EC2 instance in a VPC in the US-east-1 region and another one in a different VPC in the Tokyo ap-northeast-1 region.  The goal is to get each instance to be able to PING the other one.
