@@ -5,6 +5,7 @@ resource "aws_instance" "ec2_instance" {
   instance_type               = "t2.nano"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_in_example_vpc.id
+  key_name                    = "key-for-ec2-connection"
 
   vpc_security_group_ids = [
     aws_security_group.security_group_public_traffic.id
@@ -22,7 +23,7 @@ resource "aws_security_group" "security_group_public_traffic" {
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
   security_group_id = aws_security_group.security_group_public_traffic.id
-  cidr_ipv4         = "0.0.0.0/0"     # where is the traffic coming from
+  cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
 
   # to allow ingress traffic for ssh
   from_port = 22
@@ -32,6 +33,6 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
+  key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
