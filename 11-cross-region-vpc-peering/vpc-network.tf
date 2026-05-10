@@ -3,21 +3,21 @@
 #################################################################################
 
 resource "aws_vpc" "vpc_in_US_east" {
-  provider = aws.region_US_east
+  provider   = aws.region_US_east
   cidr_block = "10.0.0.0/16"
   tags       = { Name = "vpc_in_US_east" }
 }
 
 resource "aws_internet_gateway" "internet_gateway_for_vpc_in_US_east" {
   vpc_id = aws_vpc.vpc_in_US_east.id
-  tags = { Name = "internet_gateway_for_vpc_in_US_east" }
+  tags   = { Name = "internet_gateway_for_vpc_in_US_east" }
 }
 
 resource "aws_subnet" "subnet_in_US_east" {
   vpc_id            = aws_vpc.vpc_in_US_east.id
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.5.0/24"
-  tags = { Name = "subnet_in_US_east" }
+  tags              = { Name = "subnet_in_US_east" }
 }
 
 resource "aws_route_table" "route_table_for_subnet_in_US_east" {
@@ -26,6 +26,11 @@ resource "aws_route_table" "route_table_for_subnet_in_US_east" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet_gateway_for_vpc_in_US_east.id
+  }
+
+  route {
+    cidr_block                = aws_vpc.vpc_in_Tokyo.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.connection_US_east_to_Tokyo.id
   }
 
   tags = { Name = "route_table_for_subnet_in_US_east" }
@@ -39,9 +44,9 @@ resource "aws_route_table_association" "route_table_association_subnet_US_east_v
 }
 
 resource "aws_security_group" "security_group_US_east" {
-  name     = "US-east-security-group"
-  vpc_id   = aws_vpc.vpc_in_US_east.id
-  tags     = { Name = "US-east-security-group" }
+  name   = "US-east-security-group"
+  vpc_id = aws_vpc.vpc_in_US_east.id
+  tags   = { Name = "US-east-security-group" }
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_US_east" {
@@ -70,35 +75,55 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_US_east" {
 }
 
 
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh_in_rule_US_east" {
+  description = "Allow SSH connection"
+
+  security_group_id = aws_security_group.security_group_US_east.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = 22
+  to_port     = 22
+  ip_protocol = "tcp"
+}
+
+
 #################################################################################
 ### Tokyo Region - VPC, Internet Gateway, Subnet, Route Table, Security Group ###
 #################################################################################
 
 
 resource "aws_vpc" "vpc_in_Tokyo" {
-  provider = aws.region_Tokyo
+  provider   = aws.region_Tokyo
   cidr_block = "90.0.0.0/16"
   tags       = { Name = "vpc_in_Tokyo" }
 }
 
 resource "aws_internet_gateway" "internet_gateway_for_vpc_in_Tokyo" {
-  vpc_id = aws_vpc.vpc_in_Tokyo.id
-  tags = { Name = "internet_gateway_for_vpc_in_Tokyo" }
+  provider = aws.region_Tokyo
+  vpc_id   = aws_vpc.vpc_in_Tokyo.id
+  tags     = { Name = "internet_gateway_for_vpc_in_Tokyo" }
 }
 
 resource "aws_subnet" "subnet_in_Tokyo" {
+  provider          = aws.region_Tokyo
   vpc_id            = aws_vpc.vpc_in_Tokyo.id
-  availability_zone = "apne1-az1"
+  availability_zone = "ap-northeast-1a"
   cidr_block        = "90.0.5.0/24"
-  tags = { Name = "subnet_in_Tokyo" }
+  tags              = { Name = "subnet_in_Tokyo" }
 }
 
 resource "aws_route_table" "route_table_for_subnet_in_Tokyo" {
-  vpc_id = aws_vpc.vpc_in_Tokyo.id
+  provider = aws.region_Tokyo
+  vpc_id   = aws_vpc.vpc_in_Tokyo.id
 
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet_gateway_for_vpc_in_Tokyo.id
+  }
+
+  route {
+    cidr_block                = aws_vpc.vpc_in_US_east.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.connection_US_east_to_Tokyo.id
   }
 
   tags = { Name = "route_table_for_subnet_in_Tokyo" }
@@ -107,17 +132,20 @@ resource "aws_route_table" "route_table_for_subnet_in_Tokyo" {
 
 # note: a subnet can only be attached to a single route table
 resource "aws_route_table_association" "route_table_association_subnet_Tokyo_vpc" {
+  provider       = aws.region_Tokyo
   subnet_id      = aws_subnet.subnet_in_Tokyo.id
   route_table_id = aws_route_table.route_table_for_subnet_in_Tokyo.id
 }
 
 resource "aws_security_group" "security_group_Tokyo" {
+  provider = aws.region_Tokyo
   name     = "Tokyo-security-group"
   vpc_id   = aws_vpc.vpc_in_Tokyo.id
   tags     = { Name = "Tokyo-security-group" }
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_Tokyo" {
+  provider    = aws.region_Tokyo
   description = "Allow only outbound ICMP echo requests (using ping)"
 
   security_group_id = aws_security_group.security_group_Tokyo.id
@@ -130,6 +158,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_Tokyo" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_Tokyo" {
+  provider    = aws.region_Tokyo
   description = "Allow only inbound ICMP echo packets (using ping)"
 
   security_group_id = aws_security_group.security_group_Tokyo.id
@@ -140,4 +169,16 @@ resource "aws_vpc_security_group_ingress_rule" "allow_ping_in_rule_Tokyo" {
   to_port   = 0
 
   ip_protocol = "icmp"
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh_rule_Tokyo" {
+  description = "Allow SSH connection"
+
+  provider          = aws.region_Tokyo
+  security_group_id = aws_security_group.security_group_Tokyo.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = 22
+  to_port     = 22
+  ip_protocol = "tcp"
 }
