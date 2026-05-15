@@ -139,3 +139,7 @@ resource "aws_route53_record" "route53_record_for_app_server" {
   ttl = 300
   record = [aws_instance.create_instances_from_map["instance2"].private_ip]
 }
+
+# the file, etc/resolv.conf needs to be updated in order for both EC2 instances
+# to use the Route53 DNS server and the records in the private hosted zone
+# to fully reflect, to do that refresh the DHCP lease cache and then reboot
