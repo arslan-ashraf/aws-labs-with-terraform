@@ -5,10 +5,8 @@ resource "aws_cloudwatch_log_group" "vpc_logs_group" {
 
 resource "aws_flow_log" "example_vpc_flow_logs" {
   traffic_type = "ALL"
-  eni_id = "Optional"
-  iam_role_arn = 
-  log_destination = "Optional"
-  log_group_name = "Optional"
-  subnet_id = "Optional"
-  vpc_id = "Optional"
+  iam_role_arn = aws_iam_role.vpc_flow_logs_role.arn
+  log_destination = aws_cloudwatch_log_group.vpc_logs_group.arn
+  vpc_id = aws_vpc.example_vpc.id
+  max_aggregation_interval = 60
 }
