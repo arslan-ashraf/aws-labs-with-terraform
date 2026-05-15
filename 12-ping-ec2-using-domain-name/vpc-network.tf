@@ -4,9 +4,20 @@ resource "aws_vpc" "example_vpc" {
 
   # enable_dns_support (default true), controls if public & private DNS hostname
   # resolution is possible using the AWS provided DNS server which runs at
-  # VPC base cidr + 2 and the IP address 169.254.169.253, this is required to use
-  
+  # VPC base cidr + 2 and the IP address 169.254.169.253, this is required to 
+  # resolve domain names within the VPC and to use Route53 private hosted zone
+  # which holds the database records of domain names such as 
+  # fklrj34wj-us-east-1.ec2.amazonaws.com to IP address
   enable_dns_support = true 
+
+  # enable_dns_hostnames (default false), ensures EC2 instances with public IP 
+  # addresses receive public DNS hostnames, however, if only private DNS hostnames
+  # are desired, still set both parameters to true and avoid elastic IP addresses
+  # with ENI, use private subnets (no internet gateway connection), turn off receive
+  # public IP address when launching an EC2 instance by setting
+  # associate_public_ip_address = false, AWS only generates a public DNS hostname
+  # if the instance has a public IP address
+  enable_dns_hostnames = true
 }
 
 resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
