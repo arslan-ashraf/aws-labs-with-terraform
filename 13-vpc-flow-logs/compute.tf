@@ -32,6 +32,16 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
   ip_protocol = "tcp"
 }
 
+resource "aws_vpc_security_group_egress_rule" "engress_ping_rule" {
+  security_group_id = aws_security_group.security_group_public_traffic.id
+  cidr_ipv4         = "0.0.0.0/0" # where is the traffic going
+
+  from_port = 8
+  to_port   = 0
+
+  ip_protocol = "icmp"
+}
+
 resource "aws_key_pair" "deployer" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
