@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "assume_lambda_execution_role" {
 # here we create the IAM role with the JSON document imported above
 resource "aws_iam_role" "lambda_execution_role" {
   assume_role_policy = data.aws_iam_policy_document.assume_lambda_execution_role.json
-  name = "manually-created-lambda-role-7fe1453s"
+  name = "<name_of_role_AWS_automatically_created>"
   path = "/service-role/"
 }
 
@@ -32,12 +32,12 @@ resource "aws_iam_role" "lambda_execution_role" {
 # it into Terraform
 import {
   to = aws_iam_role.lambda_execution_role
-  id = "manually-created-lambda-role-7fe1453s"
+  id = "<name_of_role_AWS_automatically_created>"
 }
 
 
 # here is the WHAT part, we bring the JSON document from AWS that says 
-# this document holds two sets of permissions, hence two statements
+# this document holds two sets of permissions, hence two statement {...} blocks
 # one is to create the log group, and the other is to create a log stream
 # inside the log group as well as writing log events
 data "aws_iam_policy_document" "lambda_permissions" {
@@ -58,12 +58,12 @@ data "aws_iam_policy_document" "lambda_permissions" {
 # in the JSON document imported by aws_iam_policy_document.lambda_permissions
 resource "aws_iam_policy" "lambda_policy" {
   policy = data.aws_iam_policy_document.lambda_permissions.json
-  name = ""
+  name = "<name_of_policy_AWS_automatically_created>"
   path = "/service-role/"
 }
 
 
-# because the IAM role already exists, we use the import {} block to import
+# because the IAM role already exists, we use the import {...} block to import
 # it into Terraform
 import {
   to = aws_iam_policy.lambda_policy
