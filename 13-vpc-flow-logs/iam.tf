@@ -37,6 +37,6 @@ resource "aws_iam_policy" "vpc_flow_logs_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "vpc_flow_logs_role_policy_attachment" {
-  role = aws_iam_role.vpc_flow_logs_role
+  role = aws_iam_role.vpc_flow_logs_role.name
   policy_arn = aws_iam_policy.vpc_flow_logs_policy.arn
 }

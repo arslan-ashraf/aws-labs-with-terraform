@@ -11,7 +11,7 @@ resource "aws_instance" "ec2_instance" {
     aws_security_group.security_group_public_traffic.id
   ]
 
-  tags = { Name = "in_public_subnet_in_example_vpc" }
+  tags = { Name = "ubuntu-ami" }
 
 }
 
