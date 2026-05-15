@@ -3,38 +3,16 @@ resource "aws_vpc" "example_vpc" {
   tags       = { Name = "example_vpc" }
 }
 
-resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
-  vpc_id = aws_vpc.example_vpc.id
-
-  tags = { Name = "internet_gateway_for_example_vpc" }
-
-}
-
-resource "aws_subnet" "public_subnet_in_example_vpc" {
+resource "aws_subnet" "private_subnet_for_ec2_instance" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.5.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
-  tags = { Name = "public_subnet_in_example_vpc" }
+  tags = { Name = "private_subnet_for_ec2_instance" }
 }
 
-# create a route table and attach it to the internet gateway for all
-# inbound and outbound traffic
-resource "aws_route_table" "route_table_for_public_subnet_in_example_vpc" {
+resource "aws_security_group" "security_group_for_ec2_instance" {
+  name   = "security_group_for_ec2_instance"
   vpc_id = aws_vpc.example_vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
-  }
-
-  tags = { Name = "route_table_for_public_subnet_in_example_vpc" }
-
-}
-
-# attach the route table to one of the subnets to make it public
-# note: a subnet can only be attached to a single route table
-resource "aws_route_table_association" "route_table_association_public_subnet_example_vpc" {
-  subnet_id      = aws_subnet.public_subnet_in_example_vpc.id
-  route_table_id = aws_route_table.route_table_for_public_subnet_in_example_vpc.id
+  tags   = { Name = "security_group_for_ec2_instance" }
 }
