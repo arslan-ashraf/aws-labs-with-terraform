@@ -61,7 +61,7 @@ resource "aws_instance" "create_instances_from_map" {
   associate_public_ip_address = false
   
   tags = {
-    Name = "${each.value.ami}-machine"
+    Name = "${each.value.ami}-ami"
   }
 
   # if the ami gets updated by the time the next apply happens, Terraform
