@@ -85,18 +85,6 @@ resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_public_sg" {
   ip_protocol = "icmp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_private_sg" {
-  description = "Allow only ssh connection on port 22 from within VPC"
-
-  security_group_id = aws_security_group.multiple_security_groups["private_traffic_sg"].id
-
-  cidr_ipv4   = "10.0.0.0/16" # where is the traffic coming from, from within VPC
-  from_port   = 22
-  to_port     = 22
-  ip_protocol = "tcp"
-}
-
-
 resource "aws_vpc_security_group_ingress_rule" "ping_connection_rule_private_sg" {
   description = "Allow only inbound ICMP echo packets (using ping) from within VPC"
 
@@ -106,4 +94,48 @@ resource "aws_vpc_security_group_ingress_rule" "ping_connection_rule_private_sg"
   from_port   = 8
   to_port     = 0
   ip_protocol = "icmp"
+}
+
+# define the base domain name for the VPC
+resource "aws_vpc_dhcp_options" "dhcp_options_for_example_vpc" {
+  domain_name = "example.corp"
+  domain_name_servers = ["AmazonProvidedDNS"]
+  
+  tags = { Name = "dhcp_options_for_example_vpc" }
+
+  # ntp_servers = "Optional"
+  # netbios_name_servers = "Optional"
+  # netbios_node_type = "Optional"
+}
+
+# attach dhcp options to the VPC
+resource "aws_vpc_dhcp_options_association" "vpc_dhcp_options_association" {
+  vpc_id = aws_vpc.example_vpc.id
+  dhcp_options_id = aws_vpc_dhcp_options.dhcp_options_for_example_vpc.id
+}
+
+# create the private hosting zone in Route53 which will hold the
+# DNS hostname to IP records
+resource "aws_route53_zone" "route53_private_hosting_zone" {
+  name = aws_vpc_dhcp_options.dhcp_options_for_example_vpc.name
+  vpc { vpc_id = aws_vpc.example_vpc.id }
+  tags = { Name = "private_hosting_for_example_vpc" }
+}
+
+# the actual DNS record mapping hostname (name field) to IP (record field)
+resource "aws_route53_record" "route53_record_for_database" {
+  zone_id = aws_route53_zone.route53_record_for_database.zone_id
+  name = "database.${aws_vpc_dhcp_options.dhcp_options_for_example_vpc.name}"
+  type = "A"
+  ttl = 300
+  record = [aws_instance.create_instances_from_map["instance1"].private_ip]
+}
+
+# the actual DNS record mapping hostname (name field) to IP (record field)
+resource "aws_route53_record" "route53_record_for_app_server" {
+  zone_id = aws_route53_zone.route53_record_for_database.zone_id
+  name = "web.${aws_vpc_dhcp_options.dhcp_options_for_example_vpc.name}"
+  type = "A"
+  ttl = 300
+  record = [aws_instance.create_instances_from_map["instance2"].private_ip]
 }
