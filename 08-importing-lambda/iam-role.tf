@@ -44,13 +44,13 @@ data "aws_iam_policy_document" "lambda_permissions" {
   statement {
     effect = "Allow"
     resources = ["arn:aws:logs:${data.aws_region.current_region.name}:${data.aws_caller_identity.user.account_id}:*"]
-    action = ["logs:CreateLogGroup"]
+    actions = ["logs:CreateLogGroup"]
   }
 
   statement {
     effect = "Allow"
     resources = ["${aws_cloudwatch_log_group.lambda_log_group.arn}:*"]
-    action = ["logs:CreateLogStream", "logs:PutLogEvents"]
+    actions = ["logs:CreateLogStream", "logs:PutLogEvents"]
   }
 }
 
