@@ -38,8 +38,6 @@ resource "aws_vpc_security_group_egress_rule" "allow_egress_https_to_s3" {
 }
 
 
-
-
 resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
   name   = "security_group_for_ec2_instance_endpoint"
   vpc_id = aws_vpc.example_vpc.id
