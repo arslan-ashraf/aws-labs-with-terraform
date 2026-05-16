@@ -12,7 +12,7 @@ resource "aws_security_group" "security_group_for_ec2_instance" {
   tags   = { Name = "security_group_for_ec2_instance" }
 }
 
-# allow the endpoint to get into the EC2 instance
+# allow the instance connect endpoint to get into the EC2 instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
 
@@ -25,27 +25,23 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   ip_protocol = "tcp"
 }
 
-# egress rule so EC2 instance can access S3 using the gateway endpoint
-resource "aws_vpc_security_group_egress_rule" "allow_egress_https_to_s3" {
+resource "aws_vpc_security_group_egress_rule" "egress_from_ec2_to_sqs_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
-  description       = "Allow outbound HTTPS traffic to S3 Gateway Endpoint"
 
-  # Target the automatically managed AWS S3 IP ranges
-  prefix_list_id = aws_vpc_endpoint.s3_gateway.prefix_list_id
+  # where is the traffic going
+  referenced_security_group_id = aws_security_group.security_group_for_interface_endpoint.id
 
-  # Configure protocol and port for HTTPS
+  from_port = 443
+  to_port   = 443
+
   ip_protocol = "tcp"
-  from_port   = 443
-  to_port     = 443
-
-  tags = {
-    Name = "egress-s3-https"
-  }
 }
+
 
 ########################################################################
 ################## EC2 ENDPOINT SECURITY GROUP & RULES #################
 ########################################################################
+
 
 resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
   name   = "security_group_for_ec2_instance_endpoint"
@@ -77,7 +73,7 @@ resource "aws_security_group" "security_group_for_interface_endpoint" {
   tags   = { Name = "security_group_for_interface_endpoint" }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ingress_sqs_rule" {
+resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_to_sqs_rule" {
   security_group_id = aws_security_group.security_group_for_interface_endpoint.id
 
   # where is the traffic coming from
