@@ -66,7 +66,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 
 
 ########################################################################
-################## EC2 ENDPOINT SECURITY GROUP & RULES #################
+############# VPC INTERFACE ENDPOINT SECURITY GROUP & RULES ############
 ########################################################################
 
 resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
