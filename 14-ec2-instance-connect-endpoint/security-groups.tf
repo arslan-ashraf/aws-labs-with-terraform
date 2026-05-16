@@ -8,10 +8,11 @@ resource "aws_security_group" "security_group_for_ec2_instance" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
-  security_group_id = aws_security_group.security_group_public_traffic.id
+  security_group_id = aws_security_group.security_group_for_ec2_instance.id
   
   # where is the traffic coming from
-  cidr_ipv4 = aws_security_group.private_subnet_for_ec2_instance_endpoint.cidr_ipv4
+  referenced_security_group_id = aws_security_group.security_group_for_ec2_instance_endpoint.id
+
   from_port = 22
   to_port   = 22
 
@@ -27,10 +28,15 @@ resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
-  security_group_id = aws_security_group.security_group_public_traffic.id
+  security_group_id = aws_security_group.security_group_for_ec2_instance_endpoint.id
 
   # where is the traffic going
-  cidr_ipv4 = aws_subnet.private_subnet_for_ec2_instance.cidr_ipv4 
+  # cidr_ipv4 = aws_subnet.private_subnet_for_ec2_instance.cidr_block
+  # cidr_ipv4 = "0.0.0.0/0"
+
+  # Target destination
+  referenced_security_group_id = aws_security_group.security_group_for_ec2_instance.id
+
   from_port = 22
   to_port   = 22
 
