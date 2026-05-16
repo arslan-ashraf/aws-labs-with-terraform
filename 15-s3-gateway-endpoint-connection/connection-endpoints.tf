@@ -26,6 +26,8 @@ resource "aws_vpc_endpoint" "s3_gateway" {
   route_table_ids = [aws_route_table.route_table_for_ec2_subnet.id]
 
   # Optional: Define an access policy (defaults to Full Access if omitted)
+  policy = data.aws_iam_policy_document.ec2_s3_access_permissions.json
+  
   # policy = jsonencode({
   #   Version = "2012-10-17"
   #   Statement = [
@@ -44,7 +46,6 @@ resource "aws_vpc_endpoint" "s3_gateway" {
   #   ]
   # })
 
-  policy = data.aws_iam_policy_document.ec2_s3_access_permissions.json
 
   tags = { Name = "s3-gateway-endpoint" }
 }
