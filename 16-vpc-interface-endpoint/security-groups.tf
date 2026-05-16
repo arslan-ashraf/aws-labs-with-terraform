@@ -1,5 +1,10 @@
-# this file has two security groups, one with an ingress ssh rule and the other
-# with a egress ssh rule
+# this file has three security groups, one for the ec2 instance, one for ec2 
+# direct connect endpoint, and one for vpc interface endpoint
+
+
+########################################################################
+##################### EC2 SECURITY GROUP & RULE ########################
+########################################################################
 
 resource "aws_security_group" "security_group_for_ec2_instance" {
   name   = "security_group_for_ec2_instance"
@@ -54,4 +59,11 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
   to_port   = 22
 
   ip_protocol = "tcp"
+}
+
+
+resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
+  name   = "security_group_for_ec2_instance_endpoint"
+  vpc_id = aws_vpc.example_vpc.id
+  tags   = { Name = "security_group_for_ec2_instance_endpoint" }
 }
