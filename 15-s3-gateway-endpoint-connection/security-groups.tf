@@ -1,12 +1,18 @@
 # this file has two security groups, one with an ingress ssh rule and the other
 # with a egress ssh rule
 
+
+#########################################################################
+##################### EC2 SECURITY GROUP & RULES ########################
+#########################################################################
+
 resource "aws_security_group" "security_group_for_ec2_instance" {
   name   = "security_group_for_ec2_instance"
   vpc_id = aws_vpc.example_vpc.id
   tags   = { Name = "security_group_for_ec2_instance" }
 }
 
+# allow the endpoint to get into the EC2 instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
 
@@ -38,12 +44,18 @@ resource "aws_vpc_security_group_egress_rule" "allow_egress_https_to_s3" {
 }
 
 
+########################################################################
+################## EC2 ENDPOINT SECURITY GROUP & RULES #################
+########################################################################
+
+
 resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
   name   = "security_group_for_ec2_instance_endpoint"
   vpc_id = aws_vpc.example_vpc.id
   tags   = { Name = "security_group_for_ec2_instance_endpoint" }
 }
 
+# create outbound connection to EC2 instance
 resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance_endpoint.id
 
