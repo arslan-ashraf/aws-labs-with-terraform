@@ -9,6 +9,8 @@ resource "aws_ec2_instance_connect_endpoint" "instance_connect_endpoint" {
 
 
 # 1. Look up the S3 service name for your current region
+# dynamically retrieve the correct service name (e.g., com.amazonaws.us-east-1.s3) 
+# for the given region
 data "aws_vpc_endpoint_service" "s3_endpoint" {
   service      = "s3"
   service_type = "Gateway"
@@ -20,8 +22,8 @@ resource "aws_vpc_endpoint" "s3_gateway" {
   service_name      = data.aws_vpc_endpoint_service.s3_endpoint.service_name
   vpc_endpoint_type = "Gateway"
 
-  # Automatically add S3 routes to these route tables
-  route_table_ids = [aws_route_table.private.id]
+  # add S3 routes to the route table for the subnet with EC2 instance
+  route_table_ids = [aws_route_table.route_table_for_ec2_subnet.id]
 
   # Optional: Define an access policy (defaults to Full Access if omitted)
   policy = jsonencode({
@@ -42,7 +44,5 @@ resource "aws_vpc_endpoint" "s3_gateway" {
     ]
   })
 
-  tags = {
-    Name = "s3-gateway-endpoint"
-  }
+  tags = { Name = "s3-gateway-endpoint" }
 }
