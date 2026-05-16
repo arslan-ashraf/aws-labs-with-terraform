@@ -11,20 +11,18 @@ data "aws_iam_policy_document" "ec2_assume_role_document" {
   }
 }
 
-resource "aws_iam_role" "ec2_s3_access_role" {
+resource "aws_iam_role" "ec2_sqs_access_role" {
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role_document.json
-  name               = "ec2_s3_access_role"
+  name               = "ec2_sqs_access_role"
 }
 
-data "aws_iam_policy_document" "ec2_s3_access_permissions" {
+data "aws_iam_policy_document" "ec2_sqs_access_permissions" {
   statement {
     effect    = "Allow"
     resources = [aws_s3_bucket.example_bucket.arn, "${aws_s3_bucket.example_bucket.arn}/*"]
     actions = [
-      "s3:ListBucket",
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject"
+      "sqs:ListBucket",
+      "sqs:GetObject"
     ]
   }
 }
@@ -38,7 +36,7 @@ resource "aws_iam_policy" "s3_bucket_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_s3_role_policy_attachment" {
-  role       = aws_iam_role.ec2_s3_access_role.name
+  role       = aws_iam_role.ec2_sqs_access_role.name
   policy_arn = aws_iam_policy.s3_bucket_policy.arn
 }
 
