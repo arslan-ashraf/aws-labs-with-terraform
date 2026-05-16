@@ -19,7 +19,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   ip_protocol = "tcp"
 }
 
-# egress rule to access S3 using the gateway endpoint
+# egress rule so EC2 instance can access S3 using the gateway endpoint
 resource "aws_vpc_security_group_egress_rule" "allow_egress_https_to_s3" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
   description       = "Allow outbound HTTPS traffic to S3 Gateway Endpoint"

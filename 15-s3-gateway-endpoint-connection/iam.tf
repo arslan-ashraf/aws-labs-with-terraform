@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "ec2_s3_access_permissions" {
       "s3:ListBucket", 
       "s3:GetObject",
       "s3:PutObject",
-      "s3:DeleteObject"
+      # "s3:DeleteObject"
     ]
   }
 }
