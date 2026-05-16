@@ -16,18 +16,18 @@
 #   name = "ec2_s3_access_role"
 # }
 
-# data "aws_iam_policy_document" "ec2_s3_access_permissions" {
-#   statement {
-#     effect = "Allow"
-#     resources = ["${aws_s3_bucket.example_bucket.arn}:*"]
-#     actions = [
-#       "s3:ListBucket", 
-#       "s3:GetObject",
-#       "s3:PutObject",
-#       "s3:DeleteObject"
-#     ]
-#   }
-# }
+data "aws_iam_policy_document" "ec2_s3_access_permissions" {
+  statement {
+    effect = "Allow"
+    resources = ["${aws_s3_bucket.example_bucket.arn}:*"]
+    actions = [
+      "s3:ListBucket", 
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:DeleteObject"
+    ]
+  }
+}
 
 # # here we create the policy that will take on persmissions defined
 # # in the JSON document imported by aws_iam_policy_document.lambda_permissions
