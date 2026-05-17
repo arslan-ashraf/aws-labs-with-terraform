@@ -50,7 +50,6 @@ resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
   vpc_id              = aws_vpc.example_vpc.id
   service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type   = "Interface"
-  private_dns_enabled = true
 
   # enable private DNS hostnames so resources can resolve domain hostnames like
   # "sqs.<region>.amazonaws.com" locally
