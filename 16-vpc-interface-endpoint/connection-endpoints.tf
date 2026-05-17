@@ -48,12 +48,12 @@ resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
 
-  subnet_ids          = [aws_subnet.private_subnet_for_sqs_gateway_endpoint.id]
+  subnet_ids = [aws_subnet.private_subnet_for_sqs_gateway_endpoint.id]
 
-  security_group_ids  = [aws_security_group.security_group_for_sqs_interface_endpoint.id]
+  security_group_ids = [aws_security_group.security_group_for_sqs_interface_endpoint.id]
 
   # add SQS route to the route table for the subnet with EC2 instance
-  route_table_ids     = [aws_route_table.route_table_for_ec2_subnet.id]
+  route_table_ids = [aws_route_table.route_table_for_ec2_subnet.id]
 
   # Optional: Define an access policy (defaults to Full Access if omitted)
   policy = data.aws_iam_policy_document.sqs_endpoint_permissions.json
