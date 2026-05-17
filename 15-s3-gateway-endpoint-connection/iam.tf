@@ -1,3 +1,7 @@
+#########################################################################
+############################# EC2 IAM ROLE ##############################
+#########################################################################
+
 data "aws_iam_policy_document" "ec2_assume_role_document" {
   statement {
     effect = "Allow"
@@ -15,6 +19,11 @@ resource "aws_iam_role" "ec2_s3_access_role" {
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role_document.json
   name               = "ec2_s3_access_role"
 }
+
+
+#########################################################################
+############################ EC2 IAM POLICY #############################
+#########################################################################
 
 data "aws_iam_policy_document" "ec2_s3_access_permissions" {
   statement {
@@ -41,6 +50,11 @@ resource "aws_iam_role_policy_attachment" "ec2_s3_role_policy_attachment" {
   role       = aws_iam_role.ec2_s3_access_role.name
   policy_arn = aws_iam_policy.s3_bucket_policy.arn
 }
+
+
+#########################################################################
+####################### EC2 IAM INSTANCE PROFILE ########################
+#########################################################################
 
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = "my_ec2_instance_profile"
