@@ -30,6 +30,10 @@ data "aws_iam_policy_document" "sqs_endpoint_permissions" {
       type        = "*"
       identifiers = ["*"]
     }
+    # principals {
+    #   type        = "AWS"
+    #   identifiers = aws_iam_role.ec2_sqs_access_role.arn
+    # }
     resources = [aws_sqs_queue.simple_queue.arn]
     actions = [
       "sqs:SendMessage",
@@ -46,6 +50,10 @@ resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
   vpc_id              = aws_vpc.example_vpc.id
   service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+
+  # enable private DNS hostnames so resources can resolve domain hostnames like
+  # "sqs.<region>.amazonaws.com" locally
   private_dns_enabled = true
 
   subnet_ids = [aws_subnet.private_subnet_for_sqs_gateway_endpoint.id]
