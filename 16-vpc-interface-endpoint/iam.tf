@@ -19,10 +19,13 @@ resource "aws_iam_role" "ec2_sqs_access_role" {
 data "aws_iam_policy_document" "ec2_sqs_access_permissions" {
   statement {
     effect    = "Allow"
-    resources = [aws_s3_bucket.example_bucket.arn, "${aws_s3_bucket.example_bucket.arn}/*"]
+    resources = [aws_sqs_queue.simple_queue.arn]
     actions = [
-      "sqs:ListBucket",
-      "sqs:GetObject"
+      "sqs:SendMessage",
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl"
     ]
   }
 }
