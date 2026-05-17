@@ -16,6 +16,7 @@ resource "aws_iam_role" "ec2_sqs_access_role" {
   name               = "ec2_sqs_access_role"
 }
 
+
 data "aws_iam_policy_document" "ec2_sqs_access_permissions" {
   statement {
     effect    = "Allow"
@@ -33,7 +34,7 @@ data "aws_iam_policy_document" "ec2_sqs_access_permissions" {
 
 # here we create the policy that will take on persmissions defined
 # in the JSON document imported by aws_iam_policy_document.lambda_permissions
-resource "aws_iam_policy" "s3_bucket_policy" {
+resource "aws_iam_policy" "sqs_bucket_policy" {
   policy = data.aws_iam_policy_document.ec2_s3_access_permissions.json
   name   = "s3_bucket_policy"
 }
