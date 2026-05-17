@@ -46,6 +46,9 @@ resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
   vpc_id            = aws_vpc.example_vpc.id
   service_name      = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type = "Interface"
+  private_dns_enabled = true
+
+  subnet_ids = [aws_subnet.private_subnet_for_sqs_gateway_endpoint.id]
 
   # add SQS route to the route table for the subnet with EC2 instance
   route_table_ids = [aws_route_table.route_table_for_ec2_subnet.id]
