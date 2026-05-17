@@ -67,14 +67,14 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 ############# VPC INTERFACE ENDPOINT SECURITY GROUP & RULES ############
 ########################################################################
 
-resource "aws_security_group" "security_group_for_interface_endpoint" {
+resource "aws_security_group" "security_group_for_sqs_interface_endpoint" {
   name   = "security_group_for_interface_endpoint"
   vpc_id = aws_vpc.example_vpc.id
-  tags   = { Name = "security_group_for_interface_endpoint" }
+  tags   = { Name = "security_group_for_sqs_interface_endpoint" }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_to_sqs_rule" {
-  security_group_id = aws_security_group.security_group_for_interface_endpoint.id
+  security_group_id = aws_security_group.security_group_for_sqs_interface_endpoint.id
 
   # where is the traffic coming from
   referenced_security_group_id = aws_security_group.security_group_for_ec2_instance.id
