@@ -4,6 +4,9 @@ echo "working"
 
 : <<'COMMENT'
 
+If working with an ubuntu ami, use the following user data script to 
+automatically install the aws cli
+
 #!/bin/bash
 # Update package list and install dependencies
 sudo apt-get update -y
