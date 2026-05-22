@@ -85,7 +85,7 @@ resource "aws_route_table" "rtb_for_private_subnet_in_vpc_for_sqs_interface_endp
   tags   = { Name = "route_table_for_public_subnet_in_vpc_for_ec2" }
 }
 
-resource "aws_route_table_association" "route_table_association_public_subnet_vpc_for_ec2" {
+resource "aws_route_table_association" "route_table_association_private_subnet_vpc_for_sqs_endpoint" {
   subnet_id      = aws_subnet.private_subnet_for_sqs_interface_endpoint.id
   route_table_id = aws_route_table.rtb_for_private_subnet_in_vpc_for_sqs_interface_endpoint.id
 }
