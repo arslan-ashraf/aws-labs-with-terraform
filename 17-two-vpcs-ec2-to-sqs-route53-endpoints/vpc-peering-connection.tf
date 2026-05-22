@@ -23,4 +23,14 @@ resource "aws_vpc_peering_connection_options" "requester" {
   requester {
     allow_remote_vpc_dns_resolution = true
   }
+
+}
+
+resource "aws_vpc_peering_connection_options" "accepter" {
+  vpc_peering_connection_id = aws_vpc_peering_connection.ec2_to_sqs_interface_endpoint_connection.id
+
+  accepter {
+    allow_remote_vpc_dns_resolution = true
+  }
+  
 }
