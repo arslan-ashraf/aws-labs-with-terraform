@@ -7,7 +7,10 @@ resource "aws_ec2_transit_gateway" "transit_gateway_US_east" {
 
   amazon_side_asn                 = 64512
   auto_accept_shared_attachments  = "enable"
-  default_route_table_association = "enable"
+
+  # enabling both of these below, allows all connected VPCs to communicate 
+  # with eachother
+  default_route_table_association = "enable"  
   default_route_table_propagation = "enable"
 
   tags = {
