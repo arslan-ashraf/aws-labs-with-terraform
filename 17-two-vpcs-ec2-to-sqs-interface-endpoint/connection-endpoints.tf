@@ -1,16 +1,4 @@
 #########################################################################
-################### EC2 INSTANCE CONNECT ENDPOINT #######################
-#########################################################################
-
-resource "aws_ec2_instance_connect_endpoint" "instance_connect_endpoint" {
-  subnet_id          = aws_subnet.private_subnet_for_ec2_instance_endpoint.id
-  security_group_ids = [aws_security_group.security_group_for_ec2_instance_endpoint.id]
-
-  tags = { Name = "instance_connect_endpoint" }
-}
-
-
-#########################################################################
 ######################### SQS INTERFACE ENDPOINT ########################
 #########################################################################
 
@@ -47,13 +35,17 @@ data "aws_iam_policy_document" "sqs_endpoint_permissions" {
 
 
 resource "aws_vpc_endpoint" "sqs_interface_endpoint" {
-  vpc_id              = aws_vpc.example_vpc.id
+  vpc_id              = aws_vpc.vpc_for_sqs_interface_endpoint.id
   service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type   = "Interface"
 
-  # enable private DNS hostnames so resources can resolve domain hostnames like
-  # "sqs.<region>.amazonaws.com" locally
-  private_dns_enabled = true
+  # with private_dns_enabled = true, AWS creates a hidden ROute53 private hosted 
+  # zone, that enables access to the endpoint using private DNS hostnames like
+  # https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue to resolve to
+  # exact endpoint urls like vpce.<sqs_queue_id-AZ>.<region>.amazonaws.com through
+  # AWS's private network, otherwise access to the endpoint happens over the 
+  # public internet, however, here we set it to false
+  private_dns_enabled = false
 
   subnet_ids = [aws_subnet.private_subnet_for_sqs_interface_endpoint.id]
 
