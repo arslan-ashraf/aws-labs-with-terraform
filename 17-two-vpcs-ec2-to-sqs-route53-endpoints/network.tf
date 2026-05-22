@@ -1,3 +1,7 @@
+#########################################################################
+####################### VPC FOR EC2 & SUBNETS  ##########################
+#########################################################################
+
 resource "aws_vpc" "vpc_for_ec2" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
@@ -5,6 +9,7 @@ resource "aws_vpc" "vpc_for_ec2" {
   tags                 = { Name = "vpc_for_ec2" }
 }
 
+# to allow SSH into the instance
 resource "aws_internet_gateway" "internet_gateway_for_vpc_for_ec2" {
   vpc_id = aws_vpc.vpc_for_ec2.id
 
@@ -28,6 +33,11 @@ resource "aws_route_table" "route_table_for_public_subnet_in_vpc_for_ec2" {
     gateway_id = aws_internet_gateway.internet_gateway_for_vpc_for_ec2.id
   }
 
+  route {
+    cidr_block = aws_vpc.vpc_for_sqs_interface_endpoint.cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.ec2_to_sqs_interface_endpoint_connection.id
+  }
+
   tags   = { Name = "route_table_for_public_subnet_in_vpc_for_ec2" }
 }
 
@@ -45,7 +55,9 @@ resource "aws_subnet" "dummy_subnet_in_vpc_for_ec2" {
 }
 
 
-
+#########################################################################
+############# VPC FOR SQS INTERFACE ENDPOINT & SUBNETS  #################
+#########################################################################
 
 resource "aws_vpc" "vpc_for_sqs_interface_endpoint" {
   cidr_block           = "90.0.0.0/16"
