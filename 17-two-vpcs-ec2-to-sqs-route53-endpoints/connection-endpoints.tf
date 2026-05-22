@@ -44,8 +44,9 @@ resource "aws_vpc_endpoint" "sqs_interface_endpoint" {
   # https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue to resolve to
   # exact endpoint urls like vpce.<sqs_queue_id-AZ>.<region>.amazonaws.com through
   # AWS's private network, otherwise access to the endpoint happens over the 
-  # public internet, however, here we set it to false
-  private_dns_enabled = false
+  # public internet, however, here we set it to false, we create our own private
+  # hosted zone in Route53 and we attach it to the vpc_for_ec2
+  private_dns_enabled = true
 
   subnet_ids = [aws_subnet.private_subnet_for_sqs_interface_endpoint.id]
 
