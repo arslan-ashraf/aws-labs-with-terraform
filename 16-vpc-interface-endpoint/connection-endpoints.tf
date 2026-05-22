@@ -22,7 +22,7 @@ data "aws_vpc_endpoint_service" "sqs_endpoint" {
   service_type = "Interface"
 }
 
-# vpc gateway endpoint's policy document
+# vpc interface endpoint's policy document
 data "aws_iam_policy_document" "sqs_endpoint_permissions" {
   statement {
     effect = "Allow"
@@ -46,7 +46,7 @@ data "aws_iam_policy_document" "sqs_endpoint_permissions" {
 }
 
 
-resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
+resource "aws_vpc_endpoint" "sqs_interface_endpoint" {
   vpc_id              = aws_vpc.example_vpc.id
   service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type   = "Interface"
@@ -55,7 +55,7 @@ resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
   # "sqs.<region>.amazonaws.com" locally
   private_dns_enabled = true
 
-  subnet_ids = [aws_subnet.private_subnet_for_sqs_gateway_endpoint.id]
+  subnet_ids = [aws_subnet.private_subnet_for_sqs_interface_endpoint.id]
 
   security_group_ids = [aws_security_group.security_group_for_sqs_interface_endpoint.id]
 
@@ -65,5 +65,5 @@ resource "aws_vpc_endpoint" "sqs_gateway_endpoint" {
   # Optional: Define an access policy (defaults to Full Access if omitted)
   policy = data.aws_iam_policy_document.sqs_endpoint_permissions.json
 
-  tags = { Name = "sqs_gateway_endpoint" }
+  tags = { Name = "sqs_interface_endpoint" }
 }

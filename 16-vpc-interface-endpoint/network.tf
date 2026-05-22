@@ -31,10 +31,10 @@ resource "aws_subnet" "private_subnet_for_ec2_instance_endpoint" {
   tags = { Name = "private_subnet_for_ec2_instance_endpoint" }
 }
 
-resource "aws_subnet" "private_subnet_for_sqs_gateway_endpoint" {
+resource "aws_subnet" "private_subnet_for_sqs_interface_endpoint" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.7.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
-  tags = { Name = "private_subnet_for_sqs_gateway_endpoint" }
+  tags = { Name = "private_subnet_for_sqs_interface_endpoint" }
 }
