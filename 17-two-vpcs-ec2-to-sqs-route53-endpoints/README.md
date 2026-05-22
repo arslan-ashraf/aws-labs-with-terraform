@@ -1,8 +1,7 @@
-This lab is incomplete and creates at least 38 resources which take 5-10 minutes to create.  There is an EC2 in one VPC and an SQS interface endpoint in another VPC.  The VPCs 
+This lab is incomplete and creates at least 38 resources which take 5-10 minutes to create.  There is an EC2 in one VPC and an SQS interface endpoint in another VPC.  The VPCs are connected through VPC peering.  The goal of this lab is to SSH into the EC2 instance and from there send a message to the SQS queue over the private AWS network where a public DNS hostname like sqs.us-east-1.amazonaws.com resolves to a private IP address of the SQS endpoint.
 
 How the DNS resolution flow works: 
-1 - A container or EC2 instance in VPC A attempts to connect to SQS and 
-requests the DNS resolution for sqs.us-east-1.amazonaws.com
+1 - EC2 instance (or for example, a container) in VPC A attempts to connect to SQS and requests the DNS resolution for sqs.us-east-1.amazonaws.com
 
 2 - Rule Match: The Route 53 Resolver inside VPC A evaluates the query, 
 notices it matches the domain_name filter in your aws_route53_resolver_rule, 
