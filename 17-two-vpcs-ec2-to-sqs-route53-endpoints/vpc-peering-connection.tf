@@ -16,3 +16,11 @@ resource "aws_vpc_peering_connection_accepter" "sqs_endpoint_vpc_peering_accepto
   auto_accept               = true
   tags                      = { Name = "sqs_interface_endpoint_accepting_connection_from_ec2_instance" }
 }
+
+resource "aws_vpc_peering_connection_options" "requester" {
+  vpc_peering_connection_id = aws_vpc_peering_connection.ec2_to_sqs_interface_endpoint_connection.id
+
+  requester {
+    allow_remote_vpc_dns_resolution = true
+  }
+}
