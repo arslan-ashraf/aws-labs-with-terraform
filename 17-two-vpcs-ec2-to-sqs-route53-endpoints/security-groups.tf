@@ -63,7 +63,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_to_sqs_rule" {
 
 
 ########################################################################
-########## ROUTE53 INVOUND RESOLVER SECURITY GROUP & RULES #############
+########## ROUTE53 INBOUND RESOLVER SECURITY GROUP & RULES #############
 ########################################################################
 
 resource "aws_security_group" "security_group_for_route53_inbound_resolver" {
@@ -95,3 +95,15 @@ resource "aws_vpc_security_group_ingress_rule" "tcp_ingress_from_ec2_to_route53_
 
   ip_protocol = "tcp"
 }
+
+
+########################################################################
+########## ROUTE53 OUTBOUND RESOLVER SECURITY GROUP & RULES ############
+########################################################################
+
+resource "aws_security_group" "security_group_for_route53_outbound_resolver" {
+  name   = "security_group_for_route53_outbound_resolver"
+  vpc_id = aws_vpc.vpc_for_ec2.id
+  tags   = { Name = "security_group_for_route53_outbound_resolver" }
+}
+
