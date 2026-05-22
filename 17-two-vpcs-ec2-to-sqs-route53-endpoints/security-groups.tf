@@ -44,8 +44,8 @@ resource "aws_vpc_security_group_egress_rule" "egress_from_ec2_to_sqs_rule" {
 ########################################################################
 
 resource "aws_security_group" "security_group_for_sqs_interface_endpoint" {
-  name   = "security_group_for_interface_endpoint"
-  vpc_id = aws_vpc.example_vpc.id
+  name   = "security_group_for_sqs_interface_endpoint"
+  vpc_id = aws_vpc.vpc_for_sqs_interface_endpoint.id
   tags   = { Name = "security_group_for_sqs_interface_endpoint" }
 }
 
