@@ -6,7 +6,11 @@ resource "aws_route53_resolver_endpoint" "route53_inbound_resolver_endpoint" {
   ]
 
   ip_address {
-    subnet_id = 
+    subnet_id = aws_subnet.private_subnet_for_sqs_interface_endpoint.id
+  }
+
+  ip_address {
+    subnet_id = aws_subnet.dummy_subnet_for_sqs_interface_endpoint.id
   }
 
   name = "route53_inbound_resolver_endpoint"
