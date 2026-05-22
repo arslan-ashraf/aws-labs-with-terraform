@@ -107,11 +107,11 @@ resource "aws_security_group" "security_group_for_route53_outbound_resolver" {
   tags   = { Name = "security_group_for_route53_outbound_resolver" }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "udp_ingress_from_ec2_to_route53_inbound_rule" {
-  security_group_id = aws_security_group.security_group_for_route53_inbound_resolver.id
+resource "aws_vpc_security_group_egress_rule" "udp_egress_from_route53_outbound_to_sqs_endpoint_rule" {
+  security_group_id = aws_security_group.security_group_for_route53_outbound_resolver.id
 
   # where is the traffic coming from
-  cidr_ipv4 = aws_vpc.vpc_for_ec2.cidr_block
+  cidr_ipv4 = aws_vpc.vpc_for_sqs_interface_endpoint.cidr_block
 
   from_port = 53
   to_port   = 53
@@ -119,11 +119,11 @@ resource "aws_vpc_security_group_ingress_rule" "udp_ingress_from_ec2_to_route53_
   ip_protocol = "udp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "tcp_ingress_from_ec2_to_route53_inbound_rule" {
-  security_group_id = aws_security_group.security_group_for_route53_inbound_resolver.id
+resource "aws_vpc_security_group_egress_rule" "tcp_egress_from_route53_outbound_to_sqs_endpoint_rule" {
+  security_group_id = aws_security_group.security_group_for_route53_outbound_resolver.id
 
   # where is the traffic coming from
-  cidr_ipv4 = aws_vpc.vpc_for_ec2.cidr_block
+  cidr_ipv4 = aws_vpc.vpc_for_sqs_interface_endpoint.cidr_block
 
   from_port = 53
   to_port   = 53
