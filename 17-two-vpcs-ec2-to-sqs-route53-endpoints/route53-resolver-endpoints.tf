@@ -63,3 +63,7 @@ resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule"
 
 }
 
+resource "aws_route53_resolver_rule_association" "associate_route53_foward_rule_with_vpc_for_ec2" {
+  resolver_rule_id = aws_route53_resolver_rule.outbound_to_inbound_route53_resolver_rule.id
+  vpc_id = aws_vpc.vpc_for_ec2.id
+}
