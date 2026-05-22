@@ -49,5 +49,17 @@ resource "aws_route53_resolver_endpoint" "route53_outbound_resolver_endpoint" {
 resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule" {
   domain_name = "sqs.us-east-1.amazonaws.com"
   rule_type = "FORWARD"
-  
+  resolver_endpoint_id = aws_route53_resolver_endpoint.route53_outbound_resolver_endpoint.id
+  name = "forward_SQS_queries_to_inbound_route53_resolver"
+
+  # the IP address where queries for SQS should be forwarded, here the
+  # target_ip { ip = <ip_address_of_route53_inbound_resolver> }
+  target_ip {
+    ip = [
+      for ip_config in aws_route53_resolver_endpoint.route53_inbound_resolver_endpoint.ip_addres : ip_config.ip
+      if ip_config.subnet_id == aws_subnet.private_subnet_for_sqs_interface_endpoint.id
+    ][0]
+  }
+
 }
+
