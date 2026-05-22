@@ -3,16 +3,14 @@ This lab is incomplete and creates at least 38 resources which take 5-10 minutes
 How the DNS resolution flow works: 
 1 - EC2 instance (or for example, a container) in VPC A attempts to connect to SQS and requests the DNS resolution for sqs.us-east-1.amazonaws.com
 
-2 - Rule Match: The Route 53 Resolver inside VPC A evaluates the query, 
+2 - Rule Match: The Route 53 Outbound Resolver inside VPC A evaluates the query, 
 notices it matches the domain_name filter in your aws_route53_resolver_rule, 
 and intercepts it
 
-3 - Outbound Hop: VPC A's Outbound Endpoint picks up the query 
-and FORWARDs it to target_ip in aws_route53_resolver_rule
+3 - Outbound Hop: VPC A's Outbound Route53 Endpoint picks up the query 
+and FORWARDs it to target_ip in aws_route53_resolver_rule, which is the IP address of the Route53 Inbound Resolver Endpoint
 
-4 - Inbound Hop: The Inbound Endpoint inside the Target VPC receives the query 
-via the network bridge, evaluates it against the local VPC network environment, 
-and discovers the SQS VPC Interface Endpoint IP address
+4 - Inbound Hop: The Route53 Inbound Resolver Endpoint inside the Target VPC receives the query via the network bridge, evaluates it against the local VPC network environment, and discovers the SQS VPC Interface Endpoint IP address
 
 5 - Success: The private SQS endpoint IP is passed back across 
 the network to the resource in VPC A, keeping all traffic entirely off the public 
