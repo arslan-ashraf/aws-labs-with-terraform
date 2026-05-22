@@ -1,22 +1,20 @@
-This lab creates a VPC instance connect endpoint, 
-**aws_ec2_instance_connect_endpoint** which takes over 5 minutes to create.
+This lab is incomplete and creates at least 38 resources which take 5-10 minutes to create.  There is an EC2 in one VPC and an SQS interface endpoint in another VPC.  The VPCs 
 
-We create an EC2 instance in a private subnet and SSH into it using EC2 Instance Direct Connect in the AWS console.  No internet gateway and no SSH keys required.  
+How the DNS resolution flow works: 
+1 - A container or EC2 instance in VPC A attempts to connect to SQS and 
+requests the DNS resolution for sqs.us-east-1.amazonaws.com
 
-We also create a VPC Interface Endpoint to enable private connectivity from the EC2 intance to SQS.  However, setting up the connectivity requires care.
+2 - Rule Match: The Route 53 Resolver inside VPC A evaluates the query, 
+notices it matches the domain_name filter in your aws_route53_resolver_rule, 
+and intercepts it
 
-The security group rules, EC2 direct connect endpoint needs to have an outbound SSH rule while the EC2 instance needs to have an inbound SSH rule with correct source and destinations.  Further, the EC2 instance needs to have an outbound rule to connect to SQS using the interface endpoint.
+3 - Outbound Hop: VPC A's Outbound Endpoint picks up the query 
+and FORWARDs it to target_ip in aws_route53_resolver_rule
 
-The E2 instance needs IAM permissions to access SQS **and** S3 interface endpoint needs to allow permissions to access SQS as well.
+4 - Inbound Hop: The Inbound Endpoint inside the Target VPC receives the query 
+via the network bridge, evaluates it against the local VPC network environment, 
+and discovers the SQS VPC Interface Endpoint IP address
 
-Once you have SSH'd into the instance run the commands below.
-
-Use the command below to verify that private DNS is available:
-```
-nslookup sqs.us-east-1.amazonaws.com
-```
-
-Use the command below to verify that EC2 is able to connect to SQS using interface endpoint:
-```
-aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue --message-body "test message 1"  --region us-east-1
-```
+5 - Success: The private SQS endpoint IP is passed back across 
+the network to the resource in VPC A, keeping all traffic entirely off the public 
+internet

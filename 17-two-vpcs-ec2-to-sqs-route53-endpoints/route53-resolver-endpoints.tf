@@ -14,7 +14,7 @@ resource "aws_route53_resolver_endpoint" "route53_inbound_resolver_endpoint" {
 
   # required for high availability
   ip_address {
-    subnet_id = aws_subnet.dummy_subnet_for_sqs_interface_endpoint.id
+    subnet_id = aws_subnet.dummy_subnet_in_vpc_for_sqs_interface_endpoint.id
   }
 
   name = "route53_inbound_resolver_endpoint"
@@ -47,16 +47,16 @@ resource "aws_route53_resolver_endpoint" "route53_outbound_resolver_endpoint" {
 }
 
 resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule" {
-  domain_name = "sqs.us-east-1.amazonaws.com"
-  rule_type = "FORWARD"
+  domain_name          = "sqs.us-east-1.amazonaws.com"
+  rule_type            = "FORWARD"
   resolver_endpoint_id = aws_route53_resolver_endpoint.route53_outbound_resolver_endpoint.id
-  name = "forward_SQS_queries_to_inbound_route53_resolver"
+  name                 = "forward_SQS_queries_to_inbound_route53_resolver"
 
   # the IP address where queries for SQS should be forwarded, here the
   # target_ip { ip = <ip_address_of_route53_inbound_resolver> }
   target_ip {
     ip = [
-      for ip_config in aws_route53_resolver_endpoint.route53_inbound_resolver_endpoint.ip_addres : ip_config.ip
+      for ip_config in aws_route53_resolver_endpoint.route53_inbound_resolver_endpoint.ip_address : ip_config.ip
       if ip_config.subnet_id == aws_subnet.private_subnet_for_sqs_interface_endpoint.id
     ][0]
   }
@@ -65,5 +65,5 @@ resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule"
 
 resource "aws_route53_resolver_rule_association" "associate_route53_foward_rule_with_vpc_for_ec2" {
   resolver_rule_id = aws_route53_resolver_rule.outbound_to_inbound_route53_resolver_rule.id
-  vpc_id = aws_vpc.vpc_for_ec2.id
+  vpc_id           = aws_vpc.vpc_for_ec2.id
 }

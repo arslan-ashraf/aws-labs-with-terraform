@@ -10,7 +10,7 @@ data "aws_vpc_endpoint_service" "sqs_endpoint" {
   service_type = "Interface"
 }
 
-# vpc interface endpoint's policy document
+# vpc gateway endpoint's policy document
 data "aws_iam_policy_document" "sqs_endpoint_permissions" {
   statement {
     effect = "Allow"
@@ -35,25 +35,23 @@ data "aws_iam_policy_document" "sqs_endpoint_permissions" {
 
 
 resource "aws_vpc_endpoint" "sqs_interface_endpoint" {
-  vpc_id            = aws_vpc.vpc_for_sqs_interface_endpoint.id
-  service_name      = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
-  vpc_endpoint_type = "Interface"
+  vpc_id              = aws_vpc.vpc_for_sqs_interface_endpoint.id
+  service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
+  vpc_endpoint_type   = "Interface"
 
-  # with private_dns_enabled = true, AWS creates a hidden ROute53 private hosted 
-  # zone, that enables access to the endpoint using private DNS hostnames like
-  # https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue to resolve to
-  # exact endpoint urls like vpce.<sqs_queue_id-AZ>.<region>.amazonaws.com through
-  # AWS's private network, otherwise access to the endpoint happens over the 
-  # public internet, however, here we set it to false, we create our own private
-  # hosted zone in Route53 and we attach it to the vpc_for_ec2
-  private_dns_enabled = true
+  # enable private DNS hostnames so resources can resolve public domain hostnames
+  # like "sqs.<region>.amazonaws.com" locally, a private Route 53 hosted zone is 
+  # associated with your VPC to override default AWS public endpoints
+  # setting true allows instances in your VPC to reach an AWS service using its default 
+  # public DNS name (e.g., sqs.us-east-1.amazonaws.com), but route the traffic 
+  # privately within AWS's network through the endpoint instead of the public internet
+  # WARNING: AWS creates a Private Hosted Zone under the hood and hides the underlying 
+  # hosted zone ID from you, preventing you from associating it with other VPCs
+  private_dns_enabled = false
 
   subnet_ids = [aws_subnet.private_subnet_for_sqs_interface_endpoint.id]
 
   security_group_ids = [aws_security_group.security_group_for_sqs_interface_endpoint.id]
-
-  # add SQS route to the route table for the subnet with EC2 instance
-  route_table_ids = [aws_route_table.route_table_for_public_subnet_in_vpc_for_ec2.id]
 
   # Optional: Define an access policy (defaults to Full Access if omitted)
   policy = data.aws_iam_policy_document.sqs_endpoint_permissions.json
