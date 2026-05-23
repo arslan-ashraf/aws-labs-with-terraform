@@ -1,5 +1,5 @@
 resource "aws_instance" "ec2_instance" {
-  ami                         = "ami-0236922087fa98b6e"
+  ami                         = "ami-0ec10929233384c7f"
   region                      = "us-east-1"
   availability_zone           = "us-east-1a"
   instance_type               = "t2.nano"
@@ -11,12 +11,12 @@ resource "aws_instance" "ec2_instance" {
     aws_security_group.security_group_for_ec2_instance.id
   ]
 
-  tags = { Name = "amazon-linux-ami" }
+  tags = { Name = "ubuntu-ami" }
 
 }
 
 resource "aws_instance" "ec2_instance" {
-  ami                         = "ami-0236922087fa98b6e"
+  ami                         = "ami-0ec10929233384c7f"
   region                      = "us-east-1"
   availability_zone           = "us-east-1b"
   instance_type               = "t2.nano"
@@ -28,6 +28,6 @@ resource "aws_instance" "ec2_instance" {
     aws_security_group.security_group_for_ec2_instance.id
   ]
 
-  tags = { Name = "amazon-linux-ami" }
+  tags = { Name = "ubuntu-ami" }
 
 }
