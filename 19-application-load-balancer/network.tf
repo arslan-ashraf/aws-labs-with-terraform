@@ -8,9 +8,21 @@ resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
   tags = { Name = "internet_gateway_for_example_vpc" }
 }
 
+resource "aws_route_table" "route_table_for_example_vpc" {
+  vpc_id = aws_vpc.example_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
+  }
+
+  tags = { Name = "route_table_for_example_vpc" }
+
+}
+
 
 #########################################################################
-############## SUNBET & ROUTE TABLE FOR EC2 INSTANCE 1 ##################
+###################### SUNBET FOR EC2 INSTANCE 1 ########################
 #########################################################################
 
 resource "aws_subnet" "public_subnet_1" {
@@ -22,21 +34,10 @@ resource "aws_subnet" "public_subnet_1" {
   
 }
 
-resource "aws_route_table" "route_table_for_public_subnet_1" {
-  vpc_id = aws_vpc.example_vpc.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
-  }
-
-  tags = { Name = "route_table_for_public_subnet_1" }
-
-}
-
-resource "aws_route_table_association" "route_table_association_public_subnet_1" {
+resource "aws_route_table_association" "route_table_association_ec2_1" {
   subnet_id      = aws_subnet.public_subnet_1.id
-  route_table_id = aws_route_table.route_table_for_public_subnet_1.id
+  route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
 
 
@@ -53,33 +54,31 @@ resource "aws_subnet" "public_subnet_2" {
   
 }
 
-resource "aws_route_table" "route_table_for_public_subnet_2" {
-  vpc_id = aws_vpc.example_vpc.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
-  }
-
-  tags = { Name = "route_table_for_public_subnet_2" }
-
-}
-
-resource "aws_route_table_association" "route_table_association_public_subnet_2" {
+resource "aws_route_table_association" "route_table_association_ec2_2" {
   subnet_id      = aws_subnet.public_subnet_2.id
-  route_table_id = aws_route_table.route_table_for_public_subnet_2.id
+  route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
 
 
 #########################################################################
-############### SUNBET & ROUTE TABLE FOR LOAD BALANCER ##################
+############### SUNBETS & ROUTE TABLE FOR LOAD BALANCER #################
 #########################################################################
 
-resource "aws_subnet" "public_subnet_for_application_load_balancer" {
+resource "aws_subnet" "public_subnet_1_for_application_load_balancer" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.3.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
-  tags = { Name = "public_subnet_for_application_load_balancer" }
+  tags = { Name = "public_subnet_1_for_application_load_balancer" }
+  
+}
+
+resource "aws_subnet" "public_subnet_2_for_application_load_balancer" {
+  availability_zone = "us-east-1b"
+  cidr_block        = "10.0.4.0/24"
+  vpc_id            = aws_vpc.example_vpc.id
+
+  tags = { Name = "public_subnet_2_for_application_load_balancer" }
   
 }
