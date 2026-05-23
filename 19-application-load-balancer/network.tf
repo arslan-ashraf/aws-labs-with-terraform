@@ -42,7 +42,7 @@ resource "aws_route_table_association" "route_table_association_ec2_1" {
 
 
 #########################################################################
-############## SUNBET & ROUTE TABLE FOR EC2 INSTANCE 2 ##################
+###################### SUNBET FOR EC2 INSTANCE 2 ########################
 #########################################################################
 
 resource "aws_subnet" "public_subnet_2" {
@@ -62,7 +62,7 @@ resource "aws_route_table_association" "route_table_association_ec2_2" {
 
 
 #########################################################################
-############### SUNBETS & ROUTE TABLE FOR LOAD BALANCER #################
+################ SUNBETS FOR APPLICATION LOAD BALANCER ##################
 #########################################################################
 
 resource "aws_subnet" "public_subnet_1_for_application_load_balancer" {
@@ -74,6 +74,11 @@ resource "aws_subnet" "public_subnet_1_for_application_load_balancer" {
   
 }
 
+resource "aws_route_table_association" "route_table_association_ec2_2" {
+  subnet_id      = aws_subnet.public_subnet_1_for_application_load_balancer.id
+  route_table_id = aws_route_table.route_table_for_example_vpc.id
+}
+
 resource "aws_subnet" "public_subnet_2_for_application_load_balancer" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.0.4.0/24"
@@ -81,4 +86,9 @@ resource "aws_subnet" "public_subnet_2_for_application_load_balancer" {
 
   tags = { Name = "public_subnet_2_for_application_load_balancer" }
   
+}
+
+resource "aws_route_table_association" "route_table_association_ec2_2" {
+  subnet_id      = aws_subnet.public_subnet_2_for_application_load_balancer.id
+  route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
