@@ -75,3 +75,11 @@ resource "aws_route_table_association" "route_table_association_public_subnet_2_
 ############### SUNBET & ROUTE TABLE FOR LOAD BALANCER ##################
 #########################################################################
 
+resource "aws_subnet" "public_subnet_for_load_balancer_in_example_vpc" {
+  availability_zone = "us-east-1a"
+  cidr_block        = "10.0.3.0/24"
+  vpc_id            = aws_vpc.example_vpc.id
+
+  tags = { Name = "public_subnet_for_load_balancer_in_example_vpc" }
+  
+}
