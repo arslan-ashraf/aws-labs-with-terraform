@@ -12,7 +12,7 @@ resource "aws_lb" "external_application_load_balancer" {
     aws_subnet.public_subnet_1_for_application_load_balancer.id, 
     aws_subnet.public_subnet_2_for_application_load_balancer.id
   ]
-  
+
 }
 
 resource "aws_lb_target_group" "web_servers_target_group" {
@@ -32,31 +32,31 @@ resource "aws_lb_target_group" "web_servers_target_group" {
   }
 }
 
-resource "aws_lb_listener" "http" {
+resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.external_application_load_balancer.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.web.arn
+    target_group_arn = aws_lb_target_group.web_servers_target_group.arn
   }
 }
 
-# 8. Target Group Attachments
+# Target Group Attachments
 resource "aws_lb_target_group_attachment" "web_1" {
-  target_group_arn = aws_lb_target_group.web.arn
-  target_id        = aws_instance.web_1.id
+  target_group_arn = aws_lb_target_group.web_servers_target_group.arn
+  target_id        = aws_instance.web_server_1.id
   port             = 80
 }
 
 resource "aws_lb_target_group_attachment" "web_2" {
-  target_group_arn = aws_lb_target_group.web.arn
-  target_id        = aws_instance.web_2.id
+  target_group_arn = aws_lb_target_group.web_servers_target_group.arn
+  target_id        = aws_instance.web_server_2.id
   port             = 80
 }
 
-# 9. Output URL
+# Output URL
 output "alb_dns_name" {
   value       = aws_lb.external_application_load_balancer.dns_name
   description = "The public URL of the application load balancer"

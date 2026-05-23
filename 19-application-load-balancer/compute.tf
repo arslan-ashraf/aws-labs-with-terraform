@@ -1,4 +1,4 @@
-resource "aws_instance" "ec2_instance" {
+resource "aws_instance" "web_server_1" {
   ami                         = "ami-0ec10929233384c7f"
   region                      = "us-east-1"
   availability_zone           = "us-east-1a"
@@ -15,7 +15,7 @@ resource "aws_instance" "ec2_instance" {
 
 }
 
-resource "aws_instance" "ec2_instance" {
+resource "aws_instance" "web_server_2" {
   ami                         = "ami-0ec10929233384c7f"
   region                      = "us-east-1"
   availability_zone           = "us-east-1b"
