@@ -3,9 +3,9 @@ resource "aws_vpc" "example_vpc" {
   tags       = { Name = "example_vpc" }
 }
 
-resource "aws_internet_gateway" "internet_gateway_for" {
+resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
   vpc_id = aws_vpc.example_vpc.id
-  tags = { Name = "internet_gateway_for" }
+  tags = { Name = "internet_gateway_for_example_vpc" }
 }
 
 
@@ -27,7 +27,7 @@ resource "aws_route_table" "route_table_for_public_subnet_1" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway_for.id
+    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
   }
 
   tags = { Name = "route_table_for_public_subnet_1" }
@@ -58,7 +58,7 @@ resource "aws_route_table" "route_table_for_public_subnet_2" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.internet_gateway_for.id
+    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
   }
 
   tags = { Name = "route_table_for_public_subnet_2" }
