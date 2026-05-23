@@ -9,6 +9,9 @@ resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
 }
 
 
+#########################################################################
+############## SUNBET & ROUTE TABLE FOR EC2 INSTANCE 1 ##################
+#########################################################################
 
 resource "aws_subnet" "public_subnet_1_in_example_vpc" {
   availability_zone = "us-east-1a"
@@ -36,6 +39,11 @@ resource "aws_route_table_association" "route_table_association_public_subnet_1_
   route_table_id = aws_route_table.route_table_for_public_subnet_1_in_example_vpc.id
 }
 
+
+#########################################################################
+############## SUNBET & ROUTE TABLE FOR EC2 INSTANCE 2 ##################
+#########################################################################
+
 resource "aws_subnet" "public_subnet_2_in_example_vpc" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.2.0/24"
@@ -61,3 +69,9 @@ resource "aws_route_table_association" "route_table_association_public_subnet_2_
   subnet_id      = aws_subnet.public_subnet_2_in_example_vpc.id
   route_table_id = aws_route_table.route_table_for_public_subnet_2_in_example_vpc.id
 }
+
+
+#########################################################################
+############### SUNBET & ROUTE TABLE FOR LOAD BALANCER ##################
+#########################################################################
+
