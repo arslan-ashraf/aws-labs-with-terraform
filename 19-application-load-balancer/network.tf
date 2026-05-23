@@ -74,7 +74,7 @@ resource "aws_subnet" "public_subnet_1_for_application_load_balancer" {
   
 }
 
-resource "aws_route_table_association" "route_table_association_ec2_2" {
+resource "aws_route_table_association" "route_table_association_load_balancer_1" {
   subnet_id      = aws_subnet.public_subnet_1_for_application_load_balancer.id
   route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
@@ -93,7 +93,7 @@ resource "aws_subnet" "public_subnet_2_for_application_load_balancer" {
   
 }
 
-resource "aws_route_table_association" "route_table_association_ec2_2" {
+resource "aws_route_table_association" "route_table_association_load_balancer_2" {
   subnet_id      = aws_subnet.public_subnet_2_for_application_load_balancer.id
   route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
