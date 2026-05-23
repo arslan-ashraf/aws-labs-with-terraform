@@ -13,6 +13,7 @@ resource "aws_subnet" "public_subnet_for_nat_gateway" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.5.0/24"
   vpc_id            = aws_vpc.example_vpc.id
+  map_public_ip_on_launch = true
 
   tags = { Name = "public_subnet_for_nat_gateway" }
 }
