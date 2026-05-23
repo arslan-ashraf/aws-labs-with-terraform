@@ -49,7 +49,7 @@ resource "aws_route_table_association" "route_table_association_public_subnet_ex
 
 resource "aws_subnet" "private_subnet_for_ec2_instance" {
   availability_zone = "us-east-1a"
-  cidr_block        = "10.0.6.0/24"
+  cidr_block        = "10.0.7.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
   tags = { Name = "private_subnet_for_ec2_instance" }
