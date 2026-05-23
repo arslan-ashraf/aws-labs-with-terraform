@@ -18,7 +18,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   from_port = 80
   to_port   = 80
 
-  ip_protocol = "http"
+  ip_protocol = "tcp"
 }
 
 
@@ -42,5 +42,5 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_all_public_traffic_rule"
   from_port = 80
   to_port   = 80
 
-  ip_protocol = "http"
+  ip_protocol = "tcp"
 }
