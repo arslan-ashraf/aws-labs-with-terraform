@@ -4,7 +4,7 @@ resource "aws_instance" "ec2_instance" {
   availability_zone           = "us-east-1a"
   instance_type               = "t2.nano"
   associate_public_ip_address = true
-  subnet_id                   = aws_subnet.public_subnet_1.id
+  subnet_id                   = aws_subnet.public_subnet_1_for_ec2.id
   user_data                   = file("${path.module}/userdata.sh")
 
   vpc_security_group_ids = [
@@ -21,7 +21,7 @@ resource "aws_instance" "ec2_instance" {
   availability_zone           = "us-east-1b"
   instance_type               = "t2.nano"
   associate_public_ip_address = true
-  subnet_id                   = aws_subnet.public_subnet_2.id
+  subnet_id                   = aws_subnet.public_subnet_2_for_ec2.id
   user_data                   = file("${path.module}/userdata.sh")
 
   vpc_security_group_ids = [

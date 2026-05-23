@@ -25,18 +25,18 @@ resource "aws_route_table" "route_table_for_example_vpc" {
 ###################### SUNBET FOR EC2 INSTANCE 1 ########################
 #########################################################################
 
-resource "aws_subnet" "public_subnet_1" {
+resource "aws_subnet" "public_subnet_1_for_ec2" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.1.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
-  tags = { Name = "public_subnet_1" }
+  tags = { Name = "public_subnet_1_for_ec2" }
   
 }
 
 
 resource "aws_route_table_association" "route_table_association_ec2_1" {
-  subnet_id      = aws_subnet.public_subnet_1.id
+  subnet_id      = aws_subnet.public_subnet_1_for_ec2.id
   route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
 
@@ -45,18 +45,18 @@ resource "aws_route_table_association" "route_table_association_ec2_1" {
 ###################### SUNBET FOR EC2 INSTANCE 2 ########################
 #########################################################################
 
-resource "aws_subnet" "public_subnet_2" {
+resource "aws_subnet" "public_subnet_2_for_ec2" {
   availability_zone = "us-east-1b"
   cidr_block        = "10.0.2.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
-  tags = { Name = "public_subnet_2" }
+  tags = { Name = "public_subnet_2_for_ec2" }
   
 }
 
 
 resource "aws_route_table_association" "route_table_association_ec2_2" {
-  subnet_id      = aws_subnet.public_subnet_2.id
+  subnet_id      = aws_subnet.public_subnet_2_for_ec2.id
   route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
 
