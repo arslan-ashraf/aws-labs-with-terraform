@@ -3,18 +3,23 @@ resource "aws_lb" "external_application_load_balancer" {
   name               = "external_application_load_balancer"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.security_group_for_application_load_balancer.id]
+
+  security_groups    = [
+    aws_security_group.security_group_for_application_load_balancer.id
+  ]
+
   subnets            = [
     aws_subnet.public_subnet_1_for_application_load_balancer.id, 
     aws_subnet.public_subnet_2_for_application_load_balancer.id
   ]
+  
 }
 
 resource "aws_lb_target_group" "web_servers_target_group" {
   name     = "web_servers_target_group"
   port     = 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.main.id
+  vpc_id   = aws_vpc.example_vpc.id
 
   health_check {
     path                = "/"
