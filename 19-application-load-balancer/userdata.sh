@@ -29,7 +29,7 @@ cat <<EOF > /var/www/html/index.html
     <div class="card">
         <h1>Nginx is Running Successfully!</h1>
         <p>This page was automatically deployed via EC2 User Data on Ubuntu.</p>
-        <p class="ip-address"><strong>IP Address: $(hostname -l | cut -d" " -f1)</strong></p>
+        <p class="ip-address"><strong>IP Address: $(hostname -i | cut -d" " -f1)</strong></p>
     </div>
 </body>
 </html>
