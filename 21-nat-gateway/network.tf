@@ -72,6 +72,11 @@ resource "aws_route_table_association" "route_table_association_private_subnet_e
   route_table_id = aws_route_table.route_table_for_private_subnet_in_example_vpc.id
 }
 
+
+#########################################################################
+############ PRIVATE SUBNET FOR EC2 INSTANCE CONNECT ENDPOINT ###########
+#########################################################################
+
 resource "aws_subnet" "private_subnet_for_ec2_instance_endpoint" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.6.0/24"
