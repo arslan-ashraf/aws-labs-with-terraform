@@ -1,7 +1,3 @@
-# this file has three security groups, one for the ec2 instance, one for ec2 
-# direct connect endpoint, and one for vpc interface endpoint
-
-
 #########################################################################
 ##################### EC2 SECURITY GROUP & RULES ########################
 #########################################################################
