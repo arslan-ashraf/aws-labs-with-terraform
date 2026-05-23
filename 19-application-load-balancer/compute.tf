@@ -11,7 +11,7 @@ resource "aws_instance" "web_server_1" {
     aws_security_group.security_group_for_ec2_instance.id
   ]
 
-  tags = { Name = "ubuntu-ami" }
+  tags = { Name = "web_server_1_ubuntu_ami" }
 
 }
 
@@ -28,6 +28,6 @@ resource "aws_instance" "web_server_2" {
     aws_security_group.security_group_for_ec2_instance.id
   ]
 
-  tags = { Name = "ubuntu-ami" }
+  tags = { Name = "web_server_2_ubuntu_ami" }
 
 }
