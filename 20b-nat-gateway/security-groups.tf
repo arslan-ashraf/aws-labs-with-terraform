@@ -1,3 +1,6 @@
+# this file has two security groups, one with an ingress ssh rule and the other
+# with a egress ssh rule
+
 resource "aws_security_group" "security_group_for_ec2_instance" {
   name   = "security_group_for_ec2_instance"
   vpc_id = aws_vpc.example_vpc.id
