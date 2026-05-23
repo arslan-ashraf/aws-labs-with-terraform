@@ -62,7 +62,7 @@ resource "aws_route_table_association" "route_table_association_ec2_2" {
 
 
 #########################################################################
-################ SUNBETS FOR APPLICATION LOAD BALANCER ##################
+############### SUNBET 1 FOR APPLICATION LOAD BALANCER ##################
 #########################################################################
 
 resource "aws_subnet" "public_subnet_1_for_application_load_balancer" {
@@ -78,6 +78,11 @@ resource "aws_route_table_association" "route_table_association_ec2_2" {
   subnet_id      = aws_subnet.public_subnet_1_for_application_load_balancer.id
   route_table_id = aws_route_table.route_table_for_example_vpc.id
 }
+
+
+#########################################################################
+############### SUNBET 2 FOR APPLICATION LOAD BALANCER ##################
+#########################################################################
 
 resource "aws_subnet" "public_subnet_2_for_application_load_balancer" {
   availability_zone = "us-east-1b"
