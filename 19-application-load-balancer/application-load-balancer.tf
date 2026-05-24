@@ -1,7 +1,7 @@
 # Application Load Balancer
 resource "aws_lb" "application_load_balancer" {
   name               = "external-alb"
-  internal           = false
+  internal           = false            # false means internet facing
   load_balancer_type = "application"
 
   security_groups = [
@@ -12,6 +12,8 @@ resource "aws_lb" "application_load_balancer" {
     aws_subnet.public_subnet_1_for_application_load_balancer.id,
     aws_subnet.public_subnet_2_for_application_load_balancer.id
   ]
+  
+  # enable_deletion_protection = false 
 
 }
 
