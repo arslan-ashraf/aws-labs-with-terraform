@@ -5,7 +5,7 @@ resource "aws_vpc" "example_vpc" {
 
 resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
   vpc_id = aws_vpc.example_vpc.id
-  tags = { Name = "internet_gateway_for_example_vpc" }
+  tags   = { Name = "internet_gateway_for_example_vpc" }
 }
 
 resource "aws_route_table" "route_table_for_example_vpc" {
@@ -31,7 +31,7 @@ resource "aws_subnet" "public_subnet_1_for_ec2" {
   vpc_id            = aws_vpc.example_vpc.id
 
   tags = { Name = "public_subnet_1_for_ec2" }
-  
+
 }
 
 
@@ -51,7 +51,7 @@ resource "aws_subnet" "public_subnet_2_for_ec2" {
   vpc_id            = aws_vpc.example_vpc.id
 
   tags = { Name = "public_subnet_2_for_ec2" }
-  
+
 }
 
 
@@ -71,7 +71,7 @@ resource "aws_subnet" "public_subnet_1_for_application_load_balancer" {
   vpc_id            = aws_vpc.example_vpc.id
 
   tags = { Name = "public_subnet_1_for_application_load_balancer" }
-  
+
 }
 
 resource "aws_route_table_association" "route_table_association_load_balancer_1" {
@@ -90,7 +90,7 @@ resource "aws_subnet" "public_subnet_2_for_application_load_balancer" {
   vpc_id            = aws_vpc.example_vpc.id
 
   tags = { Name = "public_subnet_2_for_application_load_balancer" }
-  
+
 }
 
 resource "aws_route_table_association" "route_table_association_load_balancer_2" {

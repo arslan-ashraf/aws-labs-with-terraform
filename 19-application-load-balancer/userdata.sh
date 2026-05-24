@@ -1,16 +1,8 @@
 #!/bin/bash
 
-# Update the package repository
-apt-get update -y
+sudo apt-get update -y
+sudo apt-get install apache2 -y
 
-# Install Nginx
-apt-get install nginx -y
-
-# Start Nginx service
-systemctl start nginx
-
-# Enable Nginx to run automatically on system boot
-systemctl enable nginx
 
 # Create a custom HTML page using the instance metadata for context
 cat <<EOF > /var/www/html/index.html
@@ -27,10 +19,13 @@ cat <<EOF > /var/www/html/index.html
 </head>
 <body>
     <div class="card">
-        <h1>Nginx is Running Successfully!</h1>
+        <h1>Apache Web Server is unning Successfully!</h1>
         <p>This page was automatically deployed via EC2 User Data on Ubuntu.</p>
         <p class="ip-address"><strong>IP Address: $(hostname -i | cut -d" " -f1)</strong></p>
     </div>
 </body>
 </html>
 EOF
+
+sudo systemctl restart apache2
+sudo systemctl enable apache2
