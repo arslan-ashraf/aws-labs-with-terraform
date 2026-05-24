@@ -1,5 +1,5 @@
 # Application Load Balancer
-resource "aws_lb" "external_load_balancer" {
+resource "aws_lb" "application_load_balancer" {
   name               = "external-alb"
   internal           = false
   load_balancer_type = "application"
@@ -32,8 +32,10 @@ resource "aws_lb_target_group" "web_servers_target_group" {
   }
 }
 
+# forwards all requests to the load balancer to the target group
+# see the field target_group_arn
 resource "aws_lb_listener" "http_listener" {
-  load_balancer_arn = aws_lb.external_load_balancer.arn
+  load_balancer_arn = aws_lb.application_load_balancer.arn
   port              = "80"
   protocol          = "HTTP"
 
@@ -58,6 +60,6 @@ resource "aws_lb_target_group_attachment" "web_server_2_attachment" {
 
 # Output URL
 output "alb_dns_name" {
-  value       = aws_lb.external_load_balancer.dns_name
+  value       = aws_lb.application_load_balancer.dns_name
   description = "The public URL of the application load balancer"
 }
