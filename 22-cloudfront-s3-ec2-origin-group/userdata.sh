@@ -33,10 +33,19 @@ cat <<EOF > /var/www/html/index.html
 <head>
     <meta charset="UTF-8">
     <title>Static Website</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 10%; background-color: #f4f6f9; color: #333; }
+        .ip-address { font-size: 50px; }
+        .card { background: white; padding: 20px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
 </head>
 <body>
-    <p style="font-size: 50px;">This page can be served by S3 and EC2.</p>
-    
+    <div class="card">
+        <p style="font-size: 50px;">This page can be served by S3 and EC2.</p>
+        <p class="ip-address">If it is served by EC2, then we can see the EC2 instance's IP address:</p>
+        <p class="ip-address"><strong>IP Address: $(hostname -i | cut -d" " -f1)</strong></p>
+        <p class="ip-address">If it is served by S#, then IP address is blank.</p>
+    </div>
 </body>
 </html>
 EOF
