@@ -5,6 +5,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_access.id
   }
 
+  # free tier class
+  price_class = "PriceClass_100"
+
+  # setting web_acl_id ensures WAF is enabled, by default WAF is disabled
+  # web_acl_id = ""
+
   enabled             = true
   is_ipv6_enabled     = true
   http_version        = "http2and3"             # default is http2
