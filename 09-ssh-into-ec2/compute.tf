@@ -21,7 +21,7 @@ resource "aws_security_group" "security_group_public_traffic" {
   tags   = { Name = "sg-for-public-traffic" }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "ingress_http_traffic_rule" {
+resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   security_group_id = aws_security_group.security_group_public_traffic.id
   cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
 
