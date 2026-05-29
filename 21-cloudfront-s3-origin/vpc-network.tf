@@ -3,13 +3,6 @@ resource "aws_vpc" "example_vpc" {
   tags       = { Name = "example_vpc" }
 }
 
-resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
-  vpc_id = aws_vpc.example_vpc.id
-
-  tags = { Name = "internet_gateway_for_example_vpc" }
-
-}
-
 resource "aws_subnet" "public_subnet_in_example_vpc" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.5.0/24"
