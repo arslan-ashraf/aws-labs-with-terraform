@@ -44,19 +44,6 @@ resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
   # })
 }
 
-resource "aws_s3_bucket_website_configuration" "static_website_config" {
-  bucket = aws_s3_bucket.static_files_s3_bucket.id
-
-  index_document {
-    suffix = "index.html"
-  }
-
-  error_document {
-    key = "error.html"
-  }
-
-}
-
 resource "aws_s3_object" "index_html_page" {
   bucket       = aws_s3_bucket.static_files_s3_bucket.id
   key          = "index.html"
