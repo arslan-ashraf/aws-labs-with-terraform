@@ -23,25 +23,6 @@ data "aws_iam_policy_document" "cloudfront_s3_policy" {
 resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
   bucket = aws_s3_bucket.static_files_s3_bucket.id
   policy = data.aws_iam_policy_document.cloudfront_s3_policy.json
-
-  # policy = jsonencode({
-  #   Version = "2012-10-17"
-  #   Statement = [
-  #     {
-  #       Action   = "s3:GetObject"
-  #       Effect   = "Allow"
-  #       Resource = "${aws_s3_bucket.static_files_s3_bucket.arn}/*"
-  #       Principal = {
-  #         Service = "cloudfront.amazonaws.com"
-  #       }
-  #       Condition = {
-  #         StringEquals = {
-  #           "AWS:SourceArn" = aws_cloudfront_distribution.s3_distribution.arn
-  #         }
-  #       }
-  #     }
-  #   ]
-  # })
 }
 
 resource "aws_s3_object" "index_html_page" {
