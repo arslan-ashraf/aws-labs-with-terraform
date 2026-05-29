@@ -44,7 +44,7 @@ cat <<EOF > /var/www/html/index.html
         <p style="font-size: 50px;">This page can be served by S3 and EC2.</p>
         <p class="ip-address">If it is served by EC2, then we can see the EC2 instance's IP address:</p>
         <p class="ip-address"><strong>IP Address: $(hostname -i | cut -d" " -f1)</strong></p>
-        <p class="ip-address">If it is served by S#, then IP address is blank.</p>
+        <p class="ip-address">If it is served by S3, then IP address is blank.</p>
     </div>
 </body>
 </html>
