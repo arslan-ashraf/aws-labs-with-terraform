@@ -1,5 +1,6 @@
-# create the private hosting zone in Route53 which will hold the
-# DNS hostname to IP records
+# create the private hosting zone in Route53 which will hold the DNS hostname 
+# to IP records, adding a vpc { ... } block is what makes it private, omitting
+# the vpc { ... } block makes is public
 resource "aws_route53_zone" "route53_private_hosting_zone" {
   name = aws_vpc_dhcp_options.dhcp_options_for_example_vpc.domain_name
   vpc { vpc_id = aws_vpc.example_vpc.id }
