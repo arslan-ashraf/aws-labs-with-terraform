@@ -1,7 +1,7 @@
 resource "aws_route53_zone" "arslanashraf_dot_site" {
   comment           = null
   delegation_set_id = null
-  force_destroy     = null
+  force_destroy     = null      # null means go back to default which is false
   name              = "arslanashraf.site"
   tags              = {}
   tags_all          = {}
