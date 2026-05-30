@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       http_port              = 80
       https_port             = 443
       # origin_protocol_policy = "match-viewer" means cloudfront tries to 
-      # connect to EC2 using the default browser protocol, which is HTTPS
+      # connect to EC2 matching the same protocol the viewer/user is using
       # origin_protocol_policy = "match-viewer"
 
       # we use http-only as the Apache server is listening on HTTP port 80
