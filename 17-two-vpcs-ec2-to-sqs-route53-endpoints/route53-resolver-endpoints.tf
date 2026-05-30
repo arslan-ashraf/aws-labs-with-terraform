@@ -52,14 +52,15 @@ resource "aws_route53_resolver_endpoint" "route53_outbound_resolver_endpoint" {
 # aws sqs send-message \
 # --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/<queue_name> \
 # --message-body "test message 1"
-# this rule sends the request to the Route53 outbound resolver
+# this rule sends the request to the Route53 outbound resolver for DNS resolution
 resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule" {
-  domain_name          = "sqs.us-east-1.amazonaws.com"
+  domain_name          = "sqs.us-east-1.amazonaws.com" # destination that triggers this rule
   rule_type            = "FORWARD"
   resolver_endpoint_id = aws_route53_resolver_endpoint.route53_outbound_resolver_endpoint.id
   name                 = "forward_SQS_queries_to_inbound_route53_resolver"
 
-  # the IP address where queries for SQS should be forwarded, here the
+  # the IP address(es) where DNS queries for "sqs.us-east-1.amazonaws.com"
+  # should be forwarded, here the target is route53 inbound resolver:
   # target_ip { ip = <ip_address_of_route53_inbound_resolver> }
   target_ip {
     ip = [

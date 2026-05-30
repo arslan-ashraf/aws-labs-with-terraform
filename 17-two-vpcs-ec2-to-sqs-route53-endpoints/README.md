@@ -1,5 +1,7 @@
 This lab is incomplete and creates at least 38 resources which take 5-10 minutes to create.  There is an EC2 in one VPC and an SQS interface endpoint in another VPC.  The VPCs are connected through VPC peering.  The goal of this lab is to SSH into the EC2 instance and from there send a message to the SQS queue over the private AWS network where a public DNS hostname like sqs.us-east-1.amazonaws.com resolves to the private IP address of the SQS endpoint.
 
+This DNS resolution remains entirely within AWS's private network
+
 How the DNS resolution flow works: 
 1 - EC2 instance (or for example, a container) in VPC A attempts to connect to SQS and requests the DNS resolution for sqs.us-east-1.amazonaws.com
 
@@ -9,5 +11,6 @@ How the DNS resolution flow works:
 
 4 - Inbound Hop: The Route53 Inbound Resolver Endpoint inside the Target VPC receives the query, evaluates it against the local VPC network environment, and discovers the SQS VPC Interface Endpoint IP address
 
-5 - Success: The private SQS endpoint IP is passed back across 
-the network to the resource in VPC A, keeping all traffic entirely off the public internet
+5 - EC2 Receives SQS Queue's IP: The private SQS endpoint IP is passed back across the network to the resource in VPC A, keeping all traffic entirely off the public internet
+
+6 - EC2 sends message to the SQS Queue using the queue's IP Address
