@@ -14,7 +14,7 @@ import {
 }
 
 
-resource "aws_route53_record" "tls_certificate_cname" {
+resource "aws_route53_record" "tls_certified_cname" {
   health_check_id                  = null
   multivalue_answer_routing_policy = false
   name                             = "_7b5eefd03761c163452e0a94792668ac.arslanashraf.site"
@@ -27,7 +27,7 @@ resource "aws_route53_record" "tls_certificate_cname" {
 
 # import CNAME Record
 import {
-  to = aws_route53_record.tls_certificate_cname
+  to = aws_route53_record.tls_certified_cname
   id = "Z04401803CHL5IPK5D5OA__7b5eefd03761c163452e0a94792668ac.arslanashraf.site_CNAME"
 }
 
