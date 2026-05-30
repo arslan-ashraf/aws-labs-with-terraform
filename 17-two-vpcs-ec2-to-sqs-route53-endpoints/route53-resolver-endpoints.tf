@@ -50,7 +50,7 @@ resource "aws_route53_resolver_endpoint" "route53_outbound_resolver_endpoint" {
 
 # this rule applies when EC2 instance makes a request to SQS using the queue url
 # aws sqs send-message \
-# --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue \
+# --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/<queue_name> \
 # --message-body "test message 1"
 # this rule sends the request to the Route53 outbound resolver
 resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule" {
@@ -67,6 +67,9 @@ resource "aws_route53_resolver_rule" "outbound_to_inbound_route53_resolver_rule"
       if ip_config.subnet_id == aws_subnet.private_subnet_for_sqs_interface_endpoint.id
     ][0]
   }
+
+  # add another target IP address if needed
+  # target_ip { ... }
 
 }
 
