@@ -13,6 +13,7 @@ data "aws_iam_policy_document" "cloudfront_s3_policy" {
       identifiers = ["cloudfront.amazonaws.com"]  # by CloudFront
     }
 
+    # restricts the "allow" and "actions"
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn" # but only if the sourceArn of the principal, ie: CloudFront's Arn
