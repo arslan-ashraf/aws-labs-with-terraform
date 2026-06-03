@@ -15,8 +15,8 @@ data "aws_iam_policy_document" "cloudfront_s3_policy" {
 
     condition {
       test     = "StringEquals"
-      variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.s3_ec2_group_distribution.arn]
+      variable = "AWS:SourceArn" # but only if the source of the principal
+      values   = [aws_cloudfront_distribution.s3_ec2_group_distribution.arn] # has this arn
     }
   }
 }
