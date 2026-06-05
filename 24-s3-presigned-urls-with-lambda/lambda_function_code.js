@@ -4,10 +4,10 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 export const handler = async (event) => {
     const s3Client = new S3Client({ region: "us-east-1" });
     
-    const bucket_name = "private-bucket-49587sdf90458s3";
+    const bucket_name = process.env.BUCKET_NAME
     
     // this must be the name of the file to upload and download
-    const object_key = "example-file.txt";
+    const object_key = event.file_to_upload
 
     try {
         // Create the command (use PutObjectCommand for file uploads)
