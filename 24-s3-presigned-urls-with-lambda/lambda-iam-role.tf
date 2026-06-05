@@ -18,7 +18,7 @@ resource "aws_iam_role" "lambda_role" {
   assume_role_policy = data.aws_iam_policy_document.lambda_policy_document.json
 }
 
-# 3. IAM Policy to allow Lambda to issue PutObject/GetObject actions
+# IAM Policy to allow Lambda to issue PutObject/GetObject actions
 resource "aws_iam_role_policy" "lambda_s3_policy" {
   name = "lambda_s3_policy"
   role = aws_iam_role.lambda_role.id
