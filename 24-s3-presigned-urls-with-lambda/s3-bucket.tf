@@ -59,7 +59,7 @@ resource "aws_iam_role_policy" "lambda_s3_policy" {
 # 4. Zip compilation for the Lambda source code
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "index.py"
+  source_file = "lambada_function_code.py"
   output_path = "lambda_function.zip"
 }
 
@@ -68,7 +68,7 @@ resource "aws_lambda_function" "url_generator" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "generate-presigned-url"
   role             = aws_iam_role.lambda_role.arn
-  handler          = "index.lambda_handler"
+  handler          = "lambada_function_code.lambda_handler"
   runtime          = "python3.11"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
