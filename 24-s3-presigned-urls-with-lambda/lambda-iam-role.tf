@@ -26,6 +26,17 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
     resources = ["${aws_s3_bucket.private_bucket.arn}/*"]
     actions = ["s3:PutObject", "s3:GetObject"]
   }
+
+  statement {
+    effect = "Allow"
+    resources = ["${aws_cloudwatch_log_group.lambda_log_group.arn}:*"]
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+  }
+
 }
 
 resource "aws_iam_policy" "lambda_s3_policy" {
