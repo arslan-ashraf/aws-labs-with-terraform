@@ -27,6 +27,12 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
     actions = ["s3:PutObject", "s3:GetObject"]
   }
 
+  # statement {
+  #   effect = "Allow"
+  #   resources = ["arn:aws:logs:${data.aws_region.current_region.name}:${data.aws_caller_identity.user.account_id}:*"]
+  #   actions = ["logs:CreateLogGroup"]
+  # }
+
   statement {
     effect = "Allow"
     resources = ["${aws_cloudwatch_log_group.lambda_log_group.arn}:*"]
