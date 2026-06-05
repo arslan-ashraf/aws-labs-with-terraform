@@ -1,19 +1,7 @@
-resource "aws_s3_bucket" "secure_bucket" {
+resource "aws_s3_bucket" "private_bucket" {
   bucket        = "my-secure-app-bucket-unique-id"
   force_destroy = true
 }
-
-resource "aws_s3_bucket_public_access_block" "private_block" {
-  bucket = aws_s3_bucket.secure_bucket.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-}
-
-
-
 
 # 4. Zip compilation for the Lambda source code
 data "archive_file" "lambda_zip" {
