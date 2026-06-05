@@ -2,6 +2,7 @@
 ############################# EC2 IAM ROLE ##############################
 #########################################################################
 
+# define user/role based policy
 data "aws_iam_policy_document" "ec2_assume_role_document" {
   statement {
     effect = "Allow"

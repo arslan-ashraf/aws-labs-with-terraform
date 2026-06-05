@@ -1,16 +1,21 @@
+# define user/role based policy
+data "aws_iam_policy_document" "lambda_policy_document" {
+  statement {
+    effect = "Allow"
 
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
 
 resource "aws_iam_role" "lambda_role" {
   name = "presigned_url_lambda_role"
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action    = "sts:AssumeRole"
-      Effect    = "Allow"
-      Principal = { Service = "://amazonaws.com" }
-    }]
-  })
+  assume_role_policy = data.aws_iam_policy_document.lambda_policy_document.json
 }
 
 # 3. IAM Policy to allow Lambda to issue PutObject/GetObject actions
