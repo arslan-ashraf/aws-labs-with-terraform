@@ -51,7 +51,7 @@ resource "aws_vpc_endpoint" "sqs_interface_endpoint" {
   service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type   = "Interface"
 
-  # with private_dns_enabled = true, AWS creates a hidden ROute53 private hosted 
+  # with private_dns_enabled = true, AWS creates a hidden Route53 private hosted 
   # zone, that enables access to the endpoint using private DNS hostnames like
   # https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue to resolve to
   # exact endpoint urls like vpce.<sqs_queue_id-AZ>.<region>.amazonaws.com through

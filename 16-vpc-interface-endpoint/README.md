@@ -7,7 +7,7 @@ We also create a VPC Interface Endpoint to enable private connectivity from the 
 
 The security group rules, EC2 direct connect endpoint needs to have an outbound SSH rule while the EC2 instance needs to have an inbound SSH rule with correct source and destinations.  Further, the EC2 instance needs to have an outbound rule to connect to SQS using the interface endpoint.
 
-The E2 instance needs IAM permissions to access SQS **and** S3 interface endpoint needs to allow permissions to access SQS as well.
+The E2 instance needs IAM permissions to access SQS **and** SQS interface endpoint needs to allow permissions to access SQS as well.
 
 Once you have SSH'd into the instance run the commands below.
 
