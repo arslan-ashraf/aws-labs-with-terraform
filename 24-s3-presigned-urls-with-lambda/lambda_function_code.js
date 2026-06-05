@@ -25,7 +25,7 @@ export const handler = async (event) => {
             statusCode: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Access-Control-Allow-Origin": "*"  // allows anyone to use it
             },
             body: JSON.stringify({ url: presignedUrl }),
         };
