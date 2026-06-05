@@ -22,4 +22,12 @@ resource "aws_lambda_function" "presigned_url_generator_lambda" {
       BUCKET_NAME = aws_s3_bucket.private_bucket.id
     }
   }
+
+  logging_config {
+    log_format            = "JSON"
+    application_log_level = "INFO"
+    system_log_level      = "WARN"
+  }
+
+  
 }

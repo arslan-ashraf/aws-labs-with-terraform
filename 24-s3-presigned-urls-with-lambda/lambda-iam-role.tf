@@ -37,7 +37,6 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
     effect = "Allow"
     resources = ["${aws_cloudwatch_log_group.lambda_log_group.arn}:*"]
     actions = [
-      "logs:CreateLogGroup",
       "logs:CreateLogStream",
       "logs:PutLogEvents"
     ]
