@@ -29,5 +29,9 @@ resource "aws_lambda_function" "presigned_url_generator_lambda" {
     system_log_level      = "WARN"
   }
 
-  
+  # ensure IAM role and CloudWatch log group are ready
+  depends_on = [
+    aws_iam_role_policy_attachment.lambda_s3_role_policy_attachment,
+    aws_cloudwatch_log_group.lambda_log_group
+  ]
 }
