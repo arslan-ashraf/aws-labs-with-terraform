@@ -6,7 +6,7 @@ data "archive_file" "lambda_zip" {
 }
 
 # 5. The URL Generation Lambda function
-resource "aws_lambda_function" "url_generator" {
+resource "aws_lambda_function" "presigned_url_generator_lambda" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "generate-presigned-url"
   role             = aws_iam_role.lambda_role.arn
