@@ -10,11 +10,8 @@ This lab creates a Lambda function, a CloudWatch log group for the Lambda functi
 
 generates an S3 presigned URL. Note that these URLs do not have a built-in feature to expire after a single use, nor do they dynamically track IP addresses on their own.  They can be used indefinitely until expiration by anyone.
 
-To test the presigned URL
+To test the presigned URL, use the curl command in the file use-presigned-url.sh.  Just run the executable with the url inserted.
 
 ```
-curl -X PUT \
--H "Content-Type: application/json" \
---data-binary "@./file_to_upload_to_s3.json" \
-"PRESIGNED_URL_HERE"
+./use-presigned-url.sh
 ```
