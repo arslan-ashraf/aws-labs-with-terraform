@@ -1,4 +1,4 @@
-import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export const handler = async (event) => {
@@ -10,16 +10,19 @@ export const handler = async (event) => {
     const object_key = event.file_to_upload
 
     try {
-        // Create the command (use PutObjectCommand for file uploads)
-        const command = new GetObjectCommand({
+        // create command for uploads (PutObjectCommand for file uploads)
+        const put_object_command = new PutObjectCommand({
             Bucket: bucket_name,
             Key: object_key,
+            ContentType: "application/json"
         });
 
         // Generate the presigned URL
-        const presignedUrl = await getSignedUrl(s3Client, command, { 
+        const presignedUrl = await getSignedUrl(s3Client, put_object_command, { 
             expiresIn: 300 // URL expires in 5 minutes (300 seconds)
         });
+
+        console.log("Presigned url generated successfully!")
 
         return {
             statusCode: 200,

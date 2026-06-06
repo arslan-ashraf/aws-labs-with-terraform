@@ -14,6 +14,7 @@ data "aws_iam_policy_document" "lambda_policy_document" {
 
 resource "aws_iam_role" "lambda_role" {
   name = "presigned_url_lambda_role"
+
   assume_role_policy = data.aws_iam_policy_document.lambda_policy_document.json
 }
 
@@ -26,16 +27,16 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
     actions = ["s3:PutObject", "s3:GetObject"]
   }
 
+  # statement {
+  #   effect = "Allow"
+  #   resources = ["arn:aws:logs:${data.aws_region.current_region.name}:${data.aws_caller_identity.user.account_id}:*"]
+  #   actions = ["logs:CreateLogGroup"]
+  # }
+
   statement {
     effect = "Allow"
-
-    resources = [
-      aws_cloudwatch_log_group.lambda_log_group.arn,
-      "${aws_cloudwatch_log_group.lambda_log_group.arn}:*"
-    ]
-
+    resources = ["${aws_cloudwatch_log_group.lambda_log_group.arn}:*"]
     actions = [
-      "logs:CreateLogGroup",  # required for custom log group name
       "logs:CreateLogStream",
       "logs:PutLogEvents"
     ]
