@@ -1,4 +1,4 @@
-This lab creates a Lambda function.
+This lab creates a Lambda function, a CloudWatch log group for the Lambda function to send logs to, an S3 bucket and IAM permissions.  The Lambda function when 
 
 S3 presigned URLs do not have a built-in feature to expire after a single use, nor do they dynamically track IP addresses on their own.
 
