@@ -1,4 +1,6 @@
-S3 presigned URLs do not have a built-in feature to expire after a single use, nor do they dynamically track IP addresses on their own.
+This is a continuation of the previous lab.  S3 presigned URLs do not have a built-in feature to expire after a single use, nor do they dynamically track IP addresses on their own.  
+
+To ensure one time use of the URL requires a database that records a user's actions.
 
 ```
  aws lambda invoke \
