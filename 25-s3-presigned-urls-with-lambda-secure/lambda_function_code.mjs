@@ -31,24 +31,10 @@ export const handler = async (event) => {
             }]
         });
 
-
-/* create role with these permissions and place its arn at line 49
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowS3Uploads",
-            "Effect": "Allow",
-            "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::your-bucket-name/uploads/*"
-        }
-    ]
-}
-*/
         // assume a local IAM Role (this role just needs s3:PutObject permissions)
         const stsClient = new STSClient({});
         const assumed_role = await stsClient.send(new AssumeRoleCommand({
-            RoleArn: "arn:aws:iam::123456789012:role/YourS3UploadSignerRole",
+            RoleArn: url_use_permission_role_arn,
             RoleSessionName: `UploadSession-${Date.now()}`,
             Policy: session_policy // <-- Injects the dynamic IP constraint here
         }));
