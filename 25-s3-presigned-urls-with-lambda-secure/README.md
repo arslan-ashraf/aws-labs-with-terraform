@@ -14,12 +14,3 @@ To generate an S3 presigned URL, invoke the Lambda function using the command:
 ```
 This will create a file lambda_output.json that contains the presigned URL. 
 
-
-curl -v "https://your-bucket-name.s3.amazonaws.com/" \
--F "key=uploads/user-123/profile.jpg" \
--F "AWSAccessKeyId=AKIA..." \
--F "x-amz-security-token=IQoJ..." \
--F "policy=eyJleHA..." \
--F "signature=base64_encoded_signature" \
--F "content-type=image/jpeg" \
--F "file=@/path/to/your/local/file.jpg"
