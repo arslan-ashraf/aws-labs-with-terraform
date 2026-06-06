@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-curl -v "https://private-bucket-49587sdf90458s3.s3.us-east-1.amazonaws.com/" \
+<< 'COMMENT'
+curl -v "<presigned_url>" \
 -F "key=..."  \
 -F "X-Amz-Algorithm=..."  \
 -F "X-Amz-Credential=..."  \
@@ -11,3 +12,4 @@ curl -v "https://private-bucket-49587sdf90458s3.s3.us-east-1.amazonaws.com/" \
 -F "bucket=..."  \
 -F "X-Amz-Security-Token=..."  \
 -F "file=@./file_to_upload_to_s3.json"
+COMMENT
