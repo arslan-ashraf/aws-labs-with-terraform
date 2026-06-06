@@ -14,3 +14,8 @@ To generate an S3 presigned URL, invoke the Lambda function using the command:
 ```
 This will create a file lambda_output.json that contains the presigned URL. 
 
+To test the presigned URL, use the curl command in the file use-presigned-url.sh.  Just run the executable with all the fields inserted.
+
+```
+./use-presigned-url.sh
+```
