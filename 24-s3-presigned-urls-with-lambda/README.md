@@ -1,3 +1,5 @@
+This lab creates a Lambda function.
+
 S3 presigned URLs do not have a built-in feature to expire after a single use, nor do they dynamically track IP addresses on their own.
 
 ```
