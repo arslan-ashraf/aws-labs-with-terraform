@@ -24,10 +24,20 @@ resource "aws_lambda_function" "presigned_url_generator_lambda" {
     }
   }
 
+  # explicitly tell Lambda to use custom log group, without this block
+  # Lambda will write to a log group whose name is
+  # "/aws/lambda/<function_name>" or 
+  # "/aws/lambda/${local.lambda_function_name}"
+  # in this example: "/aws/lambda/generate-presigned-s3-url"
   logging_config {
-    log_format            = "JSON"
     application_log_level = "INFO"
-    system_log_level      = "WARN"
+    system_log_level      = "DEBUG"
+    log_format            = "JSON"
+    log_group             = aws_cloudwatch_log_group.lambda_log_group.name
   }
+
+  depends_on = [
+    aws_cloudwatch_log_group.lambda_log_group
+  ]
 
 }
