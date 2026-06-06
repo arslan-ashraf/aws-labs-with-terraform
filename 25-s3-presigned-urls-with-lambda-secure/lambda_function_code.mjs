@@ -17,6 +17,8 @@ export const handler = async (event) => {
         // this must be the name of the file to upload and download
         const s3_object_key = event.file_to_upload
 
+        const url_use_permission_role_arn = process.env.PRESIGNED_URL_USE_PERMISSION_ROLE_ARN
+
         const session_policy = JSON.stringify({
             Version: "2012-10-17",
             Statement: [{

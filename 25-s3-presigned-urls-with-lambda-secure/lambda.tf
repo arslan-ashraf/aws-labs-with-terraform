@@ -1,11 +1,27 @@
-# 4. Zip compilation for the Lambda source code
+# zip compilation for the Lambda source code
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_file = "./lambda_function_code.mjs"
   output_path = "lambda_function_code.zip"
 }
 
-# 5. The URL Generation Lambda function
+# role that a user will temporarily have to be able to use the 
+# presigned URL we import the arn of this role through the Lambda 
+# function's environment variables
+data "aws_iam_policy_document" "presigned_url_user_policy_document" {
+  statement {
+    effect = "Allow"
+    actions = ["s3:PutObject"]
+    resources = ["${aws_s3_bucket.private_bucket.arn}/*"]
+  }
+}
+
+resource "aws_iam_role" "presigned_url_user_role" {
+  name = "presigned_url_user_role"
+  assume_role_policy = data.aws_iam_policy_document.presigned_url_user_policy_document.json
+}
+
+# Lambda function to generate the presigned URL
 resource "aws_lambda_function" "presigned_url_generator_lambda" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "generate-presigned-s3-url"
@@ -21,6 +37,7 @@ resource "aws_lambda_function" "presigned_url_generator_lambda" {
     variables = {
       BUCKET_NAME = aws_s3_bucket.private_bucket.id
       BUCKET_ARN  = aws_s3_bucket.private_bucket.arn
+      PRESIGNED_URL_USE_PERMISSION_ROLE_ARN = aws_iam_role.presigned_url_user_role.arn
     }
   }
 
