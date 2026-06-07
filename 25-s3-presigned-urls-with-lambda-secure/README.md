@@ -19,3 +19,8 @@ To test the presigned URL, use the curl command in the file use-presigned-url.sh
 ```
 ./use-presigned-url.sh
 ```
+
+{
+	"file_to_upload": "file_to_upload_to_s3.json",
+	"user_ip": "<user_up>"
+}

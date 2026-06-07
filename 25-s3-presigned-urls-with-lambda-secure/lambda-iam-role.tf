@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "lambda_policy_document" {
 }
 
 resource "aws_iam_role" "lambda_role" {
-  name = "presigned_url_lambda_role"
+  name               = "presigned_url_lambda_role"
   assume_role_policy = data.aws_iam_policy_document.lambda_policy_document.json
 }
 
@@ -22,7 +22,7 @@ resource "aws_iam_role" "lambda_role" {
 data "aws_iam_policy_document" "lambda_s3_permissions" {
   statement {
     effect    = "Allow"
-    actions = ["s3:PutObject", "s3:GetObject"]
+    actions   = ["s3:PutObject", "s3:GetObject"]
     resources = ["${aws_s3_bucket.private_bucket.arn}/*"]
   }
 
@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
     effect = "Allow"
 
     actions = [
-      "logs:CreateLogGroup",  # required for custom log group name
+      "logs:CreateLogGroup", # required for custom log group name
       "logs:CreateLogStream",
       "logs:PutLogEvents"
     ]
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
 }
 
 resource "aws_iam_policy" "lambda_s3_policy" {
-  name = "lambda_s3_policy"
+  name   = "lambda_s3_policy"
   policy = data.aws_iam_policy_document.lambda_s3_permissions.json
 }
 
