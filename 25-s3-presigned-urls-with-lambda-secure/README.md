@@ -15,7 +15,7 @@ To generate an S3 presigned URL, invoke the Lambda function using the command:
  lambda_output.json
 ```
 
-The file `lambda_input.json` must contain the following object:
+The file `lambda_input.json` must contain the following object with the user's IP address filled in:
 ```
 {
 	"file_to_upload": "file_to_upload_to_s3.json",
