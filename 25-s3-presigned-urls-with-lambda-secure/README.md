@@ -2,6 +2,8 @@ This is a continuation of the previous lab.  S3 presigned URLs do not have a bui
 
 To ensure one time use of the URL, requires the application backend to records a user's actions in a database.  S3 also does not guarantee that only the user who requested the presigned URL is the one who is allowed to use it.
 
+However, we can enforce other restrictions such as how long the presigned URL is active for, the size range that the uploaded file must have, the file type, the file name among other things.
+
 
 To generate an S3 presigned URL, invoke the Lambda function using the command:
 
@@ -12,6 +14,7 @@ To generate an S3 presigned URL, invoke the Lambda function using the command:
  --payload file://lambda_input.json \
  lambda_output.json
 ```
+
 This will create a file lambda_output.json that contains the presigned URL. 
 
 To test the presigned URL, use the curl command in the file use-presigned-url.sh.  Just run the executable with all the fields inserted.
