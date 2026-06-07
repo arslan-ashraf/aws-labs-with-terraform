@@ -15,15 +15,16 @@ To generate an S3 presigned URL, invoke the Lambda function using the command:
  lambda_output.json
 ```
 
-This will create a file lambda_output.json that contains the presigned URL. 
-
-To test the presigned URL, use the curl command in the file use-presigned-url.sh.  Just run the executable with all the fields inserted.
-
+The file `lambda_input.json` must contain the following object:
 ```
-./use-presigned-url.sh
-```
-
 {
 	"file_to_upload": "file_to_upload_to_s3.json",
 	"user_ip": "<user_up>"
 }
+```
+
+To test the presigned URL:
+
+This will create a file lambda_output.json that contains the presigned URL and the "fields" object.  To parse all of the Lambda functions output, execute the file `extract-presigned-url.js` with the correct settings in the console.
+
+Then copy the URL and the fields object into the file `use-presigned-url.js` with the correct settings and execute it.

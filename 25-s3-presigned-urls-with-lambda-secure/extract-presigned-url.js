@@ -3,7 +3,9 @@ let api_response = {
   "headers": {
     "Content-Type": "application/json"
   },
-  "body": "{\"url\":\"https:// ... }"
+
+  // actual body here returned from the Lambda function
+  "body": "{\"url\":\"https:// ... }"  
 }
 
 
