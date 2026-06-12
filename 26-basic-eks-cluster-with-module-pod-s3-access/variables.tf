@@ -1,9 +1,14 @@
-variable "aws_region" {
+variable "kubernetes_version" {
   type    = string
-  default = "us-east-1"
+  default = "1.33"
 }
 
 variable "cluster_name" {
   type    = string
   default = "basic-eks-cluster"
+}
+
+variable "instance_type" {
+  type = string
+  default = "t2.nano"
 }

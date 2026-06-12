@@ -28,9 +28,9 @@ module "vpc" {
     "kubernetes.io/role/elb" = 1
   }
 
-  private_subnet_tags = {
-    "kubernetes.io/role/internal-elb" = 1
-  }
+  # private_subnet_tags = {
+  #   "kubernetes.io/role/internal-elb" = 1
+  # }
 }
 
 #######################################
@@ -42,7 +42,7 @@ module "eks" {
   version = "~> 21.0"
 
   name               = var.cluster_name
-  kubernetes_version = "1.33"
+  kubernetes_version = var.kubernetes_version
 
   endpoint_public_access = true
 
@@ -51,7 +51,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     default = {
-      instance_types = ["t3.medium"]
+      instance_types = [var.instance_type]
 
       min_size     = 1
       max_size     = 3
