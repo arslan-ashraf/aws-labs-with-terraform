@@ -59,6 +59,13 @@ module "eks" {
     }
   }
 
+  # enable the Pod Identity Agent addon
+  cluster_addons = {
+    eks-pod-identity-agent = {
+      most_recent = true
+    }
+  }
+
   tags = {
     Environment = "learning"
     Terraform   = "true"
