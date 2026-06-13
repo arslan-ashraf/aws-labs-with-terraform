@@ -1,27 +1,8 @@
-To connect to an ec2 using ssh:
+This lab creates and EC2 instance and a CloudWatch Group that logs CPU usage.  We first SSH into the EC2 instance, create and launch a Python script inside the instance to spike its CPU usage.  We then see that metric in CloudWatch.
 
-Step 1: generate ssh keys and set owner read only permissions on private key
-```
-ssh-keygen -t rsa -b 4096 -f .ssh/key-for-ec2-connection
-chmod 400 .ssh/key-for-ec2-connection
-```
+To connect to an ec2 using ssh using the private key:
 
-Step 2: create a Terraform object and upload public key to AWS and 
-add key_name field to aws_instance object
-```
-resource "aws_key_pair" "deployer" {
-  key_name   = "key-for-ec2-connection"
-  public_key = file("~/.ssh/key-for-ec2-connection.pub")
-}
-
-resource "aws_instance" "ec2_instance" {
-  ami           = "..."
-  instance_type = "..."
-  key_name      = "key-for-ec2-connection"
-}
-```
-
-Step 3: ssh into the ec2 instace using the private key, -i is for "identity"
+Note: -i is for "identity"
 ```
 ssh -i .ssh/key-for-ec2-connection <remote_username>@<remote_ip_address>
 ```
