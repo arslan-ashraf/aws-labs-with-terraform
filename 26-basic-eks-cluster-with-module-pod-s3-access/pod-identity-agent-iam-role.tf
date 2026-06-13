@@ -2,12 +2,13 @@
 data "aws_iam_policy_document" "pod_identity_trust" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRole", "sts:TagSession"]
 
     principals {
       type        = "Service"
       identifiers = ["pods.eks.amazonaws.com"]
     }
+    
+    actions = ["sts:AssumeRole", "sts:TagSession"]
   }
 }
 
@@ -27,6 +28,6 @@ resource "aws_iam_role_policy_attachment" "s3_read" {
 resource "aws_eks_pod_identity_association" "pod_association" {
   cluster_name    = var.cluster_name
   namespace       = "default"
-  service_account = "s3-reader-sa"
+  service_account = "s3-reader-service-account"
   role_arn        = aws_iam_role.eks_pod_role.arn
 }
