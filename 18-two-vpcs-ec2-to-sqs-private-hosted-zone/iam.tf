@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "ec2_sqs_access_permissions" {
 # in the JSON document imported by aws_iam_policy_document.lambda_permissions
 resource "aws_iam_policy" "sqs_policy" {
   policy = data.aws_iam_policy_document.ec2_sqs_access_permissions.json
-  name   = "sQS_policy"
+  name   = "SQS_policy"
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_s3_role_policy_attachment" {
