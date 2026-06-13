@@ -3,5 +3,5 @@ variable "email_for_alerts" {
 }
 
 variable "cpu_alarm_threshold" {
-  default = 80
+  default = 50
 }
