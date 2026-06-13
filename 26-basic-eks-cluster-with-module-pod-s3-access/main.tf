@@ -60,6 +60,7 @@ module "eks" {
   }
 
   # enable the Pod Identity Agent addon
+  # note: using this addon requires an Amazon Linux or Ubuntu AMI
   cluster_addons = {
     eks-pod-identity-agent = {
       most_recent = true
