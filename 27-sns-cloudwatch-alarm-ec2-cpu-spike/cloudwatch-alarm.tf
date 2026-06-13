@@ -4,7 +4,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu" {
   evaluation_interval = 60 # frequency in seconds at which alarm is evaluated
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
-  period              = 60
+  period              = 10 # number of periods over which alarm is evaluated, 60 * 10 = 600
   statistic           = "Maximum"
   threshold           = var.cpu_alarm_threshold
 
