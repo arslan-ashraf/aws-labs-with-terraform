@@ -1,3 +1,5 @@
+**Note**: this lab is incomplete and does not work as intended.
+
 This labs creates a basic EKS cluster using the official AWS EKS module `terraform-aws-modules/eks/aws` and similarly, the VPC is also created using the official AWS VPC module `terraform-aws-modules/vpc/aws`.
 
 After the Kubernetes cluster is deployed, configure `kubectl` with:

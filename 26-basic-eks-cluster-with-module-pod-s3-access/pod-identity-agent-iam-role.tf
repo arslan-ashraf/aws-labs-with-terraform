@@ -47,4 +47,8 @@ resource "aws_eks_pod_identity_association" "pod_association" {
   namespace       = "default"
   service_account = "s3-reader-service-account"
   role_arn        = aws_iam_role.eks_pod_role.arn
+
+  depends_on = [
+    module.eks
+  ]
 }
