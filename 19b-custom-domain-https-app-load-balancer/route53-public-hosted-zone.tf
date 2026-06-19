@@ -6,7 +6,7 @@
 #   comment           = null
 #   delegation_set_id = null
 #   force_destroy     = null      # null means go back to default which is false
-#   name              = "<custom_domain>"
+#   name              = var.custom_domain
 #   tags              = {}
 #   tags_all          = {}
 # }
@@ -14,7 +14,7 @@
 # # import public hosted zone where the custom_domain is hosted
 # import {
 #   to = aws_route53_zone.route53_zone_for_custom_domain
-#   id = "Z04401803CHL5IPK5D5OA" # Hosted Zone ID
+#   id = "<hosted_zone_id>"
 # }
 
 
@@ -32,18 +32,18 @@
 
 # resource "aws_route53_record" "tls_certified_cname" {
 #   health_check_id                  = null
-#   name                             = "_7b5eefd03761c163452e0a94792668ac.<custom_domain>"
-#   records                          = ["_b66cd84cd09764d438c840759a6e3cc6.jkddzztszm.acm-validations.aws."]
+#   name                             = "<random_string>.<custom_domain>"
+#   records                          = ["_<random_string>.<random_string>.acm-validations.aws."]
 #   set_identifier                   = null
 #   ttl                              = 300
 #   type                             = "CNAME"
-#   zone_id                          = "Z04401803CHL5IPK5D5OA"
+#   zone_id                          = "<zone_id>"
 # }
 
 # # import CNAME Record
 # import {
 #   to = aws_route53_record.tls_certified_cname
-#   id = "Z04401803CHL5IPK5D5OA__7b5eefd03761c163452e0a94792668ac.<custom_domain>_CNAME"
+#   id = "<CNAME_random_string>.<custom_domain>_CNAME"
 # }
 
 # removed block untracks the resource from the state file

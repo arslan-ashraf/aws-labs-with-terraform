@@ -43,7 +43,7 @@ resource "aws_security_group" "security_group_for_application_load_balancer" {
 }
 
 # leaving this security group rule out will ensure that the website is
-# only accessible through https://arslanashraf.site 
+# only accessible through https://<custom_domain>
 # if http is attempted, it will automatically redirect to https
 # resource "aws_vpc_security_group_ingress_rule" "ingress_http_all_public_traffic_rule" {
 #   security_group_id = aws_security_group.security_group_for_application_load_balancer.id
