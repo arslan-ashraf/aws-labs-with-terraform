@@ -1,10 +1,10 @@
 resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   alarm_name          = "secret_in_SecretsManager_accessed"
+  namespace           = "AWS/CloudTrail"
   comparison_operator = "GreaterThanThreshold"
   metric_name         = "SecretAccessed"
-  namespace           = "SecurityMetrics"
   threshold           = var.number_of_secret_accesses
-  statistic           = "Maximum"
+  statistic           = "SUM"
 
   # total evaluation time in seconds = period × evaluation_periods
   period             = 60 # time in seconds over which metric is aggregated

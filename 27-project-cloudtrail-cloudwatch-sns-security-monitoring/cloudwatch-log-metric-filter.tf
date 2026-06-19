@@ -38,7 +38,7 @@ resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
 
   metric_transformation {
     name          = "SecretRetrievalCount"
-    namespace     = "SecurityMetrics"
+    namespace     = "AWS/CloudTrail"
     value         = "1"
     default_value = "0"
   }
