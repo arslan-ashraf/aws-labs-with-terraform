@@ -7,15 +7,14 @@ resource "aws_cloudwatch_log_group" "secrets_accessed_cloudwatch_log_group" {
 # a rule that scans incoming log data for specific terms, phrases or
 # numeric values and generates standard metric data
 
-# as logs stream in, CloudWatch evaluates the logs using
-# the "pattern" field to extract the and count various metrics
-# these metrics can then be used to trigger actions, such as alarms
-# and notifications
+# as (unstructured) logs stream in, CloudWatch evaluates the logs using
+# the "pattern" field to extract and count various metrics which can then
+# be used to trigger actions, such as alarms and notifications
 resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
   name           = "secret_access_count"
   
-  # when an API calls the secret, CloudTrail emits a log event that looks
-  # like this in JSON:
+  # when an API calls the secret in SecretsManager, CloudTrail emits 
+  # a log event that looks like this in JSON:
   # {
   #   "eventVersion": "1.08",
   #   "userIdentity": { ... },
