@@ -6,6 +6,7 @@ resource "aws_instance" "ec2_instance" {
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_in_example_vpc.id
   key_name                    = "key-for-ec2-connection"
+  monitoring                  = true
 
   vpc_security_group_ids = [
     aws_security_group.security_group_public_traffic.id

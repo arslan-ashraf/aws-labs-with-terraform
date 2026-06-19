@@ -1,11 +1,11 @@
-data "aws_route53_zone" "arslanashraf_dot_site" {
-  name         = "arslanashraf.site"
+data "aws_route53_zone" "custom_domain" {
+  name         = var.custom_domain
   private_zone = false
 }
 
 resource "aws_route53_record" "new_record" {
-  zone_id = data.aws_route53_zone.arslanashraf_dot_site.zone_id
-  name    = "arslanashraf.site"
+  zone_id = data.aws_route53_zone.custom_domain.zone_id
+  name    = var.custom_domain
   type    = "A"
 
   alias {
