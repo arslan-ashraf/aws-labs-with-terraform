@@ -17,4 +17,24 @@ resource "aws_cloudtrail" "secret_accessed_trail" {
   # CloudWatch logs related fields
   # CloudTrail requires the log stream wildcard * 
   cloud_watch_logs_group_arn       = "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
+
+  # by default, CloudTrail only logs management events, these are administrative
+  # or management operations like CreateSecret, DeleteSecret, UpdateSecurityGroup, 
+  # it does not log data events, these are use operations like GetSecretValue, 
+  # PutSecretValue, RunLambda, because reading secrets happens frequently and can 
+  # generate massive logs, to collect data events, use:
+
+  # advanced_event_selector {
+  #   name = "Log Secrets Manager Data Events"
+
+  #   field_selector {
+  #     field  = "eventCategory"
+  #     equals = ["Data"]
+  #   }
+
+  #   field_selector {
+  #     field  = "resources.type"
+  #     equals = ["AWS::SecretsManager::Secret"]
+  #   }
+  # }
 }
