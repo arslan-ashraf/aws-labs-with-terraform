@@ -22,6 +22,8 @@ resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
 
   # the pattern field below uses a filter expression, that says, in the root 
   # given by $, look at eventName and see if it equals GetSecretValue
+  # if all secret retrievals were needed, this is enough, but to count a specific
+  # secret's retrieval, use $.requestElements.secretId = \"<secret_arn>}\"
 
   pattern        = "{ ($.eventName = GetSecretValue) && ($.requestElements.secretId = \"${aws_secretsmanager_secret.example_secret.arn}\") }"
 
