@@ -3,7 +3,7 @@ resource "aws_cloudwatch_log_group" "secrets_accessed_cloudwatch_log_group" {
   retention_in_days = 14
 }
 
-# what is aws_cloudwatch_log_metric_filter?
+# what is cloudwatch log metric filter?
 # a rule that scans incoming log data for specific terms, phrases or
 # numeric values and generates standard metric data
 
