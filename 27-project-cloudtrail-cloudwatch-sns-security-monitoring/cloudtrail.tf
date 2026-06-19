@@ -8,4 +8,5 @@ resource "aws_cloudtrail" "secret_accessed_trail" {
 
   # CloudTrail requires the log stream wildcard * 
   cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
+  include_management_events     = true # default
 }
