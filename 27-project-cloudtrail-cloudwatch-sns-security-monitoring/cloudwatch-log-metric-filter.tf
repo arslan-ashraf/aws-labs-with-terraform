@@ -11,7 +11,7 @@ resource "aws_cloudwatch_log_group" "secrets_accessed_cloudwatch_log_group" {
 # the "pattern" field to extract and count various metrics which can then
 # be used to trigger actions, such as alarms and notifications
 resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
-  name           = "secret_access_count"
+  name           = "SecretRetrievalCount"
   
   # when an API calls the secret in SecretsManager, CloudTrail emits 
   # a log event that looks like this in JSON:
@@ -38,7 +38,7 @@ resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
 
   metric_transformation {
     name          = "SecretRetrievalCount"
-    namespace     = "Custom/SecretsManagerUsage"
+    namespace     = "SecurityMetrics"
     value         = "1"
     default_value = "0"
   }
