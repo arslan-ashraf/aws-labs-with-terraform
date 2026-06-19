@@ -8,11 +8,13 @@ resource "aws_cloudtrail" "secret_accessed_trail" {
   include_global_service_events    = false # prevents global services (e.g., IAM) from sending logs
   enable_logging                   = true  # default
   enable_log_file_validation       = true
-
-  exclude_management_event_sources = ["kms.amazonaws.com", "rdsdata.amazonaws.com"]
+  include_management_events        = true # default true
+  exclude_management_event_sources = [
+    "kms.amazonaws.com", 
+    "rdsdata.amazonaws.com"
+  ]
 
   # CloudWatch logs related fields
   # CloudTrail requires the log stream wildcard * 
   cloud_watch_logs_group_arn       = "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
-  include_management_events        = true # default true
 }
