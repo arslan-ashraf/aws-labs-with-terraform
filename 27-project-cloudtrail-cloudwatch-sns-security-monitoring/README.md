@@ -1,6 +1,6 @@
 In this project, the goal is to create a secret in SecretsManager and then monitor every time that secret is accessed and by who.  This is done by CloudTrail which will store its logs in S3.  
 
-Furthermore, we create a CloudWatch log group to send the same CloudTrail logs to a CloudWatch log group.  CloudWatch will also get these logs from the same S3 bucket.  
+Furthermore, we create a CloudWatch log group to send the same CloudTrail logs to a CloudWatch log group.  CloudWatch retrieves these logs from the same S3 bucket and not directly from CloudTrail.
 
 We also create a CloudWatch alarm that goes off every time anyone accesses the secret.  We want to be notified by email when that alarm goes off which we get from SNS.
 
