@@ -6,5 +6,6 @@ resource "aws_cloudtrail" "secret_accessed_trail" {
   include_global_service_events = false # prevents global services (e.g., IAM) from sending logs
   enable_logging                = true  # default
 
-  
+  # CloudTrail requires the log stream wildcard * 
+  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
 }
