@@ -4,6 +4,7 @@ resource "aws_s3_bucket" "cloudtrail_logs_bucket" {
 }
 
 data "aws_iam_policy_document" "s3_resource_policy_document" {
+
   statement {
     sid    = "AWSCloudTrailAclCheck"
     effect = "Allow"
@@ -12,7 +13,9 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
       type        = "Service"
       identifiers = ["cloudtrail.amazonaws.com"]
     }
-
+    # grants CloudTrail permission to verify the bucket's Access Control List
+    # or (ACL), it allows CloudTrail to check these permissions so it can 
+    # deliver logs into the designated storage bucket
     actions   = ["s3:GetBucketAcl"]
     resources = [aws_s3_bucket.example.arn]
     condition {
@@ -47,7 +50,7 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
   }
 }
 
-resource "aws_s3_bucket_policy" "example" {
+resource "aws_s3_bucket_policy" "cloudtrail_logs_bucket_resource_policy" {
   bucket = aws_s3_bucket.example.id
   policy = data.aws_iam_policy_document.example.json
 }
