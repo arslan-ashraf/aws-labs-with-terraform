@@ -17,17 +17,18 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
     # or (ACL), it allows CloudTrail to check these permissions so it can 
     # deliver logs into the designated bucket
     actions   = ["s3:GetBucketAcl"]
+
     resources = [aws_s3_bucket.cloudtrail_logs_bucket.arn]
 
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      # values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/secret_accessed_trail"]
+      values   = aws_cloudtrail.secret_accessed_trail.arn
     }
   }
 
   statement {
-    sid    = "AWSCloudTrailWrite"
+    sid    = "Allow CloudTrail to write to S3 bucket"
     effect = "Allow"
 
     principals {
@@ -36,22 +37,18 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
     }
 
     actions   = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.example.arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
+
+    resources = ["${aws_s3_bucket.cloudtrail_logs_bucket.arn}/*"]
 
     condition {
       test     = "StringEquals"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
-    }
-    condition {
-      test     = "StringEquals"
       variable = "aws:SourceArn"
-      # values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/secret_accessed_trail"]
+      values   = aws_cloudtrail.secret_accessed_trail.arn
     }
   }
 }
 
 resource "aws_s3_bucket_policy" "cloudtrail_logs_bucket_resource_policy" {
-  bucket = aws_s3_bucket.example.id
-  policy = data.aws_iam_policy_document.example.json
+  bucket = aws_s3_bucket.cloudtrail_logs_bucket.id
+  policy = data.aws_iam_policy_document.s3_resource_policy_document.json
 }

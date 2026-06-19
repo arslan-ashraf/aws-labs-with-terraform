@@ -10,9 +10,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
       identifiers = ["cloudwatch.amazonaws.com"]
     }
 
-    resources = [
-      aws_sns_topic.ec2_cpu_alerts_sns_topic.arn
-    ]
+    resources = [aws_sns_topic.ec2_cpu_alerts_sns_topic.arn]
   }
 }
 
