@@ -2,3 +2,35 @@ resource "aws_cloudwatch_log_group" "secrets_accessed_cloudwatch_log_group" {
   name              = "secrets_accessed_cloudwatch_log_group"
   retention_in_days = 14
 }
+
+resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
+  name           = "secret_access_count"
+  
+  # when an API calls the secret, CloudTrail writes a log that looks
+  # like this in JSON:
+  # {
+  #   "eventVersion": "1.08",
+  #   "userIdentity": { ... },
+  #   "eventTime": "2026-06-19T18:00:00Z",
+  #   "eventSource": "://amazonaws.com",
+  #   "eventName": "GetSecretValue",
+  #   "awsRegion": "us-east-1",
+  #   "requestElements": {
+  #     "secretId": "<secret_arn>"
+  #   }
+  # }
+
+  # the pattern field below uses a filter expression, that says, in the root 
+  # given by $, look at eventName and see if it equals GetSecretValue
+
+  pattern        = "{ ($.eventName = GetSecretValue) && ($.requestElements.secretId = \"${aws_secretsmanager_secret.example_secret.arn}\") }"
+
+  log_group_name = aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.name
+
+  metric_transformation {
+    name          = "SecretRetrievalCount"
+    namespace     = "Custom/SecretsManagerUsage"
+    value         = "1"
+    default_value = "0"
+  }
+}
