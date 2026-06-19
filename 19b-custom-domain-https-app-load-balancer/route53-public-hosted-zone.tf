@@ -11,9 +11,9 @@
 #   tags_all          = {}
 # }
 
-# # import public hosted zone custom_domain.site
+# # import public hosted zone where the custom_domain is hosted
 # import {
-#   to = aws_route53_zone.custom_domain_dot_site
+#   to = aws_route53_zone.route53_zone_for_custom_domain
 #   id = "Z04401803CHL5IPK5D5OA" # Hosted Zone ID
 # }
 
@@ -22,7 +22,7 @@
 # prevents destruction of resource when "terraform destroy command" is executed
 # but it requires that the resource to be untracked should be  commented out first
 # removed {
-#   from = aws_route53_zone.custom_domain_dot_site
+#   from = aws_route53_zone.route53_zone_for_custom_domain
 
 #   lifecycle {
 #     destroy = false
@@ -32,7 +32,7 @@
 
 # resource "aws_route53_record" "tls_certified_cname" {
 #   health_check_id                  = null
-#   name                             = "_7b5eefd03761c163452e0a94792668ac.custom_domain.site"
+#   name                             = "_7b5eefd03761c163452e0a94792668ac.<custom_domain>"
 #   records                          = ["_b66cd84cd09764d438c840759a6e3cc6.jkddzztszm.acm-validations.aws."]
 #   set_identifier                   = null
 #   ttl                              = 300
@@ -43,7 +43,7 @@
 # # import CNAME Record
 # import {
 #   to = aws_route53_record.tls_certified_cname
-#   id = "Z04401803CHL5IPK5D5OA__7b5eefd03761c163452e0a94792668ac.custom_domain.site_CNAME"
+#   id = "Z04401803CHL5IPK5D5OA__7b5eefd03761c163452e0a94792668ac.<custom_domain>_CNAME"
 # }
 
 # removed block untracks the resource from the state file
