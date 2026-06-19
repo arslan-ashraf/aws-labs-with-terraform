@@ -4,8 +4,9 @@ Note: AWS monitors various metrics including the CPU metric automatically for EC
 
 However, EC2 CPU utilization is not automatically written to a CloudWatch Log Group. If you want CPU utilization values to appear in a log group, you must run the CloudWatch Agent on the instance and configure it to collect CPU metrics and publish them. The agent can publish metrics to CloudWatch Metrics and optionally write agent logs to CloudWatch Logs.  We do not implement that in this lab.
 
+First, confirm the SNS topic subscription by copying the link in the button, (don't click the button, it automatically unsubscribes) and pasting it into the SNS topic.
 
-We first SSH into the EC2 instance, create and launch a Python script inside the instance to spike its CPU usage.  We can then see that metric in CloudWatch.
+Then, SSH into the EC2 instance, create and launch a Python script (`cpu_spike.py`) inside the instance to spike its CPU usage.  We can then see that metric in CloudWatch.
 
 To connect to an ec2 using ssh using the private key:
 
