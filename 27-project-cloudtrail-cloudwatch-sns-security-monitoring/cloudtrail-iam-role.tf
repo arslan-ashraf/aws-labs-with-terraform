@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "cloudtrail_write_to_cloudwatch_permissions" {
     effect = "Allow"
 
     resources = [
-      aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn,
+      # aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn,
       "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
     ]
 
