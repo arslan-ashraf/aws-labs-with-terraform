@@ -21,11 +21,11 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   }
 
   alarm_actions = [
-    aws_sns_topic.ec2_cpu_alerts.arn
+    aws_sns_topic.ec2_cpu_alerts_sns_topic.arn
   ]
 
   # list of actions to execute when this alarm transitions into an OK state
   ok_actions = [
-    aws_sns_topic.ec2_cpu_alerts.arn
+    aws_sns_topic.ec2_cpu_alerts_sns_topic.arn
   ]
 }
