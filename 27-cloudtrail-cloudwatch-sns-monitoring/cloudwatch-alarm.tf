@@ -6,9 +6,6 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   threshold           = var.number_of_secret_accesses
   statistic           = "Maximum"
 
-  # standard EC2 monitoring is published once every five minutes but with
-  # detailed monitoring enabled on the EC2 instance, its published every minute
-
   # total evaluation time in seconds = period × evaluation_periods
   period             = 60 # time in seconds over which metric is aggregated
   evaluation_periods = 1  # number of these time windows CloudWatch looks at to decide the alarm state
