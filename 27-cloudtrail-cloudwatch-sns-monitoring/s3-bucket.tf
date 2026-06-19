@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "cloudtrail_logs_bucket" {
 data "aws_iam_policy_document" "s3_resource_policy_document" {
 
   statement {
-    sid    = "AWSCloudTrailAclCheck"
+    sid    = "Allow CloudTrail to verify bucket's ACL"
     effect = "Allow"
 
     principals {
@@ -15,13 +15,14 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
     }
     # grants CloudTrail permission to verify the bucket's Access Control List
     # or (ACL), it allows CloudTrail to check these permissions so it can 
-    # deliver logs into the designated storage bucket
+    # deliver logs into the designated bucket
     actions   = ["s3:GetBucketAcl"]
-    resources = [aws_s3_bucket.example.arn]
+    resources = [aws_s3_bucket.cloudtrail_logs_bucket.arn]
+
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/example"]
+      # values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/secret_accessed_trail"]
     }
   }
 
@@ -45,7 +46,7 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/example"]
+      # values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/secret_accessed_trail"]
     }
   }
 }
