@@ -8,6 +8,8 @@ resource "aws_cloudtrail" "secret_accessed_trail" {
   include_global_service_events    = false # prevents global services (e.g., IAM) from sending logs
   enable_logging                   = true  # default
   enable_log_file_validation       = true
+
+  # accessing a secret is a management event
   include_management_events        = true # default true
   exclude_management_event_sources = [
     "kms.amazonaws.com", 
