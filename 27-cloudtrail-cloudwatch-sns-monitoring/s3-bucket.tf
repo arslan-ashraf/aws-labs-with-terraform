@@ -1,9 +1,9 @@
-resource "aws_s3_bucket" "example" {
-  bucket        = "tf-test-trail"
+resource "aws_s3_bucket" "cloudtrail_logs_bucket" {
+  bucket        = "cloudtrail_logs_45807934756"
   force_destroy = true
 }
 
-data "aws_iam_policy_document" "example" {
+data "aws_iam_policy_document" "s3_resource_policy_document" {
   statement {
     sid    = "AWSCloudTrailAclCheck"
     effect = "Allow"
