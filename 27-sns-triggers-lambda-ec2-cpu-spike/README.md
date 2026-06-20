@@ -2,7 +2,7 @@ This lab is a continuation of the previous one.  The only difference is that ins
 
 First, confirm the SNS topic subscription by copying the link in the button, (don't click the button, it automatically unsubscribes) and pasting it into the SNS topic.
 
-Then, SSH into the EC2 instance, create and launch a Python script (`cpu_spike.py`) inside the instance to spike its CPU usage.  We can then see that metric in CloudWatch.
+Then, SSH into the EC2 instance, create and launch a Python script (`cpu_spike.py`) inside the instance to spike its CPU usage.  We can then see that indeed the Lambda function ran in the Lambda console under monitor tab.
 
 To connect to an ec2 using ssh using the private key:
 

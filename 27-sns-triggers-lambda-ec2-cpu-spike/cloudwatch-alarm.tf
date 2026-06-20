@@ -3,7 +3,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   comparison_operator = "GreaterThanThreshold"
   metric_name         = "CPUUtilization"
   namespace           = "AWS/EC2"
-  threshold           = var.cpu_alarm_threshold
+  threshold           = 50
   statistic           = "Maximum"
 
   # standard EC2 monitoring is published once every five minutes but with
