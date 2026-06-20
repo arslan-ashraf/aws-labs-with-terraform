@@ -1,6 +1,19 @@
 resource "aws_s3_bucket" "cloudtrail_logs_bucket" {
-  bucket        = "cloudtrail_logs_45807934756"
+  bucket        = "cloudtrail-logs-3df48b"
   force_destroy = true
+}
+
+data "aws_caller_identity" "current" {}
+
+data "aws_partition" "current" {}
+
+data "aws_region" "current" {}
+
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+  partition = data.aws_partition.current.partition
+  region = data.aws_region.current.region
+  cloudtrail_base_arn = "arn:${local.partition}:cloudtrail:${local.region}:${local.account_id}:trail"
 }
 
 data "aws_iam_policy_document" "s3_resource_policy_document" {
@@ -16,14 +29,15 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
     # grants CloudTrail permission to verify the bucket's Access Control List
     # or (ACL), it allows CloudTrail to check these permissions so it can 
     # deliver logs into the designated bucket
-    actions   = ["s3:GetBucketAcl"]
+    actions = ["s3:GetBucketAcl"]
 
     resources = [aws_s3_bucket.cloudtrail_logs_bucket.arn]
 
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = aws_cloudtrail.secret_accessed_trail.arn
+      values   = ["${local.cloudtrail_base_arn}/secret_accessed_trail"]
+      # values = [aws_cloudtrail.secret_accessed_trail.arn]
     }
   }
 
@@ -36,14 +50,15 @@ data "aws_iam_policy_document" "s3_resource_policy_document" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
 
-    actions   = ["s3:PutObject"]
+    actions = ["s3:PutObject"]
 
-    resources = ["${aws_s3_bucket.cloudtrail_logs_bucket.arn}/*"]
+    resources  = ["${aws_s3_bucket.cloudtrail_logs_bucket.arn}/*"]
 
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = aws_cloudtrail.secret_accessed_trail.arn
+      values   = ["${local.cloudtrail_base_arn}/secret_accessed_trail"]
+      # values = [aws_cloudtrail.secret_accessed_trail.arn]
     }
   }
 }

@@ -5,3 +5,15 @@ Furthermore, we create a CloudWatch log group to send the same CloudTrail logs t
 We also create a CloudWatch alarm that goes off every time anyone accesses the secret.  We want to be notified by email when that alarm goes off which we get from SNS.
 
 The reason we send CloudTrail logs to CloudWatch is because we want to setup an SNS notification and CloudTrail only stores logs for 90 days.  Also log analytics are possible in CloudWatch but we don't explore that in this project.
+
+To get the CloudTrail log delivery times:
+```
+aws cloudtrail get-trail-status --name secret_accessed_trail
+```
+
+To force delete a secret key in SecretsManager:
+```
+aws secretsmanager delete-secret \
+    --secret-id <secret_name_or_ARN> \
+    --force-delete-without-recovery
+```

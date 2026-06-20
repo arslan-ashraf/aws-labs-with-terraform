@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "cloudtrail_trust_policy_document" {
 }
 
 resource "aws_iam_role" "cloudtrail_role" {
-  name = "cloudtrail_role"
+  name               = "cloudtrail_role"
   assume_role_policy = data.aws_iam_policy_document.cloudtrail_trust_policy_document.json
 }
 
@@ -23,21 +23,21 @@ data "aws_iam_policy_document" "cloudtrail_write_to_cloudwatch_permissions" {
   statement {
     effect = "Allow"
 
-    resources = [
-      # aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn,
-      "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
-    ]
-
     actions = [
       "logs:CreateLogStream",
       "logs:PutLogEvents"
+    ]
+
+    resources = [
+      # aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn,
+      "${aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.arn}:*"
     ]
   }
 
 }
 
 resource "aws_iam_policy" "cloudtrail_policy" {
-  name = "cloudtrail_policy"
+  name   = "cloudtrail_policy"
   policy = data.aws_iam_policy_document.cloudtrail_write_to_cloudwatch_permissions.json
 }
 
