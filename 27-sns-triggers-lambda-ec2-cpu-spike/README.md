@@ -1,8 +1,4 @@
-This lab creates and EC2 instance, an SNS topic and a CloudWatch alarm to notify us via email that a metric has been breached.
-
-Note: AWS monitors various metrics including the CPU metric automatically for EC2 instances and sends them to CloudWatch Metrics. It is not necessary to install an agent on the EC2 instance just to get CPU metrics.
-
-However, EC2 CPU utilization is not automatically written to a CloudWatch Log Group. If you want CPU utilization values to appear in a log group, you must run the CloudWatch Agent on the instance and configure it to collect CPU metrics and publish them. The agent can publish metrics to CloudWatch Metrics and optionally write agent logs to CloudWatch Logs.  We do not implement that in this lab.
+This lab is a continuation of the previous one.  The only difference is that instead of SNS sending an email notification in response to CPU utilization exceeding the desired threshold, SNS will instead trigger a Lambda function.
 
 First, confirm the SNS topic subscription by copying the link in the button, (don't click the button, it automatically unsubscribes) and pasting it into the SNS topic.
 
