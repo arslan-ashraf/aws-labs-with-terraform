@@ -6,6 +6,8 @@ We also create a CloudWatch alarm that goes off every time anyone accesses the s
 
 The reason we send CloudTrail logs to CloudWatch is because we want to setup an SNS notification and CloudTrail only stores logs for 90 days.  Also log analytics are possible in CloudWatch but we don't explore that in this project.
 
+To setup this project, first create a secret in SecretsManager manually using the AWS console.  We don't to manage secrets with Terraform because they can't just be created and deleted arbitrarily.  Normally when you delete a secret, it doesn't get deleted but stays dormant for 7 to 30 days.
+
 To get the CloudTrail log delivery times:
 ```
 aws cloudtrail get-trail-status --name secret_accessed_trail
