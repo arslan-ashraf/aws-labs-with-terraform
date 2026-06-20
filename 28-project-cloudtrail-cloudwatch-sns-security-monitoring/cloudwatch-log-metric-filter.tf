@@ -44,8 +44,8 @@ resource "aws_cloudwatch_log_metric_filter" "secret_access_count" {
   log_group_name = aws_cloudwatch_log_group.secrets_accessed_cloudwatch_log_group.name
 
   metric_transformation {
-    name          = "secret_access_count"
-    namespace     = "SecurityMetrics"
+    name          = "secret_access_count"  # must match cloudwatch alarm name
+    namespace     = "SecurityMetrics"      # must match cloudwatch alarm namespace
     value         = "1"
     default_value = "0"
   }
