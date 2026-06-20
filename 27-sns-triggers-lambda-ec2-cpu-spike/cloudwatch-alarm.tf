@@ -21,7 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
   }
 
   alarm_actions = [
-    aws_sns_topic.ec2_cpu_alerts_sns_topic.arn
+    aws_sns_topic.trigger_lambda_sns_topic.arn
   ]
 
 }
