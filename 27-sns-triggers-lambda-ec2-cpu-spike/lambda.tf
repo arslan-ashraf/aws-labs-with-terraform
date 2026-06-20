@@ -11,9 +11,9 @@ resource "aws_lambda_function" "target_lambda" {
 
 # Lambda resource based policy
 resource "aws_lambda_permission" "allow_sns_invoke_lambda" {
-  statement_id  = "AllowExecutionFromSNS"
+  statement_id  = "Allow Lambda execution from SNS"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.target_lambda.function_name
   principal     = "sns.amazonaws.com"
-  source_arn    = aws_sns_topic.alarm_topic.arn
+  source_arn    = aws_sns_topic.trigger_lambda_sns_topic.arn
 }
