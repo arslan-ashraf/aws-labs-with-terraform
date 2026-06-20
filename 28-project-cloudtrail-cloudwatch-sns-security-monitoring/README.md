@@ -8,6 +8,8 @@ The reason we send CloudTrail logs to CloudWatch is because we want to setup an 
 
 To setup this project, first create a secret in SecretsManager manually using the AWS console.  We don't to manage secrets with Terraform because they can't just be created and deleted arbitrarily.  Normally when you delete a secret, it doesn't get deleted but stays dormant for 7 to 30 days.
 
+Then apply this Terraform configuration and view the secret which can be done on the AWS console or using the AWS CLI.
+
 To get the CloudTrail log delivery times:
 ```
 aws cloudtrail get-trail-status --name secret_accessed_trail
