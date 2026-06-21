@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
-# Import your temporary, hard-coded credentials
+# import credentials
 import config
 
 app = FastAPI()
@@ -23,7 +23,6 @@ def list_s3_buckets():
     """
     Demonstrates why we need AWS credentials:
     This endpoint lists the user's S3 buckets behind the scenes.
-    Initially, it uses hard-coded credentials from config.py.
     """
     try:
         session = boto3.Session(
