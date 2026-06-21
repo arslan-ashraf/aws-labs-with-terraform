@@ -6,18 +6,24 @@ We also create a CloudWatch alarm that goes off every time anyone accesses the s
 
 The reason we send CloudTrail logs to CloudWatch is because we want to setup an SNS notification and CloudTrail only stores logs for 90 days.  Also log analytics are possible in CloudWatch but we don't explore that in this project.
 
-To setup this project, first create a secret in SecretsManager manually using the AWS console.  We don't to manage secrets with Terraform because they can't just be created and deleted arbitrarily.  Normally when you delete a secret, it doesn't get deleted but stays dormant for 7 to 30 days.
+To setup this project:
 
-Verify the SNS subscription email.  Then apply this Terraform configuration and view the secret which can be done on the AWS console or using the AWS CLI.  Wait about a couple of minutes to receive an email confirming that the secret was accessed.
+1. First create a secret in SecretsManager manually using the AWS console.  We don't to manage secrets with Terraform because they can't just be created and deleted arbitrarily.  Normally when you delete a secret, it doesn't get deleted but stays dormant for 7 to 30 days.
 
-To get the CloudTrail log delivery times:
-```
-aws cloudtrail get-trail-status --name secret_accessed_trail
-```
+2. Apply this Terraform configuration with the secret's ARN.
 
-To force delete a secret in SecretsManager:
+3. Verify the SNS subscription email.
+
+4. View the secret which can be done on the AWS console or using the AWS CLI.  Wait about a couple of minutes to receive an email confirming that the secret was accessed.
+
+5. Cleanup and force delete the secret in SecretsManager:
 ```
 aws secretsmanager delete-secret \
     --secret-id <secret_name_or_ARN> \
     --force-delete-without-recovery
+```
+
+To get the CloudTrail log delivery times:
+```
+aws cloudtrail get-trail-status --name secret_accessed_trail
 ```
