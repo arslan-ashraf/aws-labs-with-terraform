@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "ec2_assume_role_document" {
+data "aws_iam_policy_document" "ec2_trust_policy_document" {
   statement {
     effect = "Allow"
 
@@ -11,25 +11,28 @@ data "aws_iam_policy_document" "ec2_assume_role_document" {
   }
 }
 
-
 resource "aws_iam_role" "ec2_secrets_access_role" {
   name = "ec2-secrets-manager-reader-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      }
-    ]
-  })
+  assume_role_policy = data.aws_iam_policy_document.ec2_trust_policy_document.json
 }
 
-# 2. Define the IAM Policy allowing the instance to read specific secrets
+
+data "aws_iam_policy_document" "ec2_sqs_access_permissions" {
+  statement {
+    effect    = "Allow"
+    
+    actions = [
+      "sqs:SendMessage",
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl"
+    ]
+
+    resources = [var.api_secrets_arn]
+  }
+}
+
 resource "aws_iam_policy" "secrets_read_policy" {
   name        = "ec2-secrets-manager-read-policy"
   description = "Allows EC2 instances to read specific API keys from Secrets Manager"
