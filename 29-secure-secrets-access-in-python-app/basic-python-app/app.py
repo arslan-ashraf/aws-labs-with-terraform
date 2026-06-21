@@ -26,7 +26,7 @@ def list_s3_buckets():
     """
     try:
         session = boto3.Session(
-            aws_access_key_id=config.AWS_ACCESS_KEY_ID,
+            aws_access_key_id=config.AWS_ACCESS_KEY,
             aws_secret_access_key=config.AWS_SECRET_ACCESS_KEY,
             region_name=config.AWS_REGION
         )
