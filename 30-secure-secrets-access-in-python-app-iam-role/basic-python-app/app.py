@@ -5,9 +5,6 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 import uvicorn
 
-# import credentials
-import config
-
 app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
@@ -21,16 +18,10 @@ def read_index():
 @app.get("/buckets")
 def list_s3_buckets():
     """
-    Demonstrates why we need AWS credentials:
     This endpoint lists the user's S3 buckets behind the scenes.
     """
     try:
-        session = boto3.Session(
-            aws_access_key_id=config.AWS_ACCESS_KEY,
-            aws_secret_access_key=config.AWS_SECRET_ACCESS_KEY,
-            region_name=config.AWS_REGION
-        )
-        s3 = session.client("s3")
+        s3 = boto3.client('s3')
         response = s3.list_buckets()
 
         bucket_names = [bucket["Name"] for bucket in response.get("Buckets", [])]
