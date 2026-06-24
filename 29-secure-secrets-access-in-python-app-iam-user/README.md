@@ -8,7 +8,7 @@ To implement this lab, follow these steps:
 
 2. To run this Terraform lab, copy the secret's ARN.
 
-3. SSH into the EC2 instance and copy the four files in `basic-python-app` folder into the EC2 instance and install pip, v-env, create and activate the virtual environment:
+3. SSH into the EC2 instance and copy the four files in `basic-python-app` folder into the EC2 instance and install pip, v-env, create and activate the virtual environment, install Python packages, and finally run the Python server:
 
 ```
 sudo apt update && sudo apt install python3-pip python3-venv python3-full -y
@@ -22,23 +22,23 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-4. Install Python packages:
+Install Python packages:
 ```
 pip3 install -r requirements.txt
 ```
 
-5. Run the Python server:
+Run the Python server:
 ```
 python3 app.py
 ```
 
-6. Test the app by visiting the URL: <EC2_public_IP>:8000
+4. Test the app by visiting the URL: <EC2_public_IP>:8000
 
-7. Force delete the secret in SecretsManager:
+5. Force delete the secret in SecretsManager:
 ```
 aws secretsmanager delete-secret \
     --secret-id <secret_name_or_ARN> \
     --force-delete-without-recovery
 ```
 
-8. Delete IAM credentials.
+6. Delete IAM credentials.
