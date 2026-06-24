@@ -8,7 +8,7 @@ To implement this lab, follow these steps:
 2. SSH into the EC2 instance and copy all the files in `basic-python-app` folder into the EC2 instance.
 
 3. Now install pip, v-env, create and activate the virtual environment, install Python packages, and finally run the Python server.  For demonstration, there are two options:
-    a) Run the shell script `./setup.sh`.
+    a) Run the shell script `./setup.sh`.  The file `setup.sh` needs executable permissions: `chmod 700 setup.sh`
     b) Run all the commands in the shell script one by one as listed below.
 
 ```

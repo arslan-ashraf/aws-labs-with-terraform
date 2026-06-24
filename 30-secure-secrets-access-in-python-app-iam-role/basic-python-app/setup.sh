@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # the "set" command immediately fails and stops running the commands in 
 # a shell script file when errors occur but the type of error which stops 
