@@ -1,4 +1,4 @@
-In this lab, we run a basic Python server on an EC2 instance that gets API secrets from SecretsManager.  The example here only serves to show what is possible.  Ordinarily, these secrets would be something like database credentials or API keys to an external service such as Stripe or a call to an LLM.
+This lab is a continuation of the previous lab.  We run a basic Python server on an EC2 instance that accesses S3.  Unlike the previous lab, we don't use any IAM user whose credentials are in SecretsManager.  Instead, we employ the AWS best practice of using an IAM role.
 
 Here, we use IAM credentials to merely list S3 buckets.  This is for demonstration only and is not a best practice.  The appropriate way for an EC2 or AWS compute to obtain access to other AWS services is through IAM roles.
 
