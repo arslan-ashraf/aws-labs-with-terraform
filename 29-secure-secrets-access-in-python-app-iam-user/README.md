@@ -8,7 +8,7 @@ To implement this lab, follow these steps:
 
 2. To run this Terraform lab, copy the secret's ARN.
 
-3. SSH into the EC2 instance and copy the four files in `basic-python-app` folder into the EC2 instance and install pip, v-env, create and activate the virtual environment, install Python packages, and finally run the Python server:
+3. SSH into the EC2 instance and copy all the files in `basic-python-app` folder into the EC2 instance and install pip, v-env, create and activate the virtual environment, install Python packages, and finally run the Python server:
 
 ```
 sudo apt update && sudo apt install python3-pip python3-venv python3-full -y
