@@ -1,14 +1,15 @@
-This lab is a continuation of the previous lab.  We run a basic Python server on an EC2 instance that accesses S3.  Unlike the previous lab, we don't use any IAM user whose credentials are in SecretsManager.  Instead, we employ the AWS best practice of using an IAM role.
+This lab is a continuation of the previous lab.  We run a basic Python server on an EC2 instance that accesses S3.  Unlike the previous lab, we don't use any IAM user whose credentials are in SecretsManager.  Instead, we employ the AWS best practice of using an IAM role to give the EC2 instance temporary credentials to access S3.
 
-Here, we use IAM credentials to merely list S3 buckets.  This is for demonstration only and is not a best practice.  The appropriate way for an EC2 or AWS compute to obtain access to other AWS services is through IAM roles.
 
 To implement this lab, follow these steps:
 
-1. In the AWS console, create IAM access key credentials and create a secret in SecretsManager that stores those credentials.  
+1. To run this Terraform lab.
 
-2. To run this Terraform lab, copy the secret's ARN.
+2. SSH into the EC2 instance and copy the four files in `basic-python-app` folder into the EC2 instance.
 
-3. SSH into the EC2 instance and copy the four files in `basic-python-app` folder into the EC2 instance and install pip, v-env, create and activate the virtual environment:
+3. Now install pip, v-env, create, activate the virtual environment, install Python packages, and finally run the Python server.  For demonstration, there are two options:
+    a) Run the shell script `./setup.sh`.
+    b) Run all the commands in the shell script one by one as listed below.
 
 ```
 sudo apt update && sudo apt install python3-pip python3-venv python3-full -y
@@ -22,23 +23,14 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-4. Install Python packages:
+Install Python packages:
 ```
 pip3 install -r requirements.txt
 ```
 
-5. Run the Python server:
+Run the Python server:
 ```
 python3 app.py
 ```
 
-6. Test the app by visiting the URL: <EC2_public_IP>:8000
-
-7. Force delete the secret in SecretsManager:
-```
-aws secretsmanager delete-secret \
-    --secret-id <secret_name_or_ARN> \
-    --force-delete-without-recovery
-```
-
-8. Delete IAM credentials.
+4. Test the app by visiting the URL: <EC2_public_IP>:8000
