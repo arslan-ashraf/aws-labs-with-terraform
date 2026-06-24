@@ -11,28 +11,27 @@ data "aws_iam_policy_document" "ec2_trust_policy_document" {
   }
 }
 
-resource "aws_iam_role" "ec2_secrets_access_role" {
-  name = "ec2-secrets-manager-reader-role"
+resource "aws_iam_role" "ec2_s3_access_role" {
+  name = "ec2_s3_access_role"
   assume_role_policy = data.aws_iam_policy_document.ec2_trust_policy_document.json
 }
 
 
-data "aws_iam_policy_document" "ec2_secrets_access_permissions" {
+data "aws_iam_policy_document" "ec2_s3_access_permissions" {
   statement {
     effect    = "Allow"
     
     actions = [
-      "secretsmanager:GetSecretValue",
-      "secretsmanager:DescribeSecret"
+      "s3:*"
     ]
 
-    resources = [var.api_secrets_arn]
+    resources = ["*"]
   }
 }
 
 resource "aws_iam_policy" "secrets_read_policy" {
   name   = "ec2-secrets-manager-read-policy"
-  policy = data.aws_iam_policy_document.ec2_secrets_access_permissions.json
+  policy = data.aws_iam_policy_document.ec2_s3_access_permissions.json
 }
 
 
