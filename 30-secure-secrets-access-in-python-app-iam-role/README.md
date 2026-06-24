@@ -5,7 +5,7 @@ To implement this lab, follow these steps:
 
 1. To run this Terraform lab.
 
-2. SSH into the EC2 instance and copy the four files in `basic-python-app` folder into the EC2 instance.
+2. SSH into the EC2 instance and copy all the files in `basic-python-app` folder into the EC2 instance.
 
 3. Now install pip, v-env, create and activate the virtual environment, install Python packages, and finally run the Python server.  For demonstration, there are two options:
     a) Run the shell script `./setup.sh`.
