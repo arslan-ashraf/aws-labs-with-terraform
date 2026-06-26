@@ -1,4 +1,4 @@
-
+In this lab, 
 
 ```
 openssl genrsa -out private_key_for_cloudfront.pem 2048
