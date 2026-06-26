@@ -20,26 +20,27 @@ resource "aws_iam_role" "lambda_role" {
 
 # IAM Policy to allow Lambda to issue PutObject/GetObject actions
 data "aws_iam_policy_document" "lambda_dynamoDB_CRUD_permissions" {
-  statement {
-    effect    = "Allow"
+  
+  # statement {
+  #   effect    = "Allow"
 
-    actions   = [
-      "dynamodb:GetItem",
-      "dynamodb:DeleteItem",
-      "dynamodb:PutItem",
-      "dynamodb:Scan",
-      "dynamodb:Query",
-      "dynamodb:UpdateItem",
-      "dynamodb:BatchWriteItem",
-      "dynamodb:BatchGetItem",
-      "dynamodb:DescribeTable"
-    ]
+  #   actions   = [
+  #     "dynamodb:GetItem",
+  #     "dynamodb:DeleteItem",
+  #     "dynamodb:PutItem",
+  #     "dynamodb:Scan",
+  #     "dynamodb:Query",
+  #     "dynamodb:UpdateItem",
+  #     "dynamodb:BatchWriteItem",
+  #     "dynamodb:BatchGetItem",
+  #     "dynamodb:DescribeTable"
+  #   ]
 
-    resources = [
-      "${aws_dynamodb_table.users_table.arn}",
-      "${aws_dynamodb_table.users_table.arn}/*"
-    ]
-  }
+  #   resources = [
+  #     "${aws_dynamodb_table.users_table.arn}",
+  #     "${aws_dynamodb_table.users_table.arn}/*"
+  #   ]
+  # }
 
 }
 
