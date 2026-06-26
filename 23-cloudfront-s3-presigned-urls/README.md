@@ -23,3 +23,5 @@ openssl rsa -pubout -in private_key_for_cloudfront.pem -out public_key_for_cloud
 ```
 python generate_cloudfront_presigned_url.py
 ```
+
+4. Test the generated URL by visiting it.
