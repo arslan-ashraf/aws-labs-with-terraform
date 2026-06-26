@@ -16,6 +16,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   http_version        = "http2and3" # default is http2
   default_root_object = "index.html"
 
+  trusted_key_groups  = [aws_cloudfront_key_group.cloudfront_public_key_group.id]
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
