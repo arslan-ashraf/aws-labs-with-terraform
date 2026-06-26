@@ -43,10 +43,13 @@ resource "aws_vpc_endpoint" "sqs_interface_endpoint" {
   service_name        = data.aws_vpc_endpoint_service.sqs_endpoint.service_name
   vpc_endpoint_type   = "Interface"
 
-  # enable private DNS hostnames so resources can resolve public domain hostnames
-  # like "sqs.<region>.amazonaws.com" locally, a private Route 53 hosted zone is 
-  # associated with your VPC to override default AWS public endpoints
-  # setting true allows instances in your VPC to reach an AWS service using its default 
+  # private_dns_enabled controls whether standard AWS public service URLs
+  # like "sqs.<region>.amazonaws.com" automatically route through your private 
+  # VPC endpoint
+
+  # AWS automatically associates a hidden Route 53 Private Hosted Zone with your VPC
+  # when private_dns_enabled = true, this allows instances in your VPC 
+  # to reach an AWS service using its default 
   # public DNS name (e.g., sqs.us-east-1.amazonaws.com), but route the traffic 
   # privately within AWS's network through the endpoint instead of the public internet
   # WARNING: AWS creates a Private Hosted Zone under the hood and hides the underlying 
