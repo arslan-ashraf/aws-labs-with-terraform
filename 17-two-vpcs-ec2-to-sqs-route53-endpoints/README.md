@@ -17,7 +17,15 @@ How the DNS resolution flow works:
 
 6 - EC2 sends message to the SQS Queue using the queue's IP Address
 
-Use the command below to verify that EC2 is able to connect to SQS using interface endpoint:
+
+To run this lab:
+
+1. Run Terraform
+
+2. SSH into the EC2 instance
+
+3. Inside the EC2 instance, use the command below to verify that EC2 is able to connect to SQS using interface endpoint:
+
 ```
 aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue --message-body "test message 1"  --region us-east-1
 ```
