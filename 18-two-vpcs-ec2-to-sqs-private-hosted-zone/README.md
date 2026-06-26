@@ -16,3 +16,25 @@ To run this lab:
 ```
 aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue --message-body "test message 1"  --region us-east-1
 ```
+
+Run this command to see if private DNS is indeed working:
+```
+nslookup sqs.us-east-1.amazonaws.com
+```
+
+This should show something like:
+
+Non-authoritative answer:
+Name:   sqs.us-east-1.amazonaws.com
+Address: 90.0.90.51
+
+90.0.0.0/16 is the CIDR block of the VPC and its private subnet for SQS
+has CIDR block 90.0.90.0/24
+
+or
+```
+dig +short sqs.us-east-1.amazonaws.com
+```
+
+This should show:
+90.0.90.51

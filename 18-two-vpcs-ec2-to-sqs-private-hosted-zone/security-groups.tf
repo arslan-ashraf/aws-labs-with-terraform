@@ -12,7 +12,7 @@ resource "aws_security_group" "security_group_for_ec2_instance" {
   tags   = { Name = "security_group_for_ec2_instance" }
 }
 
-# allow the instance connect endpoint to get into the EC2 instance
+# allow SSH into the EC2 instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
 

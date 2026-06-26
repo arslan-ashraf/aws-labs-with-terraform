@@ -8,10 +8,6 @@ resource "aws_route53_zone" "sqs_private_hosted_zone" {
   }
 }
 
-output "sqs_interface_endpoint" {
-  value = aws_vpc_endpoint.sqs_interface_endpoint.dns_entry
-}
-
 # create a DNS Alias Record pointing to the SQS Interface Endpoint
 resource "aws_route53_record" "sqs_alias_dns_record" {
   zone_id = aws_route53_zone.sqs_private_hosted_zone.zone_id
@@ -25,7 +21,7 @@ resource "aws_route53_record" "sqs_alias_dns_record" {
   }
 }
 
-# 4. Cross-Associate the Private Hosted Zone to VPC A
+# Cross-Associate the Private Hosted Zone to VPC A
 resource "aws_route53_zone_association" "vpc_for_ec2_association" {
   zone_id = aws_route53_zone.sqs_private_hosted_zone.zone_id
   vpc_id  = aws_vpc.vpc_for_ec2.id

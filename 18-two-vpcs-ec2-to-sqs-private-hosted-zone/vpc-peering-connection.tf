@@ -1,5 +1,4 @@
-# VPC in US-east region making VPC peering connection request to 
-# VPC in Tokyo region
+# one VPC  making VPC peering connection request to another VPC
 resource "aws_vpc_peering_connection" "EC2_to_SQS_interface_endpoint_connection" {
   region      = "us-east-1"               # region where this is defined
   vpc_id      = aws_vpc.vpc_for_ec2.id    # connection requester VPC
@@ -22,7 +21,7 @@ resource "aws_vpc_peering_connection" "EC2_to_SQS_interface_endpoint_connection"
 }
 
 
-# VPC in Tokyo region accepting the peering connection from VPC in US-east region
+# request receiving VPC accepting the peering connection from reqesting VPC
 resource "aws_vpc_peering_connection_accepter" "vpc_peering_connection_accepter" {
   vpc_peering_connection_id = aws_vpc_peering_connection.EC2_to_SQS_interface_endpoint_connection.id
   auto_accept               = true

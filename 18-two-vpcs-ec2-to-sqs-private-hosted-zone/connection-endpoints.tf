@@ -3,8 +3,8 @@
 #########################################################################
 
 
-# dynamically retrieve the correct service name (e.g., com.amazonaws.us-east-1.sqs) 
-# for the given region
+# dynamically retrieve the correct service name something like:
+# (e.g., com.amazonaws.us-east-1.sqs), for the given region
 data "aws_vpc_endpoint_service" "sqs_endpoint" {
   service      = "sqs"
   service_type = "Interface"
@@ -27,10 +27,10 @@ data "aws_iam_policy_document" "sqs_endpoint_permissions" {
     #   type        = "*"
     #   identifiers = ["*"]
     # }
-    
+
     principals {
       type        = "AWS"
-      identifiers = aws_iam_role.ec2_sqs_access_role.arn
+      identifiers = [aws_iam_role.ec2_sqs_access_role.arn]
     }
 
     resources = [aws_sqs_queue.simple_queue.arn]
