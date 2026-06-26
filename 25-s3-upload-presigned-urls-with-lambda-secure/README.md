@@ -2,7 +2,7 @@ This is a continuation of the previous lab.  S3 presigned URLs do not have a bui
 
 To ensure one time use of the URL, requires the application backend to record a user's actions in a database.  S3 also does not guarantee that only the user who requested the presigned URL is the one who is allowed to use it.
 
-However, we can enforce other restrictions such as how long the presigned URL is active for, the size range that the uploaded file must have, the file type, the file name among other things.
+However, we can enforce other restrictions such as how long the presigned URL is active for, the size range that the uploaded file must have, the file type, the file name among other things.  We accomplish this in the Lambda function's code with the JavaScript SDK.
 
 
 To generate an S3 presigned URL, invoke the Lambda function using the command:
