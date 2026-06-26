@@ -9,11 +9,17 @@ However, CloudFront may see the user's IPv4 address or the user's IPv6 address. 
 To run this lab:
 
 1. Generate public and private keys:
-
 ```
 openssl genrsa -out private_key_for_cloudfront.pem 2048
 ```
 
 ```
 openssl rsa -pubout -in private_key_for_cloudfront.pem -out public_key_for_cloudfront.pem
+```
+
+2. Run Terraform:
+
+3. Run the Python script:
+```
+python generate_cloudfront_presigned_url.py
 ```
