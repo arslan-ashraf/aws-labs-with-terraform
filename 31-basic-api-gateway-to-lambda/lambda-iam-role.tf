@@ -26,21 +26,6 @@ data "aws_iam_policy_document" "lambda_s3_permissions" {
     resources = ["${aws_s3_bucket.private_bucket.arn}/*"]
   }
 
-  statement {
-    effect = "Allow"
-
-    actions = [
-      "logs:CreateLogGroup", # required for custom log group name
-      "logs:CreateLogStream",
-      "logs:PutLogEvents"
-    ]
-
-    resources = [
-      aws_cloudwatch_log_group.lambda_log_group.arn,
-      "${aws_cloudwatch_log_group.lambda_log_group.arn}:*"
-    ]
-  }
-
 }
 
 resource "aws_iam_policy" "lambda_s3_policy" {
