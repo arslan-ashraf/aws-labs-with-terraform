@@ -14,6 +14,15 @@ data "aws_vpc_endpoint_service" "sqs_endpoint" {
 data "aws_iam_policy_document" "sqs_endpoint_permissions" {
   statement {
     effect = "Allow"
+
+    actions = [
+      "sqs:SendMessage",
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl"
+    ]
+    
     principals {
       type        = "*"
       identifiers = ["*"]
@@ -23,13 +32,6 @@ data "aws_iam_policy_document" "sqs_endpoint_permissions" {
     #   identifiers = aws_iam_role.ec2_sqs_access_role.arn
     # }
     resources = [aws_sqs_queue.simple_queue.arn]
-    actions = [
-      "sqs:SendMessage",
-      "sqs:ReceiveMessage",
-      "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes",
-      "sqs:GetQueueUrl"
-    ]
   }
 }
 
