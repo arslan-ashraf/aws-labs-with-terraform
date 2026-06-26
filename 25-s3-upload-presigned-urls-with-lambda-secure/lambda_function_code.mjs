@@ -34,7 +34,7 @@ export const handler = async (event) => {
               "Content-Type": "application/json",
               "x-amz-meta-ip": user_ip
             },
-            Expires: 600, // URL expires in 10 minutes or 600 milliseconds
+            Expires: 600, // URL expires in 10 minutes or 600 seconds
         });
 
         return {
