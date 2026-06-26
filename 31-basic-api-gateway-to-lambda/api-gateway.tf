@@ -1,6 +1,6 @@
 # REST API gateway
 resource "aws_api_gateway_rest_api" "rest_api_gateway" {
-  name = "rest_api_gateway"
+  name = "example_rest_api_gateway"
 }
 
 
