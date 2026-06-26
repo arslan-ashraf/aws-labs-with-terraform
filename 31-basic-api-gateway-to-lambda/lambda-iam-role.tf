@@ -1,15 +1,15 @@
 # define user/role based policy
 data "aws_iam_policy_document" "lambda_policy_document" {
-  statement {
-    effect = "Allow"
+  # statement {
+  #   effect = "Allow"
 
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
+  #   principals {
+  #     type        = "Service"
+  #     identifiers = ["lambda.amazonaws.com"]
+  #   }
 
-    actions = ["sts:AssumeRole"]
-  }
+  #   actions = ["sts:AssumeRole"]
+  # }
 }
 
 resource "aws_iam_role" "lambda_role" {
