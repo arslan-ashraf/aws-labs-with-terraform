@@ -16,3 +16,8 @@ How the DNS resolution flow works:
 5 - EC2 Receives SQS Queue's IP: The private SQS endpoint IP is passed back across the network to the resource in VPC A, keeping all traffic entirely off the public internet
 
 6 - EC2 sends message to the SQS Queue using the queue's IP Address
+
+Use the command below to verify that EC2 is able to connect to SQS using interface endpoint:
+```
+aws sqs send-message --queue-url https://sqs.us-east-1.amazonaws.com/<aws_account_id>/simple_queue --message-body "test message 1"  --region us-east-1
+```
