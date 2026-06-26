@@ -17,3 +17,9 @@ resource "aws_lambda_function" "get_user_data_dynamoDB_lambda" {
   timeout     = 5   # in seconds
 
 }
+
+resource "aws_lambda_permission" "api_gateway_invoke_lambda_permission" {
+  principal     = "apigateway.amazonaws.com"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_user_data_dynamoDB_lambda.function_name
+}
