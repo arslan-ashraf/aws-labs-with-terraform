@@ -24,7 +24,7 @@ resource "aws_api_gateway_method" "GET_users" {
 }
 
 # integrate GET /users with the Lambda function
-resource "aws_api_gateway_integration" "example" {
+resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
   resource_id = aws_api_gateway_resource.users_path.id
   http_method = aws_api_gateway_method.GET_users.http_method
@@ -32,6 +32,7 @@ resource "aws_api_gateway_integration" "example" {
   type        = "AWS_PROXY"
   uri         = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
 }
+
 
 resource "aws_api_gateway_deployment" "example" {
   rest_api_id = aws_api_gateway_rest_api.example.id
@@ -45,7 +46,7 @@ resource "aws_api_gateway_deployment" "example" {
     #       resources will show a difference after the initial implementation.
     #       It will stabilize to only change when resources change afterwards.
     redeployment = sha1(jsonencode([
-      aws_api_gateway_resource.example.id,
+      aws_api_gateway_resource.users_path.id,
       aws_api_gateway_method.example.id,
       aws_api_gateway_integration.example.id,
     ]))
