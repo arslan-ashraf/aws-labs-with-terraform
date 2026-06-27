@@ -31,7 +31,6 @@ resource "aws_vpc_peering_connection_accepter" "vpc_peering_connection_accepter"
 
 
 resource "aws_vpc_peering_connection_options" "requester" {
-  # vpc_peering_connection_id = aws_vpc_peering_connection.EC2_to_SQS_interface_endpoint_connection.id
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.vpc_peering_connection_accepter.id
 
   requester {
@@ -41,7 +40,6 @@ resource "aws_vpc_peering_connection_options" "requester" {
 }
 
 resource "aws_vpc_peering_connection_options" "accepter" {
-  # vpc_peering_connection_id = aws_vpc_peering_connection.EC2_to_SQS_interface_endpoint_connection.id
   vpc_peering_connection_id = aws_vpc_peering_connection_accepter.vpc_peering_connection_accepter.id
 
   accepter {
