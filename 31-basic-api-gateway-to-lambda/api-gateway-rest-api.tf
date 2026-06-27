@@ -29,7 +29,7 @@ resource "aws_api_gateway_method" "GET_users" {
 # the full HTTP response (statusCode, headers, body)
 
 # to turn Lambda proxy integratin off, use: type = "AWS"
-# but that requires 
+# but that requires request/response mappings
 
 
 # integrate GET /users with the Lambda function
