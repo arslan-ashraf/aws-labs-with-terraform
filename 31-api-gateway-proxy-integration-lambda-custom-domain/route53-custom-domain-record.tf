@@ -9,20 +9,6 @@ resource "aws_api_gateway_base_path_mapping" "custom_domain_gateway_attachment" 
   domain_name = aws_api_gateway_domain_name.custom_domain.domain_name
 }
 
-resource "aws_route53_record" "api" {
-  zone_id = aws_route53_zone.example.zone_id
-  name    = "api"
-  type    = "A"
-
-  alias {
-    name                   = aws_api_gateway_domain_name.api.cloudfront_domain_name
-    zone_id                = aws_api_gateway_domain_name.api.cloudfront_zone_id
-    evaluate_target_health = false
-  }
-}
-
-
-
 
 data "aws_route53_zone" "custom_domain" {
   name         = var.custom_domain
@@ -35,9 +21,9 @@ resource "aws_route53_record" "custom_domain_record" {
   type    = "A"
 
   alias {
-    name                   = aws_lb.application_load_balancer.dns_name
-    zone_id                = aws_lb.application_load_balancer.zone_id
-    evaluate_target_health = true
+    name                   = aws_api_gateway_domain_name.custom_domain.cloudfront_domain_name
+    zone_id                = aws_api_gateway_domain_name.custom_domain.cloudfront_zone_id
+    evaluate_target_health = false
   }
   
 }
