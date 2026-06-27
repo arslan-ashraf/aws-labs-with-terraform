@@ -39,17 +39,27 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
 }
 
 
+# What is a aws_api_gateway_deployment for?
+# API Gateway deployments are snapshots, meaning it can then be published 
+# to as many callable endpoints as desired via aws_api_gateway_stage
+# myapi.com/dev-stage, myapi.com/prod-stage, etc.
+
+# optionally, the API gateway can be managed further by the following:
+# aws_api_gateway_base_path_mapping
+# aws_api_gateway_domain_name, 
+# aws_api_method_settings
+
 resource "aws_api_gateway_deployment" "example" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
-
+  
+  # triggers tell Terraform when to create a new deployment
+  # if you change a method, integration or mapping template, Terraform 
+  # doesn't automatically know it needs a new deployment
+  When any value in the hash changes, Terraform replaces the deployment.
+  Without triggers, it's common to update your API configuration but have the deployed API continue serving the old configuration.
+  
   triggers = {
-    # NOTE: The configuration below will satisfy ordering considerations,
-    #       but not pick up all future REST API changes. More advanced patterns
-    #       are possible, such as using the filesha1() function against the
-    #       Terraform configuration file(s) or removing the .id references to
-    #       calculate a hash against whole resources. Be aware that using whole
-    #       resources will show a difference after the initial implementation.
-    #       It will stabilize to only change when resources change afterwards.
+    # the configuration below will satisfy ordering considerations
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.users_path.id,
       aws_api_gateway_method.GET_users.id,
