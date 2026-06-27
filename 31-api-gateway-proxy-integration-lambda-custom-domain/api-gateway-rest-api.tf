@@ -55,9 +55,9 @@ resource "aws_api_gateway_deployment" "example" {
   # triggers { ... } tell Terraform when to create a new deployment
   # if you change a method, integration or mapping template, Terraform 
   # doesn't automatically know it needs a new deployment, to ensure 
-  # redployment of the API gateway, we use a hash function such as SHA1()
-  # When any value in the hash changes, Terraform replaces the deployment
-  # Without triggers, even if the API configuration is updated, the 
+  # redployment of the API gateway, we use a hash function such as SHA1(),
+  # when any value in the hash changes, Terraform replaces the deployment,
+  # without triggers, even if the API configuration is updated, the 
   # deployed API continues operating with the old configuration
   
   triggers = {
