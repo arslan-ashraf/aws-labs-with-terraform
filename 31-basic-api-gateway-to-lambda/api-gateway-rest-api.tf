@@ -28,7 +28,6 @@ resource "aws_api_gateway_integration" "example" {
   integration_http_method = "POST"
   type        = "AWS_PROXY"
   uri         = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
-  source_arn = "${aws_api_gateway_rest_api.rest_api_gateway.execution_arn}/users"
 }
 
 resource "aws_api_gateway_deployment" "example" {
