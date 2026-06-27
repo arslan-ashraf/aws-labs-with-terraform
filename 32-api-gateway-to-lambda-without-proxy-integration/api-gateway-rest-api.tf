@@ -30,11 +30,12 @@ resource "aws_api_gateway_method" "GET_users" {
 # transforms requests before they reach Lambda and transforms Lambda's
 # output before it is returned to the client, the following template:
 
+# request mappings
 # request_templates = {
 #   "application/json" = <<EOF
 # {
 #   "userId": "$input.params('user_id')",
-#   "name": "$input.params('name')"
+#   "name": "$input.params('user_color')"
 # }
 # EOF
 # }
@@ -54,6 +55,15 @@ resource "aws_api_gateway_method" "GET_users" {
 # Query string: /users?user_id=123&sort=desc → $input.params('sort')
 # Path parameter: /users/{user_id} → $input.params('user_id')
 # Header: X-Request-Id → $input.params('X-Request-Id')
+
+# response mappings
+# suppose Lambda returns the following JSON:
+
+# {
+#   "id": 123,
+#   "first_name": "abc",
+#   "last_name": "def"
+# }
 
 
 # integrate GET /users with the Lambda function
