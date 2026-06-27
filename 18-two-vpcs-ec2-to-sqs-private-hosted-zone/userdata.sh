@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# THIS SCRIPT INSTALLS THE AWS CLI AND IS ONLY NEEDED IF THE EC2 AMI IS UBUNTU
+
 # Update package list and install dependencies
 sudo apt-get update -y
 sudo apt-get install -y unzip curl
