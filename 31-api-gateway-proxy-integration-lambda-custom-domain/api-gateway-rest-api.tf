@@ -52,11 +52,13 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
 resource "aws_api_gateway_deployment" "example" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
   
-  # triggers tell Terraform when to create a new deployment
+  # triggers { ... } tell Terraform when to create a new deployment
   # if you change a method, integration or mapping template, Terraform 
-  # doesn't automatically know it needs a new deployment
-  When any value in the hash changes, Terraform replaces the deployment.
-  Without triggers, it's common to update your API configuration but have the deployed API continue serving the old configuration.
+  # doesn't automatically know it needs a new deployment, to ensure redployment
+  # of the API gateway, we use a hash function such as SHA1()
+  # When any value in the hash changes, Terraform replaces the deployment
+  # Without triggers, even if the API configuration is updated, the 
+  # deployed API continues operating with the old configuration
   
   triggers = {
     # the configuration below will satisfy ordering considerations
