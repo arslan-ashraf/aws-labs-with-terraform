@@ -8,12 +8,14 @@ resource "aws_api_gateway_rest_api" "rest_api_gateway" {
   }
 }
 
+# create /users path
 resource "aws_api_gateway_resource" "users_path" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
   parent_id   = aws_api_gateway_rest_api.rest_api_gateway.root_resource_id
   path_part   = "users"
 }
 
+# define HTTP GET method for /users path
 resource "aws_api_gateway_method" "GET_users" {
   authorization = "NONE"
   http_method   = "GET"
@@ -21,6 +23,7 @@ resource "aws_api_gateway_method" "GET_users" {
   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
 }
 
+# integrate GET /users with the Lambda function
 resource "aws_api_gateway_integration" "example" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
   resource_id = aws_api_gateway_resource.users_path.id
