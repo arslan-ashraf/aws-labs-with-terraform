@@ -32,8 +32,10 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
   # type = "AWS_PROXY" makes Lambda proxy integration turned on
   # which passes the full request to Lambda, and Lambda returns 
   # the full HTTP response (statusCode, headers, body)
+
+  # to turn Lambda proxy integratin off, use: type = "AWS"
   type        = "AWS_PROXY"   # pass full request to Lambda
-  
+
   integration_http_method = "POST"  # for Lambda, always "POST"
   uri         = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
 }
