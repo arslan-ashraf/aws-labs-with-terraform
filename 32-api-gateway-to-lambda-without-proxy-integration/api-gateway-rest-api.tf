@@ -48,6 +48,13 @@ resource "aws_api_gateway_method" "GET_users" {
 #   "user_color": "yellow"
 # }
 
+# this is what Lambda receives
+
+# in the request_templates { ... } block, $input.params() works for:
+# Query string: /users?user_id=123&sort=desc → $input.params('sort')
+# Path parameter: /users/{user_id} → $input.params('user_id')
+# Header: X-Request-Id → $input.params('X-Request-Id')
+
 
 # integrate GET /users with the Lambda function
 resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
