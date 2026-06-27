@@ -5,7 +5,7 @@ We create an EC2 instance in a private subnet and SSH into it using EC2 Instance
 
 We also create a NAT Gateway in a public subnet and SSH into the EC2 instance and verify that the instance has internet connectivity through the NAT Gateway.
 
-To verify that indeed the EC2 instance is connecting to the web through the NAT Gateway, run the following command:
+To verify that indeed the EC2 instance is connecting to the web through the NAT Gateway, SSH into the EC2 instance and run the following command:
 
 ```
 curl ifconfig.me
