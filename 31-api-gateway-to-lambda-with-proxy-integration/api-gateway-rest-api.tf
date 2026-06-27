@@ -31,7 +31,25 @@ resource "aws_api_gateway_method" "GET_users" {
 # to turn Lambda proxy integration off, use: type = "AWS"
 # but that requires request/response mappings because the API Gateway 
 # transforms requests before they reach Lambda and transforms Lambda's
-# output before it is returned to the client
+# output before it is returned to the client, the following template:
+
+# request_templates = {
+#   "application/json" = <<EOF
+# {
+#   "userId": "$input.params('user_id')",
+#   "name": "$input.json('$.name')"
+# }
+# EOF
+# }
+
+# takes a user's request such as GET /users?user_id=123&user_color=yellow
+
+# and transforms it into JSON using the request_templates above as:
+
+{
+  "userId": "123",
+  "user_color": "yellow"
+}
 
 
 # integrate GET /users with the Lambda function
