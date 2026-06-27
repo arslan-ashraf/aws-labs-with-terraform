@@ -23,19 +23,21 @@ resource "aws_api_gateway_method" "GET_users" {
   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
 }
 
+# In aws_api_gateway_integration, what is type = "AWS_PROXY"?
+# type = "AWS_PROXY" makes Lambda proxy integration turned on
+# which passes the full request to Lambda, and Lambda returns 
+# the full HTTP response (statusCode, headers, body)
+
+# to turn Lambda proxy integratin off, use: type = "AWS"
+# but that requires 
+
+
 # integrate GET /users with the Lambda function
 resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
   resource_id = aws_api_gateway_resource.users_path.id
   http_method = aws_api_gateway_method.GET_users.http_method
-
-  # type = "AWS_PROXY" makes Lambda proxy integration turned on
-  # which passes the full request to Lambda, and Lambda returns 
-  # the full HTTP response (statusCode, headers, body)
-
-  # to turn Lambda proxy integratin off, use: type = "AWS"
   type        = "AWS_PROXY"   # pass full request to Lambda
-
   integration_http_method = "POST"  # for Lambda, always "POST"
   uri         = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
 }
