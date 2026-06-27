@@ -28,8 +28,10 @@ resource "aws_api_gateway_method" "GET_users" {
 # which passes the full request to Lambda, and Lambda returns 
 # the full HTTP response (statusCode, headers, body)
 
-# to turn Lambda proxy integratin off, use: type = "AWS"
-# but that requires request/response mappings
+# to turn Lambda proxy integration off, use: type = "AWS"
+# but that requires request/response mappings because the API Gateway 
+# transforms requests before they reach Lambda and transforms Lambda's
+# output before it is returned to the client
 
 
 # integrate GET /users with the Lambda function
