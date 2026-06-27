@@ -49,7 +49,7 @@ resource "aws_lb_listener" "http_listener" {
 }
 
 data "aws_acm_certificate" "acm_tls_certificate" {
-  domain = "arslanashraf.site"
+  domain = var.custom_domain
 }
 
 resource "aws_lb_listener" "https_listener" {
