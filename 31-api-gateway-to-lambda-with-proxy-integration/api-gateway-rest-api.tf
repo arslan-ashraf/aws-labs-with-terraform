@@ -37,7 +37,7 @@ resource "aws_api_gateway_method" "GET_users" {
 #   "application/json" = <<EOF
 # {
 #   "userId": "$input.params('user_id')",
-#   "name": "$input.json('$.name')"
+#   "name": "$input.params('name')"
 # }
 # EOF
 # }
@@ -46,10 +46,10 @@ resource "aws_api_gateway_method" "GET_users" {
 
 # and transforms it into JSON using the request_templates above as:
 
-{
-  "userId": "123",
-  "user_color": "yellow"
-}
+# {
+#   "user_id": "123",
+#   "user_color": "yellow"
+# }
 
 
 # integrate GET /users with the Lambda function
