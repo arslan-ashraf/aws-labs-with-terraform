@@ -4,6 +4,7 @@ resource "aws_api_gateway_rest_api" "rest_api_gateway" {
 
   endpoint_configuration {
     types = ["REGIONAL"] # PRIVATE or EDGE
+    ip_address_type = "dualstack"  # type of IP addresses that can invoke API
   }
 }
 
