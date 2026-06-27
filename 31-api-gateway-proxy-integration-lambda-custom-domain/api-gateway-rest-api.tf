@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
 # aws_api_gateway_domain_name, 
 # aws_api_method_settings
 
-resource "aws_api_gateway_deployment" "example" {
+resource "aws_api_gateway_deployment" "api_snapshot" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
   
   # triggers { ... } tell Terraform when to create a new deployment
@@ -75,7 +75,7 @@ resource "aws_api_gateway_deployment" "example" {
 }
 
 resource "aws_api_gateway_stage" "production_stage" {
-  deployment_id = aws_api_gateway_deployment.example.id
+  deployment_id = aws_api_gateway_deployment.api_snapshot.id
   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
   stage_name    = "production"
 }

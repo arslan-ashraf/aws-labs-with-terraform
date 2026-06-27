@@ -1,12 +1,12 @@
-resource "aws_api_gateway_domain_name" "api" {
+resource "aws_api_gateway_domain_name" "custom_domain" {
   domain_name     = var.custom_domain
   certificate_arn = aws_acm_certificate.tls_certificate.arn
 }
 
-resource "aws_api_gateway_base_path_mapping" "api" {
+resource "aws_api_gateway_base_path_mapping" "custom_domain_gateway_attachment" {
   api_id      = aws_api_gateway_rest_api.rest_api_gateway.id
-  stage_name  = aws_api_gateway_stage.prod.stage_name
-  domain_name = aws_api_gateway_domain_name.api.domain_name
+  stage_name  = aws_api_gateway_stage.production_stage.stage_name
+  domain_name = aws_api_gateway_domain_name.custom_domain.domain_name
 }
 
 resource "aws_route53_record" "api" {
