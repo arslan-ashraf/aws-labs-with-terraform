@@ -40,7 +40,7 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
 
 
 resource "aws_api_gateway_deployment" "example" {
-  rest_api_id = aws_api_gateway_rest_api.example.id
+  rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
 
   triggers = {
     # NOTE: The configuration below will satisfy ordering considerations,
