@@ -97,14 +97,15 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
   integration_http_method = "POST"  # for Lambda, always "POST"
   type        = "AWS"   # turn Lambda proxy integration off
 
-  # request_templates = {
-#   "application/json" = <<EOF
-# {
-#   "userId": "$input.params('user_id')",
-#   "name": "$input.params('name')"
-# }
-# EOF
-# }
+  request_templates = {
+    "application/json" = <<EOF
+{
+  "userId": "$input.params('user_id')",
+  "name": "$input.params('name')"
+}
+EOF
+
+}
 
   uri         = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
 }
