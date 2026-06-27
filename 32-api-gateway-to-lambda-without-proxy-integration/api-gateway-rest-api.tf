@@ -65,23 +65,29 @@ resource "aws_api_gateway_method" "GET_users" {
 #   "last_name": "def"
 # }
 
-# then aws_api_gateway_integration_response is needed as follows
-resource "aws_api_gateway_integration_response" "ok" {
-  rest_api_id = ...
-  resource_id = ...
-  http_method = ...
-  status_code = 200
+# then the resources aws_api_gateway_method_response and
+# aws_api_gateway_integration_response is needed as follows:
+# resource "aws_api_gateway_integration_response" "ok" {
+#   rest_api_id = ...
+#   resource_id = ...
+#   http_method = ...
+#   status_code = 200
 
-  response_templates = {
-    "application/json" = <<EOF
-{
-  "name": "$input.path('$.first_name') $input.path('$.last_name')"
-  "user_id": "$input.path('$.id')"
-}
-EOF
-  }
-}
+#   response_templates = {
+#     "application/json" = <<EOF
+# {
+#   "name": "$input.path('$.first_name') $input.path('$.last_name')"
+#   "user_id": "$input.path('$.id')"
+# }
+# EOF
+#   }
+# }
 
+# the client receives:
+# {
+  # "name": "abc def"
+  # "user_id": "123"
+# }
 
 # integrate GET /users with the Lambda function
 resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
