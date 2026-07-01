@@ -35,10 +35,12 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   origin_group {
     origin_id = "S3-API-Gateway-Origins-Group"
 
+    # when to perform failover
     failover_criteria {
-      status_codes = [403, 404, 500, 502, 503, 504]  # when to perform failover
+      status_codes = [403, 404, 500, 502, 503, 504]
     }
 
+    # first declared member {} is the primary origin
     member { origin_id = "S3-Origin" }          # primary origin
     member { origin_id = "API-GATEWAY-Origin" } # secondary origin
   }
