@@ -29,6 +29,9 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
     }
   }
 
+  # origin_group performs failover, bundles origin { ... } together
+  # (a primary and a secondary) so that CloudFront can automatically
+  # switch to the secondary origin if the primary origin fails
   origin_group {
     origin_id = "S3-API-Gateway-Origins-Group"
     failover_criteria {
@@ -52,7 +55,7 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "S3-Website-Origin"
+    target_origin_id = "S3-API-Gateway-Origins-Group"
 
     forwarded_values {
       query_string = true
