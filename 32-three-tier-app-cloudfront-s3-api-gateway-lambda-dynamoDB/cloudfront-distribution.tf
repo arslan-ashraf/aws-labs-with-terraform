@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "cloudfront_cdn" {
 
   # alias = []
-  
+
   origin {
     domain_name              = aws_s3_bucket.static_files_s3_bucket.bucket_regional_domain_name
     origin_id                = "S3-Website-Origin"
@@ -25,9 +25,11 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
     target_origin_id = "S3-Website-Origin"
 
     forwarded_values {
-      query_string = false
+      query_string = true
+
+      
       cookies {
-        forward = "none"
+        forward = "all"
       }
     }
 
