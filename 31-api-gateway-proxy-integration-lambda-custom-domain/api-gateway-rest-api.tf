@@ -3,7 +3,7 @@ resource "aws_api_gateway_rest_api" "rest_api_gateway" {
   name = "example_rest_api_gateway"
 
   endpoint_configuration {
-    types = ["REGIONAL"] # PRIVATE or EDGE
+    types           = ["REGIONAL"] # PRIVATE or EDGE
     ip_address_type = "dualstack"  # type of IP addresses that can invoke API
   }
 }
@@ -23,6 +23,20 @@ resource "aws_api_gateway_method" "GET_users" {
   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
 }
 
+
+#####################################################################
+# to create root path, omit aws_api_gateway_resource completely
+# only create aws_api_gateway_method and aws_api_gateway_integration
+#####################################################################
+# resource "aws_api_gateway_method" "GET_root" {
+#   authorization = "NONE"
+#   http_method   = "GET"
+#   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
+#   resource_id   = aws_api_gateway_rest_api.rest_api_gateway.root_resource_id
+# }
+
+
+
 # In aws_api_gateway_integration, what is type = "AWS_PROXY"?
 # type = "AWS_PROXY" makes Lambda proxy integration turned on
 # which passes the full request to Lambda, and Lambda returns 
@@ -30,12 +44,12 @@ resource "aws_api_gateway_method" "GET_users" {
 
 # integrate GET /users with the Lambda function
 resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
-  rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
-  resource_id = aws_api_gateway_resource.users_path.id
-  http_method = aws_api_gateway_method.GET_users.http_method
-  type        = "AWS_PROXY"         # pass full request to Lambda
-  integration_http_method = "POST"  # for Lambda, always "POST"
-  uri         = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
+  rest_api_id             = aws_api_gateway_rest_api.rest_api_gateway.id
+  resource_id             = aws_api_gateway_resource.users_path.id
+  http_method             = aws_api_gateway_method.GET_users.http_method
+  type                    = "AWS_PROXY" # pass full request to Lambda
+  integration_http_method = "POST"      # for Lambda, always "POST"
+  uri                     = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
 }
 
 
@@ -51,7 +65,7 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
 
 resource "aws_api_gateway_deployment" "api_snapshot" {
   rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
-  
+
   # triggers { ... } tell Terraform when to create a new deployment
   # if you change a method, integration or mapping template, Terraform 
   # doesn't automatically know it needs a new deployment, to ensure 
@@ -59,7 +73,7 @@ resource "aws_api_gateway_deployment" "api_snapshot" {
   # when any value in the hash changes, Terraform replaces the deployment,
   # without triggers, even if the API configuration is updated, the 
   # deployed API continues operating with the old configuration
-  
+
   triggers = {
     # the configuration below will satisfy ordering considerations
     redeployment = sha1(jsonencode([

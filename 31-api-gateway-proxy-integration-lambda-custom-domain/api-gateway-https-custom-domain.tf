@@ -3,8 +3,10 @@ data "aws_acm_certificate" "tls_certificate" {
 }
 
 resource "aws_api_gateway_domain_name" "custom_domain" {
-  domain_name     = var.custom_domain
-  certificate_arn = aws_acm_certificate.tls_certificate.arn
+  domain_name              = var.custom_domain
+  regional_certificate_arn = data.aws_acm_certificate.tls_certificate.arn
+  security_policy          = "SecurityPolicy_TLS13_1_3_FIPS_2025_09"
+  endpoint_access_mode     = "STRICT"
 
   endpoint_configuration {
     types = ["REGIONAL"]
