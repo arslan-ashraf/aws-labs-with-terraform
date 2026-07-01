@@ -9,7 +9,31 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_access.id
   }
 
-  
+  # API Gateway origin
+  origin {
+    domain_name = aws_eip.eip_for_cloudfront_distribution.public_dns
+    origin_id   = "EC2-Origin"
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      # origin_protocol_policy = "match-viewer" means cloudfront tries to 
+      # connect to EC2 matching the same protocol the viewer/user is using
+      # origin_protocol_policy = "match-viewer"
+
+      # we use http-only as the Apache server is listening on HTTP port 80
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
+  origin_group {
+    origin_id = "S3-EC2-Origins-Group"
+    failover_criteria {
+      status_codes = [403, 404, 500, 502, 503, 504]
+    }
+    member { origin_id = "S3-Origin" }
+    member { origin_id = "EC2-Origin" }
+  }
 
   # free tier class
   price_class = "PriceClass_100"
