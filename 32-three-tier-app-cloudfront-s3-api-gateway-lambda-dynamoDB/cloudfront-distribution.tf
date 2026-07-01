@@ -11,8 +11,11 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
 
   # API Gateway origin
   origin {
-    domain_name = aws_eip.eip_for_cloudfront_distribution.public_dns
-    origin_id   = "EC2-Origin"
+    domain_name = "${aws_api_gateway_rest_api.rest_api_gateway.id}.execute-api.${data.aws_region.current.name}.amazonaws.com"
+    origin_path = "/${aws_api_gateway_stage.prod.stage_name}"
+    
+    origin_id   = "API-Gateway-Origin"
+    
     custom_origin_config {
       http_port              = 80
       https_port             = 443
