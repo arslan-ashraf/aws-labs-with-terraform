@@ -6,7 +6,7 @@ async function fetchUserData() {
     }
 
     try {
-        const response = await fetch(`[YOUR-PROD-API-URL]/users?user_id=${user_id}`);
+        const response = await fetch(`<custom_domain>/users?user_id=${user_id}`);
         const data = await response.json();
         const userDetails = document.getElementById('userDetails');
         
