@@ -32,7 +32,9 @@ resource "aws_cloudfront_distribution" "three_tier_app_cloudfront" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true # Use this for the *.cloudfront.net domain
+    acm_certificate_arn      = aws_acm_certificate.tls_certificate.certificate_arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 
   restrictions {
