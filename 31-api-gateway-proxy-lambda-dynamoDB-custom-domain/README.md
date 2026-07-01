@@ -9,9 +9,9 @@ We also create a DynamoDB table which holds a `users_table`.  The goal is to use
 2. Go to the DynamoDB console and manually add a user with user_id equal to 123 and any other example fields.
 
 3. Visit the custom domain with the query string as follows:
-`<custom_domain>/users?user_id=123` or `<api_gateway_url>/users?user_id=123`
+`<custom_domain>/users?user_id=123` or `<api_gateway_url>/users?user_id=123`.
 
-In this lab, there should be no errors .  However, if after any modification, there are errors when visiting the site such as:
+In this lab, there should be no errors.  However, if after any modification, there are errors when visiting the site such as:
 
 {"message":"Missing Authentication Token"} 
 
