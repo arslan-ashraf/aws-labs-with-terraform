@@ -30,9 +30,13 @@ resource "aws_api_gateway_base_path_mapping" "custom_domain_gateway" {
 
 # So if custom domain is abcdomain.com, and API resources are /users
 # and /orders, and base_path = "v1", then a call to
-# https://abcdomain.com/v1/users will strip the first whole segment
-# https://abcdomain.com/v1 and internally forward /users
-# the API resources are still the same /users and /orders 
+
+# https://abcdomain.com/v1/users 
+
+# will strip the first whole segment https://abcdomain.com/v1 
+# and internally forward /users
+
+# the API resources are still the same, /users and /orders 
 
 # if two different API Gateways are deployed on the same custom domain
 # but different base_path such as "v1" and "v2", then a call to
@@ -40,7 +44,6 @@ resource "aws_api_gateway_base_path_mapping" "custom_domain_gateway" {
 # abcdomain.com/v1/users 
 
 # will make the Gateway forward to /users in API A
-
 
 # and a call to 
 
@@ -53,3 +56,15 @@ resource "aws_api_gateway_base_path_mapping" "custom_domain_gateway" {
 # abcdomain.com/users
 
 # then omit base_path
+
+# note that the caller must explicitly choose which base_path to call
+# for example the backend or frontend calling the API must use:
+// Version 1, frontend calling:
+# fetch("https://abcdomain.com/v1/users")
+
+// Version 2, frontend calling:
+# fetch("https://abcdomain.com/v2/users")
+
+# base_path feature is a routing mechanism, it doesn't hide the
+# version from the caller, it simply makes it easy for the API Gateway
+# to route requests to different APIs under the same custom domain
