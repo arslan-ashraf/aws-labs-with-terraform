@@ -2,6 +2,8 @@ This lab creates the resource `aws_api_gateway_domain_name` which takes more tha
 
 In this lab, we create an API Gateway that sits in front of a Lambda function.  Further, we create an A record in the Route53 public zone that maps the custom domain name to the API Gateway.
 
+We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain
+
 Run the Terraform lab, and visit the site:
 `<custom_domain>/users` or `<api_gateway_url>/users`
 
