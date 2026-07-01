@@ -1,4 +1,4 @@
-resource "aws_cloudfront_distribution" "s3_distribution" {
+resource "aws_cloudfront_distribution" "three_tier_app_distribution" {
   origin {
     domain_name              = aws_s3_bucket.static_files_s3_bucket.bucket_regional_domain_name
     origin_id                = "S3-Website-Origin"
