@@ -5,6 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    background-color: #feffe5;
 }
 
 #main-container {
@@ -27,6 +28,8 @@ button {
 #userDetails {
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 3px solid #ccc;
+    border-color: black;
+    border-radius: 10px;
     /*display: inline-block;*/
 }
