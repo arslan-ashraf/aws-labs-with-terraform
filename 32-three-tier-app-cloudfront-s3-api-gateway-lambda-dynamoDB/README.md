@@ -4,14 +4,16 @@ In this lab, we create a three tier web application.  We start with a CloudFront
 
  API Gateway that sits in front of a Lambda function.  Further, we create an A record in the Route53 public zone that maps the custom domain name to the CloudDFront distribution.
 
-We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain to visit a web page that CloudFront will deliver.  On the page, there is a button that once clicked, will send a call to CloudFront with a query string which should read the API Gateway which then calls the Lambda function, which in turn will parse and send the appropriate GET request to DynamoDB.
+We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain to visit a web page that CloudFront will deliver.  On the page, there is a button that once clicked, will send a call to CloudFront with a query string which should read the API Gateway which then calls the Lambda function, which in turn will parse query string and send the appropriate GET request to DynamoDB.
 
-1. Run the Terraform lab.
+1. In the JavaScript file, replace `<custom_domain>` with the actual domain.
 
-2. Go to the DynamoDB console and manually add a user with user_id equal to 123 and any other example fields.
+2. Run the Terraform lab.
 
-3. Visit the custom domain with the query string as follows:
-`<custom_domain>/users?user_id=123` or `<api_gateway_url>/users?user_id=123`.
+3. Go to the DynamoDB console and manually add a user with user_id equal to 123 and any other example fields.
+
+4. Visit the custom domain as follows:
+`<custom_domain>` or `<cloudfront_url>`.
 
 In this lab, there should be no errors.  However, if after any modification, there are errors when visiting the site such as:
 
