@@ -95,3 +95,5 @@ resource "aws_cloudfront_origin_access_control" "s3_access" {
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
 }
+
+data aws_region "current" {}
