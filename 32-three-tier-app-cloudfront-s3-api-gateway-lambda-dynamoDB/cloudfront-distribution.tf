@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   # API Gateway origin
   origin {
     domain_name = "${aws_api_gateway_rest_api.rest_api_gateway.id}.execute-api.${data.aws_region.current.name}.amazonaws.com"
-    origin_path = "/${aws_api_gateway_stage.prod.stage_name}"
+    origin_path = "/${aws_api_gateway_stage.production_stage.stage_name}"
     
     origin_id   = "API-Gateway-Origin"
     
@@ -30,12 +30,12 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   }
 
   origin_group {
-    origin_id = "S3-EC2-Origins-Group"
+    origin_id = "S3-API-Gateway-Origins-Group"
     failover_criteria {
       status_codes = [403, 404, 500, 502, 503, 504]
     }
     member { origin_id = "S3-Origin" }
-    member { origin_id = "EC2-Origin" }
+    member { origin_id = "API-GATEWAY-Origin" }
   }
 
   # free tier class
