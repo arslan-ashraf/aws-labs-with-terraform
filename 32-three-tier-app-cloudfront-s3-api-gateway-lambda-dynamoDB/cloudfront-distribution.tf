@@ -2,11 +2,14 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
 
   # alias = []
 
+  # s3 origin
   origin {
     domain_name              = aws_s3_bucket.static_files_s3_bucket.bucket_regional_domain_name
     origin_id                = "S3-Website-Origin"
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_access.id
   }
+
+  
 
   # free tier class
   price_class = "PriceClass_100"
@@ -31,7 +34,7 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
         "Authorization",
         "Host"
       ]
-      
+
       cookies {
         forward = "all"
       }
