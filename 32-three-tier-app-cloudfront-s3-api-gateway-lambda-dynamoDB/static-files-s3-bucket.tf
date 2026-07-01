@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "cloudfront_s3_policy" {
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values   = [aws_cloudfront_distribution.three_tier_app_distribution.arn]
+      values   = [aws_cloudfront_distribution.three_tier_app_cloudfront.arn]
     }
   }
 }
