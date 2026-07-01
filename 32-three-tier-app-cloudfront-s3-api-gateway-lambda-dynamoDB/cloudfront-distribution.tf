@@ -59,7 +59,7 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "POST", "PUT", "PATCH", "OPTIONS", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
-    
+
     target_origin_id = "S3-API-Gateway-Origins-Group"
 
     forwarded_values {
@@ -76,6 +76,10 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
+
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
   }
 
   viewer_certificate {
