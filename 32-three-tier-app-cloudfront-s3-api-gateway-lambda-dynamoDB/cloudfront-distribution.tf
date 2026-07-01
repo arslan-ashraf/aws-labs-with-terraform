@@ -57,7 +57,7 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   default_root_object = "index.html"
 
   default_cache_behavior {
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    allowed_methods  = ["GET", "HEAD", "POST", "PUT", "PATCH", "OPTIONS", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "S3-API-Gateway-Origins-Group"
 
