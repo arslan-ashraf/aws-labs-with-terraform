@@ -4,7 +4,7 @@ function handler(event) {
     console.log(event)
     console.log("#".repeat(50))
 
-    let auth_token = event.authorizationToken
+    let auth_token = event.AuthorizationToken
     if (auth_token == "user_123"){
         generatePolicy(auth_token, 'Allow', event.methodArn)
     } else {

@@ -21,7 +21,9 @@ resource "aws_api_gateway_authorizer" "users_path_authorizer" {
   authorizer_uri = aws_lambda_function.authorizer_lambda.invoke_arn
   # authorizer_credentials = aws_iam_role.api_gateway_invoke_lambda_role.arn
 
-  type = "Optional"
+  type = "TOKEN"
+  identity_source = "method.request.header.AuthorizationToken"
+
   authorizer_result_ttl_in_seconds = "Optional"
   identity_validation_expression = "Optional"
 }
