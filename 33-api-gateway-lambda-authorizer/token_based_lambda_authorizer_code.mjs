@@ -1,10 +1,13 @@
-// A simple token-based authorizer example to demonstrate how to use an authorization token 
-// to allow or deny a request. In this example, the caller named 'user' is allowed to invoke 
-// a request if the client-supplied token value is 'allow'. The caller is not allowed to invoke 
-// the request if the token value is 'deny'. If the token value is 'unauthorized' or an empty
-// string, the authorizer function returns an HTTP 401 status code. For any other token value, 
-// the authorizer returns an HTTP 500 status code. 
-// Note that token values are case-sensitive.
+/*
+A simple token-based authorizer example to demonstrate how to use an 
+authorization token to allow or deny a request. In this example, the 
+caller named 'user' is allowed to invoke a request if the 
+client-supplied token value is 'allow'. The caller is not allowed to 
+invoke the request if the token value is 'deny'. If the token value 
+is 'unauthorized' or an empty string, the authorizer function returns 
+an HTTP 401 status code. For any other token value, the authorizer 
+returns an HTTP 500 status code. Note that token values are case-sensitive.
+*/
 
 export const handler =  function(event, context, callback) {
     var token = event.authorizationToken;
@@ -16,14 +19,14 @@ export const handler =  function(event, context, callback) {
             callback(null, generatePolicy('user', 'Deny', event.methodArn));
             break;
         case 'unauthorized':
-            callback("Unauthorized");   // Return a 401 Unauthorized response
+            callback("Unauthorized");   Return a 401 Unauthorized response
             break;
         default:
-            callback("Error: Invalid token"); // Return a 500 Invalid token response
+            callback("Error: Invalid token"); Return a 500 Invalid token response
     }
 };
 
-// Help function to generate an IAM policy
+Help function to generate an IAM policy
 var generatePolicy = function(principalId, effect, resource) {
     var authResponse = {};
     
@@ -40,7 +43,7 @@ var generatePolicy = function(principalId, effect, resource) {
         authResponse.policyDocument = policyDocument;
     }
     
-    // Optional output with custom properties of the String, Number or Boolean type.
+    Optional output with custom properties of the String, Number or Boolean type.
     authResponse.context = {
         "stringKey": "stringval",
         "numberKey": 123,
