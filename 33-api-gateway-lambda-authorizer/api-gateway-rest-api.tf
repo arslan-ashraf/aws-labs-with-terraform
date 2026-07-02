@@ -24,7 +24,7 @@ resource "aws_api_gateway_authorizer" "users_path_authorizer" {
   type = "TOKEN"
   identity_source = "method.request.header.AuthorizationToken"
 
-  authorizer_result_ttl_in_seconds = "Optional"
+  authorizer_result_ttl_in_seconds = 30 # TTL of cached authorizer results
   identity_validation_expression = "Optional"
 }
 
