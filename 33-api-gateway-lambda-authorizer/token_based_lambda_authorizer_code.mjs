@@ -1,5 +1,9 @@
 export const handler =  function(event) {
-    console.log()
+    
+    console.log("#".repeat(50))
+    console.log(event)
+    console.log("#".repeat(50))
+
     let auth_token = event.authorizationToken
     if (auth_token == "user_123"){
         generatePolicy(auth_token, 'Allow', event.methodArn)
