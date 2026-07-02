@@ -10,7 +10,7 @@ returns an HTTP 500 status code. Note that token values are case-sensitive.
 */
 
 export const handler =  function(event, context, callback) {
-    var auth_token = event.authorizationToken
+    let auth_token = event.authorizationToken
     if (auth_token == "user_123"){
         generatePolicy(auth_token, 'Allow', event.methodArn)
     } else {
@@ -20,15 +20,15 @@ export const handler =  function(event, context, callback) {
 
 // helper function to generate the IAM policy
 function generatePolicy(principalId, effect, resource) {
-    var authResponse = {}
+    let authResponse = {}
     
     authResponse.principalId = principalId
 
     if (effect && resource) {
-        var policyDocument = {}
+        let policyDocument = {}
         policyDocument.Version = '2012-10-17' 
         policyDocument.Statement = []
-        var statementOne = {}
+        let statementOne = {}
         statementOne.Action = 'execute-api:Invoke' 
         statementOne.Effect = effect
         statementOne.Resource = resource
