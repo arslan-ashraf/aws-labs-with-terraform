@@ -4,7 +4,11 @@ In this lab, we create a three tier web application.  We start with a CloudFront
 
  The API Gateway sits in front of a Lambda function.  Further, we create an A record in the Route53 public zone that maps the custom domain name to the CloudDFront distribution.
 
-We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain to visit a web page that CloudFront will deliver.  On the page, there is a button that once clicked, will send a call to CloudFront with a query string which should read the API Gateway which then calls the Lambda function, which in turn will parse query string and send the appropriate GET request to DynamoDB.
+We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain to visit a web page that CloudFront will deliver from S3.  
+
+On that page, there is a button that once clicked, will send a call to CloudFront with a query string which should hit the API Gateway which then calls the Lambda function, which in turn will parse the query string and send the appropriate GET request to DynamoDB.
+
+The process then runs in reverse and user data is printed to the page.
 
 1. Run the Terraform lab.
 
