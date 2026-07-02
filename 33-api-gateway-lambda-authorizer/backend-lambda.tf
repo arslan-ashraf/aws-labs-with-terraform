@@ -5,7 +5,7 @@ data "archive_file" "lambda_zip" {
   output_path = "lambda_function_code.zip"
 }
 
-resource "aws_lambda_function" "get_user_data_dynamoDB_lambda" {
+resource "aws_lambda_function" "backend_lambda" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "get-user-data-from-dynamoDB-table"
   role             = aws_iam_role.lambda_dynamoDB_role.arn
