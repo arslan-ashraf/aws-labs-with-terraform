@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration" "integrate_GET_users_lambda" {
   http_method             = aws_api_gateway_method.GET_users.http_method
   type                    = "AWS_PROXY" # pass full request to Lambda
   integration_http_method = "POST"      # for Lambda, always "POST"
-  uri                     = aws_lambda_function.get_user_data_dynamoDB_lambda.invoke_arn
+  uri                     = aws_lambda_function.backend_lambda.invoke_arn
 }
 
 
