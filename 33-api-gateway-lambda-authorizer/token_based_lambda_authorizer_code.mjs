@@ -26,7 +26,7 @@ export const handler =  function(event, context, callback) {
     }
 };
 
-Help function to generate an IAM policy
+// helper function to generate the IAM policy
 var generatePolicy = function(principalId, effect, resource) {
     var authResponse = {};
     
