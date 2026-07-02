@@ -1,7 +1,3 @@
-#################################################################
-# EVERYTHING HERE IS NOT NEEDED IN THIS LAB, ITS FOR A LATER LAB
-#################################################################
-
 # define user/role based policy
 data "aws_iam_policy_document" "lambda_trust_policy_document" {
   statement {
