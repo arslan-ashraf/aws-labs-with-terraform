@@ -30,10 +30,11 @@ resource "aws_api_gateway_authorizer" "users_path_authorizer" {
 
 # define HTTP GET method for /users path
 resource "aws_api_gateway_method" "GET_users" {
-  authorization = "CUSTOM"
-  http_method   = "GET"
   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
   resource_id   = aws_api_gateway_resource.users_path.id
+  http_method   = "GET"
+  authorization = "CUSTOM"
+  authorization_id = aws_api_gateway_authorizer.users_path_authorizer.id
 }
 
 # integrate GET /users with the Lambda function
