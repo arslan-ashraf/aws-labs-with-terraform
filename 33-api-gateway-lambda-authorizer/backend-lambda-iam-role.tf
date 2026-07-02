@@ -1,4 +1,3 @@
-# define user/role based policy
 data "aws_iam_policy_document" "lambda_trust_policy_document" {
   statement {
     effect = "Allow"
