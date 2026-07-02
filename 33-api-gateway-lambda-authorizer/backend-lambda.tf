@@ -1,7 +1,7 @@
 # zip compilation for the Lambda source code
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "./lambda_function_code.mjs"
+  source_file = "./backend_lambda_function_code.mjs"
   output_path = "lambda_function_code.zip"
 }
 
