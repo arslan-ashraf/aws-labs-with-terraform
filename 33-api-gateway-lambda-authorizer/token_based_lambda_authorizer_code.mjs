@@ -1,5 +1,5 @@
-export const handler =  function(event) {
-    
+function handler(event) {
+
     console.log("#".repeat(50))
     console.log(event)
     console.log("#".repeat(50))
@@ -32,3 +32,5 @@ function generatePolicy(principalId, effect, resource) {
     
     return authResponse
 }
+
+export { handler }
