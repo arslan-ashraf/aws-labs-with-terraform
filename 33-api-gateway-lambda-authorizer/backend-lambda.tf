@@ -2,14 +2,14 @@
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_file = "./backend_lambda_function_code.mjs"
-  output_path = "lambda_function_code.zip"
+  output_path = "backend_lambda_function_code.zip"
 }
 
 resource "aws_lambda_function" "backend_lambda" {
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "backend_lambda"
   role             = aws_iam_role.backend_lambda_role.arn
-  handler          = "lambda_function_code.handler"
+  handler          = "backend_lambda_function_code.handler"
   runtime          = "nodejs24.x"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
