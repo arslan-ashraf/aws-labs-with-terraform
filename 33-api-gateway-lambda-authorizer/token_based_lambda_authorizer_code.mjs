@@ -19,15 +19,15 @@ export const handler =  function(event, context, callback) {
             callback(null, generatePolicy('user', 'Deny', event.methodArn));
             break;
         case 'unauthorized':
-            callback("Unauthorized");   Return a 401 Unauthorized response
+            callback("Unauthorized");  // Return a 401 Unauthorized response
             break;
         default:
-            callback("Error: Invalid token"); Return a 500 Invalid token response
+            callback("Error: Invalid token"); // Return a 500 Invalid token response
     }
 };
 
 // helper function to generate the IAM policy
-var generatePolicy = function(principalId, effect, resource) {
+function generatePolicy(principalId, effect, resource) {
     var authResponse = {};
     
     authResponse.principalId = principalId;
