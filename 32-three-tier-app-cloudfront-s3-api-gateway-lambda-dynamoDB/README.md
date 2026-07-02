@@ -17,7 +17,7 @@ The process then runs in reverse and user data is printed to the page.
 3. Visit the custom domain as follows:
 `<custom_domain>` or `<cloudfront_url>`.
 
-4. Enter the user ID 456 and click the button on the page.
+4. Enter the user ID 456 in the search bar and click the button on the page.
 
 Here is what the front page looks like:
 ![Alt Text](three-tier-web-app-page-0.png)
