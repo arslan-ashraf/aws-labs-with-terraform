@@ -2,7 +2,7 @@ This lab creates the resource `aws_api_gateway_domain_name` which takes more tha
 
 In this lab, we create a three tier web application.  We start with a CloudFront distribution that will sit in front an S3 bucket which will host the static files, including a JavaScript file that will make a `fetch()` call to CloudFront which is configured to have a second origin, the API Gateway.
 
- API Gateway that sits in front of a Lambda function.  Further, we create an A record in the Route53 public zone that maps the custom domain name to the CloudDFront distribution.
+ The API Gateway sits in front of a Lambda function.  Further, we create an A record in the Route53 public zone that maps the custom domain name to the CloudDFront distribution.
 
 We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain to visit a web page that CloudFront will deliver.  On the page, there is a button that once clicked, will send a call to CloudFront with a query string which should read the API Gateway which then calls the Lambda function, which in turn will parse query string and send the appropriate GET request to DynamoDB.
 
