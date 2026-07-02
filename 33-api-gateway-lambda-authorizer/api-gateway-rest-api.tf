@@ -15,6 +15,15 @@ resource "aws_api_gateway_resource" "users_path" {
   path_part   = "users"
 }
 
+resource "aws_api_gateway_authorizer" "users_path_authorizer" {
+  name = "users_path_authorizer"
+  rest_api_id = aws_api_gateway_rest_api.rest_api_gateway.id
+  type = "Optional"
+  authorizer_credentials = "Optional"
+  authorizer_result_ttl_in_seconds = "Optional"
+  identity_validation_expression = "Optional"
+}
+
 # define HTTP GET method for /users path
 resource "aws_api_gateway_method" "GET_users" {
   authorization = "NONE"
