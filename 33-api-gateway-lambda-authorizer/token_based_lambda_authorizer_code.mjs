@@ -1,4 +1,4 @@
-export const handler =  function(event, context, callback) {
+export const handler =  function(event) {
     console.log()
     let auth_token = event.authorizationToken
     if (auth_token == "user_123"){
