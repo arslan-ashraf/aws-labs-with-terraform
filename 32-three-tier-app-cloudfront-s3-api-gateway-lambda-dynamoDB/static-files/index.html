@@ -4,15 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fetch User Data</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #feffe5;
+        }
+
+        #main-container {
+            text-align: center;
+        }
+
+        input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        #user_details {
+            margin-top: 20px;
+            padding: 10px;
+            border: 3px solid #ccc;
+            border-color: black;
+            border-radius: 10px;
+            /*display: inline-block;*/
+        }
+    </style>
 </head>
 <body>
     <div id="main-container">
         <h1>User Information</h1>
         <input type="text" id="user_id" placeholder="Enter User ID" />
         <button onclick="fetchUserData()">Get User Data</button>
-        <div id="userDetails" style="margin-top: 20px;"></div>
+        <div id="user_details" style="margin-top: 20px;"></div>
     </div>
-    <script src="script.js"></script>
+    <script>
+
+        async function fetchUserData() {
+            const user_id = document.getElementById('user_id').value;
+            if (!user_id) {
+                alert('Please enter a User ID');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/users?user_id=${user_id}`);
+                const data = await response.json();
+                const user_details = document.getElementById('user_details');
+                
+                if (response.ok) {
+                    user_details.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    user_details.innerHTML = `<p>${data.message}</p>`;
+                }
+            } catch (error) {
+                console.error('Failed to fetch user data:', error);
+            }
+        }
+
+    </script>
 </body>
 </html>

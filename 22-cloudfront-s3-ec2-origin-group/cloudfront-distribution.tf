@@ -30,13 +30,21 @@ resource "aws_cloudfront_distribution" "s3_ec2_group_distribution" {
     }
   }
 
+  # origin_group performs failover, bundles origin { ... } together
+  # (a primary and a secondary) so that CloudFront can automatically
+  # switch to the secondary origin if the primary origin fails
+  # NOTE: origin_group { ... } supports exactly two members
   origin_group {
     origin_id = "S3-EC2-Origins-Group"
+
+    # when to perform failover
     failover_criteria {
       status_codes = [403, 404, 500, 502, 503, 504]
     }
-    member { origin_id = "S3-Origin" }
-    member { origin_id = "EC2-Origin" }
+
+    # first declared member {} is the primary origin
+    member { origin_id = "S3-Origin" }   # primary origin
+    member { origin_id = "EC2-Origin" }  # secondary origin
   }
 
   # free tier class

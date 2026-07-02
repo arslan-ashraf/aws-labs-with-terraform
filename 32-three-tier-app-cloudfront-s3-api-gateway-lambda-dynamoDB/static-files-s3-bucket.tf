@@ -33,18 +33,18 @@ resource "aws_s3_object" "index_html" {
   etag         = filemd5("${path.module}/static-files/index.html")
 }
 
-resource "aws_s3_object" "style_css" {
-  bucket       = aws_s3_bucket.static_files_s3_bucket.id
-  key          = "style.css"
-  source       = "${path.module}/static-files/style.css"
-  content_type = "text/html"
-  etag         = filemd5("${path.module}/static-files/style.css")
-}
+# resource "aws_s3_object" "style_css" {
+#   bucket       = aws_s3_bucket.static_files_s3_bucket.id
+#   key          = "style.css"
+#   source       = "${path.module}/static-files/style.css"
+#   content_type = "text/html"
+#   etag         = filemd5("${path.module}/static-files/style.css")
+# }
 
-resource "aws_s3_object" "script_js" {
-  bucket       = aws_s3_bucket.static_files_s3_bucket.id
-  key          = "script.js"
-  source       = "${path.module}/static-files/script.js"
-  content_type = "text/html"
-  etag         = filemd5("${path.module}/static-files/script.js")
-}
+# resource "aws_s3_object" "script_js" {
+#   bucket       = aws_s3_bucket.static_files_s3_bucket.id
+#   key          = "script.js"
+#   source       = "${path.module}/static-files/script.js"
+#   content_type = "text/html"
+#   etag         = filemd5("${path.module}/static-files/script.js")
+# }

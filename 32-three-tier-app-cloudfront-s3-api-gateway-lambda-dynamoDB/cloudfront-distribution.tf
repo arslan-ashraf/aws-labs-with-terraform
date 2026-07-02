@@ -1,17 +1,17 @@
 resource "aws_cloudfront_distribution" "cloudfront_cdn" {
 
-  # alias = []
+  aliases = [var.custom_domain]
 
   # s3 origin
   origin {
     domain_name              = aws_s3_bucket.static_files_s3_bucket.bucket_regional_domain_name
-    origin_id                = "S3-Website-Origin"
+    origin_id                = "S3-Origin"
     origin_access_control_id = aws_cloudfront_origin_access_control.s3_access.id
   }
 
   # API Gateway origin
   origin {
-    domain_name = "${aws_api_gateway_rest_api.rest_api_gateway.id}.execute-api.${data.aws_region.current.name}.amazonaws.com"
+    domain_name = "${aws_api_gateway_rest_api.rest_api_gateway.id}.execute-api.${data.aws_region.current.region}.amazonaws.com"
     origin_path = "/${aws_api_gateway_stage.production_stage.stage_name}"
     
     origin_id   = "API-Gateway-Origin"
@@ -24,25 +24,9 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
       # origin_protocol_policy = "match-viewer"
 
       # we use http-only as the Apache server is listening on HTTP port 80
-      origin_protocol_policy = "http-only"
+      origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1.2"]
     }
-  }
-
-  # origin_group performs failover, bundles origin { ... } together
-  # (a primary and a secondary) so that CloudFront can automatically
-  # switch to the secondary origin if the primary origin fails
-  origin_group {
-    origin_id = "S3-API-Gateway-Origins-Group"
-
-    # when to perform failover
-    failover_criteria {
-      status_codes = [403, 404, 500, 502, 503, 504]
-    }
-
-    # first declared member {} is the primary origin
-    member { origin_id = "S3-Origin" }          # primary origin
-    member { origin_id = "API-GATEWAY-Origin" } # secondary origin
   }
 
   # free tier class
@@ -57,17 +41,16 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
   default_root_object = "index.html"
 
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "POST", "PUT", "PATCH", "OPTIONS", "DELETE"]
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
 
-    target_origin_id = "S3-API-Gateway-Origins-Group"
+    target_origin_id = "S3-Origin"
 
     forwarded_values {
       query_string = true
 
       headers = [
-        "Authorization",
-        "Host"
+        "Authorization"
       ]
 
       cookies {
@@ -78,12 +61,35 @@ resource "aws_cloudfront_distribution" "cloudfront_cdn" {
     viewer_protocol_policy = "redirect-to-https"
 
     min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    default_ttl            = 30
+    max_ttl                = 30
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/users*"
+    target_origin_id = "API-Gateway-Origin"
+
+    viewer_protocol_policy = "redirect-to-https"
+
+    allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+
+    cached_methods = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = true
+
+      headers = [
+          "Authorization"
+      ]
+
+      cookies {
+          forward = "all"
+      }
+    }
   }
 
   viewer_certificate {
-    acm_certificate_arn      = data.aws_acm_certificate.tls_certificate.certificate_arn
+    acm_certificate_arn      = data.aws_acm_certificate.tls_certificate.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

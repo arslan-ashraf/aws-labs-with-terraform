@@ -1,1 +1,1 @@
-This lab creates and S3 bucket and a CloudFront distribution that has the S3 bucket as its origin.  To see it in action, visit the CloudFront URL.
+This lab creates and S3 bucket and a CloudFront distribution that has the S3 bucket as its origin.  To see it in action, run this Terraform lab and visit the CloudFront URL.

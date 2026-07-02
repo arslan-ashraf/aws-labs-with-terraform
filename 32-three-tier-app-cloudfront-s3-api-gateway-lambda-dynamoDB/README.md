@@ -6,23 +6,17 @@ In this lab, we create a three tier web application.  We start with a CloudFront
 
 We also create a DynamoDB table which holds a `users_table`.  The goal is to use the custom domain to visit a web page that CloudFront will deliver.  On the page, there is a button that once clicked, will send a call to CloudFront with a query string which should read the API Gateway which then calls the Lambda function, which in turn will parse query string and send the appropriate GET request to DynamoDB.
 
-1. In the JavaScript file, replace `<custom_domain>` with the actual domain.
+1. Run the Terraform lab.
 
-2. Run the Terraform lab.
+2. Go to the DynamoDB console and manually add a user with user_id equal to 456 and any other example fields.
 
-3. Go to the DynamoDB console and manually add a user with user_id equal to 123 and any other example fields.
-
-4. Visit the custom domain as follows:
+3. Visit the custom domain as follows:
 `<custom_domain>` or `<cloudfront_url>`.
 
-In this lab, there should be no errors.  However, if after any modification, there are errors when visiting the site such as:
+4. Enter the user ID 456 and click the button on the page.
 
-{"message":"Missing Authentication Token"} 
+Here is what the front page looks like:
+![Alt Text](three-tier-web-app-page-0.png)
 
-It means the resource path given by `aws_api_gateway_resource` is broken.
-
-{"message": "Internal server error"} 
-
-This error means the API Gateway successfully matched the route but any of the following could be an issue:
-- Malformed Lambda IAM resource permissions, couldn't invoke the Lambda function because the URL link doesn't match where the Lambda can be invoked from
-- Lambda threw an exception that wasn't handled
+After retrieving user data:
+![Alt Text](three-tier-web-app-page-1.png)
