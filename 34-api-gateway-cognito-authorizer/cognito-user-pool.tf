@@ -1,16 +1,16 @@
-resource "aws_cognito_user_pool" "ecommerce_user_pool" {
-  name = "ecommerce_user_pool"
+resource "aws_cognito_user_pool" "user_pool_database" {
+  name = "user_pool_database"
 
   # Allows users to use their email as their username
   username_attributes = ["email"]
 
   # Configure password complexity
   password_policy {
-    minimum_length    = 8
+    minimum_length    = 6
     require_lowercase = true
-    require_numbers   = true
-    require_symbols   = true
-    require_uppercase = true
+    require_uppercase = false
+    require_numbers   = false
+    require_symbols   = false
   }
 
   # Auto-verify email addresses
@@ -19,7 +19,7 @@ resource "aws_cognito_user_pool" "ecommerce_user_pool" {
 
 resource "aws_cognito_user_pool_client" "user_pool_client" {
   name         = "user_pool_client"
-  user_pool_id = aws_cognito_user_pool.ecommerce_user_pool.id
+  user_pool_id = aws_cognito_user_pool.user_pool_database.id
 
   # Authentication flows
   explicit_auth_flows = [
