@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "lambda_trust_policy_document" {
+data "aws_iam_policy_document" "backend_lambda_trust_policy_document" {
   statement {
     effect = "Allow"
 
@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "lambda_trust_policy_document" {
 
 resource "aws_iam_role" "backend_lambda_role" {
   name               = "backend_lambda_role"
-  assume_role_policy = data.aws_iam_policy_document.lambda_trust_policy_document.json
+  assume_role_policy = data.aws_iam_policy_document.backend_lambda_trust_policy_document.json
 }
 
 
