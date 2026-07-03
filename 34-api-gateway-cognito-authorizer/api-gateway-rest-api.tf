@@ -24,6 +24,8 @@ resource "aws_api_gateway_authorizer" "users_path_cognito_authorizer" {
 
   authorizer_result_ttl_in_seconds = 0 # TTL of cached authorizer results
 
+  # tells API Gateway where to look for the user's token
+  identity_source = "method.request.header.Authorization" 
 }
 
 # define HTTP GET method for /users path
@@ -35,7 +37,7 @@ resource "aws_api_gateway_method" "GET_users" {
   authorizer_id = aws_api_gateway_authorizer.users_path_cognito_authorizer.id
 
   request_parameters = {
-    "method.request.header.authorizationToken" = true
+    "method.request.path.users" = true
   }
 }
 
