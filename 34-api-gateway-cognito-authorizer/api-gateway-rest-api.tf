@@ -15,7 +15,7 @@ resource "aws_api_gateway_resource" "users_path" {
   path_part   = "users"
 }
 
-resource "aws_api_gateway_authorizer" "users_path_authorizer" {
+resource "aws_api_gateway_authorizer" "users_path_cognito_authorizer" {
   name           = "users_path_cognito_authorizer"
   rest_api_id    = aws_api_gateway_rest_api.rest_api_gateway.id
 
@@ -31,8 +31,8 @@ resource "aws_api_gateway_method" "GET_users" {
   rest_api_id   = aws_api_gateway_rest_api.rest_api_gateway.id
   resource_id   = aws_api_gateway_resource.users_path.id
   http_method   = "GET"
-  authorization = "CUSTOM"
-  authorizer_id = aws_api_gateway_authorizer.users_path_authorizer.id
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = aws_api_gateway_authorizer.users_path_cognito_authorizer.id
 
   request_parameters = {
     "method.request.header.authorizationToken" = true
