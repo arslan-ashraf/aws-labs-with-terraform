@@ -16,20 +16,15 @@ resource "aws_api_gateway_resource" "users_path" {
 }
 
 resource "aws_api_gateway_authorizer" "users_path_authorizer" {
-  name           = "users_path_authorizer"
+  name           = "users_path_cognito_authorizer"
   rest_api_id    = aws_api_gateway_rest_api.rest_api_gateway.id
   authorizer_uri = aws_lambda_function.authorizer_lambda.invoke_arn
 
-  type            = "TOKEN"
+  type            = "COGNITO_USER_POOLS"
   identity_source = "method.request.header.authorizationToken"
 
   authorizer_result_ttl_in_seconds = 0 # TTL of cached authorizer results
-  
-  # for a TOKEN authorizer, identity_validation_expression is a
-  # regular expression that the token must match, without a match,
-  # the API Gateway immediately rejects the request with 4xx
-  # identity_validation_expression = "<regex_here>" 
-  identity_validation_expression = "^user_[0-9]+$"
+
 }
 
 # define HTTP GET method for /users path
