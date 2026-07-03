@@ -8,7 +8,9 @@ curl -H "authorizationToken: user_123" https://<api_gateway_id>.execute-api.us-e
 
 This URL can be found in the terminal once the Terraform config is run to completion.
 
-The API Gateway then forwards this to the `authorizer_lambda` function which always returns an IAM policy and does a trivial check against the `authorizationToken` to see if it equals `user_123`, if it does it return
+The API Gateway then forwards this to the `authorizer_lambda` function which always returns an IAM policy and does a trivial check against the `authorizationToken` to see if it equals `user_123`.  If it does, then it returns an `Effect = 'Allow'` back to the API Gateway.
+
+The API Gateway then inspects the return IAM policy and if it does have an `Effect = 'Allow'`, then the API Gateway forwards the request to the `backend_lambda` which returns an arbitrary example response.
 
 1. Run the Terraform lab.
 
