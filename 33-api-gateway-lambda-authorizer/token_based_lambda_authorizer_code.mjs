@@ -1,8 +1,5 @@
 function handler(event) {
 
-    console.log("#".repeat(50))
-    console.log(event)
-
     let iam_policy_response = null
 
     let auth_token = event.authorizationToken
@@ -12,9 +9,6 @@ function handler(event) {
     } else {
         iam_policy_response = generatePolicy(auth_token, 'Deny', event.methodArn)
     }
-
-    console.log(iam_policy_response)
-    console.log("#".repeat(50))
 
     return iam_policy_response
 }
