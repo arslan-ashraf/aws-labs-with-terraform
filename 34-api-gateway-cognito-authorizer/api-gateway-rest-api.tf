@@ -36,9 +36,9 @@ resource "aws_api_gateway_method" "GET_users" {
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.users_path_cognito_authorizer.id
 
-  request_parameters = {
-    "method.request.path.users" = true
-  }
+  # request_parameters = {
+  #   "method.request.path.users" = true
+  # }
 }
 
 # integrate GET /users with the Lambda function
@@ -63,7 +63,7 @@ resource "aws_api_gateway_deployment" "api_snapshot" {
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.users_path.id,
       aws_api_gateway_method.GET_users.id,
-      aws_api_gateway_authorizer.users_path_authorizer.id,
+      aws_api_gateway_authorizer.users_path_cognito_authorizer.id,
       aws_api_gateway_integration.integrate_GET_users_lambda.id,
     ]))
   }
