@@ -17,4 +17,4 @@ The API Gateway then inspects the return IAM policy and if it does have an `Effe
 2. Visit the API Gateway's invoke URL as above with the correct header.
 
 Here is a successful looks like:
-<!-- ![Alt Text](.png) -->
+![Alt Text](33-terraform-lab.png)
