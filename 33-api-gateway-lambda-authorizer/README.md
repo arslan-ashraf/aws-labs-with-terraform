@@ -1,5 +1,7 @@
 
 
+curl -H "authorizationToken: user_123" https://p7b1cztmei.execute-api.us-east-1.amazonaws.com/production/users
+
 1. Run the Terraform lab.
 
 2. Go to the DynamoDB console and manually add a user with user_id equal to 456 and any other example fields.

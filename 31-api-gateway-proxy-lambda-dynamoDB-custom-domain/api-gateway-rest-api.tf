@@ -75,7 +75,11 @@ resource "aws_api_gateway_deployment" "api_snapshot" {
   # deployed API continues operating with the old configuration
 
   triggers = {
-    # the configuration below will satisfy ordering considerations
+    # the configuration below will take ordering into consideration
+    # the deployment may not be replaced by terraform even if any
+    # of the items in the sha1(jsonencode([ ... ])) change, because
+    # they have stable ids if they're only updated, to ensure redeployment:
+    # terraform apply -replace=aws_api_gateway_deployment.api_snapshot
     redeployment = sha1(jsonencode([
       aws_api_gateway_resource.users_path.id,
       aws_api_gateway_method.GET_users.id,

@@ -2,14 +2,21 @@ function handler(event) {
 
     console.log("#".repeat(50))
     console.log(event)
+
+    let iam_policy_response = null
+
+    let auth_token = event.authorizationToken
+
+    if (auth_token == "user_123"){
+        iam_policy_response = generatePolicy(auth_token, 'Allow', event.methodArn)
+    } else {
+        iam_policy_response = generatePolicy(auth_token, 'Deny', event.methodArn)
+    }
+
+    console.log(iam_policy_response)
     console.log("#".repeat(50))
 
-    let auth_token = event.AuthorizationToken
-    if (auth_token == "user_123"){
-        generatePolicy(auth_token, 'Allow', event.methodArn)
-    } else {
-        generatePolicy(auth_token, 'Deny', event.methodArn)
-    }
+    return iam_policy_response
 }
 
 // helper function to generate the IAM policy
