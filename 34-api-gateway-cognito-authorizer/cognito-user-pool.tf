@@ -37,12 +37,12 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
 
   # OAuth 2.0 settings
   # allowed_oauth_flows_user_pool_client = true
-  # allowed_oauth_flows                  = ["code", "implicit"]
+  # allowed_oauth_flows                  = ["code", "implicit", "client_credentials"]
   # allowed_oauth_scopes                 = ["email", "openid", "profile"]
 
   # Where Cognito redirects users after login/logout
-  # callback_urls = ["http://localhost:3000/callback"]
-  # logout_urls   = ["http://localhost:3000/logout"]
+  # callback_urls = ["http://localhost:3000/login_redirect_page"]
+  # logout_urls   = ["http://localhost:3000/logout_redirect_page"]
 
   generate_secret = false # Set to false for single page apps
 }
