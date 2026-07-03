@@ -8,9 +8,9 @@ resource "aws_cognito_user_pool" "user_pool_database" {
   password_policy {
     minimum_length    = 6
     require_lowercase = true
-    require_uppercase = false
-    require_numbers   = false
-    require_symbols   = false
+    require_uppercase = false # example only
+    require_numbers   = false # example only
+    require_symbols   = false # example only
   }
 
   # Auto-verify email addresses
