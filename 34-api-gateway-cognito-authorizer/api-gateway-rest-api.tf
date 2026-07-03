@@ -18,10 +18,9 @@ resource "aws_api_gateway_resource" "users_path" {
 resource "aws_api_gateway_authorizer" "users_path_authorizer" {
   name           = "users_path_cognito_authorizer"
   rest_api_id    = aws_api_gateway_rest_api.rest_api_gateway.id
-  authorizer_uri = aws_lambda_function.authorizer_lambda.invoke_arn
 
   type            = "COGNITO_USER_POOLS"
-  identity_source = "method.request.header.authorizationToken"
+  provider_arns  = [aws_cognito_user_pool.example.arn]
 
   authorizer_result_ttl_in_seconds = 0 # TTL of cached authorizer results
 
