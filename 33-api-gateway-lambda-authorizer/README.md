@@ -14,15 +14,7 @@ The API Gateway then inspects the return IAM policy and if it does have an `Effe
 
 1. Run the Terraform lab.
 
-2. Go to the DynamoDB console and manually add a user with user_id equal to 456 and any other example fields.
+2. Visit the API Gateway's invoke URL as above with the correct header.
 
-3. Visit the custom domain as follows:
-`<custom_domain>` or `<cloudfront_url>`.
-
-4. Enter the user ID 456 in the search bar and click the button on the page.
-
-Here is what the front page looks like:
-<!-- ![Alt Text](.png) -->
-
-After retrieving user data:
+Here is a successful looks like:
 <!-- ![Alt Text](.png) -->
