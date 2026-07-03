@@ -26,12 +26,16 @@ resource "aws_cognito_user_pool" "user_pool_database" {
 
 # who exactly are the "clients"?
 # examples of "clients" or "application clients":
+
 # Single Page Applications (SPAs): Your React, Angular, or Vue.js frontend
 # running directly in a user's web browser
+
 # Mobile Apps: Your native iOS or Android application installed on a 
 # user's phone
+
 # Backend Servers: A Node.js, Python, or Java API that needs to verify
 # users or server-to-server communication
+
 # Smart Devices: IoT hardware or TV applications that require user login
 
 resource "aws_cognito_user_pool_client" "user_pool_client" {
