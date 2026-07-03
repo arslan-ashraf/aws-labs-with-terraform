@@ -17,6 +17,13 @@ resource "aws_cognito_user_pool" "user_pool_database" {
   auto_verified_attributes = ["email"]
 }
 
+
+# what is aws_cognito_user_pool_client resource?
+# it is used to create and manage the Cognito app client, this 
+# acts as a bridge between your application (e.g., frontend, backend)
+# and the Cognito User Pool, allowing it to authenticate users, 
+# manage tokens, and perform OAuth flows
+
 resource "aws_cognito_user_pool_client" "user_pool_client" {
   name         = "user_pool_client"
   user_pool_id = aws_cognito_user_pool.user_pool_database.id
@@ -28,9 +35,10 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
     "ALLOW_USER_SRP_AUTH" # Required for the hosted UI
   ]
 
+  # OAuth 2.0 settings
   # allowed_oauth_flows_user_pool_client = true
-  # allowed_oauth_flows                  = ["code"]
-  # allowed_oauth_scopes                 = ["openid", "email", "profile"]
+  # allowed_oauth_flows                  = ["code", "implicit"]
+  # allowed_oauth_scopes                 = ["email", "openid", "profile"]
 
   # Where Cognito redirects users after login/logout
   # callback_urls = ["http://localhost:3000/callback"]
