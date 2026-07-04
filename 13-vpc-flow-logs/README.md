@@ -5,3 +5,7 @@ To do that we create a Cloudwatch log group, and an IAM role for the VPC Flow Lo
 We SSH into the instance and ping out to any website and this will log the traffic flow every 60 seconds.  We can check the CloudWatch logs to see the traffic captured.
 
 1. Run Terraform.
+
+2. SSH into the EC2 instance and ping and website.
+
+3. Check CloudWatch logs to see the ping recorded.
