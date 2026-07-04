@@ -35,4 +35,4 @@ curl -H "Content-Type: application/json"
 ```
 
 Here is a successful looks like:
-![Alt Text](33-terraform-lab.png)
+![Alt Text](34-terraform-lab.png)
