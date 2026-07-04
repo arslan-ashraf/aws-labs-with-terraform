@@ -27,9 +27,9 @@ aws cognito-idp respond-to-auth-challenge \
 5. This will authenticate the user return an AccessToken, IdToken, RefreshToken, and a "TokenType": "Bearer".  Copy the IdToken and use it in the command:
 
 ```
-curl -X GET "<api_gateway_invoke_URL>/users" \
-	--H "Authorization: Bearer <IdToken>" \
-	--H "Content-Type: application/json"
+curl -H "Content-Type: application/json"
+	 -H "Authorization: Bearer <IdToken>" \
+     "<api_gateway_invoke_URL>/users"
 ```
 
 Here is a successful looks like:
