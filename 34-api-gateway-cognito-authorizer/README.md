@@ -5,7 +5,7 @@ In this lab, we create a Cognito user pool which is a database of users and thei
 
 2. Go to the Cognito console and create an example user with email `testuser@example.com` and check email verified.  Set the password to `password1`.
 
-3. Login for the first time:
+3. Login for the first time (APP_CLIENT_ID is found under Applications App clients tab in user pool console):
 
 ```
 aws cognito-idp initiate-auth \
@@ -13,6 +13,8 @@ aws cognito-idp initiate-auth \
   --auth-flow USER_PASSWORD_AUTH \
   --auth-parameters 'USERNAME=testuser@example.com,PASSWORD=password1'
 ```
+
+
 
 4. Respond to the change NEW_PASSWORD_REQUIRED with the following command:
 
