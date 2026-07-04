@@ -46,7 +46,7 @@ resource "aws_cognito_user_pool_client" "user_pool_client" {
   explicit_auth_flows = [
     "ALLOW_USER_PASSWORD_AUTH",
     "ALLOW_REFRESH_TOKEN_AUTH",
-    "ALLOW_USER_SRP_AUTH" # Required for the hosted UI
+    "ALLOW_USER_SRP_AUTH" # secure remote password, required for hosted UI
   ]
 
   generate_secret = false # Set to false for single page apps
