@@ -1,4 +1,12 @@
 #!/bin/bash
 
 sudo apt-get update -y
-sudo apt-get install nodejs -y
+
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+
+# instead of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+
+# Download and install Node.js:
+nvm install 24
