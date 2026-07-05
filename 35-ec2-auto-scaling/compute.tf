@@ -8,7 +8,7 @@ resource "aws_instance" "ec2_instance" {
   key_name                    = "key-for-ec2-connection"
   monitoring                  = true
 
-  user_data                   = file("${path.module}/userdata.sh")
+  user_data                   = file("${path.module}/user_data.sh")
 
   vpc_security_group_ids = [
     aws_security_group.security_group_public_traffic.id
