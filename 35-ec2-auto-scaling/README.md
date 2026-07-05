@@ -1,0 +1,15 @@
+Resources needed:
+
+aws_vpc
+aws_subnet
+aws_security_group
+
+aws_launch_template
+aws_autoscaling_group
+
+aws_lb 
+aws_lb_target_group
+aws_autoscaling_attachment
+
+aws_autoscaling_policy
+cloudwatch_metric_alarm
