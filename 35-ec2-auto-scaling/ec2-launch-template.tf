@@ -1,6 +1,6 @@
 resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   name = "ec2_auto_scaling_launch_template"
-  block_device_mappings = "Required"
+  # block_device_mappings = {}  # EBS volumes to attach
   capacity_reservation_specification = "Required"
   credit_specification = "Required"
   disable_api_termination = "Required"
