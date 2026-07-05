@@ -1,11 +1,8 @@
 resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   name = "ec2_auto_scaling_launch_template"
   # block_device_mappings = {}  # EBS volumes to attach
-  
-  credit_specification = "Required"
-  disable_api_termination = "Required"
-  elastic_gpu_specifications = "Required"
-  iam_instance_profile = "Required"
+
+  # iam_instance_profile = ""
   image_id = "Required"
   instance_initiated_shutdown_behavior = "Required"
   instance_market_options = "Required"
