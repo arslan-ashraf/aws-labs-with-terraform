@@ -1,6 +1,5 @@
 resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
-  name_prefix = "Required"
-  description = "Required"
+  name = "ec2_auto_scaling_launch_template"
   block_device_mappings = "Required"
   capacity_reservation_specification = "Required"
   credit_specification = "Required"
