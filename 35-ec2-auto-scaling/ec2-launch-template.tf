@@ -41,6 +41,11 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     enabled = true
   }
 
+  # ensure smooth infrastructure updates
+  lifecycle {
+    create_before_destroy = true
+  }
+
   # iam_instance_profile = ""
 
   # ebs_optimized = true
