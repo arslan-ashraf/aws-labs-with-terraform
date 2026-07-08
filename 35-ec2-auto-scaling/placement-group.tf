@@ -1,5 +1,7 @@
 # aws_placement_group influences the physical placement of EC2
 # instances within AWS data centers for performance or HA needs
+# used to achieve low network latency or spread instances across
+# distinct physical hardware racks
 
 resource "aws_placement_group" "ec2_autoscaling_placement_group" {
   name     = "ec2_autoscaling_placement_group"
