@@ -15,7 +15,17 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   user_data = file("${path.module}/user_data.sh")
 
   placement {
-    availability_zone = "us-west-2a"
+    availability_zone = "us-east-1a"
+
+    # tenancy defines the hardware isolation level, options include:
+    # default - shared physical hardware
+    # dedicated - single-tenant hardware dedicated to your AWS account
+    # host - runs on a specific, fully-managed dedicated host
+    tenancy           = "dedicated"
+    
+    group_name        = "my-placement-group"
+    partition_number  = 1
+    topology_type     = "host"
   }
 
   # iam_instance_profile = ""
