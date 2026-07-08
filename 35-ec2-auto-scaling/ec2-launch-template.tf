@@ -28,6 +28,18 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     # topology_type     = ""
   }
 
+  # monitoring {} determines the frequency of CloudWatch metrics collection
+
+  # enabled = true activates detailed monitoring, metrics are collected
+  # every 1 minute
+
+  # enabled = false if the default standard monitoring, metrics are 
+  # collected every 5 minutes
+
+  # monitoring = {
+  #   enabled = true
+  # }
+
   # iam_instance_profile = ""
 
   # ebs_optimized = true
@@ -35,10 +47,6 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   # default_version = 1
   # update_default_version = true
-  
-  # monitoring = {
-  #   enabled = true
-  # }
   
   # EBS volumes to attach
   # block_device_mappings {
