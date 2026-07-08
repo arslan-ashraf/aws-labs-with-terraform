@@ -22,8 +22,8 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     # dedicated - single-tenant hardware dedicated to your AWS account
     # host - runs on a specific, fully-managed dedicated host
     tenancy           = "dedicated"
-    
-    group_name        = "my-placement-group"
+
+    group_name        = "ec2-autoscaling-group"
     partition_number  = 1
     topology_type     = "host"
   }

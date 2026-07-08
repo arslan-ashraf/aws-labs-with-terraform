@@ -5,6 +5,7 @@ aws_subnet
 aws_security_group
 
 aws_launch_template
+aws_placement_group
 aws_autoscaling_group
 
 aws_lb 
