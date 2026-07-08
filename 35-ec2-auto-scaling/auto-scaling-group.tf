@@ -1,6 +1,6 @@
 resource "aws_autoscaling_group" "ec2_autoscaling_group" {
   name_prefix         = "ec2_autoscaling_group"
-  desired_capacity    = 1
+  # desired_capacity    = 1 # remove when using autoscaling policy
   max_size            = 2
   min_size            = 1
 
