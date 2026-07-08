@@ -23,7 +23,7 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
   # prevents excessive autoscaled instances from spinning up
   default_cooldown = 300
 
-  # scale-in protection for new instances
+  # scale-in (removing instances) protection for new instances
   # set to true only if ALL new instances must be permanently 
   # protected from scaling down
   protect_from_scale_in = false 
