@@ -9,7 +9,9 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     availability_zone = "us-west-2a"
   }
 
-  vpc_security_group_ids = [""]
+  vpc_security_group_ids = [aws_security_group.security_group_public_traffic.id]
+
+  user_data = file("${path.module}/user_data.sh")
 
   # iam_instance_profile = ""
 
