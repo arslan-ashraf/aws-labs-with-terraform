@@ -28,51 +28,51 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
   autoscaling_group_name = aws_autoscaling_group.ec2_autoscaling_group.name
   policy_type            = "TargetTrackingScaling"
 
-  target_tracking_configuration {
-    
-    target_value = 100
+  # target_tracking_configuration {
 
-    customized_metric_specification {
-      metrics {
-        label = "Get the queue size (the number of messages waiting to be processed)"
-        id    = "m1"
-        metric_stat {
-          metric {
-            namespace   = "AWS/SQS"
-            metric_name = "ApproximateNumberOfMessagesVisible"
-            dimensions {
-              name  = "QueueName"
-              value = "my-queue"
-            }
-          }
-          stat   = "Sum"
-          period = 10
-        }
-        return_data = false
-      }
-      metrics {
-        label = "Get the group size (the number of InService instances)"
-        id    = "m2"
-        metric_stat {
-          metric {
-            namespace   = "AWS/AutoScaling"
-            metric_name = "GroupInServiceInstances"
-            dimensions {
-              name  = "AutoScalingGroupName"
-              value = "my-asg"
-            }
-          }
-          stat   = "Average"
-          period = 10
-        }
-        return_data = false
-      }
-      metrics {
-        label       = "Calculate the backlog per instance"
-        id          = "e1"
-        expression  = "m1 / m2"
-        return_data = true
-      }
-    }
-  }
+  #   target_value = 100
+
+  #   customized_metric_specification {
+  #     metrics {
+  #       label = "Get the queue size (the number of messages waiting to be processed)"
+  #       id    = "metric_1"
+  #       metric_stat {
+  #         metric {
+  #           namespace   = "AWS/SQS"
+  #           metric_name = "ApproximateNumberOfMessagesVisible"
+  #           dimensions {
+  #             name  = "QueueName"
+  #             value = "<sqs_queue_name>"
+  #           }
+  #         }
+  #         stat   = "Sum"
+  #         period = 10
+  #       }
+  #       return_data = false
+  #     }
+  #     metrics {
+  #       label = "Get the group size (the number of InService instances)"
+  #       id    = "metric_2"
+  #       metric_stat {
+  #         metric {
+  #           namespace   = "AWS/AutoScaling"
+  #           metric_name = "GroupInServiceInstances"
+  #           dimensions {
+  #             name  = "AutoScalingGroupName"
+  #             value = "<autoscaling_group_name>"
+  #           }
+  #         }
+  #         stat   = "Average"
+  #         period = 10
+  #       }
+  #       return_data = false
+  #     }
+  #     metrics {
+  #       label       = "Calculate the backlog per instance"
+  #       id          = "e1"
+  #       expression  = "metric_1 / metric_2"
+  #       return_data = true
+  #     }
+  #   }
+  # }
 }
