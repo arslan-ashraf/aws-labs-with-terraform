@@ -25,6 +25,15 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
     # reaches 50%
     target_value = 50.0
 
+    # time in (seconds) an instance needs to boot before its metrics 
+    # are used for the autoscaling policy, used to prevent autoscaling
+    # from kicking off during instance startup
+    estimated_instance_warmup = 300   # seconds
+
+    # tet to true if you ONLY want to add (scale out) instance and
+    # never remove (scale in)
+    disable_scale_in          = false 
+
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
