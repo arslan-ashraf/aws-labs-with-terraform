@@ -33,7 +33,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   #     volume_size           = 10      # Gigabytes
   #     volume_type           = "gp3"
   #     iops                  = 1000
-  #     throughput            = 25
+  #     throughput            = 25      # MiB/s, only for gp3 volumes
   #     encrypted             = true
   #     delete_on_termination = true
   #   }
