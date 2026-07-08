@@ -10,6 +10,16 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
   autoscaling_group_name = aws_autoscaling_group.ec2_autoscaling_group.name
   policy_type            = "TargetTrackingScaling"
 
+  
+}
+
+
+resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
+  name                   = "ASG_cpu_target_tracking_policy"
+  autoscaling_group_name = aws_autoscaling_group.ec2_autoscaling_group.name
+  policy_type            = "TargetTrackingScaling"
+
+  # simple config with predefined metric
   target_tracking_configuration {
     # trigger when average CPU utilization of the desired capacity
     # reaches 50%
@@ -20,14 +30,8 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
     }
 
   }
-}
 
-
-resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
-  name                   = "ASG_cpu_target_tracking_policy"
-  autoscaling_group_name = aws_autoscaling_group.ec2_autoscaling_group.name
-  policy_type            = "TargetTrackingScaling"
-
+  # alternative custom config involving SQS queue and EC2 instances
   # target_tracking_configuration {
 
   #   target_value = 100
