@@ -9,10 +9,8 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   image_id = "ami-0ec10929233384c7f"  # ubuntu ami
   instance_type = "t2.nano"
-  
-  kernel_id = "Required"
-  key_name = "Required"
-  license_specification = "Required"
+  key_name      = "key-for-ec2-connection"
+
   monitoring = "Required"
   network_interfaces = "Required"
   placement = "Required"
@@ -20,4 +18,9 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   security_group_names = "Required"
   vpc_security_group_ids = "Required"
 
+}
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "key-for-ec2-connection"
+  public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
