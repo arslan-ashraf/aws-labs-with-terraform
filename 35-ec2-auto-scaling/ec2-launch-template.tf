@@ -24,8 +24,8 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     tenancy           = "dedicated"
 
     group_name        = "ec2_autoscaling_placement_group"
-    partition_number  = 1
-    topology_type     = "host"
+    # partition_number  = 1
+    # topology_type     = ""
   }
 
   # iam_instance_profile = ""
