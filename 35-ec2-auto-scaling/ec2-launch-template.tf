@@ -1,3 +1,8 @@
+resource "aws_key_pair" "deployer" {
+  key_name   = "key-for-ec2-connection"
+  public_key = file("~/.ssh/key-for-ec2-connection.pub")
+}
+
 resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   name = "ec2_auto_scaling_launch_template"
 
@@ -52,9 +57,4 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   # }
 
 
-}
-
-resource "aws_key_pair" "deployer" {
-  key_name   = "key-for-ec2-connection"
-  public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
