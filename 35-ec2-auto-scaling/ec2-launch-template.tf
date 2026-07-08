@@ -23,7 +23,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     # host - runs on a specific, fully-managed dedicated host
     tenancy           = "dedicated"
 
-    group_name        = "ec2-autoscaling-group"
+    group_name        = "ec2-autoscaling-placement-group"
     partition_number  = 1
     topology_type     = "host"
   }
