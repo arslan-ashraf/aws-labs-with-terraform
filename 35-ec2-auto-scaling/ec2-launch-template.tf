@@ -8,7 +8,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   image_id = "ami-0ec10929233384c7f"  # ubuntu ami
   instance_type = "t2.nano"
-  key_name      = aws_key_pair.public_private_key_pair.name
+  key_name      = aws_key_pair.public_private_key_pair.key_name
 
   vpc_security_group_ids = [
     aws_security_group.security_group_public_traffic.id
