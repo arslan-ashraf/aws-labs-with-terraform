@@ -1,12 +1,15 @@
 resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   name = "ec2_auto_scaling_launch_template"
-  # block_device_mappings = {}  # EBS volumes to attach
+  
 
   # iam_instance_profile = ""
-  image_id = "Required"
-  instance_initiated_shutdown_behavior = "Required"
 
-  instance_type = "Required"
+  # block_device_mappings = {}  # EBS volumes to attach
+  # instance_initiated_shutdown_behavior = "stop"  # default "stop"
+
+  image_id = "ami-0ec10929233384c7f"  # ubuntu ami
+  instance_type = "t2.nano"
+  
   kernel_id = "Required"
   key_name = "Required"
   license_specification = "Required"
