@@ -12,10 +12,11 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   instance_type = "t2.nano"
   key_name      = "key-for-ec2-connection"
 
-  placement = "Required"
-  ram_disk_id = "Required"
-  security_group_names = "Required"
-  vpc_security_group_ids = "Required"
+  placement {
+    availability_zone = "us-west-2a"
+  }
+
+  vpc_security_group_ids = [""]
 
 }
 
