@@ -15,7 +15,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   user_data = file("${path.module}/user_data.sh")
 
   placement {
-    availability_zone = "us-east-1a"
+    # availability_zone = "us-east-1a" # conflicts with load balancer config
 
     # tenancy defines the hardware isolation level, options include:
     # default - shared physical hardware
@@ -23,7 +23,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     # host - runs on a specific, fully-managed dedicated host
     tenancy           = "dedicated"
 
-    group_name        = "ec2_autoscaling_placement_group"
+    group_name        = aws_placement_group.ec2_autoscaling_placement_group.name
     # partition_number  = 1
     # topology_type     = ""
   }
