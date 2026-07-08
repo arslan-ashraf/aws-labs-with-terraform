@@ -15,9 +15,19 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   # iam_instance_profile = ""
 
-  # block_device_mappings = {}  # EBS volumes to attach
+  # ebs_optimized = true
   # instance_initiated_shutdown_behavior = "stop"  # default "stop"
   # monitoring = ""
+
+  # default_version = 1
+  # update_default_version = true
+  
+  # EBS volumes to attach
+  block_device_mappings = {
+    device_name = "/dev/sda1"
+    
+  }  
+
 
 }
 
