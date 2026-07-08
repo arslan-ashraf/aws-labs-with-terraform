@@ -6,6 +6,7 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
 
   # where the EC2 instances will be launched, pass in only one subnet
   # if single AZ low latency is required, e.g. database nodes
+  # and set aws_placement_group strategy = "cluster"
   vpc_zone_identifier = [
     aws_subnet.public_subnet_1_for_ec2.id, 
     aws_subnet.public_subnet_2_for_ec2.id
