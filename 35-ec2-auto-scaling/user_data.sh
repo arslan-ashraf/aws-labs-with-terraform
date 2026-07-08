@@ -1,12 +1,25 @@
 #!/bin/bash
 
-sudo apt-get update -y
+# Add Docker's official GPG key:
+sudo apt update -y
+sudo apt install ca-certificates curl -y
+sudo install -m 0755 -d /etc/apt/keyrings -y
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-# Download and install nvm:
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
 
-# instead of restarting the shell
-\. "$HOME/.nvm/nvm.sh"
+sudo apt update -y
 
-# Download and install Node.js:
-nvm install 24
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+touch server.js
+

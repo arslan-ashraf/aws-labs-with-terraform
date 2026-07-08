@@ -11,12 +11,13 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
   policy_type            = "TargetTrackingScaling"
 
   target_tracking_configuration {
+    # trigger when average CPU utilization of the desired capacity
+    # reaches 50%
+    target_value = 50.0
+    
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
 
-    # trigger when average CPU utilization of the desired capacity
-    # reaches 50%
-    target_value = 50.0
   }
 }
