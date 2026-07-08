@@ -10,14 +10,14 @@ resource "aws_placement_group" "ec2_autoscaling_placement_group" {
   # strategy determines the placement strategy for the group which
   # must be one of the following:
 
-  # cluster - packs instances close together inside a single AZ,
+  # cluster - packs instances close together inside a single AZ only,
   # best for low-latency network performance
 
   # spread - places instances on distinct physical hardware racks to
-  # reduce correlated failures, max 7 instances per AZ
+  # reduce correlated failures, max 7 instances per AZ, multi-AZ support
 
   # partition - divides the group into logical partitions, instances in
-  # one partition do not share hardware with other partitions
+  # one partition do not share hardware with other partitions, multi-AZ support
   
 
   # partition_count is the number of partitions to create 
