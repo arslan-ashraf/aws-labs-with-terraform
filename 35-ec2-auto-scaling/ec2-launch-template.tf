@@ -21,16 +21,16 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   # default_version = 1
   # update_default_version = true
   
-  monitoring = {
-    enabled = true
-  }
+  # monitoring = {
+  #   enabled = true
+  # }
   
   # EBS volumes to attach
   # block_device_mappings {
   #   device_name = "/dev/xvda" # Common root device name for Linux AMIs
 
   #   ebs {
-  #     volume_size           = 10
+  #     volume_size           = 10      # Gigabytes
   #     volume_type           = "gp3"
   #     iops                  = 1000
   #     throughput            = 25
@@ -44,7 +44,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   #   device_name = "/dev/sdb"
 
   #   ebs {
-  #     volume_size           = 10
+  #     volume_size           = 10      # Gigabytes
   #     volume_type           = "gp3"
   #     encrypted             = true
   #     delete_on_termination = true
