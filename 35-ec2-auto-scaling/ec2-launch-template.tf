@@ -31,14 +31,15 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   # monitoring {} determines the frequency of CloudWatch metrics collection
 
   # enabled = true activates detailed monitoring, metrics are collected
-  # every 1 minute
+  # every 1 minute, extra charges, better for auto scaling and quick
+  # reaction
 
   # enabled = false if the default standard monitoring, metrics are 
   # collected every 5 minutes
 
-  # monitoring = {
-  #   enabled = true
-  # }
+  monitoring = {
+    enabled = true
+  }
 
   # iam_instance_profile = ""
 
