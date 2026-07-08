@@ -1,3 +1,5 @@
+# aws_placement_group influences the physical placement of EC2
+# instances within AWS data centers for performance or HA needs
 resource "aws_placement_group" "ec2-autoscaling-placement-group" {
   name     = "ec2-autoscaling-placement-group"
 
