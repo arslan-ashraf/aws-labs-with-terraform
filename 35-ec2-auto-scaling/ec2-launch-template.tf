@@ -32,7 +32,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   # enabled = true activates detailed monitoring, metrics are collected
   # every 1 minute, extra charges, better for auto scaling and quick
-  # reaction
+  # reaction, enables auto scaling policy to trigger in a minute
 
   # enabled = false if the default standard monitoring, metrics are 
   # collected every 5 minutes
