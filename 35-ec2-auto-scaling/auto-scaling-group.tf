@@ -10,20 +10,16 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
 
   placement_group = aws_placement_group.ec2_autoscaling_placement_group.id
 
-  # Link the launch template configuration
   launch_template {
-    id      = aws_launch_template.app_template.id
-    version = "$Latest" # Automatically uses the newest version of the template
+    id      = aws_launch_template.ec2_auto_scaling_launch_template.id
+    version = "$Latest" # use the newest version of the template
   }
 
-  # Enforce structural updates over raw replacements
   lifecycle {
     create_before_destroy = true
   }
 
   tag {
-    key                 = "Name"
-    value               = "ASG-Managed-Instance"
-    propagate_at_launch = true
+    Name = "Auto-Scaling-Group-Managed-Instance"
   }
 }
