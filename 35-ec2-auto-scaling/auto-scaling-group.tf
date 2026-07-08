@@ -19,6 +19,14 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
     version = "$Latest" # use the newest version of the template
   }
 
+  # wait 3 minutes before allowing another scaling activity
+  default_cooldown = 180
+
+  # scale-in protection for new instances
+  # set to true only if ALL new instances must be permanently 
+  # protected from scaling down
+  protect_from_scale_in = false 
+
   lifecycle {
     create_before_destroy = true
   }
