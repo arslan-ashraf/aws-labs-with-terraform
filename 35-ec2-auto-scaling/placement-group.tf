@@ -6,7 +6,7 @@
 resource "aws_placement_group" "ec2_autoscaling_placement_group" {
   name     = "ec2_autoscaling_placement_group"
 
-  strategy = "cluster"
+  strategy = "spread"
   # strategy determines the placement strategy for the group which
   # must be one of the following:
 
