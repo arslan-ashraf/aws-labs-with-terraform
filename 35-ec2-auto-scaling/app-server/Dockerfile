@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY server.js index.html .
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["node", "server.js"]
