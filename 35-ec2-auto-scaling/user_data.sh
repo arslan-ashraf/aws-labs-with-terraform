@@ -70,7 +70,7 @@ cat << 'EOF' > index.html
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic NodeJS Server</title>
 </head>
-<body style="font-family: sans-serif; text-align: center; margin-top: 50px; background-color: lightcoral;">
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px; margin-left: 40px; background-color: lightorange; text-align: left">
     <h1>NodeJS Server Running</h1>
 
     <h1>Docker Provided Virtual IP Address: <strong id="ip-address"></strong></h1>
