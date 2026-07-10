@@ -1,3 +1,16 @@
+Content-Type: multipart/mixed; boundary="==BOUNDARY=="
+MIME-Version: 1.0
+    
+--==BOUNDARY==
+Content-Type: text/cloud-config; charset="us-ascii"
+    
+#cloud-config
+cloud_final_modules:
+- [scripts-user, always]
+    
+--==BOUNDARY==
+Content-Type: text/x-shellscript; charset="us-ascii"
+
 #!/bin/bash
 
 echo "###########################################################"
