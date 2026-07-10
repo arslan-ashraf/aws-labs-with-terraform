@@ -68,3 +68,19 @@ echo "######### DOCKER SUCCESSFULLY INSTALLED AND READY #########"
 mkdir -p /home/ubuntu
 cd /home/ubuntu
 
+cat << 'EOF' > index.html
+
+EOF
+
+cat << 'EOF' > server.js
+
+EOF
+
+cat << 'EOF' > .dockerignore
+
+EOF
+
+cat << 'EOF' > Dockerfile
+
+EOF
+
