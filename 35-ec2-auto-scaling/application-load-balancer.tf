@@ -43,8 +43,14 @@ resource "aws_lb_listener" "http_listener" {
 
 
   default_action {
-    type             = "forward"        # redirect to https is better
     target_group_arn = aws_lb_target_group.web_servers_target_group.arn
+    
+    type             = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }
 
