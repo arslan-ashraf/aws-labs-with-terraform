@@ -17,8 +17,10 @@ resource "aws_lb" "application_load_balancer" {
 
 }
 
+# load balancer terminates TLS and communicates with the target
+# group over HTTP on port 80
 resource "aws_lb_target_group" "web_servers_target_group" {
-  name     = "web-servers-target-group"
+  name     = "web_servers_target_group"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.example_vpc.id
