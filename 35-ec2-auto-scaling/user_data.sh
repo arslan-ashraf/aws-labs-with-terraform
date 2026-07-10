@@ -1,4 +1,25 @@
+Content-Type: multipart/mixed; boundary="==EC2_CONFIG=="
+MIME-Version: 1.0
+
+--==EC2_CONFIG==
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+- [scripts-user, always]
+
+--==EC2_CONFIG==
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="userdata.sh"
+
 #!/bin/bash
+
+echo "This script runs on every single boot!" >> /var/log/every-boot.log
 
 # install Docker
 # add Docker's official GPG key:
