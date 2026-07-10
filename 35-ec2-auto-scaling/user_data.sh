@@ -133,3 +133,4 @@ ls
 
 echo "############### BUILDING DOCKER IMAGE #################"
 
+sudo docker build -t node-ip-app .
