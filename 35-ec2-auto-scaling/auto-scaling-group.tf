@@ -17,6 +17,8 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
   ]
 
   instance_refresh {
+
+    # enforce zero down time 
     strategy = "Rolling"
     preferences {
       min_healthy_percentage = 50 # keep at least 50% instances while updating others
