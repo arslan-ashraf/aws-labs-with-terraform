@@ -1,8 +1,10 @@
 resource "aws_autoscaling_group" "ec2_autoscaling_group" {
   name_prefix         = "ec2_autoscaling_group"
-  # desired_capacity    = 1 # remove when using autoscaling policy
+  desired_capacity    = 1 # remove when using autoscaling policy without lifecycle {}
   max_size            = 2
   min_size            = 1
+
+  health_check_type   = "EC2"   # or ELB
 
   # where the EC2 instances will be launched, pass in only one subnet
   # if single AZ low latency is required, e.g. database nodes
