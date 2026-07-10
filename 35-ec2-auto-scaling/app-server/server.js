@@ -5,6 +5,34 @@ const path = require('path');
 
 let server_random_id = Math.floor(Math.random() * 1_000_000)
 
+function isPrime(num) {
+    if (num <= 1) return false;
+    if (num === 2) return true;
+    if (num % 2 === 0) return false;
+
+    // Check odd factors up to the square root of the number
+    const boundary = Math.sqrt(num);
+    for (let i = 3; i <= boundary; i += 2) {
+        if (num % i === 0) return false;
+    }
+    return true;
+}
+
+function find_nth_prime(n) {
+    if (n < 1) return null;
+    
+    let count = 0;
+    let num = 1;
+
+    while (count < n) {
+        num++;
+        if (isPrime(num)) {
+            count++;
+        }
+    }
+    return num;
+}
+
 // Function to get the local IPv4 address of the machine
 function getLocalIp() {
     const interfaces = os.networkInterfaces();
