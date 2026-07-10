@@ -10,18 +10,18 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
   autoscaling_group_name = aws_autoscaling_group.ec2_autoscaling_group.name
   policy_type            = "TargetTrackingScaling"
 
+  # time in (seconds) AWS waits to start recording an instance's 
+  # metrics, instance's metric data won't enter into the fleet's
+  # average calculation until it has been active for at least
+  # the estimated_instance_warmup time, used to prevent autoscaling
+  # from kicking off during instance startup
+  estimated_instance_warmup = 300   # seconds
+
   # simple config with predefined metric
   target_tracking_configuration {
     # trigger when average CPU utilization of the desired capacity
     # reaches 50%
     target_value = 50.0
-
-    # time in (seconds) AWS waits to start recording an instance's 
-    # metrics, instance's metric data won't enter into the fleet's
-    # average calculation until it has been active for at least
-    # the estimated_instance_warmup time, used to prevent autoscaling
-    # from kicking off during instance startup
-    estimated_instance_warmup = 180   # seconds
 
     # tet to true if you ONLY want to add (scale out) instance and
     # never remove (scale in)
