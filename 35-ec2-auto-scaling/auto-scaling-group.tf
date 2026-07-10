@@ -6,6 +6,8 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
 
   health_check_type   = "EC2"   # or ELB
 
+  target_group_arns   = [aws_lb_target_group.web_servers_target_group.arn]
+
   # where the EC2 instances will be launched, pass in only one subnet
   # if single AZ low latency is required, e.g. database nodes
   # and set aws_placement_group strategy = "cluster"
