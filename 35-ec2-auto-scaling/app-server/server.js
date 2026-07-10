@@ -3,6 +3,8 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
+let server_random_id = Math.floor(Math.random() * 1_000_000)
+
 // Function to get the local IPv4 address of the machine
 function getLocalIp() {
     const interfaces = os.networkInterfaces();
@@ -28,9 +30,16 @@ const server = http.createServer((req, res) => {
             return;
         }
 
+        let large_prime = find_nth_prime(100_000)
+
+        let random_number = Math.floor(Math.random() * 1_000_000)
+
         // Replace the placeholder with the actual server IP address
-        const updatedHtml = content.replace('%%IP_ADDRESS%%', serverIp)
-                                   .replace('%%%%', )
+        const updatedHtml = content
+                .replace('%%IP_ADDRESS%%', serverIp)
+                .replace('%%SERVER_RANDOM_ID%%', server_random_id)
+                .replace('%%%%', large_prime)
+                .replace('%%%%', random_number)
 
         // Send the updated HTML to the browser
         res.writeHead(200, { 'Content-Type': 'text/html' });
