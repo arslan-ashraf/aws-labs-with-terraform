@@ -75,7 +75,7 @@ cat << 'EOF' > index.html
 
     <h1>Docker Provided Virtual IP Address: <strong id="ip-address"></strong></h1>
 
-    <h1>Server Randomly Generated ID to Distinguish Different Servers: <strong id="server-random-id"></strong></h1>
+    <h1>Server ID Randomly Generated to Distinguish Different Servers: <strong id="server-random-id"></strong></h1>
 
     <h1>A Large Prime Number: <strong id="large-prime"></strong></h1>
 
