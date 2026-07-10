@@ -193,7 +193,7 @@ WORKDIR /app
 
 COPY server.js index.html .
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["node", "server.js"]
 EOF
@@ -208,4 +208,4 @@ sudo docker build -t basic-app .
 
 echo "############### RUNNING DOCKER CONTAINER ##############"
 
-sudo docker run -p 80:3000 basic-app
+sudo docker run -p 80:80 basic-app
