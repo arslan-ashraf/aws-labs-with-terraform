@@ -14,7 +14,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   #   aws_security_group.security_group_public_traffic.id
   # ]
 
-  user_data = file("${path.module}/user_data.sh")
+  user_data = filebase64("${path.module}/user_data.sh")
 
   network_interfaces {
     associate_public_ip_address = true
