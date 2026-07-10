@@ -155,7 +155,7 @@ const server = http.createServer((req, res) => {
             return;
         }
 
-        let large_prime = find_nth_prime(100_000)
+        let large_prime = find_nth_prime(500_000)
 
         let random_number = Math.floor(Math.random() * 1_000_000)
 
