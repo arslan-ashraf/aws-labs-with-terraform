@@ -10,9 +10,9 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   instance_type = "t2.nano"
   key_name      = aws_key_pair.public_private_key_pair.key_name
 
-  vpc_security_group_ids = [
-    aws_security_group.security_group_public_traffic.id
-  ]
+  # vpc_security_group_ids = [
+  #   aws_security_group.security_group_public_traffic.id
+  # ]
 
   user_data = file("${path.module}/user_data.sh")
 
