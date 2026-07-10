@@ -64,3 +64,7 @@ done
 
 echo "######### DOCKER SUCCESSFULLY INSTALLED AND READY #########"
 
+# -p is --parent, no error if parent already exists
+mkdir -p /home/ubuntu
+cd /home/ubuntu
+
