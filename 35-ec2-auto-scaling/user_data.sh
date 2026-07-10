@@ -133,4 +133,8 @@ ls
 
 echo "############### BUILDING DOCKER IMAGE #################"
 
-sudo docker build -t node-ip-app .
+sudo docker build -t basic-app .
+
+echo "############### RUNNING DOCKER CONTAINER ##############"
+
+sudo docker run -p 80:3000 basic-app
