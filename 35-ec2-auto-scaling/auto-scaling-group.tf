@@ -49,7 +49,4 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
     ignore_changes        = [desired_capacity]
   }
 
-  tag {
-    Name = "Auto-Scaling-Group-Managed-Instance"
-  }
 }
