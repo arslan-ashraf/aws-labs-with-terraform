@@ -180,7 +180,12 @@ server.listen(PORT, '0.0.0.0', () => {
 EOF
 
 cat << 'EOF' > .dockerignore
-
+node_modules
+npm-debug.log
+.dockerignore
+Dockerfile
+.git
+.gitignore
 EOF
 
 cat << 'EOF' > Dockerfile
