@@ -70,9 +70,3 @@ resource "aws_lb_listener" "https_listener" {
     target_group_arn = aws_lb_target_group.web_servers_target_group.arn
   }
 }
-
-# Output URL
-output "alb_dns_name" {
-  value       = aws_lb.application_load_balancer.dns_name
-  description = "The public URL of the application load balancer"
-}
