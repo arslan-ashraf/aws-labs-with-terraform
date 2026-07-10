@@ -19,9 +19,10 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
   instance_refresh {
     strategy = "Rolling"
     preferences {
-      min_healthy_percentage = 50
+      min_healthy_percentage = 50 # keep at least 50% instances while updating others
     }
-    triggers = ["tag"]
+    triggers = ["tag"] # retriggers if tag is updated
+  }
 
   placement_group = aws_placement_group.ec2_autoscaling_placement_group.id
 
