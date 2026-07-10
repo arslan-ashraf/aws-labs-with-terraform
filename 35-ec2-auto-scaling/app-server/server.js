@@ -18,7 +18,7 @@ function getLocalIp() {
     return '127.0.0.1'; // Fallback
 }
 
-const PORT = 3000;
+const PORT = 80;
 const serverIp = getLocalIp();
 
 const server = http.createServer((req, res) => {
@@ -48,6 +48,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running at http://0.0.0.0:${PORT}`);
+
     console.log(`Also accessible on your network at http://${serverIp}:${PORT}`);
 });
