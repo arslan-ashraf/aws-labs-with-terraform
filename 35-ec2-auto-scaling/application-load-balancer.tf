@@ -71,19 +71,6 @@ resource "aws_lb_listener" "https_listener" {
   }
 }
 
-# Target Group Attachments
-resource "aws_lb_target_group_attachment" "web_server_1_attachment" {
-  target_group_arn = aws_lb_target_group.web_servers_target_group.arn
-  target_id        = aws_instance.web_server_1.id
-  port             = 80
-}
-
-resource "aws_lb_target_group_attachment" "web_server_2_attachment" {
-  target_group_arn = aws_lb_target_group.web_servers_target_group.arn
-  target_id        = aws_instance.web_server_2.id
-  port             = 80
-}
-
 # Output URL
 output "alb_dns_name" {
   value       = aws_lb.application_load_balancer.dns_name
