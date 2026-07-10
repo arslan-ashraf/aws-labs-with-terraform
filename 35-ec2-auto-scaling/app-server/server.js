@@ -36,10 +36,10 @@ const server = http.createServer((req, res) => {
 
         // Replace the placeholder with the actual server IP address
         const updatedHtml = content
-                .replace('%%IP_ADDRESS%%', serverIp)
-                .replace('%%SERVER_RANDOM_ID%%', server_random_id)
-                .replace('%%%%', large_prime)
-                .replace('%%%%', random_number)
+                .replace('%% IP_ADDRESS %%', serverIp)
+                .replace('%% SERVER_RANDOM_ID %%', server_random_id)
+                .replace('%% LARGE_PRIME %%', large_prime)
+                .replace('%% RANDOM_NUMBER %%', random_number)
 
         // Send the updated HTML to the browser
         res.writeHead(200, { 'Content-Type': 'text/html' });
