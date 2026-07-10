@@ -34,6 +34,9 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
 
   lifecycle {
     create_before_destroy = true
+
+    # allow autocaling to change desired_capacity without Terraform
+    ignore_changes        = [desired_capacity]
   }
 
   tag {
