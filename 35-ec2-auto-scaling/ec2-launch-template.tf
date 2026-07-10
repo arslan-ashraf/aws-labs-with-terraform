@@ -16,6 +16,10 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   user_data = file("${path.module}/user_data.sh")
 
+  network_interfaces {
+    associate_public_ip_address = true
+  }
+
   placement {
     # availability_zone = "us-east-1a" # conflicts with load balancer config
 
