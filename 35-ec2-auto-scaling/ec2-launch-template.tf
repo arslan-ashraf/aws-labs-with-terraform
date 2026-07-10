@@ -18,6 +18,9 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   network_interfaces {
     associate_public_ip_address = true
+    security_groups             = [
+      aws_security_group.security_group_for_ec2_instance.id
+    ]
   }
 
   placement {
