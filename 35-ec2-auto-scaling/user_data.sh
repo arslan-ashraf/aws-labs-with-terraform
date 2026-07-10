@@ -63,7 +63,35 @@ mkdir -p /home/ubuntu
 cd /home/ubuntu
 
 cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic NodeJS Server</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px; background-color: lightcoral;">
+    <h1>NodeJS Server Running</h1>
 
+    <h1>Docker Provided Virtual IP Address: <strong id="ip-address"></strong></h1>
+
+    <h1>Server Randomly Generated ID to Distinguish Different Servers: <strong id="server-random-id"></strong></h1>
+
+    <h1>A Large Prime Number: <strong id="large-prime"></strong></h1>
+
+    <h1>Some Random Number to Distinguish Different Requests: <strong id="random-number"></strong></h1>
+
+    <script>
+        document.getElementById('ip-address').textContent = "%% IP_ADDRESS %%"
+
+        document.getElementById('server-random-id').textContent = "%% SERVER_RANDOM_ID %%"
+
+        document.getElementById('large-prime').textContent = "%% LARGE_PRIME %%"
+
+        document.getElementById('random-number').textContent = "%% RANDOM_NUMBER %%"
+    </script>
+</body>
+</html>
 EOF
 
 cat << 'EOF' > server.js
