@@ -16,6 +16,13 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
     aws_subnet.public_subnet_2_for_ec2.id
   ]
 
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = ["tag"]
+
   placement_group = aws_placement_group.ec2_autoscaling_placement_group.id
 
   launch_template {
