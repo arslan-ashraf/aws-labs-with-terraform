@@ -30,7 +30,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     # default - shared physical hardware
     # dedicated - single-tenant hardware dedicated to your AWS account
     # host - runs on a specific, fully-managed dedicated host
-    tenancy           = "dedicated"
+    tenancy           = "default"
 
     group_name        = aws_placement_group.ec2_autoscaling_placement_group.name
     # partition_number  = 1
@@ -46,7 +46,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   # enabled = false if the default standard monitoring, metrics are 
   # collected every 5 minutes
 
-  monitoring = {
+  monitoring {
     enabled = true
   }
 
