@@ -40,7 +40,9 @@ resource "aws_autoscaling_group" "ec2_autoscaling_group" {
   # wait (in seconds) before allowing another scaling activity
   # prevents excessive autoscaling, instances from spinning down
   # and then possible back up again very quickly
-  default_cooldown = 60
+  default_cooldown = 60 # matters little if at all with "TargetTrackingScaling" policy
+  # AWS uses its own CloudWatch alarm set at 35% CPUUtilization for 15 minutes
+  # before it scales back down
 
   # scale-in (removing instances) protection for new instances
   # set to true only if ALL new instances must be permanently 
