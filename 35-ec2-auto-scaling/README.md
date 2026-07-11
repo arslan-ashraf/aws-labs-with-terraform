@@ -16,7 +16,7 @@ target_tracking_configuration {
 }
 ```
 
-But scaling back down happens very slowly and AWS defines its own rules for that.  With `ASGAverageCPUUtilization` set at 50%, AWS requires `CPUUtilization < 35 for 15 datapoints within 15 minutes
+But scaling back down happens very slowly and AWS defines its own rules for the `TargetTrackingScaling` policy.  With `ASGAverageCPUUtilization` set at 50%, AWS requires `CPUUtilization < 35 for 15 datapoints within 15 minutes
 ` in order to scale back down.
 
 To test this lab:
