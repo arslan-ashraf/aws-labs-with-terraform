@@ -7,6 +7,7 @@ The EC2 instance(s) run a basic NodeJS application wrapped in a Docker container
 AWS automatically creates two CloudWatch alarms for scaling out (expanding) and scaling in (shrinking).  Each scaling event happens only when the CloudWatch alarm triggers.
 
 Scaling out happens fairly quickly according to `target_tracking_configuration` found in `aws_autoscaling_policy`:
+
 ```
 target_tracking_configuration {
     # trigger when average CPU utilization of the desired capacity
@@ -14,6 +15,7 @@ target_tracking_configuration {
     target_value = 50.0`
 }
 ```
+
 But scaling back down happens very slowly and AWS defines its own rules for that.  With `ASGAverageCPUUtilization` set at 50%, AWS requires `CPUUtilization < 35 for 15 datapoints within 15 minutes
 ` in order to scale back down.
 
