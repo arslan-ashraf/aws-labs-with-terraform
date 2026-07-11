@@ -4,18 +4,23 @@ In this lab, we test the AutoScaling functionality of EC2 instances.  We attach 
 
 The EC2 instance(s) run a basic NodeJS application wrapped in a Docker container.  Once the home page is visited, it runs an inefficient algorithm to find a fairly large number.  This is intentional because this task is CPU intensive and its purpose is to raise an EC2 instance's CPU usage to trigger auto scaling.
 
+AWS automatically creates two CloudWatch alarms for scaling out (expanding) and scaling in (shrinking)
+
 To test this lab:
 1. Run the Terraform config and enter the custom domain name.
 
 2. Once the Terraform config runs to completion, it can still take some time for the instance to install Docker, build the image, and run the container.  This is all in the `user_data.sh` script.  To see if the script has finished running, simply SSH into the instance and run:
+
 ```
 cat /var/log/cloud-init-output.log
 ```
 If the server is running, then its good to receive requests.
 
-3. Hammer the server with lots of requests, experiment with:
+3. Hammer the server with lots of requests, experiment with n:
 
 ```
 n=5
 for ((i=1; i<=$n; i++)); do curl -I https://<custom_domain>; done
 ```
+
+4. Check the EC2 console to see the CPU usage of the EC2 instance increasing and eventually, in about 3-5 minutes a new instance will spin up.
