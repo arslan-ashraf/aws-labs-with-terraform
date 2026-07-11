@@ -1,6 +1,6 @@
 Note: this lab takes about 10 minutes to create all resources and 10 more to destroy all resources.
 
-In this lab, we test the AutoScaling functionality of EC2 instances.  We attach a custom domain to the Application load balancer which points to an AutoScaling Group.  
+In this lab, we test the AutoScaling functionality of EC2 instances.  We attach a custom domain to the Application load balancer which points to an AutoScaling Group.  The instances that are created are in different subnets, according to the `strategy = spread` in the `aws_placement_group` resource.
 
 The EC2 instance(s) run a basic NodeJS application wrapped in a Docker container.  Once the home page is visited, it runs an inefficient algorithm to find a fairly large number.  This is intentional because this task is CPU intensive and its purpose is to raise an EC2 instance's CPU usage to trigger auto scaling.
 
