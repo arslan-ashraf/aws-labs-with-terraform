@@ -4,7 +4,7 @@
 # distinct physical hardware racks
 
 resource "aws_placement_group" "ec2_autoscaling_placement_group" {
-  name     = "ec2_autoscaling_placement_group"
+  name = "ec2_autoscaling_placement_group"
 
   strategy = "spread"
   # strategy determines the placement strategy for the group which
@@ -18,7 +18,7 @@ resource "aws_placement_group" "ec2_autoscaling_placement_group" {
 
   # partition - divides the group into logical partitions, instances in
   # one partition do not share hardware with other partitions, multi-AZ support
-  
+
 
   # partition_count is the number of partitions to create 
   # (valid values are 1 to 7, defaults to 2), only valid if 

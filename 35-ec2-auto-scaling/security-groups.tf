@@ -21,17 +21,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_load_balancer_rule"
   ip_protocol = "tcp"
 }
 
-resource "aws_vpc_security_group_egress_rule" "egress_internet_rule" {
-  security_group_id = aws_security_group.security_group_for_ec2_instance.id
-
-  # where is the traffic going
-  cidr_ipv4 = "0.0.0.0/0"
-
-  ip_protocol = "-1"
-}
-
-# for testing only
-resource "aws_vpc_security_group_ingress_rule" "ingress_internet_rule" {
+resource "aws_vpc_security_group_egress_rule" "egress_all_internet_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
 
   # where is the traffic going
@@ -55,17 +45,17 @@ resource "aws_security_group" "security_group_for_application_load_balancer" {
 # leaving this security group rule out will ensure that the website is
 # only accessible through https://<custom_domain>
 # if http is attempted, it will automatically redirect to https
-# resource "aws_vpc_security_group_ingress_rule" "ingress_http_all_public_traffic_rule" {
-#   security_group_id = aws_security_group.security_group_for_application_load_balancer.id
+resource "aws_vpc_security_group_ingress_rule" "ingress_http_all_public_traffic_rule" {
+  security_group_id = aws_security_group.security_group_for_application_load_balancer.id
 
-#   # where is the traffic coming from
-#   cidr_ipv4 = "0.0.0.0/0"
+  # where is the traffic coming from
+  cidr_ipv4 = "0.0.0.0/0"
 
-#   from_port = 80
-#   to_port   = 80
+  from_port = 80
+  to_port   = 80
 
-#   ip_protocol = "tcp"
-# }
+  ip_protocol = "tcp"
+}
 
 resource "aws_vpc_security_group_ingress_rule" "ingress_https_all_public_traffic_rule" {
   security_group_id = aws_security_group.security_group_for_application_load_balancer.id

@@ -1,7 +1,7 @@
 # Application Load Balancer
 resource "aws_lb" "application_load_balancer" {
   name               = "external-alb"
-  internal           = false            # false means internet facing
+  internal           = false # false means internet facing
   load_balancer_type = "application"
 
   security_groups = [
@@ -12,7 +12,7 @@ resource "aws_lb" "application_load_balancer" {
     aws_subnet.public_subnet_1_for_application_load_balancer.id,
     aws_subnet.public_subnet_2_for_application_load_balancer.id
   ]
-  
+
   # enable_deletion_protection = false 
 
 }
@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "web_servers_target_group" {
 
   # load balancer terminates TLS and communicates with the target
   # group over HTTP on port 80
-  name     = "web_servers_target_group"
+  name     = "web-servers-target-group"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.example_vpc.id
@@ -46,9 +46,7 @@ resource "aws_lb_listener" "http_listener" {
 
 
   default_action {
-    target_group_arn = aws_lb_target_group.web_servers_target_group.arn
-    
-    type             = "redirect"
+    type = "redirect"
     redirect {
       port        = "443"
       protocol    = "HTTPS"

@@ -15,7 +15,7 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
   # average calculation until it has been active for at least
   # the estimated_instance_warmup time, used to prevent autoscaling
   # from kicking off during instance startup
-  estimated_instance_warmup = 300   # seconds
+  estimated_instance_warmup = 180 # seconds
 
   # simple config with predefined metric
   target_tracking_configuration {
@@ -25,7 +25,7 @@ resource "aws_autoscaling_policy" "ASG_cpu_target_tracking_policy" {
 
     # tet to true if you ONLY want to add (scale out) instance and
     # never remove (scale in)
-    disable_scale_in          = false 
+    disable_scale_in = false
 
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"

@@ -6,7 +6,7 @@ resource "aws_key_pair" "public_private_key_pair" {
 resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
   name = "ec2_auto_scaling_launch_template"
 
-  image_id = "ami-0ec10929233384c7f"  # ubuntu ami
+  image_id      = "ami-0ec10929233384c7f" # ubuntu ami
   instance_type = "t2.nano"
   key_name      = aws_key_pair.public_private_key_pair.key_name
 
@@ -18,7 +18,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups             = [
+    security_groups = [
       aws_security_group.security_group_for_ec2_instance.id
     ]
   }
@@ -30,9 +30,9 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
     # default - shared physical hardware
     # dedicated - single-tenant hardware dedicated to your AWS account
     # host - runs on a specific, fully-managed dedicated host
-    tenancy           = "default"
+    tenancy = "default"
 
-    group_name        = aws_placement_group.ec2_autoscaling_placement_group.name
+    group_name = aws_placement_group.ec2_autoscaling_placement_group.name
     # partition_number  = 1
     # topology_type     = ""
   }
@@ -62,7 +62,7 @@ resource "aws_launch_template" "ec2_auto_scaling_launch_template" {
 
   # default_version = 1
   # update_default_version = true
-  
+
   # EBS volumes to attach
   # block_device_mappings {
   #   device_name = "/dev/xvda" # Common root device name for Linux AMIs
