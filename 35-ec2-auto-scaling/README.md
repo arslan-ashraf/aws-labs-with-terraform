@@ -2,7 +2,7 @@ Note: this lab takes about 10 minutes to create all resources and 10 more to des
 
 In this lab, we test the AutoScaling functionality of EC2 instances.  We attach a custom domain to the Application load balancer which points to an AutoScaling Group.  The instances that are created are in different AZs, according to the `strategy = spread` in the `aws_placement_group` resource.
 
-The EC2 instance(s) run a basic NodeJS application wrapped in a Docker container.  Once the home page is visited, it runs an inefficient algorithm to find a fairly large number.  This is intentional because this task is CPU intensive and its purpose is to raise an EC2 instance's CPU usage to trigger auto scaling.
+The EC2 instance(s) run a basic NodeJS application wrapped in a Docker container.  Once the home page is visited, it runs an inefficient algorithm to find a fairly large prime number.  This is intentional because this task is CPU intensive and its purpose is to raise an EC2 instance's CPU usage to trigger auto scaling.
 
 AWS automatically creates two CloudWatch alarms for scaling out (expanding) and scaling in (shrinking).  Each scaling event happens only when the CloudWatch alarm triggers.
 
