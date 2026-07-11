@@ -35,3 +35,5 @@ for ((i=1; i<=$n; i++)); do curl -I https://<custom_domain>; done
 ```
 
 4. Check the EC2 console to see the CPU usage of the EC2 instance increasing and eventually, in about 3-5 minutes a new instance will spin up.
+
+5. Stop sending requests to the custom domain or load balancer URL and after 15 minutes, a scale in/down event happens and the extra instances are removed.
