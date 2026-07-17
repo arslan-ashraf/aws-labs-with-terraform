@@ -63,9 +63,13 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 ########################################################################
 
 
-resource "aws_security_group" "nat" {
-  name   = "nat-instance"
-  vpc_id = aws_vpc.main.id
+resource "aws_security_group" "security_group_for_NAT_instance" {
+  name   = "security_group_for_NAT_instance"
+  vpc_id = aws_vpc.example_vpc.id
+  tags   = { Name = "security_group_for_NAT_instance" }
+}
+
+
 
   ingress {
     protocol    = "-1"
