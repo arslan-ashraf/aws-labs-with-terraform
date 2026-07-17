@@ -45,14 +45,14 @@ resource "aws_subnet" "private" {
   })
 }
 
-resource "aws_eip" "nat" {
+resource "aws_eip" "nat_eip" {
   tags = merge(var.tags, { Name = "${var.environment_name}-nat-eip" })
 }
 
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.nat.id
+resource "aws_nat_gateway" "nat_gateway" {
+  allocation_id = aws_eip.nat_eip.id
   subnet_id     = values(aws_subnet.public)[0].id
-  tags = merge(var.tags, { Name = "${var.environment_name}-nat" })
+  tags = merge(var.tags, { Name = "${var.environment_name}-nat-gateway" })
   depends_on = [aws_internet_gateway.internet_gateway]
 }
 
@@ -75,7 +75,7 @@ resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.main.id
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat.id
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
   tags = merge(var.tags, { Name = "${var.environment_name}-private-rt" })
 }
