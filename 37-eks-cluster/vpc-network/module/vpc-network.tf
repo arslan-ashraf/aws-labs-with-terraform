@@ -84,7 +84,8 @@ resource "aws_route_table" "route_table_for_public_subnets" {
 
 # note: a subnet can only be attached to a single route table
 resource "aws_route_table_association" "rtb_public_subnets_assoc" {
-  for_each = local.public_subnets # as listed at the top of file
+  # as listed at the top of file
+  for_each        = local.public_subnets
 
   subnet_id      = aws_subnet.subnets_in_main_vpc[each.key].id
   route_table_id = aws_route_table.route_table_for_public_subnets[0].id
