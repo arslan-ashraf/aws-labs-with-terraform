@@ -1,7 +1,7 @@
 resource "aws_instance" "nat" {
   ami                         = data.aws_ami.al2023.id
   instance_type               = "t3.nano"
-  subnet_id                   = aws_subnet.public.id
+  subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
   associate_public_ip_address = true
 
   # without source_dest_check = false, this EC2 instance won't be 
@@ -28,4 +28,13 @@ EOF
   tags = {
     Name = "NAT-Instance"
   }
+}
+
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
+
+resource "aws_eip_association" "nat" {
+  allocation_id = aws_eip.nat.id
+  instance_id   = aws_instance.nat.id
 }
