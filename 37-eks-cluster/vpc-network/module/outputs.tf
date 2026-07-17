@@ -35,7 +35,7 @@ output "private_subnets" {
   description = "Map of private subnets and their AZs"
 }
 
-output "public_subnet_ids" {
-  value = [for subnet in local.output_public_subnets: subnet.subnet_id]
-  description = "List of public subnet IDs"
+output "private_subnet_ids" {
+  value = [for subnet in local.output_private_subnets: subnet.subnet_id]
+  description = "List of private subnet IDs"
 }
