@@ -1,5 +1,24 @@
-#!bin/bash
+Content-Type: multipart/mixed; boundary="==BOUNDARY=="
+MIME-Version: 1.0
+    
+--==BOUNDARY==
+Content-Type: text/cloud-config; charset="us-ascii"
+    
+#cloud-config
+cloud_final_modules:
+- [scripts-user, always]
+    
+--==BOUNDARY==
+Content-Type: text/x-shellscript; charset="us-ascii"
 
+#!/bin/bash
+
+echo "###########################################################"
+echo "################# USER DATA SCRIPT RUNNING ################"
+echo "###########################################################"
+
+# install Docker
+# add Docker's official GPG key:
 sudo apt update -y
 
 # Enable IPv4 packet forwarding
