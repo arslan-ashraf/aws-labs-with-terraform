@@ -62,7 +62,7 @@ resource "aws_nat_gateway" "nat_gateway" {
   tags = { Name = "nat_gateway_in_public_subnet" }
 
   # Explicit dependency to ensure proper ordering during creation/destruction
-  depends_on = [aws_internet_gateway.internet_gateway_for_example_vpc]
+  depends_on = [aws_internet_gateway.main_internet_gateway]
 }
 
 ###################################################################
