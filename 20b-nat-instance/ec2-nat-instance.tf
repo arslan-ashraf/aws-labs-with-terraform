@@ -25,7 +25,7 @@ service iptables save
 systemctl enable iptables
 EOF
 
-  tags = { Name = "NAT-Instance" }
+  tags = { Name = "NAT-Instance", AMI = "ubuntu-ami" }
 }
 
 resource "aws_eip" "nat_elastic_IP" {
