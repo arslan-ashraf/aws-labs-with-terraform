@@ -104,7 +104,9 @@ resource "aws_route_table" "route_table_for_private_subnets" {
 }
 
 resource "aws_route_table_association" "rtb_private_subnets_assoc" {
-  for_each = aws_subnet.private
-  subnet_id      = each.value.id
+   # as listed at the top of file
+  for_each        = local.private_subnets
+
+  subnet_id      = aws_subnet.subnets_in_main_vpc[each.key].id
   route_table_id = aws_route_table.route_table_for_private_subnets.id
 }
