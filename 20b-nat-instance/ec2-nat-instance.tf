@@ -3,7 +3,7 @@ resource "aws_instance" "nat_instance" {
   instance_type               = "t2.nano"
   subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
   associate_public_ip_address = true
-  user_data                   = 
+  user_data                   = file("${path.module}/nat_instance_user_data.sh")
 
   # without source_dest_check = false, this EC2 instance won't be 
   # able to serve as a NAT device and will simply drop packets coming 
