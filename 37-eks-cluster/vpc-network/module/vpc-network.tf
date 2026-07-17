@@ -80,6 +80,8 @@ resource "aws_route_table" "route_table_for_public_subnets" {
     # wrapped inside an array, hence: main_internet_gateway[0]
     gateway_id = aws_internet_gateway.main_internet_gateway[0].id
   }
+
+  tags = { Name = "route_table_for_public_subnets" }
 }
 
 # note: a subnet can only be attached to a single route table
