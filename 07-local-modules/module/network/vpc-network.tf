@@ -8,7 +8,8 @@ locals {
   }
 }
 
-# if the subnet_config defined in the module file variables.tf looks like this:
+# if the subnet_config defined in the module file variables.tf looks
+# like this (this is coming from using the module):
 # subnet_config = {
 #   subnet_a = {
 #     cidr_block = "10.0.1.0/24"
