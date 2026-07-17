@@ -1,4 +1,4 @@
-resource "aws_instance" "nat" {
+resource "aws_instance" "nat_instance" {
   ami                         = data.aws_ami.al2023.id
   instance_type               = "t3.nano"
   subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
