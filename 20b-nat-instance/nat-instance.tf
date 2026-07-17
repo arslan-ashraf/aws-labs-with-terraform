@@ -4,6 +4,9 @@ resource "aws_instance" "nat" {
   subnet_id                   = aws_subnet.public.id
   associate_public_ip_address = true
 
+  # without source_dest_check = false, this EC2 instance won't be 
+  # able to serve as a NAT device and will simply drop packets coming 
+  # its way instead of forwarding them outbound to the internet gateway
   source_dest_check = false
 
   vpc_security_group_ids = [
@@ -23,6 +26,6 @@ systemctl enable iptables
 EOF
 
   tags = {
-    Name = "nat-instance"
+    Name = "NAT-Instance"
   }
 }
