@@ -67,5 +67,6 @@ resource "aws_route_table_association" "rtb_public_subnets_assoc" {
 }
 
 ###################################################################
-############### ROUTE TABLE FOR PUBLIC SUBNETS ####################
+############### ROUTE TABLE FOR PRIVATE SUBNETS ###################
 ###################################################################
+
