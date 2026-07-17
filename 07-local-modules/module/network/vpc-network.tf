@@ -51,7 +51,7 @@ resource "aws_vpc" "example_vpc" {
   tags       = { Name = var.vpc_config.name }
 }
 
-# multple subnets with for_each loop
+# multiple subnets with for_each loop
 resource "aws_subnet" "subnets_in_example_vpc" {
   for_each          = var.subnet_config
   vpc_id            = aws_vpc.example_vpc.id
