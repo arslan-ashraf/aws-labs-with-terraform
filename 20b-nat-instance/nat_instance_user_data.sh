@@ -26,6 +26,7 @@ echo "net.ipv4.ip_forward = 1" | sudo tee -a /etc/sysctl.conf
 # to verify that indeed, this instance can forward packets out:
 # cat /proc/sys/net/ipv4/ip_forward # should print 1
 
+
 sudo sysctl -p
 
 # Apply the masquerade rule (Replace eth0 with your active interface)

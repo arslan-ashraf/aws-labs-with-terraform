@@ -58,8 +58,10 @@ resource "aws_route_table" "route_table_for_private_subnet" {
   vpc_id = aws_vpc.example_vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    # gateway_id = aws_nat_gateway.nat_gateway.id
+    # destination
+    cidr_block = "0.0.0.0/0"    
+    
+    # target to reach destintion
     network_interface_id = aws_instance.nat_instance.primary_network_interface_id
   }
 
