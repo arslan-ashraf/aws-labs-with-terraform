@@ -3,6 +3,7 @@
 This module creates a vpc and an arbitrary number of public and private subnets.
 
 Example usage:
+
 ```
 # name can be anything, here we choose my_network_module
 module "my_network_module" {
