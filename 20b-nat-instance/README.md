@@ -12,3 +12,16 @@ curl ifconfig.me
 ```
 
 It will return an IP address that should match the Elastic IP that AWS assigned to the NAT Gateway.
+
+
+
+
+
+
+
+
+No Native High Availability: If your EC2 instance crashes or undergoes AWS maintenance, all outbound internet traffic from your private subnets will instantly stop.
+
+Bandwidth Cap: Network throughput is limited entirely by the network performance capabilities of the EC2 instance type you choose.
+
+Manual Upkeep: You are fully responsible for managing operating system software updates, security patches, and scaling adjustments.
