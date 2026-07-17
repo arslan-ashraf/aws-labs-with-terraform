@@ -69,6 +69,7 @@ resource "aws_security_group" "security_group_for_NAT_instance" {
   tags   = { Name = "security_group_for_NAT_instance" }
 }
 
+# allow private EC2 instance to reach NAT instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_rule" {
   security_group_id = aws_security_group.security_group_for_NAT_instance.id
   
@@ -78,7 +79,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_rule" {
   ip_protocol = "-1"
 }
 
-# allow traffic out to the internet
+# allow NAT instance traffic out to the internet
 resource "aws_vpc_security_group_egress_rule" "egress_internet_rule" {
   security_group_id = aws_security_group.security_group_for_NAT_instance.id
 
