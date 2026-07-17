@@ -7,11 +7,11 @@ Example usage:
 ```
 # name can be anything, here we choose my_network_module
 module "my_network_module" {
-	source = "./module/network"
+	source = "./module"
 
 	vpc_config = {
 	  cidr_block = "10.0.0.0/16"
-	  name = "example_vpc"
+	  name = "main_vpc"
 	}
 
 	subnet_config = {
