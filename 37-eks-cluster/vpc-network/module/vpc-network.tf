@@ -41,6 +41,10 @@ resource "aws_internet_gateway" "main_internet_gateway" {
   vpc_id = aws_vpc.main_vpc.id
 }
 
+###################################################################
+############### ROUTE TABLE FOR PUBLIC SUBNETS ####################
+###################################################################
+
 resource "aws_route_table" "route_table_for_public_subnets" {
   count  = length(local.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.main_vpc.id
@@ -61,3 +65,7 @@ resource "aws_route_table_association" "rtb_public_subnets_assoc" {
   subnet_id      = aws_subnet.subnets_in_main_vpc[each.key].id
   route_table_id = aws_route_table.route_table_for_public_subnets[0].id
 }
+
+###################################################################
+############### ROUTE TABLE FOR PUBLIC SUBNETS ####################
+###################################################################
