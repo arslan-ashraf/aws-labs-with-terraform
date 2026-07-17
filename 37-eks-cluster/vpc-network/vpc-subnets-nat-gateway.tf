@@ -1,15 +1,16 @@
 module "vpc_and_subnets_module" {
-  source = "./module/network"
+  source = "./module"
 
   vpc_config = {
     cidr_block = "10.0.0.0/16"
-    name = "example_vpc"
+    name = "EKS_WORKER_NODES_VPC"
   }
 
   subnet_config = {
+    # subnets 
     subnet_a = {
       cidr_block = "10.0.1.0/24"
-      public     = true
+      public     = false
       AZ         = "us-east-1a"
     }
     subnet_b = {
@@ -20,7 +21,7 @@ module "vpc_and_subnets_module" {
     subnet_c = {
       cidr_block = "10.0.3.0/24"
       public     = true
-      AZ         = "us-east-1c"
+      AZ         = "us-east-1a"
     }
   }
 }

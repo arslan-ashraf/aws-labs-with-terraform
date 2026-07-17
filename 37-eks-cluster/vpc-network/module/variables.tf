@@ -24,3 +24,4 @@ variable "subnet_config" {
     error_message = "The subnet cidr_block must be valid."
   }
 }
+
