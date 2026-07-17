@@ -1,6 +1,6 @@
 # the outputs below are defined in the module's outputs.tf file
 
-output "vpc_id_from_module" {
+output "vpc_id" {
   value = module.vpc_and_subnets_module.vpc_id
 }
 
