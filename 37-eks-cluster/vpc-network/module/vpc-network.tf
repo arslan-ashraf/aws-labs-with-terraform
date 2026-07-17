@@ -17,7 +17,7 @@ resource "aws_vpc" "main_vpc" {
   tags       = { Name = var.vpc_config.name }
 }
 
-# multiple subnets with for_each loop
+# multiple subnets (public and private) with for_each loop
 resource "aws_subnet" "subnets_in_main_vpc" {
   for_each          = var.subnet_config
   vpc_id            = aws_vpc.main_vpc.id
@@ -41,7 +41,7 @@ resource "aws_internet_gateway" "main_internet_gateway" {
   vpc_id = aws_vpc.main_vpc.id
 }
 
-resource "aws_route_table" "route_table_in_main_vpc" {
+resource "aws_route_table" "route_table_for_public_subnets" {
   count  = length(local.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.main_vpc.id
 
@@ -55,9 +55,9 @@ resource "aws_route_table" "route_table_in_main_vpc" {
 }
 
 # note: a subnet can only be attached to a single route table
-resource "aws_route_table_association" "route_table_for_public_subnets" {
+resource "aws_route_table_association" "rtb_public_subnets_assoc" {
   for_each = local.public_subnets # as listed at the top of file
 
   subnet_id      = aws_subnet.subnets_in_main_vpc[each.key].id
-  route_table_id = aws_route_table.route_table_in_main_vpc[0].id
+  route_table_id = aws_route_table.route_table_for_public_subnets[0].id
 }
