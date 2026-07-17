@@ -1,5 +1,6 @@
 locals {
   output_public_subnets = {
+    # local.public_subnets is defined in vpc-network.tf
     # key takes on strings like subnet_a, subnet_b
     for key in keys(local.public_subnets) : key => {
       subnet_id         = aws_subnet.subnets_in_main_vpc[key].id
