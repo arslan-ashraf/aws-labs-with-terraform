@@ -1,6 +1,6 @@
 resource "aws_instance" "nat_instance" {
   ami                         = data.aws_ami.al2023.id
-  instance_type               = "t3.nano"
+  instance_type               = "t2.nano"
   subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
   associate_public_ip_address = true
 
@@ -10,7 +10,7 @@ resource "aws_instance" "nat_instance" {
   source_dest_check = false
 
   vpc_security_group_ids = [
-    aws_security_group.nat.id
+    aws_security_group.security_group_for_NAT_instance.id
   ]
 
   user_data = <<-EOF
