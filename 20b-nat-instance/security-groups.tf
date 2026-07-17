@@ -58,6 +58,9 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 }
 
 
+########################################################################
+################## NAT INSTANCE SECURITY GROUP & RULES #################
+########################################################################
 
 
 resource "aws_security_group" "nat" {
