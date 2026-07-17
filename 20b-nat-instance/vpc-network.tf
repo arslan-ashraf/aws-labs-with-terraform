@@ -27,7 +27,10 @@ resource "aws_route_table" "route_table_for_public_subnet" {
   vpc_id = aws_vpc.example_vpc.id
 
   route {
+    # destination
     cidr_block = "0.0.0.0/0"
+
+    # target to reach destintion
     gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
   }
 
