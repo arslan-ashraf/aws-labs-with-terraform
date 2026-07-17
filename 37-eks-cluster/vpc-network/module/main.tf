@@ -62,7 +62,7 @@ resource "aws_route_table" "public_rt" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.internet_gateway.id
   }
-  tags = merge(var.tags, { Name = "${var.environment_name}-public-rt" })
+  tags = merge(var.tags, { Name = "${var.environment_name}-public-route-table" })
 }
 
 resource "aws_route_table_association" "public_rt_assoc" {
