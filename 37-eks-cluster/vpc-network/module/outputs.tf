@@ -1,6 +1,6 @@
 locals {
   output_public_subnets = {
-    # key takes on values like subnet_a, subnet_c
+    # key takes on strings like subnet_a, subnet_c
     for key in keys(local.public_subnets) : key => {
       subnet_id         = aws_subnet.subnets_in_main_vpc[key].id
       availability_zone = aws_subnet.subnets_in_main_vpc[key].availability_zone
