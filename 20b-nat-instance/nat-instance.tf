@@ -25,16 +25,15 @@ service iptables save
 systemctl enable iptables
 EOF
 
-  tags = {
-    Name = "NAT-Instance"
-  }
+  tags = { Name = "NAT-Instance" }
 }
 
-resource "aws_eip" "nat" {
+resource "aws_eip" "nat_elastic_IP" {
   domain = "vpc"
+  tags = { Name = "nat_elastic_IP" }
 }
 
 resource "aws_eip_association" "nat" {
-  allocation_id = aws_eip.nat.id
-  instance_id   = aws_instance.nat.id
+  allocation_id = aws_eip.nat_elastic_IP.id
+  instance_id   = aws_instance.nat_instance.id
 }
