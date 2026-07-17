@@ -98,7 +98,7 @@ resource "aws_route_table_association" "rtb_public_subnets_assoc" {
 ############### ROUTE TABLE FOR PRIVATE SUBNETS ###################
 ###################################################################
 
-
+# route all outbound private subnet EC2 traffic to the NAT Gateway
 resource "aws_route_table" "route_table_for_private_subnets" {
   vpc_id = aws_vpc.main.id
   route {
