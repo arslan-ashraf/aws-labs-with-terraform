@@ -69,7 +69,17 @@ resource "aws_security_group" "security_group_for_NAT_instance" {
   tags   = { Name = "security_group_for_NAT_instance" }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
+  security_group_id = aws_security_group.security_group_for_NAT_instance.id
+  
+  # where is the traffic coming from
+  referenced_security_group_id = aws_security_group.security_group_for_ec2_instance_endpoint.id
 
+  from_port = 22
+  to_port   = 22
+
+  ip_protocol = "-1"
+}
 
   ingress {
     protocol    = "-1"
