@@ -1,19 +1,43 @@
+# local.public_subnets below are like this (see vpc-network.tf file):
+# public_subnets = {
+#   subnet_a = {
+#     cidr_block = "10.0.1.0/24"
+#     public     = true
+#     AZ         = "us-east-1a"
+#   }
+#   subnet_c = {
+#     cidr_block = "10.0.3.0/24"
+#     public     = true
+#     AZ         = "us-east-1c"
+#   }
+# }
+
+locals {
+  output_public_subnets = {
+    # key takes on values like subnet_a, subnet_c
+    for key in keys(local.public_subnets) : key => {
+      subnet_id         = aws_subnet.subnets_in_example_vpc[key].id
+      availability_zone = aws_subnet.subnets_in_example_vpc[key].availability_zone
+    }
+  }
+
+  output_private_subnets = {
+    for key in keys(local.private_subnets) : key => {
+      subnet_id         = aws_subnet.subnets_in_example_vpc[key].id
+      availability_zone = aws_subnet.subnets_in_example_vpc[key].availability_zone
+    }
+  }
+}
+
 output "vpc_id" {
-  value       = aws_vpc.main.id
-  description = "The ID of the created VPC"
+  value       = aws_vpc.example_vpc.id
+  description = "The ID of the VPC."
 }
 
-output "public_subnet_ids" {
-  value       = [for s in aws_subnet.public : s.id]
-  description = "List of public subnet IDs"
+output "public_subnets" {
+  value = local.output_public_subnets
 }
 
-output "private_subnet_ids" {
-  value       = [for s in aws_subnet.private : s.id]
-  description = "List of private subnet IDs"
-}
-
-output "public_subnet_map" {
-  value       = { for az, subnet in aws_subnet.public : az => subnet.id }
-  description = "Map of AZ to Public Subnet ID"
+output "private_subnets" {
+  value = local.output_private_subnets
 }
