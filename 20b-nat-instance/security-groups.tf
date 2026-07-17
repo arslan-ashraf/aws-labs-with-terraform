@@ -56,3 +56,25 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 
   ip_protocol = "tcp"
 }
+
+
+
+
+resource "aws_security_group" "nat" {
+  name   = "nat-instance"
+  vpc_id = aws_vpc.main.id
+
+  ingress {
+    protocol    = "-1"
+    cidr_blocks = [aws_vpc.main.cidr_block]
+    from_port   = 0
+    to_port     = 0
+  }
+
+  egress {
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 0
+    to_port     = 0
+  }
+}
