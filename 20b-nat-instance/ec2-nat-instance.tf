@@ -3,6 +3,7 @@ resource "aws_instance" "nat_instance" {
   instance_type               = "t2.nano"
   subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
   associate_public_ip_address = true
+  user_data                   = 
 
   # without source_dest_check = false, this EC2 instance won't be 
   # able to serve as a NAT device and will simply drop packets coming 
@@ -12,18 +13,6 @@ resource "aws_instance" "nat_instance" {
   vpc_security_group_ids = [
     aws_security_group.security_group_for_NAT_instance.id
   ]
-
-  user_data = <<-EOF
-#!/bin/bash
-dnf install -y iptables-services
-
-echo "net.ipv4.ip_forward=1" > /etc/sysctl.d/99-ipforward.conf
-sysctl --system
-
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-service iptables save
-systemctl enable iptables
-EOF
 
   tags = { Name = "NAT-instance", AMI = "ubuntu-ami" }
 }
