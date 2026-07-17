@@ -83,6 +83,7 @@ resource "aws_route_table" "route_table_for_public_subnets" {
 }
 
 # note: a subnet can only be attached to a single route table
+# hence, one route table, multiple possible subnets
 resource "aws_route_table_association" "rtb_public_subnets_assoc" {
   # as listed at the top of file
   for_each        = local.public_subnets
@@ -95,6 +96,7 @@ resource "aws_route_table_association" "rtb_public_subnets_assoc" {
 ############### ROUTE TABLE FOR PRIVATE SUBNETS ###################
 ###################################################################
 
+
 resource "aws_route_table" "route_table_for_private_subnets" {
   vpc_id = aws_vpc.main.id
   route {
@@ -104,6 +106,8 @@ resource "aws_route_table" "route_table_for_private_subnets" {
   tags = { Name = "route_table_for_private_subnets" }
 }
 
+# note: a subnet can only be attached to a single route table
+# hence, one route table, multiple possible subnets
 resource "aws_route_table_association" "rtb_private_subnets_assoc" {
    # as listed at the top of file
   for_each        = local.private_subnets
