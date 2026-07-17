@@ -4,7 +4,7 @@ output "vpc_id" {
   value = module.vpc_and_subnets_module.vpc_id
 }
 
-output "public_subnets_from_module" {
+output "public_subnet_ids" {
   value = module.vpc_and_subnets_module.public_subnets
 }
 
