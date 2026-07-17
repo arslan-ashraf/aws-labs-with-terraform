@@ -17,8 +17,6 @@ echo "###########################################################"
 echo "################# USER DATA SCRIPT RUNNING ################"
 echo "###########################################################"
 
-# install Docker
-# add Docker's official GPG key:
 sudo apt update -y
 
 # Enable IPv4 packet forwarding
