@@ -12,9 +12,9 @@ variable "vpc_config" {
 
 variable "subnet_config" {
   type = map(object({
+    AZ         = string
     cidr_block = string
     public     = optional(bool, false)
-    AZ         = string
   }))
 
   validation {
@@ -27,8 +27,8 @@ variable "subnet_config" {
 
 variable "NAT_instance_config" {
   type = object({
-    cidr_block = string
     AZ         = string
+    cidr_block = string
   })
 
   validation {
