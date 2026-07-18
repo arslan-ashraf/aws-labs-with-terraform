@@ -1,0 +1,1 @@
+This lab is the same as lab 20b except that the NAT Instance is now created inside the module.  This lab demonstrates the creation and use of modules and variables.
