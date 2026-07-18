@@ -8,16 +8,17 @@ variable "cluster_endpoint_private_access" {
   default     = false
 }
 
-# Enable access to the EKS API via public endpoint
+# enable access to the EKS API Server via public endpoint, this allows
+# access to the EKS cluster from anywhere as long as the user has
+# the secret access keys
 variable "cluster_endpoint_public_access" {
   description = "Whether to enable public access to EKS control plane endpoint"
   type        = bool
   default     = true
 }
 
-# List of CIDRs allowed to reach the public EKS API endpoint
+# EKS API Server is allowed to be reached from anywhere
 variable "cluster_endpoint_public_access_cidrs" {
-  description = "List of CIDR blocks allowed to access public EKS endpoint"
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
