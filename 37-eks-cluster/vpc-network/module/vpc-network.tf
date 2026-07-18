@@ -37,10 +37,18 @@ resource "aws_subnet" "subnets_in_main_vpc" {
 }
 
 resource "aws_subnet" "public_subnet_for_NAT_instance" {
-  vpc_id = aws_vpc.main_vpc.id
+  vpc_id            = aws_vpc.main_vpc.id
   availability_zone = var.NAT_instance_AZ
   
-  cidr_block = NAT_instance_cidr_block
+  cidr_block        = var.NAT_instance_cidr_block
+
+  lifecycle {
+    precondition {
+      condition     = contains(data.aws_availability_zones.AZs.names, var.NAT_instance_AZ)
+      error_message = "Invalid AZ provided: only allowed AZs [${join(", ", data.aws_availability_zones.AZs.names)}]."
+    }
+  }
+
   tags = { Name = "public_subnet_for_NAT_instance" }
 }
 
