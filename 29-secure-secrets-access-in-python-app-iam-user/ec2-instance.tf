@@ -5,7 +5,7 @@ resource "aws_instance" "web_server" {
   instance_type               = "t2.nano"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_in_example_vpc.id
-  key_name                    = "key-for-ec2-connection"
+  key_name                    = aws_key_pair.public_SSH_key.key_name
   monitoring                  = true
 
   iam_instance_profile        = aws_iam_instance_profile.ec2_profile.name
@@ -18,7 +18,7 @@ resource "aws_instance" "web_server" {
 
 }
 
-resource "aws_key_pair" "public_private_key" {
+resource "aws_key_pair" "public_SSH_key" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
