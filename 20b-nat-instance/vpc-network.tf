@@ -15,12 +15,12 @@ resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
 ############# PUBLIC SUBNET & ROUTE TABLE FOR NAT INSTNACE ##############
 #########################################################################
 
-resource "aws_subnet" "public_subnet_for_nat_instance" {
+resource "aws_subnet" "public_subnet_for_NAT_instance" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.5.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
-  tags = { Name = "public_subnet_for_nat_instance" }
+  tags = { Name = "public_subnet_for_NAT_instance" }
 }
 
 resource "aws_route_table" "route_table_for_public_subnet" {
@@ -39,7 +39,7 @@ resource "aws_route_table" "route_table_for_public_subnet" {
 }
 
 resource "aws_route_table_association" "route_table_association_public_subnet_example_vpc" {
-  subnet_id      = aws_subnet.public_subnet_for_nat_instance.id
+  subnet_id      = aws_subnet.public_subnet_for_NAT_instance.id
   route_table_id = aws_route_table.route_table_for_public_subnet.id
 }
 
