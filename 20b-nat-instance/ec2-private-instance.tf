@@ -10,6 +10,6 @@ resource "aws_instance" "ec2_instance" {
     aws_security_group.security_group_for_ec2_instance.id
   ]
 
-  tags = { NAME = "private-instance", AMI = "ubuntu-ami" }
+  tags = { Name = "private-instance", AMI = "ubuntu-ami" }
 
 }

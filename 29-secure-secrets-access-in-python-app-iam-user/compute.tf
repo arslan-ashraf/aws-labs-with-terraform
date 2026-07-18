@@ -18,7 +18,7 @@ resource "aws_instance" "web_server" {
 
 }
 
-resource "aws_key_pair" "deployer" {
+resource "aws_key_pair" "public_private_key" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
