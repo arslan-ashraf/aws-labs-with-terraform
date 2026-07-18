@@ -1,8 +1,10 @@
 resource "aws_instance" "nat_instance" {
-  ami                         = "ami-0ec10929233384c7f" # ubuntu ami
-  availability_zone           = var.NAT_instance_config.AZ
+  availability_zone           = values(local.public_subnets_for_NAT_instance)[0].AZ
+  ami                         = var.NAT_instance_config.ami
   instance_type               = var.NAT_instance_config.instance_type
-  subnet_id                   = aws_subnet.public_subnet_for_NAT_instance.id
+  subnet_id                   = aws_subnet.subnets_in_main_vpc[
+    keys(local.public_subnets_for_NAT_instance)[0]
+  ].id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.public_SSH_key.key_name
   user_data                   = file("${path.module}/nat_instance_user_data.sh")

@@ -12,9 +12,11 @@ variable "vpc_config" {
 
 variable "subnet_config" {
   type = map(object({
-    AZ         = string
-    cidr_block = string
-    public     = optional(bool, false)
+    AZ                     = string
+    cidr_block             = string
+    public                 = optional(bool, false)
+    contains_NAT_instance  = optional(bool, false)
+    contains_load_balancer = optional(bool, false)
   }))
 
   validation {
@@ -24,38 +26,26 @@ variable "subnet_config" {
     error_message = "The subnet cidr_block must be valid."
   }
 
-  # validation {
-  #   condition = (
-  #     length([
-  #       for subnet in values(var.subnet_config) : subnet
-  #       if subnet.public
-  #     ]) > 0
-  #     &&
-  #     length([
-  #       for subnet in values(var.subnet_config) : subnet
-  #       if !subnet.public
-  #     ]) > 0
-  #   )
-
-  #   error_message = "Must specify at least one public subnet and at least one private subnet."
-  # }
-}
-
-variable "NAT_instance_subnet_config" {
-  type = object({
-    AZ         = string
-    cidr_block = string
-  })
-
   validation {
-    condition     = can(cidrnetmask(var.NAT_instance_subnet_config.cidr_block))
-    error_message = "The NAT instance subnet cidr_block must be valid."
+    condition = (
+      length([
+        for subnet in values(var.subnet_config) : subnet
+        if subnet.public
+      ]) > 0
+      &&
+      length([
+        for subnet in values(var.subnet_config) : subnet
+        if !subnet.public
+      ]) > 0
+    )
+
+    error_message = "Must specify at least one public subnet and at least one private subnet."
   }
 }
 
 variable "NAT_instance_config" {
   type = object({
-    AZ            = string
     instance_type = string
+    ami           = optional(string, "ami-0ec10929233384c7f") # ubuntu ami
   })
 }
