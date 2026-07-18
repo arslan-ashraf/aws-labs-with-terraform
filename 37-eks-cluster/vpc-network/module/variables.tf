@@ -29,6 +29,6 @@ variable "NAT_instance_AZ" {
   type = string  
 }
 
-variable "NAT_instance_AZ" {
+variable "NAT_instance_cidr_block" {
   type = string  
 }
