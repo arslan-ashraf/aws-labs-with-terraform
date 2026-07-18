@@ -22,3 +22,24 @@ variable "cluster_endpoint_public_access_cidrs" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
+# EC2 instance types for worker nodes
+variable "node_instance_types" {
+  description = "List of EC2 instance types for the node group"
+  type        = list(string)
+  default     = ["t3.nano"] # or t3.micro
+}
+
+# capacity type for node group (ON_DEMAND or SPOT)
+variable "node_capacity_type" {
+  description = "Instance capacity type: ON_DEMAND or SPOT"
+  type        = string
+  default     = "ON_DEMAND"
+}
+
+# root volume size (GiB) for worker nodes
+# variable "node_disk_size" {
+#   description = "Disk size in GiB for worker nodes"
+#   type        = number
+#   default     = 20
+# }
