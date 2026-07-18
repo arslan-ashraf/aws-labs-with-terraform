@@ -36,15 +36,12 @@ resource "aws_subnet" "subnets_in_main_vpc" {
   }
 }
 
-resource "aws_subnet" "public_subnet_for_nat_instance" {
-  availability_zone = "Optional"
-  availability_zone_id = "Optional"
-  cidr_block = "Required"
-  ipv6_cidr_block = "Optional"
-  map_public_ip_on_launch = "Optional"
-  assign_ipv6_address_on_creation = "Optional"
-  vpc_id = "Required"
-  tags = "Optional"
+resource "aws_subnet" "public_subnet_for_NAT_instance" {
+  vpc_id = aws_vpc.main_vpc.id
+  availability_zone = var.NAT_instance_AZ
+  
+  cidr_block = NAT_instance_cidr_block
+  tags = { Name = "public_subnet_for_NAT_instance" }
 }
 
 resource "aws_internet_gateway" "main_internet_gateway" {
