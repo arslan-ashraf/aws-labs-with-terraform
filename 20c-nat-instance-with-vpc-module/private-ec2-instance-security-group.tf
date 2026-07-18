@@ -41,11 +41,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_NAT_rule" {
 }
 
 
-
 ###############################################################
 ######### PRIVATE EC2 INSTANCE CONNECT SECURITY GROUP #########
 ###############################################################
-
 
 
 resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
@@ -66,4 +64,3 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 
   ip_protocol = "tcp"
 }
-
