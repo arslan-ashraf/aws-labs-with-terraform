@@ -19,12 +19,13 @@ module "vpc_and_subnets_module" {
       AZ         = "us-east-1b"
     }
 
-    # subnet c is a public subnet, for hosting the NAT Gateway/Instance
+    # NAT instance subnet is a public subnet, for hosting the NAT Instance
     # so worker nodes can pull Docker images, install Helm charts, etc.
     NAT_instance_subnet_config = {
       cidr_block = "10.0.3.0/24"
       AZ         = "us-east-1a"
-
     }
+
+    
   }
 }
