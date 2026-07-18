@@ -16,7 +16,7 @@ resource "aws_instance" "nat_instance" {
     aws_security_group.security_group_for_NAT_instance.id
   ]
 
-  tags = { Name = "NAT-instance", AMI = "ubuntu-ami" }
+  tags = { Name = "NAT-Instance", AMI = "ubuntu-ami" }
 }
 
 resource "aws_eip" "nat_elastic_IP" {
