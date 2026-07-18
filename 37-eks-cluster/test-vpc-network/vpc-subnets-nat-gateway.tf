@@ -20,27 +20,18 @@ module "vpc_network_module" {
     }
 
     # subnet c is public, it is for hosting public facing resources
-    # such as load balancers
+    # such as Load Balancers and NAT Gateways/Instances
     public_subnet_c = {
-      cidr_block = "10.0.10.0/24"
-      public     = true
-      AZ         = "us-east-1a"
+      cidr_block             = "10.0.10.0/24"
+      AZ                     = "us-east-1a"
+      public                 = true
+      contains_NAT_instance  = true
     }
 
   }
 
-    # NAT instance subnet is a public subnet, for hosting the NAT Instance
-    # so worker nodes can pull Docker images, install Helm charts, etc.
-  NAT_instance_subnet_config = {
-    # NAT_instance_subnet = {
-    cidr_block = "10.0.3.0/24"
-    AZ         = "us-east-1a"
-    # }
-  }
-
   NAT_instance_config = {
     instance_type = "t2.nano"
-    AZ            = "us-east-1a"
   }
 }
 
@@ -126,6 +117,16 @@ resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
   cidr_ipv4 = "0.0.0.0/0"
 
   # all protocols
+  ip_protocol = "-1"
+}
+
+
+resource "aws_vpc_security_group_ingress_rule" "ingress_from_NAT_rule" {
+  security_group_id = aws_security_group.security_group_for_ec2_instance.id
+
+  # where is the traffic coming from
+  cidr_ipv4 = "10.0.0.0/16"
+
   ip_protocol = "-1"
 }
 

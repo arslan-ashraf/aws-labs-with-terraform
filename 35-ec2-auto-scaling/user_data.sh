@@ -56,7 +56,9 @@ until sudo docker info >/dev/null 2>&1; do
     sleep 1
 done
 
+echo "###########################################################"
 echo "######### DOCKER SUCCESSFULLY INSTALLED AND READY #########"
+echo "###########################################################"
 
 # -p is --parent, no error if parent already exists
 mkdir -p /home/ubuntu

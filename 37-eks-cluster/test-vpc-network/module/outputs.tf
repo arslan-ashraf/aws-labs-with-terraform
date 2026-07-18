@@ -45,3 +45,7 @@ output "NAT_instance_network_interface_id" {
   value       = aws_instance.nat_instance.primary_network_interface_id
   description = "The Network Interface ID of the NAT Instance"
 }
+
+output "NAT_instance_subnet_names" {
+  value = keys(local.public_subnets_for_NAT_instance)
+}
