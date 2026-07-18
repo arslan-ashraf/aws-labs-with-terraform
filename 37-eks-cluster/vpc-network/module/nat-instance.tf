@@ -19,13 +19,13 @@ resource "aws_instance" "nat_instance" {
   tags = { Name = "NAT-Instance", AMI = "ubuntu-ami" }
 }
 
-resource "aws_eip" "nat_elastic_IP" {
+resource "aws_eip" "NAT_elastic_IP" {
   domain = "vpc"
-  tags   = { Name = "nat_elastic_IP" }
+  tags   = { Name = "NAT_elastic_IP" }
 }
 
 resource "aws_eip_association" "nat" {
-  allocation_id = aws_eip.nat_elastic_IP.id
+  allocation_id = aws_eip.NAT_elastic_IP.id
   instance_id   = aws_instance.nat_instance.id
 }
 
