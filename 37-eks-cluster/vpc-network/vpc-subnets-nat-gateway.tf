@@ -1,4 +1,4 @@
-module "vpc_and_subnets_module" {
+module "vpc_network_module" {
   source = "./module"
 
   vpc_config = {
