@@ -45,8 +45,12 @@ resource "aws_internet_gateway" "main_internet_gateway" {
 ########################## NAT GATEWAY ############################
 ###################################################################
 
-# === WE DON'T USE THE MANAGED NAT GATEWAY IN THIS LAB ===
-# === INSTEAD WE'LL USE A MANUAL NAT INSTANCE          ===
+
+# ============================================================
+# ===== WE DON'T USE THE MANAGED NAT GATEWAY IN THIS LAB =====
+# ===== INSTEAD WE'LL USE A MANUAL NAT INSTANCE          =====
+# ============================================================
+
 
 
 # # allocate elastic IP (EIP) for the nat gateway
