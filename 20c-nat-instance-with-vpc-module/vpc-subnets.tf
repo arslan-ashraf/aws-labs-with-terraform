@@ -70,11 +70,9 @@ resource "aws_route_table_association" "route_table_association_private_subnet_e
 }
 
 
-
-
-
-
-
+###############################################################
+############ PRIVATE EC2 INSTANCE CONNECT SUBNET ##############
+###############################################################
 
 
 resource "aws_subnet" "private_subnet_for_private_ec2_instance_endpoint" {
@@ -84,30 +82,3 @@ resource "aws_subnet" "private_subnet_for_private_ec2_instance_endpoint" {
 
   tags = { Name = "private_subnet_for_private_ec2_instance_endpoint" }
 }
-
-resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
-  name   = "security_group_for_ec2_instance_endpoint"
-  vpc_id = module.vpc_network_module.vpc_id
-  tags   = { Name = "security_group_for_ec2_instance_endpoint" }
-}
-
-# send SSH traffic out to the EC2 instance
-resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
-  security_group_id = aws_security_group.security_group_for_ec2_instance_endpoint.id
-
-  # Target destination
-  referenced_security_group_id = aws_security_group.security_group_for_ec2_instance.id
-
-  from_port = 22
-  to_port   = 22
-
-  ip_protocol = "tcp"
-}
-
-resource "aws_ec2_instance_connect_endpoint" "instance_connect_endpoint" {
-  subnet_id          = aws_subnet.private_subnet_for_private_ec2_instance_endpoint.id
-  security_group_ids = [aws_security_group.security_group_for_ec2_instance_endpoint.id]
-
-  tags = { Name = "instance_connect_endpoint" }
-}
-
