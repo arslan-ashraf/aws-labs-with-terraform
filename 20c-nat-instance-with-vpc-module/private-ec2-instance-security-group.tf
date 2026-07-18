@@ -29,7 +29,8 @@ resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
   ip_protocol = "-1"
 }
 
-
+# for testing only, allow NAT instance to ping to the 
+# private EC2 instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_from_NAT_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
 
@@ -41,10 +42,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_NAT_rule" {
 
 
 
-
-
-
-
+###############################################################
+######### PRIVATE EC2 INSTANCE CONNECT SECURITY GROUP #########
+###############################################################
 
 
 
