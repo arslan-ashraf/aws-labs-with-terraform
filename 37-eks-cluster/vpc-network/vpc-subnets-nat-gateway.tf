@@ -26,6 +26,9 @@ module "vpc_and_subnets_module" {
       AZ         = "us-east-1a"
     }
 
-    
+    NAT_instance_config = {
+      instance_type = "t2.nano"
+      AZ            = "us-east-1a"
+    }
   }
 }
