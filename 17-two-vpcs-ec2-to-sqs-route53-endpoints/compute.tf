@@ -6,7 +6,7 @@ resource "aws_instance" "ec2_instance" {
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_for_ec2_instance.id
   iam_instance_profile        = aws_iam_instance_profile.ec2_instance_profile.name
-  key_name                    = "key-for-ec2-connection"
+  key_name                    = aws_key_pair.public_private_key.key_name
   # user_data                   = file("${path.module}/userdata.sh")
 
   vpc_security_group_ids = [
@@ -17,7 +17,7 @@ resource "aws_instance" "ec2_instance" {
 
 }
 
-resource "aws_key_pair" "deployer" {
+resource "aws_key_pair" "public_private_key" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
