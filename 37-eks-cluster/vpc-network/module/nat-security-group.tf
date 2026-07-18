@@ -4,7 +4,7 @@ resource "aws_security_group" "security_group_for_NAT_instance" {
   tags   = { Name = "security_group_for_NAT_instance" }
 }
 
-# allow private EC2 instance to reach NAT instance
+# allow private EC2 instances to reach the NAT instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_rule" {
   security_group_id = aws_security_group.security_group_for_NAT_instance.id
 
