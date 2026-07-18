@@ -59,7 +59,7 @@ resource "aws_instance" "create_instances_from_map" {
   subnet_id                   = aws_subnet.subnets_in_example_vpc[each.value.subnet_name].id
   availability_zone           = "us-east-1a"
   associate_public_ip_address = each.value.subnet_name == "private_subnet" ? false : true
-  key_name                    = "key-for-ec2-connection"
+  key_name                    = aws_key_pair.public_SSH_key.key_name
 
   vpc_security_group_ids = [
     aws_security_group.multiple_security_groups[each.value.security_group].id
@@ -77,7 +77,7 @@ resource "aws_instance" "create_instances_from_map" {
   }
 }
 
-resource "aws_key_pair" "deployer" {
+resource "aws_key_pair" "public_SSH_key" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
