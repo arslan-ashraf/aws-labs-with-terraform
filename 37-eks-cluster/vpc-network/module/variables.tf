@@ -30,5 +30,12 @@ variable "NAT_instance_AZ" {
 }
 
 variable "NAT_instance_cidr_block" {
-  type = string  
+  type = string
+  
+  validation {
+    condition = alltrue([
+      for config in values(var.subnet_config) : can(cidrnetmask(config.cidr_block))
+    ])
+    error_message = "The subnet cidr_block must be valid."
+  }
 }
