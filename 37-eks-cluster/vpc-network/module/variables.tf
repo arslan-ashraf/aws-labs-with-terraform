@@ -32,7 +32,7 @@ variable "NAT_instance_config" {
   })
 
   validation {
-    condition     = can(cidrnetmask(var.vpc_config.cidr_block))
-    error_message = "The VPC cidr_block must be valid."
+    condition     = can(cidrnetmask(var.NAT_instance_config.cidr_block))
+    error_message = "The NAT instance subnet cidr_block must be valid."
   }
 }
