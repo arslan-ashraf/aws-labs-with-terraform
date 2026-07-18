@@ -1,6 +1,5 @@
 resource "aws_instance" "nat_instance" {
-  ami                         = "ami-0ec10929233384c7f"
-  region                      = "us-east-1"
+  ami                         = "ami-0ec10929233384c7f" # ubuntu ami
   availability_zone           = var.NAT_instance_config.AZ
   instance_type               = var.NAT_instance_config.instance_type
   subnet_id                   = aws_subnet.public_subnet_for_NAT_instance.id
