@@ -3,7 +3,7 @@ resource "aws_instance" "nat_instance" {
   region                      = "us-east-1"
   availability_zone           = "us-east-1a"
   instance_type               = "t2.nano"
-  subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
+  subnet_id                   = aws_subnet.public_subnet_for_NAT_instance.id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.public_SSH_key.key_name
   user_data                   = file("${path.module}/nat_instance_user_data.sh")
