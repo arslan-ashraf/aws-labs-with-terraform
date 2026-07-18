@@ -5,7 +5,7 @@ resource "aws_instance" "nat_instance" {
   instance_type               = "t2.nano"
   subnet_id                   = aws_subnet.public_subnet_for_nat_instance.id
   associate_public_ip_address = true
-  key_name                    = aws_key_pair.public_private_key.key_name
+  key_name                    = aws_key_pair.public_SSH_key.key_name
   user_data                   = file("${path.module}/nat_instance_user_data.sh")
 
   # without source_dest_check = false, this EC2 instance won't be 
@@ -30,7 +30,7 @@ resource "aws_eip_association" "nat" {
   instance_id   = aws_instance.nat_instance.id
 }
 
-resource "aws_key_pair" "public_private_key" {
+resource "aws_key_pair" "public_SSH_key" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
