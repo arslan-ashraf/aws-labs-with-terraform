@@ -8,12 +8,12 @@ module "vpc_and_subnets_module" {
 
   subnet_config = {
     # subnets a and b are private for hosting EKS worker nodes
-    subnet_a = {
+    private_subnet_a = {
       cidr_block = "10.0.1.0/24"
       public     = false
       AZ         = "us-east-1a"
     }
-    subnet_b = {
+    private_subnet_b = {
       cidr_block = "10.0.2.0/24"
       public     = false
       AZ         = "us-east-1b"
