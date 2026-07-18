@@ -36,6 +36,17 @@ resource "aws_subnet" "subnets_in_main_vpc" {
   }
 }
 
+resource "aws_subnet" "public_subnet_for_nat_instance" {
+  availability_zone = "Optional"
+  availability_zone_id = "Optional"
+  cidr_block = "Required"
+  ipv6_cidr_block = "Optional"
+  map_public_ip_on_launch = "Optional"
+  assign_ipv6_address_on_creation = "Optional"
+  vpc_id = "Required"
+  tags = "Optional"
+}
+
 resource "aws_internet_gateway" "main_internet_gateway" {
   count  = length(local.public_subnets) > 0 ? 1 : 0
   vpc_id = aws_vpc.main_vpc.id
