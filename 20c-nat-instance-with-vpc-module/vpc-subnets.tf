@@ -39,33 +39,12 @@ module "vpc_network_module" {
 
 
 
-
-
-
-
-
-
-resource "aws_instance" "ec2_instance" {
-  ami                         = "ami-0ec10929233384c7f"
-  region                      = "us-east-1"
-  availability_zone           = "us-east-1a"
-  instance_type               = "t2.nano"
-  subnet_id                   = aws_subnet.private_subnet_for_ec2_instance.id
-
-  vpc_security_group_ids = [
-    aws_security_group.security_group_for_ec2_instance.id
-  ]
-
-  tags = { Name = "private-instance", AMI = "ubuntu-ami" }
-
-}
-
-resource "aws_subnet" "private_subnet_for_ec2_instance" {
+resource "aws_subnet" "private_subnet_for_private_ec2_instance" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.7.0/24"
   vpc_id            = module.vpc_network_module.vpc_id
 
-  tags = { Name = "private_subnet_for_ec2_instance" }
+  tags = { Name = "private_subnet_for_private_ec2_instance" }
 }
 
 resource "aws_route_table" "route_table_for_private_subnet" {
@@ -84,7 +63,7 @@ resource "aws_route_table" "route_table_for_private_subnet" {
 }
 
 resource "aws_route_table_association" "route_table_association_private_subnet_example_vpc" {
-  subnet_id      = aws_subnet.private_subnet_for_ec2_instance.id
+  subnet_id      = aws_subnet.private_subnet_for_private_ec2_instance.id
   route_table_id = aws_route_table.route_table_for_private_subnet.id
 }
 
@@ -135,12 +114,12 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_NAT_rule" {
 
 
 
-resource "aws_subnet" "private_subnet_for_ec2_instance_endpoint" {
+resource "aws_subnet" "private_subnet_for_private_ec2_instance_endpoint" {
   availability_zone = "us-east-1a"
   cidr_block        = "10.0.6.0/24"
   vpc_id            = module.vpc_network_module.vpc_id
 
-  tags = { Name = "private_subnet_for_ec2_instance_endpoint" }
+  tags = { Name = "private_subnet_for_private_ec2_instance_endpoint" }
 }
 
 resource "aws_security_group" "security_group_for_ec2_instance_endpoint" {
@@ -163,7 +142,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_ssh_rule" {
 }
 
 resource "aws_ec2_instance_connect_endpoint" "instance_connect_endpoint" {
-  subnet_id          = aws_subnet.private_subnet_for_ec2_instance_endpoint.id
+  subnet_id          = aws_subnet.private_subnet_for_private_ec2_instance_endpoint.id
   security_group_ids = [aws_security_group.security_group_for_ec2_instance_endpoint.id]
 
   tags = { Name = "instance_connect_endpoint" }
