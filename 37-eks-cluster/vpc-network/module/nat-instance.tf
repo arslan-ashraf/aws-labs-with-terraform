@@ -1,8 +1,8 @@
 resource "aws_instance" "nat_instance" {
   ami                         = "ami-0ec10929233384c7f"
   region                      = "us-east-1"
-  availability_zone           = "us-east-1a"
-  instance_type               = "t2.nano"
+  availability_zone           = var.NAT_instance_config.AZ
+  instance_type               = var.NAT_instance_config.instance_type
   subnet_id                   = aws_subnet.public_subnet_for_NAT_instance.id
   associate_public_ip_address = true
   key_name                    = aws_key_pair.public_SSH_key.key_name

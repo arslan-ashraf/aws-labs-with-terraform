@@ -25,10 +25,11 @@ variable "subnet_config" {
   }
 }
 
-variable "NAT_instance_config" {
+variable "NAT_instance_subnet_config" {
   type = object({
     AZ         = string
     cidr_block = string
+    instance_type = string
   })
 
   validation {
