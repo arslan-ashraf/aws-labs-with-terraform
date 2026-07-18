@@ -74,6 +74,8 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_from_ec2_rule" {
   security_group_id = aws_security_group.security_group_for_NAT_instance.id
 
   # where is the traffic coming from
+  # referenced_security_group_id also works but the private ec2
+  # instance security group is required for that
   # referenced_security_group_id = aws_security_group.security_group_for_ec2_instance.id
   cidr_ipv4   = aws_vpc.example_vpc.cidr_block
 
