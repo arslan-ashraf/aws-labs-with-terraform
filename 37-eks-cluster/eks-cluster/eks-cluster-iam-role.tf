@@ -1,3 +1,5 @@
+data "aws_iam"
+
 resource "aws_iam_role" "eks_cluster" {
   # Unique name for the control plane IAM role
   name = "${local.name}-eks-cluster-role"
