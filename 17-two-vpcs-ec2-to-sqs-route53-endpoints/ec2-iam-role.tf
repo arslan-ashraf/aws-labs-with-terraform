@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "ec2_assume_role_document" {
 }
 
 resource "aws_iam_role" "ec2_sqs_access_role" {
-  assume_role_policy = data.aws_iam_policy_document.ec2_assume_role_document.json
   name               = "ec2_sqs_access_role"
+  assume_role_policy = data.aws_iam_policy_document.ec2_assume_role_document.json
 }
 
 
