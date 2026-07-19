@@ -18,6 +18,15 @@ resource "aws_eks_cluster" "eks_cluster" {
     public_access_cidrs     = var.cluster_endpoint_public_access_cidrs
   }
 
+  # enable EKS control plane logging for visibility and debugging
+  enabled_cluster_log_types = [
+    "api",                 # API server audit logs
+    "audit",               # Kubernetes audit logs
+    "authenticator",       # Authenticator logs for IAM auth
+    "controllerManager",   # Logs for controller manager
+    "scheduler"            # Logs for pod scheduling
+  ]
+
   # CRITICAL: Always use depends_on for the policy attachment. 
   # If the attachment isn't fully created first, cluster provisioning will fail.
   # If deleted before the cluster during a destroy, EKS won't be able to clean up security groups.
