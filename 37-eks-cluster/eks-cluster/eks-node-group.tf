@@ -1,13 +1,7 @@
-# EKS Managed Node Group - Private Subnets
 resource "aws_eks_node_group" "private_nodes" {
+  cluster_name = aws_eks_cluster.eks_cluster.name
+  node_group_name = "eks-cluster-private-node-group"
 
-  # The name of the EKS cluster this node group belongs to
-  cluster_name = aws_eks_cluster.main.name
-
-  # Logical name for this node group in the EKS cluster
-  node_group_name = "${local.name}-private-ng"
-
-  # IAM role that EC2 worker nodes will assume
   node_role_arn = aws_iam_role.eks_nodegroup_role.arn
 
   # Subnets where the worker nodes will be launched (typically private subnets)
