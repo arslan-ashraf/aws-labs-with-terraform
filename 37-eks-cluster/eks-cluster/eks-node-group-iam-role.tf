@@ -11,8 +11,8 @@ data "aws_iam_policy_document" "ec2_trust_policy_document" {
   }
 }
 
-resource "aws_iam_role" "eks_nodegroup_role" {
-  name = "eks_nodegroup_role"
+resource "aws_iam_role" "eks_node_group_role" {
+  name = "eks_node_group_role"
   assume_role_policy = data.aws_iam_policy_document.ec2_trust_policy_document.json
 }
 
@@ -20,7 +20,7 @@ resource "aws_iam_role" "eks_nodegroup_role" {
 # AmazonEKSWorkerNodePolicy grants basic node group access to 
 # the EKS cluster
 resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
-  role       = aws_iam_role.eks_nodegroup_role.name
+  role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
 # AmazonEKS_CNI_Policy allows nodes to manage networking (ENIs)
 # via the VPC CNI plugin
 resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
-  role       = aws_iam_role.eks_nodegroup_role.name
+  role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
@@ -36,6 +36,6 @@ resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
 # AmazonEC2ContainerRegistryReadOnly grants nodes permission to
 # pull images from Amazon ECR
 resource "aws_iam_role_policy_attachment" "eks_ecr_policy" {
-  role       = aws_iam_role.eks_nodegroup_role.name
+  role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
