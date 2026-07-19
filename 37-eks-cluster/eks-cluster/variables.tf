@@ -1,3 +1,8 @@
+variable "aws_region" {
+  type    = string
+  default = "us-east-1"
+}
+
 # enable access to the EKS API Server via private endpoint
 # this is a more secure feature so that the EKS cluster can be
 # accessed through a dedicated machine, but here we leave this 
