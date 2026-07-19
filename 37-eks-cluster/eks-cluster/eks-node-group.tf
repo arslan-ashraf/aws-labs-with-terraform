@@ -45,13 +45,9 @@ resource "aws_eks_node_group" "private_nodes" {
   }
 
   # Tags for the node group and associated EC2 instances
-  tags = merge(var.tags, {
-    # Standard EC2 name tag
-    Name = "${local.name}-private-ng"
-
-    # Logical environment (e.g., dev, prod)
-    Environment = var.environment_name
-  })
+  tags = {
+    Name = "eks-cluster-private-node-group"
+  }
 
   # Ensure IAM role policies are attached before creating the node group
   depends_on = [
