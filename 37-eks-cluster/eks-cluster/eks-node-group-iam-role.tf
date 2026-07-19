@@ -24,19 +24,17 @@ resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
-# ------------------------------------------------------------------------------
-# IAM Policy Attachment: AmazonEKS_CNI_Policy
-# Allows nodes to manage networking (ENIs) via the VPC CNI plugin
-# ------------------------------------------------------------------------------
+
+# AmazonEKS_CNI_Policy allows nodes to manage networking (ENIs)
+# via the VPC CNI plugin
 resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
   role       = aws_iam_role.eks_nodegroup_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
 }
 
-# ------------------------------------------------------------------------------
-# IAM Policy Attachment: AmazonEC2ContainerRegistryReadOnly
-# Grants nodes permission to pull images from Amazon ECR
-# ------------------------------------------------------------------------------
+
+# AmazonEC2ContainerRegistryReadOnly grants nodes permission to
+# pull images from Amazon ECR
 resource "aws_iam_role_policy_attachment" "eks_ecr_policy" {
   role       = aws_iam_role.eks_nodegroup_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
