@@ -18,6 +18,9 @@ resource "aws_iam_role" "eks_cluster_role" {
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks_cluster_role.name
+
+  # this policy is what allows EKS cluster control plane to be able to
+  # spin up basic components like ENIs, load balancers, security groups, etc
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
