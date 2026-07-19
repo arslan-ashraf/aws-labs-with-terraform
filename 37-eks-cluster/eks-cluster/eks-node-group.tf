@@ -20,7 +20,7 @@ resource "aws_eks_node_group" "private_nodes" {
 
   # configure auto-scaling limits and defaults
   scaling_config {
-    # Desired number of nodes when the node group is created
+    # desired number of nodes when the node group is created
     desired_size = 2
 
     # minimum number of nodes allowed
@@ -30,7 +30,7 @@ resource "aws_eks_node_group" "private_nodes" {
     max_size = 3
   }
 
-  # Set the max percentage of nodes that can be unavailable during update
+  # set max percentage of nodes that can be unavailable during update
   update_config {
     max_unavailable_percentage = 33
   }
