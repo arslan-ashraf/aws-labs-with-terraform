@@ -1,9 +1,21 @@
 resource "aws_eks_cluster" "eks_cluster" {
   name     = "eks_cluster"
+  version  = var.kubernetes_version
   role_arn = aws_iam_role.eks_cluster_role.arn
 
+  # VPC configuration for control plane networking
   vpc_config {
-    subnet_ids = ["subnet-abcde123", "subnet-bcdef234"]
+    # subnets where EKS control plane ENIs will be placed (should be private)
+    subnet_ids = data.terraform_remote_state.vpc_network.outputs.private_subnet_ids
+
+    # allow access to private endpoint (inside VPC)
+    endpoint_private_access = var.cluster_endpoint_private_access
+
+    # allow access to public endpoint (from internet, controlled via CIDRs)
+    endpoint_public_access  = var.cluster_endpoint_public_access
+
+    # list of CIDRs allowed to reach the public endpoint
+    public_access_cidrs     = var.cluster_endpoint_public_access_cidrs
   }
 
   # CRITICAL: Always use depends_on for the policy attachment. 
