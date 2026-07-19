@@ -40,8 +40,8 @@ resource "aws_eks_node_group" "private_nodes" {
 
   # Apply labels to each EC2 instance for easier scheduling and management in Kubernetes
   labels = {
-    "env"  = var.environment_name
-    "team" = var.business_division
+    "env"  = "dev"
+    "team" = "engineering"
   }
 
   # Tags for the node group and associated EC2 instances
