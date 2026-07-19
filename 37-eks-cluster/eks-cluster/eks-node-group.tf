@@ -18,16 +18,16 @@ resource "aws_eks_node_group" "private_nodes" {
   # Root volume size for each node (in GiB)
   disk_size = var.node_disk_size
 
-  # Configure auto-scaling limits and defaults
+  # configure auto-scaling limits and defaults
   scaling_config {
     # Desired number of nodes when the node group is created
-    desired_size = 3
+    desired_size = 2
 
-    # Minimum number of nodes allowed
+    # minimum number of nodes allowed
     min_size = 1
 
-    # Maximum number of nodes the group can scale to
-    max_size = 6
+    # maximum number of nodes the group can scale to
+    max_size = 3
   }
 
   # Set the max percentage of nodes that can be unavailable during update
