@@ -1,4 +1,15 @@
-data "aws_iam"
+data "aws_iam_policy_document" "ec2_assume_role_document" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
 
 resource "aws_iam_role" "eks_cluster" {
   # Unique name for the control plane IAM role
