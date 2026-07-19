@@ -11,9 +11,8 @@ resource "aws_eks_node_group" "private_nodes" {
   # ON_DEMAND or SPOT capacity types
   capacity_type = var.node_capacity_type
 
-  # Use Amazon Linux 2023 AMI — the latest Amazon-managed OS optimized for EKS
-  # Fully supported in Kubernetes v1.25+ and production-ready
-  # Better security, updated packages, and long-term support (recommended over AL2)
+  # Use Amazon Linux 2023 AMI — the latest Amazon-managed OS 
+  # optimized for EKS
   ami_type = "AL2023_x86_64_STANDARD"
 
   # Root volume size for each node (in GiB)
