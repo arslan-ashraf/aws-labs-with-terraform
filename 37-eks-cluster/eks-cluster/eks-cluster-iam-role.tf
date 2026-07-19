@@ -21,6 +21,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 
   # this policy is what allows EKS cluster control plane to be able to
   # spin up basic components like ENIs, load balancers, security groups, etc
+  # this is mandatory for all EKS clusters
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
@@ -31,5 +32,8 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 # ------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller" {
   role       = aws_iam_role.eks_cluster.name
+
+  # this policy is required for advanced networking, Fargate, and
+  # Karpenter
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
 }
