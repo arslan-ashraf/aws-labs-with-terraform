@@ -38,11 +38,11 @@ variable "node_capacity_type" {
 }
 
 # root volume size (GiB) for worker nodes
-# variable "node_disk_size" {
-#   description = "Disk size in GiB for worker nodes"
-#   type        = number
-#   default     = 20
-# }
+variable "node_disk_size" {
+  description = "Disk size in GiB for worker nodes"
+  type        = number
+  default     = 5
+}
 
 variable "kubernetes_version" {
   type = string
