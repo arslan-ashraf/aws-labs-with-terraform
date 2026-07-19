@@ -43,3 +43,8 @@ variable "node_capacity_type" {
 #   type        = number
 #   default     = 20
 # }
+
+variable "kubernetes_version" {
+  type = string
+  default = "1.36"
+}
