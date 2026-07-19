@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 }
 
 # VPC Resource Controller policy
-resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller" {
+resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller_policy" {
   role       = aws_iam_role.eks_cluster_role.name
 
   # this policy is required for advanced networking, Fargate, and

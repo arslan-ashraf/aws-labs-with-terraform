@@ -31,6 +31,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   # If the attachment isn't fully created first, cluster provisioning will fail.
   # If deleted before the cluster during a destroy, EKS won't be able to clean up security groups.
   depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_policy
+    aws_iam_role_policy_attachment.eks_cluster_policy,
+    aws_iam_role_policy_attachment.eks_vpc_resource_controller_policy
   ]
 }
