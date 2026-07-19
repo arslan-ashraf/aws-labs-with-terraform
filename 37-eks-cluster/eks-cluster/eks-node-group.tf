@@ -1,16 +1,14 @@
 resource "aws_eks_node_group" "private_nodes" {
   cluster_name = aws_eks_cluster.eks_cluster.name
   node_group_name = "eks-cluster-private-node-group"
-
   node_role_arn = aws_iam_role.eks_node_group_role.arn
 
   # subnets where the worker nodes will be launched (private subnets)
   subnet_ids = data.terraform_remote_state.vpc_network.outputs.private_subnet_ids
 
-  # Instance types for the nodes (e.g., t3.medium, m5.large)
   instance_types = var.node_instance_types
 
-  # Choose between ON_DEMAND or SPOT capacity types
+  # ON_DEMAND or SPOT capacity types
   capacity_type = var.node_capacity_type
 
   # Use Amazon Linux 2023 AMI — the latest Amazon-managed OS optimized for EKS
