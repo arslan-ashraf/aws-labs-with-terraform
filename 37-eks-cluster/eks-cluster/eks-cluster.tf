@@ -27,6 +27,24 @@ resource "aws_eks_cluster" "eks_cluster" {
     "scheduler"            # Logs for pod scheduling
   ]
 
+  # access_config { ... } block explained:
+  # authentication_mode = "API_AND_CONFIG_MAP"
+  # → This means we can authenticate access to the EKS API Server
+  #   using both methods:
+  #    1. The old way (aws-auth ConfigMap)
+  #    2. The new way (Access Entries API)
+  #
+  # bootstrap_cluster_creator_admin_permissions = true
+  # → This ensures the person who creates the cluster (you, running Terraform)
+  #   automatically gets admin (cluster-admin) access.
+  #   If this was false, no one would have access until it was manually set it up.
+
+  access_config {
+    # three options for authentication_mode: CONFIG_MAP, API, API_AND_CONFIG_MAP
+    authentication_mode = "API_AND_CONFIG_MAP" # 
+    bootstrap_cluster_creator_admin_permissions = true
+  }
+
   # CRITICAL: Always use depends_on for the policy attachment. 
   # If the attachment isn't fully created first, cluster provisioning will fail.
   # If deleted before the cluster during a destroy, EKS won't be able to clean up security groups.
