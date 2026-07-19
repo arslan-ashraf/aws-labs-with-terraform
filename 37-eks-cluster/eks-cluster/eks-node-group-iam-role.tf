@@ -1,21 +1,19 @@
+data "aws_iam_policy_document" "ec2_trust_policy_document" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
 resource "aws_iam_role" "eks_nodegroup_role" {
-  # IAM role name following environment and division-based naming
-  name = "${local.name}-eks-nodegroup-role"
-
-  # Trust policy: allow EC2 service to assume this role
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Action    = "sts:AssumeRole",
-      Effect    = "Allow",
-      Principal = {
-        Service = "ec2.amazonaws.com"
-      }
-    }]
-  })
-
-  # Apply global tags (e.g., Terraform=true, Environment=dev, etc.)
-  tags = var.tags
+  name = "eks_nodegroup_role"
+  assume_role_policy = data.aws_iam_policy_document.ec2_trust_policy_document.json
 }
 
 # ------------------------------------------------------------------------------
