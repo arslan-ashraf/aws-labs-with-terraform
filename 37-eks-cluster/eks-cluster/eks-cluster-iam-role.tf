@@ -16,6 +16,7 @@ resource "aws_iam_role" "eks_cluster_role" {
   assume_role_policy = data.aws_iam_policy_document.eks_trust_policy_document.json
 }
 
+# EKS Cluster Policy
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks_cluster_role.name
 
@@ -25,13 +26,9 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
-# ------------------------------------------------------------------------------
-# Attach VPC Resource Controller policy
-# Required for advanced networking, Fargate, and Karpenter support
-# Recommended to include by default for production-grade EKS
-# ------------------------------------------------------------------------------
+# VPC Resource Controller policy
 resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller" {
-  role       = aws_iam_role.eks_cluster.name
+  role       = aws_iam_role.eks_cluster_role.name
 
   # this policy is required for advanced networking, Fargate, and
   # Karpenter
