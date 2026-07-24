@@ -5,7 +5,7 @@ variable "aws_region" {
 
 variable "eks_cluster_name" {
   type    = string
-  default = "eks_cluster"
+  default = "example_eks_cluster"
 }
 
 # enable access to the EKS API Server via private endpoint
