@@ -58,3 +58,7 @@ variable "kubernetes_version" {
   type = string
   default = "1.36"
 }
+
+variable "database_secrets_arn" {
+  type = string
+}

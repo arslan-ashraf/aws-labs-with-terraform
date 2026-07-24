@@ -14,8 +14,7 @@ data "aws_iam_policy_document" "read_secrets_policy" {
       "secretsmanager:DescribeSecret"
     ]
 
-    # replace "*" with secrets' arn
-    resources = ["*"]
+    resources = [var.database_secrets_arn]
   }
 }
 
