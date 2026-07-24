@@ -31,4 +31,4 @@ spec:
           driver: secrets-store.csi.k8s.io
           readOnly: true
           volumeAttributes:
-            secretProviderClass: "secrets-manager-provider" # References 
+            secretProviderClass: "secrets-manager-provider" # references SecretProviderClass
