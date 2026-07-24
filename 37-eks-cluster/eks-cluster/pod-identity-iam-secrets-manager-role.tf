@@ -8,7 +8,7 @@ resource "aws_iam_role" "pod_identity_secrets_manager_role" {
 data "aws_iam_policy_document" "read_secrets_policy" {
   statement {
     effect = "Allow"
-
+        
     actions = [
       "secretsmanager:GetSecretValue",
       "secretsmanager:DescribeSecret"
