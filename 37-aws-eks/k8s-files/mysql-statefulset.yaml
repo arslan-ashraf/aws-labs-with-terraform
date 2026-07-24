@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-db
+  labels:
+    app.kubernetes.io/component: mysql
+spec:
+  replicas: 1
+  serviceName: mysql-service
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: mysql
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: mysql
+    spec:
+      serviceAccount:   
+      containers:
+        - name: mysql
+          image: "mysql"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: mysql
+              containerPort: 3306
+              protocol: TCP          
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: my_password
+            - name: MYSQL_DATABASE
+              value: users_db
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              export MYSQL_USER=$(cat /mnt/secrets-store/MYSQL_USER);
+              export MYSQL_PASSWORD=$(cat /mnt/secrets-store/MYSQL_PASSWORD);
+              echo "Loaded secrets from AWS Secrets Manager. Starting MySQL with user=$MYSQL_USER";
+              exec docker-entrypoint.sh mysqld          
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+            - name: aws-secrets
+              mountPath: /mnt/secrets-store
+              readOnly: true              
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: aws-secrets
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "catalog-db-secrets"
