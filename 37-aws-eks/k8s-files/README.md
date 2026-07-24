@@ -18,5 +18,5 @@ Note: `/mnt/secrets` is the path where the secrets are mounted in the Nginx depl
 To print out the actual secret value:
 
 ```
-kubectl exec -it <NGINX_POD_NAME> -- cat /mnt/secrets/my-nginx-secret
+kubectl exec -it <NGINX_POD_NAME> -n production -- cat /mnt/secrets/my-nginx-secret
 ```
