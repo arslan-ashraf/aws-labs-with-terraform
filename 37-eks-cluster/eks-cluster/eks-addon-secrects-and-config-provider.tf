@@ -10,4 +10,18 @@ resource "aws_eks_addon" "pod_identity_agent" {
 
   # use this to configure the CSI Driver
   # configuration_values { ... }
+  configuration_values = jsonencode({
+    secrets-store-csi-driver = 
+    replicaCount = 4
+    resources = {
+      limits = {
+        cpu    = "100m"
+        memory = "150Mi"
+      }
+      requests = {
+        cpu    = "100m"
+        memory = "150Mi"
+      }
+    }
+  })
 }
