@@ -15,7 +15,7 @@ spec:
       labels:
         app: nginx-web-server
     spec:
-      serviceAccountName: example-service-account
+      serviceAccountName: example-service-account # references service acount
       containers:
       - name: nginx
         image: nginx:latest
