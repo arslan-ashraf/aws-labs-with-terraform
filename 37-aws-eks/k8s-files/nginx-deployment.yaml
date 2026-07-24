@@ -31,4 +31,4 @@ spec:
           driver: secrets-store.csi.k8s.io
           readOnly: true
           volumeAttributes:
-            secretProviderClass: "nginx-aws-secrets" # References your Custom Resource
+            secretProviderClass: "secrets-manager-provider" # References 
