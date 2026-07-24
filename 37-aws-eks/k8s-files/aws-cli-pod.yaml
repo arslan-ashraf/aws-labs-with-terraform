@@ -4,7 +4,7 @@ metadata:
   name: aws-cli
   namespace: production
 spec:
-  serviceAccountName: aws-cli-service-account
+  serviceAccountName: example-service-account
   containers:
   - name: aws-cli
     image: amazon/aws-cli
