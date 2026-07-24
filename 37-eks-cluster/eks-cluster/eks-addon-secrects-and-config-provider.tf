@@ -11,7 +11,7 @@ resource "aws_eks_addon" "pod_identity_agent" {
   # resolve_conflicts_on_create = "OVERWRITE" # concerning versions
   # resolve_conflicts_on_update = "OVERWRITE" # concerning versions
 
-  # use this to configure the CSI Driver
+  # use this to configure the Secrets Store CSI Driver:
   # configuration_values = jsonencode({
   #   secrets-store-csi-driver = {}
   #   replicaCount = 4
