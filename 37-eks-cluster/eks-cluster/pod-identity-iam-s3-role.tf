@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "pod_identity_trust" {
+data "aws_iam_policy_document" "pod_identity_trust_policy" {
   statement {
     effect = "Allow"
 
@@ -15,12 +15,12 @@ data "aws_iam_policy_document" "pod_identity_trust" {
 }
 
 resource "aws_iam_role" "pod_identity_S3_readonly_role" {
-  name               = "eks-pod-identity-app-role"
-  assume_role_policy = data.aws_iam_policy_document.pod_identity_trust.json
+  name               = "pod_identity_S3_readonly_role"
+  assume_role_policy = data.aws_iam_policy_document.pod_identity_trust_policy.json
 }
 
-# 3. Attach your functional application permissions (Example: S3 Read Only)
-resource "aws_iam_role_policy_attachment" "app_permissions" {
-  role       = aws_iam_role.app_role.name
+
+resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+  role       = aws_iam_role.pod_identity_S3_readonly_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
