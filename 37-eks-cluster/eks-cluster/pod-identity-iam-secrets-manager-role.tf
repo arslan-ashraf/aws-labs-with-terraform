@@ -10,8 +10,8 @@ data "aws_iam_policy_document" "read_secrets_policy" {
     effect = "Allow"
 
     actions = [
-      "sts:AssumeRole",
-      "sts:TagSession"
+      "secretsmanager:AssumeRole",
+      "secretsmanager:TagSession"
     ]
   }
 }
