@@ -33,3 +33,5 @@ To print out the actual secret value:
 ```
 kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/secrets/MY_NGINX_PASSWORD
 ```
+
+`MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
