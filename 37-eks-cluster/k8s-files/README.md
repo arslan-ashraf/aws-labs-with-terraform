@@ -1,4 +1,4 @@
-Run the command:
+Apply the yaml files and run the command:
 
 ```
 kubectl exec -it aws-cli -- aws s3 ls
