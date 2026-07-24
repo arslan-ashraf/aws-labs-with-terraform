@@ -23,6 +23,8 @@ kubectl exec -it <NGINX_POD_NAME> -n production -- ls /mnt/secrets
 
 Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx deployment object with key `mountPath`.
 
+For the example files here:
+
 ```
 kubectl exec -it <NGINX_POD_NAME> -n production -- cat /mnt/secrets/my-nginx-secret
 ```
