@@ -31,5 +31,5 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- ls /mnt/sec
 To print out the actual secret value:
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/secrets/my-nginx-secret
+kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/secrets/MY_NGINX_PASSWORD
 ```
