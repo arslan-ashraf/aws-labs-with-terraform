@@ -32,9 +32,9 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - |
-              export MYSQL_USER=$(cat /mnt/secrets-store/MYSQL_USER);
+              export MYSQL_USERNAME=$(cat /mnt/secrets-store/MYSQL_USERNAME);
               export MYSQL_PASSWORD=$(cat /mnt/secrets-store/MYSQL_PASSWORD);
-              echo "Loaded secrets from AWS Secrets Manager. Starting MySQL with user=$MYSQL_USER";
+              echo "Loaded secrets from AWS Secrets Manager. Starting MySQL with user=$MYSQL_USERNAME";
               exec docker-entrypoint.sh mysqld          
           volumeMounts:
             - name: data
