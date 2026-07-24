@@ -8,7 +8,7 @@ resource "aws_eks_addon" "pod_identity_agent" {
   cluster_name = var.eks_cluster_name
   addon_name   = "aws-secrets-store-csi-driver-provider"
 
-  resolve_conflicts_on_create = "OVERWRITE"
+  # resolve_conflicts_on_create = "OVERWRITE" # during updates
 
   # use this to configure the CSI Driver
   # configuration_values = jsonencode({
