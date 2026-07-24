@@ -1,4 +1,4 @@
-resource "aws_eks_pod_identity_association" "app_association" {
+resource "aws_eks_pod_identity_association" "service_account_secrets_iam_assoc" {
   cluster_name    = var.eks_cluster_name
   namespace       = "production"
   service_account = "aws-cli-service-account"
