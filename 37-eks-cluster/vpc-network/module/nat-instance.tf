@@ -1,8 +1,8 @@
 resource "aws_instance" "nat_instance" {
-  availability_zone           = values(local.public_subnets_for_NAT_instance)[0].AZ
-  ami                         = var.NAT_instance_config.ami
-  instance_type               = var.NAT_instance_config.instance_type
-  subnet_id                   = aws_subnet.subnets_in_main_vpc[
+  availability_zone = values(local.public_subnets_for_NAT_instance)[0].AZ
+  ami               = var.NAT_instance_config.ami
+  instance_type     = var.NAT_instance_config.instance_type
+  subnet_id = aws_subnet.subnets_in_main_vpc[
     keys(local.public_subnets_for_NAT_instance)[0]
   ].id
   associate_public_ip_address = true

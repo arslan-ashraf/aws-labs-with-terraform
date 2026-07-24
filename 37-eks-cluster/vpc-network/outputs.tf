@@ -21,5 +21,5 @@ output "NAT_instance_network_interface_id" {
 }
 
 output "NAT_instance_subnet_names" {
-  value =  module.vpc_network_module.NAT_instance_subnet_names
+  value = module.vpc_network_module.NAT_instance_subnet_names
 }

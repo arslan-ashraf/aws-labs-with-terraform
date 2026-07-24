@@ -17,16 +17,18 @@ resource "aws_iam_role" "eks_node_group_role" {
 }
 
 
-# AmazonEKSWorkerNodePolicy grants basic node group access to 
-# the EKS cluster
+# AmazonEKSWorkerNodePolicy allows nodes in the node group to be able 
+# to join the EKS cluster
 resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
   role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
 
-# AmazonEKS_CNI_Policy allows nodes to manage networking (ENIs)
-# via the VPC CNI plugin
+# AmazonEKS_CNI_Policy allows the VPC CNI plugin installed on worker
+# nodes the necessary permissions to manage network configurations 
+# for pods, it allows the CNI to list, describe, attach, and modify
+# ENIs and IP addresses on your EC2 worker nodes
 resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
   role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"

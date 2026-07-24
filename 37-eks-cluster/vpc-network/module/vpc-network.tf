@@ -8,8 +8,8 @@ locals {
   }
 
   public_subnets_for_NAT_instance = {
-    for key, config in var.subnet_config : 
-    key => config if config.public == true && 
+    for key, config in var.subnet_config :
+    key => config if config.public == true &&
     config.contains_NAT_instance == true
   }
 }
