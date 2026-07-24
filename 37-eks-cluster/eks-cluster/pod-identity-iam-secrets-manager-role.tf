@@ -11,8 +11,11 @@ data "aws_iam_policy_document" "read_secrets_policy" {
 
     actions = [
       "secretsmanager:GetSecretValue",
-      "secretsmanager:TagSession"
+      "secretsmanager:DescribeSecret"
     ]
+
+    # replace "*" with secrets' arn
+    resources = ["*"]
   }
 }
 
