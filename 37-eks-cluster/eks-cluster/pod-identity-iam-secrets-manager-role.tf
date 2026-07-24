@@ -5,7 +5,16 @@ resource "aws_iam_role" "pod_identity_secrets_manager_role" {
   assume_role_policy = data.aws_iam_policy_document.pod_identity_trust_policy.json
 }
 
+data "aws_iam_policy_document" "pod_identity_trust_policy" {
+  statement {
+    effect = "Allow"
 
+    actions = [
+      "sts:AssumeRole",
+      "sts:TagSession"
+    ]
+  }
+}
 
 
 resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
