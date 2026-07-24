@@ -4,16 +4,16 @@ metadata:
   name: nginx-secure-deployment
   namespace: production
   labels:
-    app: nginx
+    app: nginx-web-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: nginx-web-server
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx-web-server
     spec:
       serviceAccountName: example-service-account
       containers:
