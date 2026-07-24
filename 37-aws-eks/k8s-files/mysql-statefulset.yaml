@@ -50,4 +50,4 @@ spec:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: "database-credentials"
+              secretProviderClass: "database-credentials-provider"
