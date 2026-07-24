@@ -26,7 +26,7 @@ Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx depl
 For the example files here:
 
 ```
-kubectl exec -it <NGINX_POD_NAME> -n production -- cat /mnt/secrets/my-nginx-secret
+kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/secrets/my-nginx-secret
 ```
 
 
