@@ -15,7 +15,7 @@ spec:
       labels:
         app.kubernetes.io/component: mysql
     spec:
-      serviceAccount:   
+      serviceAccount: example-service-account  
       containers:
         - name: mysql
           image: "mysql"
@@ -41,7 +41,7 @@ spec:
               mountPath: /var/lib/mysql
             - name: aws-secrets
               mountPath: /mnt/secrets-store
-              readOnly: true              
+              readOnly: true    
       volumes:
         - name: data
           emptyDir: {}
