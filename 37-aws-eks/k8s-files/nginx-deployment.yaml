@@ -23,7 +23,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: secrets-store-inline
-          mountPath: "/mnt/secrets"        # Directory where secrets will appear
+          mountPath: "/mnt/secrets"   # directory where secrets will appear in plain text files
           readOnly: true
       volumes:
       - name: secrets-store-inline
