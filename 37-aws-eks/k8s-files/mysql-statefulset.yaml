@@ -39,15 +39,15 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
-            - name: aws-secrets
+            - name: database-credentials-in-aws-secrets-manager
               mountPath: /mnt/secrets-store
-              readOnly: true    
+              readOnly: true
       volumes:
         - name: data
           emptyDir: {}
-        - name: aws-secrets
+        - name: database-credentials-in-aws-secrets-manager
           csi:
             driver: secrets-store.csi.k8s.io
             readOnly: true
             volumeAttributes:
-              secretProviderClass: "catalog-db-secrets"
+              secretProviderClass: "database-credentials"
