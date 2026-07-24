@@ -1,7 +1,7 @@
-resource "aws_eks_cluster" "eks_cluster" {
-  name     = "eks_cluster"
+resource "aws_eks_cluster" "example_eks_cluster" {
+  name     = "example_eks_cluster"
   version  = var.kubernetes_version
-  role_arn = aws_iam_role.eks_cluster_role.arn
+  role_arn = aws_iam_role.example_eks_cluster_role.arn
 
   # VPC configuration for control plane networking
   vpc_config {
@@ -49,9 +49,9 @@ resource "aws_eks_cluster" "eks_cluster" {
   # If the attachment isn't fully created first, cluster provisioning will fail.
   # If deleted before the cluster during a destroy, EKS won't be able to clean up security groups.
   depends_on = [
-    aws_iam_role_policy_attachment.eks_cluster_policy,
+    aws_iam_role_policy_attachment.example_eks_cluster_policy,
     aws_iam_role_policy_attachment.eks_vpc_resource_controller_policy
   ]
 
-  tags = { Name = "eks_cluster" }
+  tags = { Name = "example_eks_cluster" }
 }
