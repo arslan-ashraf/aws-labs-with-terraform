@@ -40,7 +40,7 @@ spec:
             - name: data
               mountPath: /var/lib/mysql
             - name: database-credentials-in-aws-secrets-manager
-              mountPath: /mnt/secrets-store
+              mountPath: /mnt/secrets-store # secrets are stored here as plaintext
               readOnly: true
       volumes:
         - name: data
