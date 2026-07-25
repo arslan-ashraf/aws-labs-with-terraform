@@ -17,3 +17,8 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.create=false \
   --set serviceAccount.name=aws-load-balancer-controller 
 ```
+
+Verify:
+```
+ kubectl get all -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller
+```
