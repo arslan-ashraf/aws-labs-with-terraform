@@ -68,8 +68,8 @@ kubectl exec -it $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadat
 
 This should print "EBS Working" if EBS has correctly been provisioned.
 
-4. Delete the pod:
+4. Test if the data persists even after deleting the pod.  Delete the pod and K8s Deployment will automatically create another one:
 ```
-kubectl delete pod pod/ebs-test-nginx-pod
+kubectl delete pod -l app=nginx
 ```
 
