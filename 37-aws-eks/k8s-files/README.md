@@ -67,3 +67,9 @@ kubectl exec -it $(kubectl get pods pod/ebs-test-nginx-pod -o jsonpath='{.items[
 ```
 
 This should print "EBS Working" if EBS has correctly been provisioned.
+
+4. Delete the pod:
+```
+kubectl delete pod pod/ebs-test-nginx-pod
+```
+
