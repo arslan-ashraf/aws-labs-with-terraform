@@ -1,3 +1,10 @@
+# get pod identity agent version compatible with EKS version
+data "aws_eks_addon_version" "pia_default" {
+  addon_name         = "eks-pod-identity-agent"
+  kubernetes_version = aws_eks_cluster.main.version
+}
+
+
 resource "aws_eks_addon" "pod_identity_agent" {
   cluster_name = var.eks_cluster_name
   addon_name   = "eks-pod-identity-agent"
