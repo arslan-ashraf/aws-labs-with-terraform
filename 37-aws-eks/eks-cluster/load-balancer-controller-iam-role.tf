@@ -22,6 +22,6 @@ resource "aws_iam_policy" "load_balancer_controller_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "ebs_volume_role_policy_attachment" {
-  role       = aws_iam_role.pod_identity_ebs_volumes_role.name
+  role       = aws_iam_role.load_balancer_controller_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
