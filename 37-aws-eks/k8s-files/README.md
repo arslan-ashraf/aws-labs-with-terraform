@@ -62,12 +62,12 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 
 This test is done with files prefixed with `ebs-test`.
 
-1. Verify the PVC status (initially, the PVC will be in a Pending state due to WaitForFirstConsumer, once the Nginx Pod is scheduled, the status should change to Bound):
+1. Verify the PVC status (initially, the PVC will be in a Pending state due to `WaitForFirstConsumer`, once the Nginx Pod is scheduled, the status should change to `Bound`):
 ```
 kubectl get pvc ebs-pvc
 ```
 
-2. Verify the Pod status (it needs to be in the Running state):
+2. Verify the Pod status (it needs to be in the `Running` state):
 ```
 kubectl get pods -l app=nginx
 ```
