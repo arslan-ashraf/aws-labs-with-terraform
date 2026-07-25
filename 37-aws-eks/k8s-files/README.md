@@ -4,9 +4,8 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 2. Amazon Secrets and Configuration Provider (ASCP) & Secrets Store CSI Driver
 3. EBS CSI Driver
 
-###############################################################
-################# Pod Identity Agent Test #####################
-###############################################################
+
+## Pod Identity Agent Test 
 
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed Apply the yaml files with:
 
@@ -21,11 +20,6 @@ kubectl exec -it aws-cli -- aws s3 ls
 ```
 
 If this doesn't work, delete the pod and recreate it.
-
-
-###############################################################
-############## ASCP & Secrets Store CSI Test ##################
-###############################################################
 
 ## ASCP & Secrets Store CSI Test
 
