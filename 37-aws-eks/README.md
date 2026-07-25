@@ -1,4 +1,4 @@
-Create a secret in AWS Secrets Manager 
+Create a secret in AWS Secrets Manager titled `my-secret`
 
 Install AWS Load Balancer Controller:
 ```
