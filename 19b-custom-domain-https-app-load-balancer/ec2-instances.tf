@@ -5,7 +5,7 @@ resource "aws_instance" "web_server_1" {
   instance_type               = "t2.nano"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_1_for_ec2.id
-  user_data                   = file("${path.module}/userdata.sh")
+  user_data                   = file("${path.module}/user_data.sh")
 
   vpc_security_group_ids = [
     aws_security_group.security_group_for_ec2_instance.id
@@ -22,7 +22,7 @@ resource "aws_instance" "web_server_2" {
   instance_type               = "t2.nano"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_2_for_ec2.id
-  user_data                   = file("${path.module}/userdata.sh")
+  user_data                   = file("${path.module}/user_data.sh")
 
   vpc_security_group_ids = [
     aws_security_group.security_group_for_ec2_instance.id

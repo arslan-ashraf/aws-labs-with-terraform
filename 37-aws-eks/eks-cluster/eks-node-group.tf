@@ -1,7 +1,7 @@
 resource "aws_eks_node_group" "private_nodes" {
-  cluster_name = var.eks_cluster_name
+  cluster_name    = var.eks_cluster_name
   node_group_name = "eks-cluster-private-node-group"
-  node_role_arn = aws_iam_role.eks_node_group_role.arn
+  node_role_arn   = aws_iam_role.eks_node_group_role.arn
 
   # subnets where the worker nodes will be launched (private subnets)
   subnet_ids = data.terraform_remote_state.vpc_network.outputs.private_subnet_ids

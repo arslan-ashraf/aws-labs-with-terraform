@@ -29,8 +29,8 @@ variable "cluster_endpoint_public_access" {
 
 # EKS API Server is allowed to be reached from anywhere
 variable "cluster_endpoint_public_access_cidrs" {
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
+  type    = list(string)
+  default = ["0.0.0.0/0"]
 }
 
 # EC2 instance types for worker nodes
@@ -55,7 +55,7 @@ variable "node_disk_size" {
 }
 
 variable "kubernetes_version" {
-  type = string
+  type    = string
   default = "1.36"
 }
 

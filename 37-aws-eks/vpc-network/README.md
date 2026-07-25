@@ -1,0 +1,1 @@
+We will use the module to create the VPC, two private subnets which will house EKS worker nodes, a public subnet which will house the NAT Instance that the module will create automatically.

@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "ec2_trust_policy_document" {
 }
 
 resource "aws_iam_role" "eks_node_group_role" {
-  name = "eks_node_group_role"
+  name               = "eks_node_group_role"
   assume_role_policy = data.aws_iam_policy_document.ec2_trust_policy_document.json
 }
 

@@ -1,7 +1,7 @@
 resource "aws_eks_cluster" "example_eks_cluster" {
   name     = var.eks_cluster_name
   version  = var.kubernetes_version
-  role_arn = aws_iam_role.example_eks_cluster_role.arn
+  role_arn = aws_iam_role.eks_cluster_role.arn
 
   # VPC configuration for control plane networking
   vpc_config {
@@ -12,19 +12,19 @@ resource "aws_eks_cluster" "example_eks_cluster" {
     endpoint_private_access = var.cluster_endpoint_private_access
 
     # allow access to public endpoint (from internet, controlled via CIDRs)
-    endpoint_public_access  = var.cluster_endpoint_public_access
+    endpoint_public_access = var.cluster_endpoint_public_access
 
     # list of CIDRs allowed to reach the public endpoint
-    public_access_cidrs     = var.cluster_endpoint_public_access_cidrs
+    public_access_cidrs = var.cluster_endpoint_public_access_cidrs
   }
 
   # enable EKS control plane logging for visibility and debugging
   enabled_cluster_log_types = [
-    "api",                 # API server audit logs
-    "audit",               # Kubernetes audit logs
-    "authenticator",       # Authenticator logs for IAM auth
-    "controllerManager",   # Logs for controller manager
-    "scheduler"            # Logs for pod scheduling
+    "api",               # API server audit logs
+    "audit",             # Kubernetes audit logs
+    "authenticator",     # Authenticator logs for IAM auth
+    "controllerManager", # Logs for controller manager
+    "scheduler"          # Logs for pod scheduling
   ]
 
   # access_config { ... } block explained:
@@ -41,7 +41,7 @@ resource "aws_eks_cluster" "example_eks_cluster" {
 
   access_config {
     # three options for authentication_mode: CONFIG_MAP, API, API_AND_CONFIG_MAP
-    authentication_mode = "API_AND_CONFIG_MAP" # 
+    authentication_mode                         = "API_AND_CONFIG_MAP" # 
     bootstrap_cluster_creator_admin_permissions = true
   }
 
@@ -49,7 +49,7 @@ resource "aws_eks_cluster" "example_eks_cluster" {
   # If the attachment isn't fully created first, cluster provisioning will fail.
   # If deleted before the cluster during a destroy, EKS won't be able to clean up security groups.
   depends_on = [
-    aws_iam_role_policy_attachment.example_eks_cluster_policy,
+    aws_iam_role_policy_attachment.eks_cluster_policy,
     aws_iam_role_policy_attachment.eks_vpc_resource_controller_policy
   ]
 

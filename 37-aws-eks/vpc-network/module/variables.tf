@@ -12,11 +12,12 @@ variable "vpc_config" {
 
 variable "subnet_config" {
   type = map(object({
-    AZ                     = string
-    cidr_block             = string
-    public                 = optional(bool, false)
-    contains_NAT_instance  = optional(bool, false)
-    contains_load_balancer = optional(bool, false)
+    AZ                              = string
+    cidr_block                      = string
+    public                          = optional(bool, false)
+    contains_NAT_instance           = optional(bool, false)
+    contains_external_load_balancer = optional(bool, false)
+    contains_internal_load_balancer = optional(bool, false)
   }))
 
   validation {

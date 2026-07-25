@@ -22,10 +22,12 @@ module "vpc_network_module" {
     # subnet c is public, it is for hosting public facing resources
     # such as Load Balancers and NAT Gateways/Instances
     public_subnet_c = {
-      cidr_block            = "10.0.10.0/24"
-      AZ                    = "us-east-1a"
-      public                = true
-      contains_NAT_instance = true
+      cidr_block                       = "10.0.10.0/24"
+      AZ                               = "us-east-1a"
+      public                           = true
+      contains_NAT_instance            = true
+      contains_external_load_balancer  = true
+      contains_internal_load_balancer  = false
     }
 
   }

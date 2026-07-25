@@ -1,6 +1,6 @@
 # Network Module
 
-This module creates a VPC, at least one public subnet and at least one private subnet, and a NAT Instance in one of the public subnets chosed arbitrarily.
+This module creates a VPC, at least one public subnet and at least one private subnet, and a NAT Instance in one of the public subnets chosen arbitrarily.
 
 Example usage:
 

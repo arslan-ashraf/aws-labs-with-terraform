@@ -20,7 +20,7 @@ resource "aws_iam_role" "pod_identity_S3_read_only_role" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "role_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "s3_read_role_policy_attachment" {
   role       = aws_iam_role.pod_identity_S3_read_only_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
