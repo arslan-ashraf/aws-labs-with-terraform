@@ -58,7 +58,9 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
 
 
-To test 
+###############################################################
+################### EBS CSI Driver Test #######################
+###############################################################
 
 1. Verify the PVC status (initially, the PVC will be in a Pending state due to WaitForFirstConsumer, once the Nginx Pod is scheduled, the status should change to Bound):
 ```
