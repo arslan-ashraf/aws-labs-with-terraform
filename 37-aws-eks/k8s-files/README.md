@@ -1,7 +1,7 @@
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
 1. Pod Identity Agent
-2. Amazon Secrets and Configuration Provider & Secrets Store CSI Driver
+2. Amazon Secrets and Configuration Provider (ASCP) & Secrets Store CSI Driver
 3. EBS CSI Driver
 
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed Apply the yaml files with:
@@ -16,10 +16,10 @@ To test the Pod Identity Agent, we have the file `s3-test-aws-cli-pod.yaml`, run
 kubectl exec -it aws-cli -- aws s3 ls
 ```
 
-to test if the aws-cli pod is able to list S3 buckets.  If this doesn't work, delete the pod and recreate it.
+If this doesn't work, delete the pod and recreate it.
 
 
-To test the secret store in AWS Secrets Manager stored in the Nginx pods, use the following command to list out the files that contain the secrets and to print out the secrets, use the following commands:
+To test ASCP & Secrets Store CSI Driver, we access the secrets stored in AWS Secrets Manager.  Run the following command to list out the files that contain the secrets and to print out the secrets, use the following commands:
 
 ```
 kubectl exec -it <NGINX_POD_NAME> -n <NAMESPACE> -- ls <MOUNT_PATH>
