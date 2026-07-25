@@ -8,4 +8,4 @@ spec:
   storageClassName: ebs-gp3-sc
   resources:
     requests:
-      storage: 4Gi
+      storage: 1Gi

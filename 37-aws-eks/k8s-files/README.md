@@ -1,3 +1,9 @@
+We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
+
+1. Pod Identity Agent
+2. Amazon Secrets and Configuration Provider & Secrets Store CSI Driver
+3. EBS CSI Driver
+
 Apply the yaml files and run the command:
 
 ```
