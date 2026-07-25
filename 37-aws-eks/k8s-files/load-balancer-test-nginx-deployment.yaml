@@ -19,5 +19,3 @@ spec:
         name: nginx
         ports:
         - containerPort: 80
----
-
