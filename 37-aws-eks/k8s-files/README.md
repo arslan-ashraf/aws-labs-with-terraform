@@ -102,5 +102,7 @@ kubectl get pv -n production
 kubectl get pvc -n production
 ```
 
-Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These need to be deleted manually:
-
+Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These need to be deleted manually but only the PVC needs to be deleted and PV is deleted automatically:
+```
+kubectl delete pvc <PVC_NAME>
+```
