@@ -95,3 +95,12 @@ This should also print "EBS Working".
 ```
 kubectl delete -f k8s-files
 ```
+
+7. Verify that the PersistentVolume and PersistentVolumeClaim are still present:
+```
+kubectl get pv -n production
+kubectl get pvc -n production
+```
+
+Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These need to be deleted manually:
+
