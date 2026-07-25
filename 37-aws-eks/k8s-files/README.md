@@ -4,7 +4,7 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 2. Amazon Secrets and Configuration Provider & Secrets Store CSI Driver
 3. EBS CSI Driver
 
-Then we will test each addon by deploying various K8s objects.  Apply the yaml files with:
+Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed Apply the yaml files with:
 
 ```
 kubectl apply
