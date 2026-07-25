@@ -32,7 +32,7 @@ kubectl exec -it <NGINX_POD_NAME> -n <NAMESPACE> -- cat <MOUNT_PATH>/<SECRET_NAM
 Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx deployment object with key `mountPath`.
 
 
-For the example files in current directory, use the commands below.
+For ours example files, use the commands below.
 
 To list out the files containing secrets:
 
@@ -47,3 +47,18 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 ```
 
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
+
+
+
+
+1. Verify the PVC status (initially, the PVC will be in a Pending state due to WaitForFirstConsumer, once the Nginx Pod is scheduled, the status should change to Bound):
+```
+kubectl get pvc ebs-pvc
+```
+
+2. Verify the Pod status (it needs to be in the Running state):
+```
+kubectl get pods -l name=ebs-test-nginx-pod
+```
+
+3. 
