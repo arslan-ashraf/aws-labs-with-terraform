@@ -58,7 +58,10 @@ kubectl get pvc ebs-pvc
 
 2. Verify the Pod status (it needs to be in the Running state):
 ```
-kubectl get pods -l name=ebs-test-nginx-pod
+kubectl get pods pod/ebs-test-nginx-pod
 ```
 
-3. 
+3. Test data persistence (create a file inside the mounted EBS directory):
+```
+kubectl exec -it $(kubectl get pods pod/ebs-test-nginx-pod -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EBS Working' > /data/index.html"
+```
