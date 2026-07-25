@@ -7,7 +7,7 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files with:
 
 ```
-kubectl apply
+kubectl apply -f k8s-files
 ```
 
 
@@ -90,3 +90,8 @@ kubectl exec -it $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadat
 ```
 
 This should also print "EBS Working".
+
+6. Delete all K8s objects with:
+```
+kubectl delete -f k8s-files
+```
