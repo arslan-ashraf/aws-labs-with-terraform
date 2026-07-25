@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ebs-test-pvc
+  name: ebs-pvc
 spec:
   accessModes:
     - ReadWriteOnce
