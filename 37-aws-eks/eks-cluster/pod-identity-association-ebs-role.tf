@@ -1,3 +1,6 @@
+# pod identity association needs three things:
+# 1. the corresponding addon to be installed in the eks cluster
+
 resource "aws_eks_pod_identity_association" "service_account_ebs_iam_assoc" {
   cluster_name    = var.eks_cluster_name
   namespace       = "kube-system"
