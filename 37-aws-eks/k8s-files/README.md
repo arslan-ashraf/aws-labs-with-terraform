@@ -4,6 +4,10 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 2. Amazon Secrets and Configuration Provider (ASCP) & Secrets Store CSI Driver
 3. EBS CSI Driver
 
+###############################################################
+################# Pod Identity Agent Test #####################
+###############################################################
+
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed Apply the yaml files with:
 
 ```
@@ -49,7 +53,7 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
 
 
-
+To test 
 
 1. Verify the PVC status (initially, the PVC will be in a Pending state due to WaitForFirstConsumer, once the Nginx Pod is scheduled, the status should change to Bound):
 ```
