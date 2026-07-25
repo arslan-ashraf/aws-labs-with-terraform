@@ -7,7 +7,7 @@ data "aws_eks_addon_version" "pia_default" {
 
 
 # get latest pod identity agent version compatible with EKS version
-data "aws_eks_addon_version" "pia_latest" {
+data "aws_eks_addon_version" "latest_pia" {
   addon_name         = "eks-pod-identity-agent"
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version
   most_recent        = true
@@ -15,11 +15,13 @@ data "aws_eks_addon_version" "pia_latest" {
 
 
 resource "aws_eks_addon" "pod_identity_agent" {
-  cluster_name = var.eks_cluster_name
-  addon_name   = "eks-pod-identity-agent"
+  cluster_name  = var.eks_cluster_name
+  addon_name    = "eks-pod-identity-agent"
+  addon_version = data.aws_eks_addon_version.latest_pia.version
 
-  # resolve_conflicts_on_create = "OVERWRITE" # concerning versions
-  # resolve_conflicts_on_update = "OVERWRITE" # concerning versions
+  resolve_conflicts_on_create = "OVERWRITE" # concerning versions
+  resolve_conflicts_on_update = "OVERWRITE" # concerning versions
+
 }
 
 # to get the addon_name, run the command to see all available addons:
