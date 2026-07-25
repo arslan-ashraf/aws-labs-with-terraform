@@ -73,3 +73,7 @@ This should print "EBS Working" if EBS has correctly been provisioned.
 kubectl delete pod -l app=nginx
 ```
 
+5.  Once the new pod spins up, test if data has remained persisted:
+```
+kubectl exec -it $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- cat /usr/share/nginx/html/index.html
+```
