@@ -1,5 +1,5 @@
-resource "aws_iam_role" "pod_identity_ebs_volumes_role" {
-  name = "pod_identity_ebs_volumes_role"
+resource "aws_iam_role" "load_balancer_controller_role" {
+  name = "load_balancer_controller_role"
 
   # pod_identity_trust_policy has already been defined
   assume_role_policy = data.aws_iam_policy_document.pod_identity_trust_policy.json
