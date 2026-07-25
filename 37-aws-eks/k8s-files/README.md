@@ -21,8 +21,8 @@ kubectl exec -it aws-cli -- aws s3 ls
 
 If this doesn't work, delete the pod and recreate it.
 
-## ASCP & Secrets Store CSI Test
 
+## ASCP & Secrets Store CSI Test
 
 To test ASCP & Secrets Store CSI Driver, we have files prefixed with `secrets-manager-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets:
 
@@ -54,9 +54,8 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
 
 
-###############################################################
-################### EBS CSI Driver Test #######################
-###############################################################
+## EBS CSI Driver Test
+
 
 This test is done with files prefixed with `ebs-test`.
 
