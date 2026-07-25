@@ -5,9 +5,11 @@ resource "aws_iam_role" "load_balancer_controller_role" {
   assume_role_policy = data.aws_iam_policy_document.pod_identity_trust_policy.json
 }
 
-// the IAM policy used here is from the K8s-sigs, download it with:
-// curl -o load-balancer-controller-iam-policy.json \
-// https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.14.0/docs/install/iam_policy.json
+#####################################################################
+# the IAM policy used here is from the K8s-sigs, download it with:
+# curl -o load-balancer-controller-iam-policy.json \
+# https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.14.0/docs/install/iam_policy.json
+#####################################################################
 
 data "aws_iam_policy_document" "load_balancer_controller_document" {
   source_policy_documents = [
