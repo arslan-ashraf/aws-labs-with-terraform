@@ -14,7 +14,7 @@ spec:
       labels:
         app: nginx-deployment
     spec:
-      # 1. Share a directory between the initContainer and NGINX
+      # 1. mount temporary shared directory, between the initContainer and NGINX
       volumes:
       - name: html-volume
         emptyDir: {}
