@@ -21,7 +21,6 @@ resource "aws_eks_addon" "pod_identity_agent" {
 
   resolve_conflicts_on_create = "OVERWRITE" # concerning versions
   resolve_conflicts_on_update = "OVERWRITE" # concerning versions
-
 }
 
 # to get the addon_name, run the command to see all available addons:
