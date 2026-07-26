@@ -20,7 +20,7 @@ spec:
         emptyDir: {}
       
       # 2. write the Node IP to index.html file before NGINX starts,
-      # we use the K8s Downward API which allows a running container
+      # we use the K8s Downward API, which allows a running container
       # to query the K8s orchestrator for information about itself
       # and the environment it was scheduled onto
       initContainers:
@@ -126,7 +126,7 @@ spec:
         name: nginx
         ports:
         - containerPort: 80
-        # 3. Mount the generated HTML file into NGINX
+        # 3. mount the generated HTML file into NGINX
         volumeMounts:
         - name: html-volume
           mountPath: /usr/share/nginx/html
