@@ -21,7 +21,7 @@ If this doesn't work, delete the pod and recreate it.
 
 ## ASCP & Secrets Store CSI Test
 
-To test ASCP & Secrets Store CSI Driver, we have files prefixed with `secrets-manager-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
+To test ASCP & Secrets Store CSI Driver, all the files is in the directory `secrets-manager-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
 
 The following is the template for the commands:
 
