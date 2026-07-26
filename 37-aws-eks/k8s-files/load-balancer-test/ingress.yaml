@@ -5,7 +5,7 @@ metadata:
   namespace: production
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip  # IP address of pods
+    alb.ingress.kubernetes.io/target-type: ip  # or instance
 spec:
   ingressClassName: alb
   rules:
