@@ -23,7 +23,88 @@ spec:
       initContainers:
       - name: init-html
         image: busybox:1.36
-        command: ['sh', '-c', 'echo "<h1>Node IP: $NODE_IP</h1>" > /usr/share/nginx/html/index.html']
+        # command: ['sh', '-c', 'echo "<h1>Node IP: $NODE_IP</h1>" > /usr/share/nginx/html/index.html']
+        command: 
+        - "sh"
+        - "-c"
+        - |
+          cat <<EOF > /usr/share/nginx/html/index.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Nginx Deployment Status</title>
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                      background-color: #f4f6f9;
+                      color: #333;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 100vh;
+                      margin: 0;
+                  }
+                  .card {
+                      background: white;
+                      padding: 2.5rem;
+                      border-radius: 12px;
+                      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+                      text-align: center;
+                      max-width: 400px;
+                      width: 100%;
+                  }
+                  .icon {
+                      font-size: 3rem;
+                      color: #009639; /* Nginx Green */
+                      margin-bottom: 1rem;
+                  }
+                  h1 {
+                      font-size: 1.5rem;
+                      margin-bottom: 1.5rem;
+                      color: #222;
+                  }
+                  .metric {
+                      background: #f8f9fa;
+                      border: 1px solid #e9ecef;
+                      border-radius: 8px;
+                      padding: 0.75rem;
+                      margin-bottom: 1rem;
+                  }
+                  .label {
+                      font-size: 0.75rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.05em;
+                      color: #6c757d;
+                      margin-bottom: 0.25rem;
+                  }
+                  .value {
+                      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+                      font-size: 1.1rem;
+                      font-weight: 600;
+                      color: #007bff;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="card">
+                  <div class="icon">⚙️</div>
+                  <h1>NGINX Cluster Node</h1>
+                  
+                  <div class="metric">
+                      <div class="label">Host Node IP Address</div>
+                      <div class="value">${NODE_IP}</div>
+                  </div>
+
+                  <div class="metric">
+                      <div class="label">Responding Pod Name</div>
+                      <div class="value" style="color: #28a745;">${POD_NAME}</div>
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
         env:
         - name: NODE_IP
           valueFrom:
