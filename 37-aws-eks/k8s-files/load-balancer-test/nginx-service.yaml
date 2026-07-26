@@ -5,6 +5,7 @@ metadata:
   labels:
     app: nginx-deployment
 spec:
+  # type: ClusterIP  # default
   ports:
   - port: 80
     protocol: TCP
