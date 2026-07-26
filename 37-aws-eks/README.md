@@ -1,5 +1,8 @@
 Create a secret in AWS Secrets Manager titled `my-secret` and create a key names `MY_NGINX_PASSWORD` with an arbitrary value.  Copy the secret's ARN as that is needed to deploy the EKS cluster.
 
+
+
+
 Install AWS Load Balancer Controller:
 ```
 helm repo add eks https://aws.github.io/eks-charts
