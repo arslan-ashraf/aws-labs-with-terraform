@@ -27,11 +27,11 @@ spec:
         - name: NODE_IP
           valueFrom:
             fieldRef:
-              fieldPath: status.hostIP
+              fieldPath: status.hostIP # from K8s Downward API
         - name: POD_NAME
           valueFrom:
             fieldRef:
-              fieldPath: metadata.name
+              fieldPath: metadata.name # from K8s Downward API
         volumeMounts:
         - name: html-volume
           mountPath: /usr/share/nginx/html
