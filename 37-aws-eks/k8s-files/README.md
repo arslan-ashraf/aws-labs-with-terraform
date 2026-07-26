@@ -10,7 +10,7 @@ Then we will test each addon by deploying various K8s objects.  Each yaml file i
 ## Pod Identity Agent Test 
 
 
-To test the Pod Identity Agent, we have the file `s3-test-aws-cli-pod.yaml`, run the command:
+To test the Pod Identity Agent, we have the file in `s3-test`, run the command:
 
 ```
 kubectl exec -it aws-cli -- aws s3 ls
