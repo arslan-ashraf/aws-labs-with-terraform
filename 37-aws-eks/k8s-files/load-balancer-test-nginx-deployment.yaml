@@ -23,6 +23,18 @@ spec:
       initContainers:
       - name: init-html
         image: busybox:1.36
+        env:
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
         # command: ['sh', '-c', 'echo "<h1>Node IP: $NODE_IP</h1>" > /usr/share/nginx/html/index.html']
         command: 
         - "sh"
@@ -105,14 +117,6 @@ spec:
           </body>
           </html>
           EOF
-        env:
-        - name: NODE_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.hostIP
-        volumeMounts:
-        - name: html-volume
-          mountPath: /usr/share/nginx/html
 
       containers:
       - image: nginx
