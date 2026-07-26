@@ -56,7 +56,7 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 ## EBS CSI Driver Test
 
 
-This test is done with files prefixed with `ebs-test`.
+This test is done with files in `ebs-test`.
 
 1. Verify the PVC status (initially, the PVC will be in a Pending state due to `WaitForFirstConsumer`, once the Nginx Pod is scheduled, the status should change to `Bound`):
 ```
