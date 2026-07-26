@@ -14,8 +14,31 @@ spec:
       labels:
         app: nginx-deployment
     spec:
+      # 1. Share a directory between the initContainer and NGINX
+      volumes:
+      - name: html-volume
+        emptyDir: {}
+      
+      # 2. Write the Node IP to an index.html file before NGINX starts
+      initContainers:
+      - name: init-html
+        image: busybox:1.36
+        command: ['sh', '-c', 'echo "<h1>Node IP: $NODE_IP</h1>" > /usr/share/nginx/html/index.html']
+        env:
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+
       containers:
       - image: nginx
         name: nginx
         ports:
         - containerPort: 80
+        # 3. Mount the generated HTML file into NGINX
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
