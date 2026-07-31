@@ -4,6 +4,7 @@ metadata:
   name: nginx-svc
   labels:
     app: nginx-deployment
+  namespace: production
 spec:
   # type: ClusterIP  # default
   ports:
