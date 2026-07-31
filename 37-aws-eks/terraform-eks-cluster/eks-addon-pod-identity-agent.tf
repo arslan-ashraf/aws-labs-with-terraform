@@ -6,7 +6,7 @@ data "aws_eks_addon_version" "pod_identity_agent_default_verison" {
 }
 
 
-# get latest pod identity agent version compatible with EKS version
+# get latest pod identity agent version compatible with EKS cluster's version
 data "aws_eks_addon_version" "pod_identity_agent_latest" {
   addon_name         = "eks-pod-identity-agent"
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version

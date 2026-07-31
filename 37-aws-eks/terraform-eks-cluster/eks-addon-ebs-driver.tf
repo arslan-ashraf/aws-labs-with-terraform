@@ -3,7 +3,7 @@ data "aws_eks_addon_version" "ebs_csi_driver_default_verison" {
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version
 }
 
-
+# get latest EBS CSI Driver version compatible with EKS cluster's version
 data "aws_eks_addon_version" "ebs_csi_driver_default_verison" {
   addon_name         = "aws-ebs-csi-driver"
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version
