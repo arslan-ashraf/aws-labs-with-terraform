@@ -1,5 +1,5 @@
 # pod identity association needs three things:
-# 1. the corresponding addon to be installed in the eks cluster
+# 1. the corresponding addon/driver to be installed in eks
 # 2. the IAM role with permissions to reach out to AWS services
 # 3. the correct k8s service account in the correct namespace
 
