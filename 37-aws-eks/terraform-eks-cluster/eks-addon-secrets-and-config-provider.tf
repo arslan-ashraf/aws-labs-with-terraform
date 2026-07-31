@@ -20,8 +20,9 @@ data "aws_eks_addon_version" "ASCP_CSI_Driver_lastest" {
 # secrets into ephemeral in-memory temporary volumes through the 
 # custom object SecretProviderClass
 resource "aws_eks_addon" "ASCP_and_CSI_driver" {
-  cluster_name = var.eks_cluster_name
-  addon_name   = "aws-secrets-store-csi-driver-provider"
+  cluster_name  = var.eks_cluster_name
+  addon_name    = "aws-secrets-store-csi-driver-provider"
+  addon_version = data.aws_eks_addon_version.ASCP_CSI_Driver_lastest.version
 
   resolve_conflicts_on_create = "OVERWRITE" # concerning versions
   resolve_conflicts_on_update = "OVERWRITE" # concerning versions
