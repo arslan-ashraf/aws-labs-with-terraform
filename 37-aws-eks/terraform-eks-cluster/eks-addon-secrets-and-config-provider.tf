@@ -5,7 +5,7 @@ data "aws_eks_addon_version" "ASCP_CSI_Driver_default_version" {
 
 
 # get latest pod identity agent version compatible with EKS version
-data "aws_eks_addon_version" "latest_pia" {
+data "aws_eks_addon_version" "ASCP_CSI_Driver_lastest" {
   addon_name         = "aws-secrets-store-csi-driver-provider"
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version
   most_recent        = true
