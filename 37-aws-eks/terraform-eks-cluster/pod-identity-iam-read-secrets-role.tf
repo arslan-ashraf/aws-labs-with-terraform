@@ -14,7 +14,8 @@ data "aws_iam_policy_document" "read_secrets_policy_document" {
       "secretsmanager:DescribeSecret"
     ]
 
-    resources = [var.database_secrets_arn]
+    # resources = [var.database_secrets_arn]
+    resources = ["arn:aws:secretsmanager:${var.aws_region}:${data.aws_caller_identity.current.account_id}:secret:my-secret*"]
   }
 }
 
