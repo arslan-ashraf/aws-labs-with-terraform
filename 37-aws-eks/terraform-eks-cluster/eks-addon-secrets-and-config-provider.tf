@@ -1,4 +1,4 @@
-data "aws_eks_addon_version" "pia_default" {
+data "aws_eks_addon_version" "ASCP_CSI_Driver_default_version" {
   addon_name         = "aws-secrets-store-csi-driver-provider"
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version
 }
