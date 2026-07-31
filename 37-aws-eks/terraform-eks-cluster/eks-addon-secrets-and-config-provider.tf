@@ -1,3 +1,18 @@
+data "aws_eks_addon_version" "pia_default" {
+  addon_name         = "aws-secrets-store-csi-driver-provider"
+  kubernetes_version = aws_eks_cluster.example_eks_cluster.version
+}
+
+
+# get latest pod identity agent version compatible with EKS version
+data "aws_eks_addon_version" "latest_pia" {
+  addon_name         = "aws-secrets-store-csi-driver-provider"
+  kubernetes_version = aws_eks_cluster.example_eks_cluster.version
+  most_recent        = true
+}
+
+
+
 # note: the AWS ASCP (Amazon Secrets and Configuration Provider)
 # automatically also installs the Kubernetes native pluggin (driver)
 # Secrets Store CSI Driver, AWS ASCP pulls secrets from AWS Secrets
