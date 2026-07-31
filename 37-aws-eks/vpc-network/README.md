@@ -1,1 +1,1 @@
-We will use the module to create the VPC, two private subnets which will house EKS worker nodes, a public subnet which will house the NAT Instance that the module will create automatically.
+We will use the module to create the VPC, two private subnets which will house EKS worker nodes, two public subnets which will house the NAT Instance in one of them.  The module will create the NAT Instance automatically.  The other public subnet is a requirement for the AWS Load Balancer.
