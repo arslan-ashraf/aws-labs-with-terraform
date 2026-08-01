@@ -16,7 +16,7 @@ resource "aws_eks_node_group" "private_nodes" {
   ami_type = "AL2023_x86_64_STANDARD"
 
   # Root volume size for each node (in GiB)
-  disk_size = var.node_disk_size
+  # disk_size = var.node_disk_size
 
   launch_template {
     id      = aws_launch_template.eks_nodes_group_launch_template.id

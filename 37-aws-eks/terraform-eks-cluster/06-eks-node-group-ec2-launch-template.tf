@@ -6,6 +6,15 @@ resource "aws_launch_template" "eks_nodes_group_launch_template" {
     data.terraform_remote_state.vpc_network.outputs.eks_worker_nodes_security_group_id
   ]
 
+  block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size = var.node_disk_size
+      volume_type = "gp3"
+      encrypted   = true
+    }
+  }
+
   # Best Practice: Force IMDSv2 for security compliance
   metadata_options {
     http_endpoint               = "enabled"
@@ -16,4 +25,6 @@ resource "aws_launch_template" "eks_nodes_group_launch_template" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = { Name = "eks_worker_node" }
 }
