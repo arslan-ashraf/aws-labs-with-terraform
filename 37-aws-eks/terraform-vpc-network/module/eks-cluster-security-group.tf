@@ -9,22 +9,22 @@ resource "aws_security_group" "eks_cluster_security_group" {
 resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
   security_group_id        = aws_security_group.eks_cluster_security_group.id
 
-  source_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
+  # where is the traffic coming from
+  referenced_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
 }
 
-# Allow cluster to reach AWS APIs and services over HTTPS
-resource "aws_security_group_rule" "cluster_egress_https" {
+# allow cluster control plane to reach AWS APIs and services over HTTPS
+resource "aws_security_group_egress_rule" "cluster_egress_https" {
   description       = "HTTPS egress for cluster"
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.eks_cluster.id
-  type              = "egress"
+  security_group_id = aws_security_group.eks_cluster_security_group.id
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
