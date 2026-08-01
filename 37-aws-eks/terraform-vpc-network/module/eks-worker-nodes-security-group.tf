@@ -23,8 +23,8 @@ resource "aws_vpc_security_group_ingress_rule" "nodes_internal_communication" {
   # where the traffic is coming from
   referenced_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
-  from_port = 0
-  to_port   = 65535
+  # from_port = 0
+  # to_port   = 65535
 
   ip_protocol = "-1"
 }
@@ -39,5 +39,8 @@ resource "aws_vpc_security_group_ingress_rule" "nodes_inbound_from_control_plane
 
   # from_port   = 443
   # to_port     = 65535
+
+  from_port   = 0
+  to_port     = 65535
   ip_protocol = "tcp"
 }
