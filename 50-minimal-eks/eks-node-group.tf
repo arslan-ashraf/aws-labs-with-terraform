@@ -16,10 +16,20 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
   # if ami is blank, AWS will pick the latest EKS optimized AMI
   # ami_type = "AL2023_x86_64_STANDARD"
 
+  disk_size = var.node_disk_size
+
   scaling_config {
     desired_size = 1
-    max_size     = 1
+    max_size     = 2
     min_size     = 1
+  }
+
+  labels = {
+    "Name" = "eks-worker-node"
+  }
+
+  tags = {
+    Name = "eks-cluster-private-node-group"
   }
 
   depends_on = [
