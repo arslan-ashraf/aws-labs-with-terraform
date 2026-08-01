@@ -14,7 +14,7 @@ resource "aws_vpc_security_group_ingress_rule" "cluster_ingress_from_nodes" {
 
   from_port = 443
   to_port   = 443
-  protocol  = "tcp"
+  ip_protocol  = "tcp"
 }
 
 # allow cluster control plane to reach AWS services over HTTPS
@@ -25,7 +25,7 @@ resource "aws_vpc_security_group_egress_rule" "cluster_egress_https" {
 
   from_port = 443
   to_port   = 443
-  protocol  = "tcp"
+  ip_protocol  = "tcp"
 }
 
 
@@ -38,5 +38,5 @@ resource "aws_vpc_security_group_egress_rule" "cluster_egress_to_nodes" {
 
   from_port = 443
   to_port   = 65535
-  protocol  = "tcp"
+  ip_protocol  = "tcp"
 }
