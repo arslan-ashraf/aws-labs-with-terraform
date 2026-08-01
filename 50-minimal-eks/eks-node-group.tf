@@ -8,7 +8,7 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
     aws_subnet.public_subnet_b.id
   ]
 
-  instance_types = [var.instance_types]
+  instance_types = [var.worker_node_instance_type]
 
   # ON_DEMAND or SPOT capacity types
   capacity_type = var.node_capacity_type

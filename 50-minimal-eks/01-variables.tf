@@ -34,7 +34,7 @@ variable "cluster_endpoint_public_access_cidrs" {
 }
 
 # EC2 instance types for worker nodes
-variable "node_instance_type" {
+variable "worker_node_instance_type" {
   description = "List of EC2 instance types for the node group"
   type        = string
   default     = "t3.nano" # or t3.micro
