@@ -6,14 +6,14 @@ resource "aws_security_group" "eks_cluster_security_group" {
 }
 
 # allow worker nodes to communicate with the control plane API server
-resource "aws_security_group_rule" "cluster_ingress_from_nodes" {
-  description              = "Allow nodes to communicate with EKS cluster API"
+resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
+  security_group_id        = aws_security_group.eks_cluster_security_group.id
+
+  source_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
+
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.eks_nodes.id
-  security_group_id        = aws_security_group.eks_cluster.id
-  type                     = "ingress"
 }
 
 # Allow cluster to reach AWS APIs and services over HTTPS

@@ -1,12 +1,12 @@
-resource "aws_security_group" "security_group_private_ec2_instances" {
-  name   = "security_group_private_ec2_instances"
+resource "aws_security_group" "eks_worker_nodes_security_group" {
+  name   = "eks_worker_nodes_security_group"
   vpc_id = aws_vpc.main_vpc.id
-  tags   = { Name = "security_group_private_ec2_instances" }
+  tags   = { Name = "eks_worker_nodes_security_group" }
 }
 
 # allow traffic out to the NAT gateway
 resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
-  security_group_id = aws_security_group.security_group_private_ec2_instances.id
+  security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
   # Target destination
   cidr_ipv4 = "0.0.0.0/0"
@@ -17,7 +17,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
 
 # allow EKS control plane to communicate with worker nodes
 resource "aws_vpc_security_group_ingress_rule" "nodes_inbound_from_control_plane_rule" {
-  security_group_id        = aws_security_group.security_group_private_ec2_instances.id
+  security_group_id        = aws_security_group.eks_worker_nodes_security_group.id
   source_security_group_id = var.cluster_control_plane_sg_id # The cluster's own SG
 
   from_port                = 10250
