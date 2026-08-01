@@ -10,6 +10,12 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
 
   instance_types = [var.instance_types]
 
+  # ON_DEMAND or SPOT capacity types
+  capacity_type = var.node_capacity_type
+
+  # if ami is blank, AWS will pick the latest EKS optimized AMI
+  # ami_type = "AL2023_x86_64_STANDARD"
+
   scaling_config {
     desired_size = 1
     max_size     = 1
