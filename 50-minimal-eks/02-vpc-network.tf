@@ -14,6 +14,10 @@ resource "aws_subnet" "public_subnet_a" {
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
+
+  tags = {
+    "kubernetes.io/role/elb" = 1 # required tag for AWS load balancer
+  }
 }
 
 resource "aws_subnet" "public_subnet_b" {
@@ -21,6 +25,10 @@ resource "aws_subnet" "public_subnet_b" {
   cidr_block              = "10.0.2.0/24"
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
+
+  tags = {
+    "kubernetes.io/role/elb" = 1 # required tag for AWS load balancer
+  }
 }
 
 resource "aws_route_table" "route_table_eks_vpc" {
