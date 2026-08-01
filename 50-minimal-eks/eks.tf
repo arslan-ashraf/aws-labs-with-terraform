@@ -1,16 +1,3 @@
-# EKS Cluster Control Plane
-resource "aws_eks_cluster" "minimal_cluster" {
-  name     = "minimal-eks-cluster"
-  role_arn = aws_iam_role.cluster_role.arn
-  version  = "1.30"
-
-  vpc_config {
-    subnet_ids = [aws_subnet.subnet_a.id, aws_subnet.subnet_b.id]
-  }
-
-  depends_on = [aws_iam_role_policy_attachment.cluster_policy]
-}
-
 # EKS Managed Node Group (1 Instance)
 resource "aws_eks_node_group" "minimal_nodes" {
   cluster_name    = aws_eks_cluster.minimal_cluster.name
