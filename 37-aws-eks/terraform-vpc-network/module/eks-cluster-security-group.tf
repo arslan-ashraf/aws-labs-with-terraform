@@ -28,14 +28,15 @@ resource "aws_security_group_egress_rule" "cluster_egress_https" {
   protocol          = "tcp"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
-# Allow cluster to communicate with worker nodes (kubelet, logs, exec, webhooks)
-resource "aws_security_group_rule" "cluster_egress_to_nodes" {
-  description              = "Allow cluster to communicate with nodes"
+
+# allow cluster to communicate with worker nodes (kubelet, logs, exec, webhooks)
+resource "aws_security_group_egress_rule" "cluster_egress_to_nodes" {
+  security_group_id        = aws_security_group.eks_cluster_security_group.id
+
+  # where is the traffic going
+  source_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
+
   from_port                = 443
   to_port                  = 65535
   protocol                 = "tcp"
-  source_security_group_id = aws_security_group.eks_nodes.id
-  security_group_id        = aws_security_group.eks_cluster.id
-  type                     = "egress"
 }
