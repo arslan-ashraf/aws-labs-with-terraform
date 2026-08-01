@@ -37,7 +37,7 @@ variable "cluster_endpoint_public_access_cidrs" {
 variable "node_instance_type" {
   description = "List of EC2 instance types for the node group"
   type        = string
-  default     = ["t3.nano"] # or t3.micro
+  default     = "t3.nano" # or t3.micro
 }
 
 # capacity type for node group (ON_DEMAND or SPOT)
