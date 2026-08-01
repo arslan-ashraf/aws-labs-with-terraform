@@ -6,7 +6,7 @@ resource "aws_eks_node_group" "private_nodes" {
   # subnets where the worker nodes will be launched (private subnets)
   subnet_ids = data.terraform_remote_state.vpc_network.outputs.private_subnet_ids
 
-  # instance_types = var.node_instance_types
+  # instance_types = [var.node_instance_type]
 
   # ON_DEMAND or SPOT capacity types
   capacity_type = var.node_capacity_type
