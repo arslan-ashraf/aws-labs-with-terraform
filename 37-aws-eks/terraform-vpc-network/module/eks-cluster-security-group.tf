@@ -7,7 +7,7 @@ resource "aws_security_group" "eks_cluster_security_group" {
 
 # allow worker nodes to communicate with the control plane API server
 resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
-  security_group_id        = aws_security_group.eks_cluster_security_group.id
+  security_group_id            = aws_security_group.eks_cluster_security_group.id
 
   # where is the traffic coming from
   referenced_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
