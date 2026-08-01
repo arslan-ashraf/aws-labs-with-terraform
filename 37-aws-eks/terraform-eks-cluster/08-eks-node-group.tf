@@ -6,14 +6,14 @@ resource "aws_eks_node_group" "private_nodes" {
   # subnets where the worker nodes will be launched (private subnets)
   subnet_ids = data.terraform_remote_state.vpc_network.outputs.private_subnet_ids
 
-  # instance_types = [var.node_instance_type]
+  instance_types = [var.node_instance_type]
 
   # ON_DEMAND or SPOT capacity types
   capacity_type = var.node_capacity_type
 
   # ami for the worker nodes, the latest Amazon-managed OS 
   # optimized for EKS
-  ami_type = "AL2023_x86_64_STANDARD"
+  # ami_type = "AL2023_x86_64_STANDARD"
 
   # Root volume size for each node (in GiB)
   # disk_size = var.node_disk_size
