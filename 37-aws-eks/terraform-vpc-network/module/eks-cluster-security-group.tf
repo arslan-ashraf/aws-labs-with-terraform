@@ -3,6 +3,8 @@ resource "aws_security_group" "eks_cluster_security_group" {
   name        = "security_group_for_${var.eks_cluster_name}"
   description = "Security group for EKS cluster control plane"
   vpc_id      = aws_vpc.main_vpc.id
+
+  tags = { Name = "security_group_for_${var.eks_cluster_name}" }
 }
 
 # allow worker nodes to communicate with the control plane API server
