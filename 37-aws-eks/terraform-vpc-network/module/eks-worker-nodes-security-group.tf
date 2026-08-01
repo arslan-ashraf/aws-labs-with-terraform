@@ -26,7 +26,7 @@ resource "aws_vpc_security_group_ingress_rule" "nodes_internal_communication" {
   from_port = 0
   to_port   = 65535
 
-  protocol = "-1"
+  ip_protocol = "-1"
 }
 
 # allow EKS control plane to communicate with worker nodes
@@ -39,5 +39,5 @@ resource "aws_vpc_security_group_ingress_rule" "nodes_inbound_from_control_plane
 
   from_port = 443
   to_port   = 65535
-  protocol  = "tcp"
+  ip_protocol  = "tcp"
 }
