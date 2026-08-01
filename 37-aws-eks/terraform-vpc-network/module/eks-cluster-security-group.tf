@@ -6,7 +6,7 @@ resource "aws_security_group" "eks_cluster_security_group" {
 }
 
 # allow worker nodes to communicate with the control plane API server
-resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
+resource "aws_vpc_security_group_ingress_rule" "cluster_ingress_from_nodes" {
   security_group_id = aws_security_group.eks_cluster_security_group.id
 
   # where the traffic is coming from
@@ -18,7 +18,7 @@ resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
 }
 
 # allow cluster control plane to reach AWS services over HTTPS
-resource "aws_security_group_egress_rule" "cluster_egress_https" {
+resource "aws_vpc_security_group_egress_rule" "cluster_egress_https" {
   security_group_id = aws_security_group.eks_cluster_security_group.id
 
   cidr_ipv4 = "0.0.0.0/0"
@@ -30,7 +30,7 @@ resource "aws_security_group_egress_rule" "cluster_egress_https" {
 
 
 # allow cluster to communicate with worker nodes (kubelet, logs, exec, webhooks)
-resource "aws_security_group_egress_rule" "cluster_egress_to_nodes" {
+resource "aws_vpc_security_group_egress_rule" "cluster_egress_to_nodes" {
   security_group_id = aws_security_group.eks_cluster_security_group.id
 
   # where the traffic is going
