@@ -17,14 +17,15 @@ resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
   protocol                 = "tcp"
 }
 
-# allow cluster control plane to reach AWS APIs and services over HTTPS
+# allow cluster control plane to reach AWS services over HTTPS
 resource "aws_security_group_egress_rule" "cluster_egress_https" {
-  description       = "HTTPS egress for cluster"
+  security_group_id = aws_security_group.eks_cluster_security_group.id
+  
+  cidr_ipv4         = "0.0.0.0/0"
+  
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.eks_cluster_security_group.id
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
