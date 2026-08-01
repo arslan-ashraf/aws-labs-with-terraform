@@ -1,4 +1,4 @@
-# the outputs below are defined in the module's outputs.tf file
+# the outputs below are defined in the module's network-module-outputs.tf file
 
 output "vpc_id" {
   value = module.vpc_network_module.vpc_id
