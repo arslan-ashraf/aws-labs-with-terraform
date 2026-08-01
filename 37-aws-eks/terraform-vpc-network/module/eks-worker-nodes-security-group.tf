@@ -17,7 +17,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
 
 
 # allow nodes to communicate with each other for pod networking and cluster DNS
-resource "aws_security_group_ingress_rule" "nodes_internal_communication" {
+resource "aws_vpc_security_group_ingress_rule" "nodes_internal_communication" {
   security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
   # where the traffic is coming from
