@@ -8,13 +8,13 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
     aws_subnet.public_subnet_b.id
   ]
 
+  instance_types = [var.instance_types]
+
   scaling_config {
     desired_size = 1
     max_size     = 1
     min_size     = 1
   }
-
-  instance_types = ["t3.micro"]
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
