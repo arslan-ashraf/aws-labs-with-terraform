@@ -1,4 +1,3 @@
-# EKS Managed Node Group (1 Instance)
 resource "aws_eks_node_group" "eks_worker_nodes" {
   cluster_name    = aws_eks_cluster.example_eks_cluster.name
   node_group_name = "example-eks-cluster-node-group"
