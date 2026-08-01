@@ -37,7 +37,7 @@ resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
 
 # AmazonEC2ContainerRegistryReadOnly grants nodes permission to
 # pull images from Amazon ECR
-resource "aws_iam_role_policy_attachment" "eks_ecr_policy" {
+resource "aws_iam_role_policy_attachment" "ecr_read_only_policy" {
   role       = aws_iam_role.eks_node_group_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
