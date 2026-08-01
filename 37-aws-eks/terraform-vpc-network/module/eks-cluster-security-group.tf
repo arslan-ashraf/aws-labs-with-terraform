@@ -34,7 +34,7 @@ resource "aws_security_group_egress_rule" "cluster_egress_to_nodes" {
   security_group_id        = aws_security_group.eks_cluster_security_group.id
 
   # where is the traffic going
-  source_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
+  referenced_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
   from_port                = 443
   to_port                  = 65535
