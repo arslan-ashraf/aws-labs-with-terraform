@@ -22,23 +22,23 @@ module "vpc_network_module" {
     # subnet c is public, it is for hosting public facing resources
     # such as Load Balancers and NAT Gateways/Instances
     public_subnet_c = {
-      cidr_block                       = "10.0.10.0/24"
-      AZ                               = "us-east-1a"
-      public                           = true
-      contains_NAT_instance            = true
-      contains_external_load_balancer  = true
-      contains_internal_load_balancer  = false
+      cidr_block                      = "10.0.10.0/24"
+      AZ                              = "us-east-1a"
+      public                          = true
+      contains_NAT_instance           = true
+      contains_external_load_balancer = true
+      contains_internal_load_balancer = false
     }
 
     # subnet d is public, it is for hosting public facing resources
     # such as Load Balancers which require at least two AZs
     public_subnet_d = {
-      cidr_block                       = "10.0.11.0/24"
-      AZ                               = "us-east-1b"
-      public                           = true
-      contains_NAT_instance            = false
-      contains_external_load_balancer  = true
-      contains_internal_load_balancer  = false
+      cidr_block                      = "10.0.11.0/24"
+      AZ                              = "us-east-1b"
+      public                          = true
+      contains_NAT_instance           = false
+      contains_external_load_balancer = true
+      contains_internal_load_balancer = false
     }
 
   }

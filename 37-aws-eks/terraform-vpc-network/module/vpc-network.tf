@@ -54,7 +54,7 @@ resource "aws_subnet" "subnets_in_main_vpc" {
       Name = each.key
     },
     each.value.contains_external_load_balancer == true ? {
-      "kubernetes.io/role/elb" = 1          # required tag for load balancer
+      "kubernetes.io/role/elb" = 1 # required tag for load balancer
     } : {},
     each.value.contains_internal_load_balancer == true ? {
       "kubernetes.io/role/internal-elb" = 1 # required tag for load balancer

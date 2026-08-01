@@ -51,7 +51,7 @@ variable "node_capacity_type" {
 variable "node_disk_size" {
   description = "Minimum required disk size for AL2023_x86_64_STANDARD ami-type for worker nodes"
   type        = number
-  default     = 20   #  in GiB
+  default     = 20 #  in GiB
 }
 
 variable "kubernetes_version" {
