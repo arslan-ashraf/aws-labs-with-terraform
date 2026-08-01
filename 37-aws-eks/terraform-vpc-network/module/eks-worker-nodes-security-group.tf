@@ -4,7 +4,7 @@ resource "aws_security_group" "eks_worker_nodes_security_group" {
   tags   = { Name = "eks_worker_nodes_security_group" }
 }
 
-# allow traffic out to the NAT gateway
+# allow traffic out to the internet through NAT gateway
 resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
   security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
@@ -40,6 +40,4 @@ resource "aws_vpc_security_group_ingress_rule" "nodes_inbound_from_control_plane
   from_port                = 443
   to_port                  = 65535
   protocol                 = "tcp"
-  
-  description              = "Allow Kubelet communication from control plane"
 }
