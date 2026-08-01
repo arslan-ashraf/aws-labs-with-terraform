@@ -1,14 +1,13 @@
 # security group for the EKS cluster control plane
-resource "aws_security_group" "eks_cluster" {
-  name        = "${var.name}-eks-cluster-sg"
+resource "aws_security_group" "eks_cluster_security_group" {
+  name        = "security_group_for_${var.eks_cluster_name}"
   description = "Security group for EKS cluster control plane"
-  vpc_id      = module.vpc.vpc.id
+  vpc_id      = aws_vpc.main_vpc.id
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
-# Allow worker nodes to communicate with the cluster API server
+# allow worker nodes to communicate with the control plane API server
 resource "aws_security_group_rule" "cluster_ingress_from_nodes" {
-  description              = "Allow nodes to communicate with cluster API"
+  description              = "Allow nodes to communicate with EKS cluster API"
   from_port                = 443
   to_port                  = 443
   protocol                 = "tcp"
