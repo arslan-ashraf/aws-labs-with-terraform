@@ -9,7 +9,7 @@ resource "aws_security_group" "eks_cluster_security_group" {
 resource "aws_security_group_ingress_rule" "cluster_ingress_from_nodes" {
   security_group_id            = aws_security_group.eks_cluster_security_group.id
 
-  # where is the traffic coming from
+  # where the traffic is coming from
   referenced_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
   from_port                = 443
@@ -33,7 +33,7 @@ resource "aws_security_group_egress_rule" "cluster_egress_https" {
 resource "aws_security_group_egress_rule" "cluster_egress_to_nodes" {
   security_group_id        = aws_security_group.eks_cluster_security_group.id
 
-  # where is the traffic going
+  # where the traffic is going
   referenced_security_group_id = aws_security_group.eks_worker_nodes_security_group.id
 
   from_port                = 443
