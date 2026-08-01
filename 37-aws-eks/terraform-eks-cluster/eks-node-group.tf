@@ -18,6 +18,11 @@ resource "aws_eks_node_group" "private_nodes" {
   # Root volume size for each node (in GiB)
   disk_size = var.node_disk_size
 
+  launch_template {
+    id      = aws_launch_template.eks_nodes_group_launch_template.id
+    version = "$Latest"
+  }
+
   # configure auto-scaling limits and defaults
   scaling_config {
     # desired number of nodes when the node group is created
