@@ -50,3 +50,8 @@ variable "NAT_instance_config" {
     ami           = optional(string, "ami-0ec10929233384c7f") # ubuntu ami
   })
 }
+
+variable "eks_cluster_name" {
+  type    = string
+  default = "example_eks_cluster"
+}

@@ -10,6 +10,23 @@ output "eks_cluster_endpoint" {
   description = "EKS API Server endpoint"
 }
 
+output "eks_cluster_id" {
+  value       = aws_eks_cluster.example_eks_cluster.id
+  description = "The id of the EKS cluster."
+}
+
+# to find supported EKS Addons based on EKS cluster version
+output "eks_cluster_version" {
+  value       = aws_eks_cluster.example_eks_cluster.version
+  description = "EKS Kubernetes version"
+}
+
+# Helpful for scripting, `aws eks update-kubeconfig`, etc.
+output "eks_cluster_name" {
+  value       = aws_eks_cluster.example_eks_cluster.name
+  description = "EKS cluster name"
+}
+
 # output the EKS Cluster Certificate Authority data
 # its needed when setting up kubeconfig or accessing EKS via API
 output "eks_cluster_certificate_authority_data" {

@@ -49,9 +49,9 @@ variable "node_capacity_type" {
 
 # root volume size (GiB) for worker nodes
 variable "node_disk_size" {
-  description = "Disk size in GiB for worker nodes"
+  description = "Minimum required disk size for AL2023_x86_64_STANDARD ami-type for worker nodes"
   type        = number
-  default     = 5
+  default     = 20   #  in GiB
 }
 
 variable "kubernetes_version" {
@@ -59,6 +59,8 @@ variable "kubernetes_version" {
   default = "1.36"
 }
 
-variable "database_secrets_arn" {
-  type = string
-}
+# we get this through manually typed arn:
+# "arn:aws:secretsmanager:${local.region}:${local.account_id}:secret:my-secret*"
+# variable "database_secrets_arn" {
+#   type = string
+# }

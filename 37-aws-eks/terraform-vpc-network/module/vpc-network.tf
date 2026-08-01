@@ -58,6 +58,12 @@ resource "aws_subnet" "subnets_in_main_vpc" {
     } : {},
     each.value.contains_internal_load_balancer == true ? {
       "kubernetes.io/role/internal-elb" = 1 # required tag for load balancer
+    } : {},
+    each.value.public == false ? {
+      # this tag is required to launch EC2 instances in private
+      # subnets with custom launch template, otherwise EKS launches
+      # EC2 instances with its own default template and security groups
+      "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared" # or owned
     } : {}
   )
 

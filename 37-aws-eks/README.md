@@ -1,4 +1,4 @@
-Create a secret in AWS Secrets Manager titled `my-secret` and create a key names `MY_NGINX_PASSWORD` with an arbitrary value.  Copy the secret's ARN as that is needed to deploy the EKS cluster.
+Create a secret in AWS Secrets Manager titled `my-secret` and create a key named `MY_NGINX_PASSWORD` with an arbitrary value.
 
 
 

@@ -1,1 +1,7 @@
 simple.sh
+
+/37-aws-eks/terraform-eks-cluster/.terraform*
+/37-aws-eks/terraform-eks-cluster/terraform*
+
+/37-aws-eks/terraform-vpc-network/.terraform*
+/37-aws-eks/terraform-vpc-network/terraform*

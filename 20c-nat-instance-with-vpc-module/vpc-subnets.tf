@@ -31,7 +31,7 @@ module "vpc_network_module" {
   }
 
   NAT_instance_config = {
-    instance_type = "t2.nano"
+    instance_type = "t3.nano"
   }
 }
 

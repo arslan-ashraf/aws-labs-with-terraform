@@ -41,3 +41,7 @@ The following are some of the concerns with running an EC2 instance as a NAT Ins
 - Bandwidth Cap: Network throughput is limited by the network performance capabilities of the EC2 instance type.
 
 - Manual Upkeep: OS software updates, security patches, scaling.
+
+
+Here is what the VPC network flow map looks like, note that the private subnet for the private EC2 instance only points to the private route table.
+![Alt Text](vpc-network-flow-map.png)

@@ -5,6 +5,16 @@ resource "aws_iam_role" "pod_identity_secrets_manager_role" {
   assume_role_policy = data.aws_iam_policy_document.pod_identity_trust_policy.json
 }
 
+data "aws_region" "current" {}
+
+data "aws_caller_identity" "current" {}
+
+locals {
+  account_id = data.aws_caller_identity.current.account_id
+  region = data.aws_region.current.region
+  secrets_manager_base_arn = "arn:aws:secretsmanager:${local.region}:${local.account_id}:secret"
+}
+
 data "aws_iam_policy_document" "read_secrets_policy_document" {
   statement {
     effect = "Allow"
@@ -15,7 +25,7 @@ data "aws_iam_policy_document" "read_secrets_policy_document" {
     ]
 
     # resources = [var.database_secrets_arn]
-    resources = ["arn:aws:secretsmanager:${var.aws_region}:${data.aws_caller_identity.current.account_id}:secret:my-secret*"]
+    resources = ["${local.secrets_manager_base_arn}:my-secret*"]
   }
 }
 
