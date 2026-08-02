@@ -3,7 +3,6 @@ resource "aws_key_pair" "public_SSH_key" {
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
 
-
 resource "aws_eks_node_group" "eks_worker_nodes" {
   cluster_name    = aws_eks_cluster.example_eks_cluster.name
   node_group_name = "example-eks-cluster-node-group"
