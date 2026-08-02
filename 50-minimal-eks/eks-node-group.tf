@@ -1,3 +1,9 @@
+resource "aws_key_pair" "public_SSH_key" {
+  key_name   = "key-for-ec2-connection"
+  public_key = file("~/.ssh/key-for-ec2-connection.pub")
+}
+
+
 resource "aws_eks_node_group" "eks_worker_nodes" {
   cluster_name    = aws_eks_cluster.example_eks_cluster.name
   node_group_name = "example-eks-cluster-node-group"
@@ -22,6 +28,10 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
     desired_size = 1
     max_size     = 2
     min_size     = 1
+  }
+
+  remote_access {
+    ec2_ssh_key = aws_key_pair.public_SSH_key.key_name
   }
 
   labels = {
