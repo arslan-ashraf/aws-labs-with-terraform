@@ -17,7 +17,7 @@ resource "aws_subnet" "public_subnet_a" {
 
   tags = {
     "kubernetes.io/role/elb" = 1, # required tag for AWS load balancer
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_subnet" "public_subnet_b" {
 
   tags = {
     "kubernetes.io/role/elb" = 1, # required tag for AWS load balancer
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
   }
 }
 
