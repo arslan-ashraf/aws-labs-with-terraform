@@ -6,6 +6,17 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files in each directory to start testing.
 
+First create the production namespace:
+
+```
+kubectl apply -f kubernetes-files/production.yaml
+```
+
+Then change into the production namespace so all kubectl commands are applied from there:
+
+```
+kubectl config set-context --current --namespace=<your-namespace>
+```
 
 ## Pod Identity Agent Test 
 
