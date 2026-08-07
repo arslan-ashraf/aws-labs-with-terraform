@@ -24,7 +24,8 @@ kubectl config set-context --current --namespace=<your-namespace>
 To test the Pod Identity Agent, we have the file in `s3-test`, run the command:
 
 ```
-kubectl exec -it aws-cli -- aws s3 ls
+kubectl exec -it aws-cli -- aws s3 ls # or
+kubectl exec -i aws-cli -- aws s3 ls
 ```
 
 If this doesn't work, delete the pod and recreate it.
