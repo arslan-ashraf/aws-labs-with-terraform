@@ -33,11 +33,12 @@ variable "cluster_endpoint_public_access_cidrs" {
   default = ["0.0.0.0/0"]
 }
 
-# EC2 instance types for worker nodes
+# EC2 instance types for worker nodes, it must have at least 2vCPUs
+# and 4GiB of RAM, as well as at least 3 ENIs
 variable "worker_node_instance_type" {
   description = "List of EC2 instance types for the node group"
   type        = string
-  default     = "t3.nano" # or t3.micro
+  default     = "t4g.medium" # or t3a.medium, t3.medium
 }
 
 # capacity type for node group (ON_DEMAND or SPOT)
