@@ -29,7 +29,7 @@ resource "aws_eks_addon" "ASCP_and_CSI_driver" {
 
   depends_on = [
     aws_eks_addon.pod_identity_agent,
-    aws_eks_node_group.private_nodes
+    aws_eks_node_group.eks_worker_nodes
   ]
 
   # use this to configure the Secrets Store CSI Driver:
