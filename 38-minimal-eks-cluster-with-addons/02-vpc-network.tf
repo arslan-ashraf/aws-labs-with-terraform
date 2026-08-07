@@ -2,7 +2,7 @@ resource "aws_vpc" "vpc_for_eks" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
-  tags = { Name = "vpc_for_eks" }
+  tags                 = { Name = "vpc_for_eks" }
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -16,8 +16,8 @@ resource "aws_subnet" "public_subnet_a" {
   map_public_ip_on_launch = true
 
   tags = {
-    "kubernetes.io/role/elb" = 1, # required tag for AWS load balancer
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
+    "kubernetes.io/role/elb"                        = 1,      # required tag for AWS load balancer
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned" # or shared
   }
 }
 
@@ -28,8 +28,8 @@ resource "aws_subnet" "public_subnet_b" {
   map_public_ip_on_launch = true
 
   tags = {
-    "kubernetes.io/role/elb" = 1, # required tag for AWS load balancer
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
+    "kubernetes.io/role/elb"                        = 1,      # required tag for AWS load balancer
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned" # or shared
   }
 }
 

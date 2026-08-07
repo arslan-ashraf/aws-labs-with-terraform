@@ -5,7 +5,7 @@ resource "aws_eks_cluster" "example_eks_cluster" {
 
   vpc_config {
     subnet_ids = [
-      aws_subnet.public_subnet_a.id, 
+      aws_subnet.public_subnet_a.id,
       aws_subnet.public_subnet_b.id
     ]
   }
