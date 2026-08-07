@@ -34,11 +34,12 @@ variable "cluster_endpoint_public_access_cidrs" {
 }
 
 # EC2 instance types for worker nodes, it must have at least 2vCPUs
-# and 4GiB of RAM, as well as at least 3 ENIs
+# and 4GiB of RAM, as well as at least 3 ENIs and must be an instance
+# that is compatible with AWS EKS AMIs, so t4g.medium doesn't work
 variable "worker_node_instance_type" {
   description = "List of EC2 instance types for the node group"
   type        = string
-  default     = "t4g.medium" # or t3a.medium, t3.medium
+  default     = "t3a.medium" # or t3.medium
 }
 
 # capacity type for node group (ON_DEMAND or SPOT)
