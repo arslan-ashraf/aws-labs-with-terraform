@@ -1,7 +1,11 @@
 setup.sh
 
-/50-minimal-eks/.terraform*
-/50-minimal-eks/terraform*
+/38-eks-cluster-with-nat-instance/terraform-eks-cluster/.terraform*
+/38-eks-cluster-with-nat-instance/terraform-eks-cluster/terraform*
 
-/50-minimal-eks/.terraform*
-/50-minimal-eks/terraform*
+/38-eks-cluster-with-nat-instance/terraform-vpc-network/.terraform*
+/38-eks-cluster-with-nat-instance/terraform-vpc-network/terraform*
+
+
+/38-minimal-eks-cluster-with-addons/.terraform*
+/38-minimal-eks-cluster-with-addons/terraform*
