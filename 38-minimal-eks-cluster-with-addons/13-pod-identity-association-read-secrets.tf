@@ -6,8 +6,8 @@
 resource "aws_eks_pod_identity_association" "secrets_manager_PIA" {
   cluster_name    = var.eks_cluster_name
   namespace       = "production"
-  service_account = "example-service-account"
-  role_arn        = aws_iam_role.pod_identity_S3_read_only_role.arn
+  service_account = "read-secrets-service-account"
+  role_arn        = aws_iam_role.pod_identity_secrets_manager_role.arn
 
   # wait for the pod identity agent addon to be created first
   depends_on = [aws_eks_addon.pod_identity_agent]

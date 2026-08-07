@@ -12,7 +12,6 @@ data "aws_eks_addon_version" "ASCP_CSI_Driver_lastest" {
 }
 
 
-
 # note: the AWS ASCP (Amazon Secrets and Configuration Provider)
 # automatically also installs the Kubernetes native pluggin (driver)
 # Secrets Store CSI Driver, AWS ASCP pulls secrets from AWS Secrets
