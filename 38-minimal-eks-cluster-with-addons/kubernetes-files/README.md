@@ -33,7 +33,7 @@ If this doesn't work, delete the pod and recreate it.
 
 ## ASCP & Secrets Store CSI Test
 
-To test ASCP & Secrets Store CSI Driver, all the files is in the directory `secrets-manager-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
+To test ASCP & Secrets Store CSI Driver, apply all the files is in the directory `secrets-manager-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
 
 The following is the template for the commands:
 
@@ -53,13 +53,13 @@ For ours example files, use the commands below.
 To list out the files containing secrets:
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -n production -- ls /mnt/secrets
+kubectl exec -it deployment/nginx-secure-deployment -- ls /mnt/secrets
 ```
 
 To print out the actual secret value:
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/secrets/MY_NGINX_PASSWORD
+kubectl exec -it deployment/nginx-secure-deployment -- cat /mnt/secrets/MY_NGINX_PASSWORD
 ```
 
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
