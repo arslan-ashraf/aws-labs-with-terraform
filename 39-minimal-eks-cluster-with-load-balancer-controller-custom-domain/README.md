@@ -39,3 +39,6 @@ kubectl delete -f kubernetes-files/load-balancer-test
 ```
 
 7. Terraform destroy.
+
+What the Nginx page looks like:
+![Alt Text](39-nginx-page.png)
