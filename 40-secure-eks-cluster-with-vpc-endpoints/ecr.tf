@@ -1,4 +1,3 @@
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository
 resource "aws_ecr_repository" "image_repo" {
   name                 = var.name
   image_tag_mutability = "IMMUTABLE"
@@ -13,7 +12,6 @@ resource "aws_ecr_repository" "image_repo" {
   }
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_lifecycle_policy
 resource "aws_ecr_lifecycle_policy" "image_repo_policy" {
   repository = aws_ecr_repository.image_repo.name
 
@@ -21,12 +19,12 @@ resource "aws_ecr_lifecycle_policy" "image_repo_policy" {
     rules = [
       {
         rulePriority = 1
-        description  = "Remove untagged images after 7 days"
+        description  = "Remove untagged images after 3 days"
         selection = {
           tagStatus   = "untagged"
           countType   = "sinceImagePushed"
           countUnit   = "days"
-          countNumber = 7
+          countNumber = 3
         }
         action = {
           type = "expire"

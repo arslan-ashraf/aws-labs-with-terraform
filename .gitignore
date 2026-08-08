@@ -9,3 +9,8 @@ setup.sh
 
 /39-minimal-eks-cluster-with-load-balancer-controller/.terraform*
 /39-minimal-eks-cluster-with-load-balancer-controller/terraform*
+
+
+
+/39-minimal-eks-cluster-with-load-balancer-controller-custom-domain/.terraform*
+/39-minimal-eks-cluster-with-load-balancer-controller-custom-domain/terraform*
