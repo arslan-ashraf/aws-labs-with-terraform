@@ -15,7 +15,7 @@ kubectl apply -f kubernetes-files/production-namespace.yaml
 Then change into the production namespace so all kubectl commands are applied from there:
 
 ```
-kubectl config set-context --current --namespace=<your-namespace>
+kubectl config set-context --current --namespace=production
 ```
 
 ## Pod Identity Agent Test 
