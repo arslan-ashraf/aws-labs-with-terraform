@@ -31,7 +31,8 @@ resource "aws_eks_addon" "ASCP_and_CSI_driver" {
     aws_eks_node_group.eks_worker_nodes
   ]
 
-  # use this to configure the Secrets Store CSI Driver:
+  # use this to configure the underlying heml chart that installs
+  # Secrets Store CSI Driver:
   # configuration_values = jsonencode({
   #   secrets-store-csi-driver = {}
   #   replicaCount = 4
