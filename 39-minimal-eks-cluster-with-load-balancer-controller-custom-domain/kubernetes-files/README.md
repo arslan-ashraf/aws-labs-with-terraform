@@ -1,12 +1,14 @@
-We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
+This lab is a continuation of lab 38.  We install the Load Balancer Controller in the EKS cluster which will provision the AWS Application Load Balancer.  But it does require care when we delete resources.
 
-1. Pod Identity Agent
-2. Amazon Secrets and Configuration Provider (ASCP) & Secrets Store CSI Driver
-3. EBS CSI Driver
+First we create the EKS cluster along with the Helm installation of the Load Balancer Controller.  Second, we apply the Kubernetes files.  When destroying and cleaning up, we apply the process in reverse because the AWS Load Balancer is created by Kubernetes, not by Terraform.
 
-Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files in each directory to start testing.
+1. Apply the Terraform config and configure the local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
 
-First create the production namespace:
+```
+aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
+```
+
+2. Create the production namespace:
 
 ```
 kubectl apply -f kubernetes-files/production-namespace.yaml
