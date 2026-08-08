@@ -1,4 +1,3 @@
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
 resource "aws_eks_cluster" "main" {
   name     = "${var.name}-cluster"
   role_arn = aws_iam_role.eks_cluster.arn
@@ -8,6 +7,7 @@ resource "aws_eks_cluster" "main" {
     authentication_mode                         = "API"
     bootstrap_cluster_creator_admin_permissions = true
   }
+  
   vpc_config {
     security_group_ids      = [aws_security_group.eks_cluster.id]
     subnet_ids              = module.vpc.private_subnets[*].id

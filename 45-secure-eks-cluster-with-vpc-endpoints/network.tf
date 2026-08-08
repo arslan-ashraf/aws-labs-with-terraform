@@ -3,7 +3,7 @@ module "vpc" {
   # Aligning with Checkov rule CKV_TF_1 and using a Git URL with a commit hash revision.
   # Details available in below link:
   # https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision
-  source                  = "github.com/kunduso/terraform-aws-vpc?ref=v1.0.7"
+  source                  = "github.com/username/terraform-aws-vpc?ref=v1.0.7"
   region                  = var.region
   enable_dns_hostnames    = true
   enable_dns_support      = true
