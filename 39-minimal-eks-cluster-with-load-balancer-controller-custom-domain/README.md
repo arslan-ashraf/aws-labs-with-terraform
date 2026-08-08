@@ -26,4 +26,16 @@ kubectl config set-context --current --namespace=production
 kubectl apply -f kubernetes-files/load-balancer-test
 ```
 
-5. Test the load balancer by visiting its URL.
+5. Test the load balancer by visiting the custom domain:
+
+```
+curl -s https://arslanashraf.site
+```
+
+6. Delete the load balancer:
+
+```
+kubectl delete -f kubernetes-files/load-balancer-test
+```
+
+7. Terraform destroy.

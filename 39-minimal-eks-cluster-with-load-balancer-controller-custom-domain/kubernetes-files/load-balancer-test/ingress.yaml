@@ -6,12 +6,23 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing # or internal
     alb.ingress.kubernetes.io/target-type: ip  # or instance
+    # ExternalDNS will create the Route53 record for this domain
+    external-dns.alpha.kubernetes.io/hostname: arslanashraf.site
+    # attach the ACM Certificate ARN
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267121089:certificate/2e499572-af1f-4572-8494-eaeb3acf79b5
+    # ports the load balancer will listen on (exposing HTTP and HTTPS)
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    # redirect HTTP traffic to HTTPS
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # ALB explicitly issues a cookie (AWSALB) to force user to
+    # remain on a single pod if stickiness.enabled=true
+    # alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=false
 spec:
   ingressClassName: alb
   rules:
     - http:
         paths:
-          - path: /
+          - path: / # arslanashraf.site
             pathType: Prefix
             backend:
               service:
