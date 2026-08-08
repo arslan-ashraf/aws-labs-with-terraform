@@ -110,7 +110,7 @@ This should also print "EBS Working".
 
 6. Delete all K8s objects with:
 ```
-kubectl delete -f kubernetes-files/ebs-volumes/test
+kubectl delete -f kubernetes-files/ebs-volumes-test
 ```
 
 7. Verify that the PersistentVolume and PersistentVolumeClaim are still present:
