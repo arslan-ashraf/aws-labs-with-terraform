@@ -20,13 +20,12 @@ kubectl config set-context --current --namespace=production
 
 ## Pod Identity Agent Test 
 
-First apply the Kubernetes files:
+To test the Pod Identity Agent, we have the file in `read-s3-test`.  Apply the Kubernetes files:
 ```
 kubectl apply -f kubernetes-files/read-s3-test
 ```
 
-
-To test the Pod Identity Agent, we have the file in `read-s3-test`, run the command:
+Now run the command to list all S3 buckets:
 
 ```
 kubectl exec -i aws-cli -- aws s3 ls
