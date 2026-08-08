@@ -17,7 +17,7 @@ provider "helm" {
 # connect Kubernetes Terraform API to EKS cluster
 # allows creation of Kubernetes resources using Terraform instead
 # of yaml files, this is only a best practice when Terraform results
-# need to be dynamically injected to a Kubernetes resource
+# need to be dynamically injected into a Kubernetes resource
 provider "kubernetes" {
   host = aws_eks_cluster.example_eks_cluster.endpoint 
   cluster_ca_certificate = base64decode(aws_eks_cluster.example_eks_cluster.certificate_authority[0].data)
