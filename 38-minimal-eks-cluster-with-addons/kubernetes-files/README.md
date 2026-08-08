@@ -21,6 +21,7 @@ kubectl config set-context --current --namespace=production
 ## Pod Identity Agent Test 
 
 To test the Pod Identity Agent, we have the file in `read-s3-test`.  Apply the Kubernetes files:
+
 ```
 kubectl apply -f kubernetes-files/read-s3-test
 ```
@@ -37,6 +38,12 @@ If this doesn't work, delete the pod and recreate it.
 ## ASCP & Secrets Store CSI Test
 
 To test ASCP & Secrets Store CSI Driver, apply all the files is in the directory `read-secrets-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
+
+Apply the Kubernetes files:
+
+```
+kubectl apply -f kubernetes-files/read-secrets-test
+```
 
 The following is the template for the commands:
 

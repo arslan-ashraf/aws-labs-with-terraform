@@ -5,7 +5,7 @@ data "aws_eks_addon_version" "ASCP_CSI_Driver_default_version" {
 
 
 # get latest ASCP version compatible with EKS cluster's version
-data "aws_eks_addon_version" "ASCP_CSI_Driver_lastest" {
+data "aws_eks_addon_version" "ASCP_CSI_Driver_latest" {
   addon_name         = "aws-secrets-store-csi-driver-provider"
   kubernetes_version = aws_eks_cluster.example_eks_cluster.version
   most_recent        = true
@@ -21,7 +21,7 @@ data "aws_eks_addon_version" "ASCP_CSI_Driver_lastest" {
 resource "aws_eks_addon" "ASCP_and_CSI_driver" {
   cluster_name  = var.eks_cluster_name
   addon_name    = "aws-secrets-store-csi-driver-provider"
-  addon_version = data.aws_eks_addon_version.ASCP_CSI_Driver_lastest.version
+  addon_version = data.aws_eks_addon_version.ASCP_CSI_Driver_latest.version
 
   resolve_conflicts_on_create = "OVERWRITE" # concerning versions
   resolve_conflicts_on_update = "OVERWRITE" # concerning versions
