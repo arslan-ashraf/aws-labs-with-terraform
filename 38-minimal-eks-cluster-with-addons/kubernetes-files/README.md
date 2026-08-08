@@ -49,7 +49,7 @@ Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx depl
 
 For ours example files, use the commands below.
 
-To list out the files containing secrets (note the two forward slashes //mnt/secrets are to avoid a Git Bash error, on Unix, only a single forward slash is necessary /mnt/secrets):
+To list out the files containing secrets (note the two forward slashes //mnt/secrets are used to avoid a Git Bash error, on Unix, only a single forward slash is necessary /mnt/secrets):
 
 ```
 kubectl exec -i deployment/nginx-secure-deployment -- ls //mnt/secrets
