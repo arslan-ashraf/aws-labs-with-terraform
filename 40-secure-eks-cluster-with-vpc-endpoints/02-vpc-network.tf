@@ -4,18 +4,17 @@ resource "aws_vpc" "eks_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "eks-isolated-vpc"
+    Name = "eks-vpc"
   }
 }
 
-# 2. Private Subnets (Minimum 2 across 2 AZs)
-resource "aws_subnet" "private_1" {
+resource "aws_subnet" "private_subnet_1" {
   vpc_id            = aws_vpc.eks_vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "us-east-1a"
 
   tags = {
-    Name                              = "eks-private-us-east-1a"
+    Name                              = "eks-private-subnet-us-east-1a"
     "kubernetes.io/role/internal-elb" = "1"
   }
 }
@@ -40,8 +39,8 @@ resource "aws_route_table" "private" {
   }
 }
 
-resource "aws_route_table_association" "private_1" {
-  subnet_id      = aws_subnet.private_1.id
+resource "aws_route_table_association" "private_subnet_1" {
+  subnet_id      = aws_subnet.private_subnet_1.id
   route_table_id = aws_route_table.private.id
 }
 
