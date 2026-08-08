@@ -123,3 +123,10 @@ Also check in the AWS EC2 console under Volumes on the left menu that these EBS 
 ```
 kubectl delete pvc <PVC_NAME>
 ```
+
+8. Force delete the secret in SecretsManager:
+```
+aws secretsmanager delete-secret \
+    --secret-id <secret_name_or_ARN> \
+    --force-delete-without-recovery
+```
