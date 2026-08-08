@@ -1,5 +1,6 @@
 locals {
-  services = {
+  aws_services = {
+    "s3"           = "com.amazonaws.${var.aws_region}.s3"
     "eks"          = "com.amazonaws.${var.aws_region}.eks"
     "ec2"          = "com.amazonaws.${var.aws_region}.ec2"
     "ecr_api"      = "com.amazonaws.${var.aws_region}.ecr.api"
