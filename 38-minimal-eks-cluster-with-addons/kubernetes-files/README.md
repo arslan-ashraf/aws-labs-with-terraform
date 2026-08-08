@@ -24,7 +24,6 @@ kubectl config set-context --current --namespace=<your-namespace>
 To test the Pod Identity Agent, we have the file in `read-s3-test`, run the command:
 
 ```
-kubectl exec -it aws-cli -- aws s3 ls # or
 kubectl exec -i aws-cli -- aws s3 ls
 ```
 
@@ -38,11 +37,11 @@ To test ASCP & Secrets Store CSI Driver, apply all the files is in the directory
 The following is the template for the commands:
 
 ```
-kubectl exec -it <NGINX_POD_NAME> -n <NAMESPACE> -- ls <MOUNT_PATH>
+kubectl exec -i <NGINX_POD_NAME> -n <NAMESPACE> -- ls <MOUNT_PATH>
 ```
 
 ```
-kubectl exec -it <NGINX_POD_NAME> -n <NAMESPACE> -- cat <MOUNT_PATH>/<SECRET_NAME>
+kubectl exec -i <NGINX_POD_NAME> -n <NAMESPACE> -- cat <MOUNT_PATH>/<SECRET_NAME>
 ```
 
 Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx deployment object with key `mountPath`.
@@ -53,13 +52,13 @@ For ours example files, use the commands below.
 To list out the files containing secrets:
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -- ls /mnt/secrets
+kubectl exec -i deployment/nginx-secure-deployment -- ls /mnt/secrets
 ```
 
 To print out the actual secret value:
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -- cat /mnt/secrets/MY_NGINX_PASSWORD
+kubectl exec -i deployment/nginx-secure-deployment -- cat /mnt/secrets/MY_NGINX_PASSWORD
 ```
 
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
