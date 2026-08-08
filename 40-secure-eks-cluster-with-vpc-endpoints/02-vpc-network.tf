@@ -14,37 +14,38 @@ resource "aws_subnet" "private_subnet_1" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name                              = "eks-private-subnet-us-east-1a"
-    "kubernetes.io/role/internal-elb" = "1"
+    Name                              = "eks-private-subnet-us-east-1a",
+    "kubernetes.io/role/internal-elb" = "1",
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
   }
 }
 
-resource "aws_subnet" "private_2" {
+resource "aws_subnet" "private_subnet_2" {
   vpc_id            = aws_vpc.eks_vpc.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1b"
 
   tags = {
-    Name                              = "eks-private-us-east-1b"
-    "kubernetes.io/role/internal-elb" = "1"
+    Name                              = "eks-private-subnet-us-east-1b",
+    "kubernetes.io/role/internal-elb" = "1",
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
   }
 }
 
-# 3. Route Table (Isolated from internet)
-resource "aws_route_table" "private" {
+resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.eks_vpc.id
 
   tags = {
-    Name = "eks-private-rt"
+    Name = "eks-private-route-table"
   }
 }
 
 resource "aws_route_table_association" "private_subnet_1" {
   subnet_id      = aws_subnet.private_subnet_1.id
-  route_table_id = aws_route_table.private.id
+  route_table_id = aws_route_table.private_rt.id
 }
 
-resource "aws_route_table_association" "private_2" {
-  subnet_id      = aws_subnet.private_2.id
-  route_table_id = aws_route_table.private.id
+resource "aws_route_table_association" "private_subnet_2" {
+  subnet_id      = aws_subnet.private_subnet_2.id
+  route_table_id = aws_route_table.private_rt.id
 }
