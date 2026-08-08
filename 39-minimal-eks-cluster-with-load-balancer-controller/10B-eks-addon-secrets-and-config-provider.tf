@@ -12,7 +12,6 @@ data "aws_eks_addon_version" "ASCP_CSI_Driver_lastest" {
 }
 
 
-
 # note: the AWS ASCP (Amazon Secrets and Configuration Provider)
 # automatically also installs the Kubernetes native pluggin (driver)
 # Secrets Store CSI Driver, AWS ASCP pulls secrets from AWS Secrets
@@ -29,10 +28,11 @@ resource "aws_eks_addon" "ASCP_and_CSI_driver" {
 
   depends_on = [
     aws_eks_addon.pod_identity_agent,
-    aws_eks_node_group.private_nodes
+    aws_eks_node_group.eks_worker_nodes
   ]
 
-  # use this to configure the Secrets Store CSI Driver:
+  # use this to configure the underlying heml chart that installs
+  # Secrets Store CSI Driver:
   # configuration_values = jsonencode({
   #   secrets-store-csi-driver = {}
   #   replicaCount = 4

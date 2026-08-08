@@ -23,7 +23,7 @@ resource "aws_eks_addon" "pod_identity_agent" {
   resolve_conflicts_on_update = "OVERWRITE" # concerning versions
 
   depends_on = [
-    aws_eks_node_group.private_nodes
+    aws_eks_node_group.eks_worker_nodes
   ]
 }
 

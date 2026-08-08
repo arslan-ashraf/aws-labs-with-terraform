@@ -3,10 +3,10 @@
 # 2. the IAM role with permissions to reach out to AWS services
 # 3. the correct k8s service account in the correct namespace
 
-resource "aws_eks_pod_identity_association" "secrets_manager_PIA" {
+resource "aws_eks_pod_identity_association" "read_s3_PIA" {
   cluster_name    = var.eks_cluster_name
   namespace       = "production"
-  service_account = "example-service-account"
+  service_account = "read-s3-service-account"
   role_arn        = aws_iam_role.pod_identity_S3_read_only_role.arn
 
   # wait for the pod identity agent addon to be created first
