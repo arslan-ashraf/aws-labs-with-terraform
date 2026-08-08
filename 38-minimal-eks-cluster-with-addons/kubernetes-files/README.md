@@ -9,7 +9,7 @@ Then we will test each addon by deploying various K8s objects.  Each yaml file i
 First create the production namespace:
 
 ```
-kubectl apply -f kubernetes-files/production.yaml
+kubectl apply -f kubernetes-files/production-namespace.yaml
 ```
 
 Then change into the production namespace so all kubectl commands are applied from there:
