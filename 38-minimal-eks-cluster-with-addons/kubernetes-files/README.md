@@ -78,7 +78,11 @@ kubectl exec -i deployment/nginx-secure-deployment -- cat //mnt/secrets/MY_NGINX
 ## EBS CSI Driver Test
 
 
-This test is done with files in `ebs-volumes-test`.
+This test is done with files in `ebs-volumes-test`.  Apply the Kubernetes files:
+
+```
+kubectl apply -f kubernetes-files/ebs-volumes-test
+```
 
 1. Verify the PVC status (initially, the PVC will be in a Pending state due to `WaitForFirstConsumer`, once the Nginx Pod is scheduled, the status should change to `Bound`):
 ```
