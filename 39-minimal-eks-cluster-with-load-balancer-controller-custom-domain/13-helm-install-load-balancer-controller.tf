@@ -25,22 +25,22 @@ resource "helm_release" "load_balancer_controller" {
     # Service Account Name 
     {
       name  = "serviceAccount.name"
-      value = "aws-load-balancer-controller"
+      value = "aws-load-balancer-controller-sa"
     },
     # EKS Cluster Name
     {
       name  = "clusterName"
-      value = "${aws_eks_cluster.main.id}"
+      value = aws_eks_cluster.example_eks_cluster.id
     },
     # VPC Id     
     {
       name  = "vpcId"
-      value = "${data.terraform_remote_state.vpc.outputs.vpc_id}"
+      value = aws_vpc.vpc_for_eks.id
     },
     # AWS Region
     {
       name  = "region"
-      value = "${var.aws_region}"
+      value = var.aws_region
     }     
   ]       
 }
