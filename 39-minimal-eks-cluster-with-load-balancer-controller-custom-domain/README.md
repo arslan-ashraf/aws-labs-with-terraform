@@ -25,3 +25,5 @@ kubectl config set-context --current --namespace=production
 ```
 kubectl apply -f kubernetes-files/load-balancer-test
 ```
+
+5. Test the load balancer by visiting its URL.
