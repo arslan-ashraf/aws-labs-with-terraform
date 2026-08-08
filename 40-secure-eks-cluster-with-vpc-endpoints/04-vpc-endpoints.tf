@@ -1,4 +1,9 @@
 # S3 Gateway Endpoint (Free & mandatory for ECR layer downloads)
+# CoreDNS & Addons: Default cluster addons 
+# (kube-proxy, coredns, vpc-cni) will attempt to download from
+# AWS-owned ECR registries. The private ECR endpoint combined
+# with the S3 Gateway endpoint safely fulfills these requests
+# within the internal AWS network structure
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.eks_vpc.id
   service_name      = "com.amazonaws.${var.aws_region}.s3"
