@@ -1,4 +1,3 @@
-#https://registry.terraform.io/modules/kunduso/vpc/aws/1.0.3
 module "vpc" {
   # Aligning with Checkov rule CKV_TF_1 and using a Git URL with a commit hash revision.
   # Details available in below link:
