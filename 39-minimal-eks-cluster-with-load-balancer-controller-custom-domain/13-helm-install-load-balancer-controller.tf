@@ -2,7 +2,7 @@ resource "helm_release" "load_balancer_controller" {
   depends_on = [
     aws_iam_role.load_balancer_controller_role,
     aws_eks_node_group.eks_worker_nodes,
-    aws_eks_pod_identity_association.lbc,
+    aws_eks_pod_identity_association.load_balancer_controller_PIA,
     aws_eks_addon.podidentity
   ]        
 

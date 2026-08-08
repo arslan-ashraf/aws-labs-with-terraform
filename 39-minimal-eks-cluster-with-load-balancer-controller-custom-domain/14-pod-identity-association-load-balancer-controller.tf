@@ -3,7 +3,7 @@
 # 2. the IAM role with permissions to reach out to AWS services
 # 3. the correct k8s service account in the correct namespace
 
-resource "aws_eks_pod_identity_association" "load_balancer_constroller_PIA" {
+resource "aws_eks_pod_identity_association" "load_balancer_controller_PIA" {
   cluster_name    = var.eks_cluster_name
   namespace       = "kube-system"
   service_account = "aws-load-balancer-controller-sa"
