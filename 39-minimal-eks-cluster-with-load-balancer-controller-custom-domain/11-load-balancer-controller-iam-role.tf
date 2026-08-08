@@ -20,7 +20,8 @@ data "aws_iam_policy_document" "load_balancer_controller_document" {
 }
 
 # NOTE: we can also bring the policy in without downloading it and
-# storing it in a local file, we need the "hashicorp/http" provider:
+# storing it in a local file, we need the "hashicorp/http" provider
+# and the "http" data resource:
 
 # data "http" "load_balancer_controller_policy_json" {
 #   url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json"
