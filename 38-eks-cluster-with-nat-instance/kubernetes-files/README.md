@@ -9,22 +9,22 @@ Then we will test each addon by deploying various K8s objects.  Each yaml file i
 First create the production namespace:
 
 ```
-kubectl apply -f kubernetes-files/production.yaml
+kubectl apply -f kubernetes-files/production-namespace.yaml
 ```
 
 Then change into the production namespace so all kubectl commands are applied from there:
 
 ```
-kubectl config set-context --current --namespace=<your-namespace>
+kubectl config set-context --current --namespace=production
 ```
 
 ## Pod Identity Agent Test 
 
 
-To test the Pod Identity Agent, we have the file in `s3-test`, run the command:
+To test the Pod Identity Agent, we have the file in `read-s3-test`, run the command:
 
 ```
-kubectl exec -it aws-cli -- aws s3 ls
+kubectl exec -i aws-cli -- aws s3 ls
 ```
 
 If this doesn't work, delete the pod and recreate it.
@@ -32,16 +32,16 @@ If this doesn't work, delete the pod and recreate it.
 
 ## ASCP & Secrets Store CSI Test
 
-To test ASCP & Secrets Store CSI Driver, all the files is in the directory `secrets-manager-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
+To test ASCP & Secrets Store CSI Driver, apply all the files is in the directory `read-secrets-test`.  To test access to the secrets stored in AWS Secrets Manager, run the following commands to list out the files that contain the secrets and to print out the secrets.  
 
 The following is the template for the commands:
 
 ```
-kubectl exec -it <NGINX_POD_NAME> -n <NAMESPACE> -- ls <MOUNT_PATH>
+kubectl exec -i <NGINX_POD_NAME> -n <NAMESPACE> -- ls <MOUNT_PATH>
 ```
 
 ```
-kubectl exec -it <NGINX_POD_NAME> -n <NAMESPACE> -- cat <MOUNT_PATH>/<SECRET_NAME>
+kubectl exec -i <NGINX_POD_NAME> -n <NAMESPACE> -- cat <MOUNT_PATH>/<SECRET_NAME>
 ```
 
 Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx deployment object with key `mountPath`.
@@ -49,16 +49,16 @@ Note: `<MOUNT_PATH>` is the path where the secrets are mounted in the Nginx depl
 
 For ours example files, use the commands below.
 
-To list out the files containing secrets:
+To list out the files containing secrets (note the two forward slashes //mnt/secrets are used to avoid a Git Bash error, on Unix, only a single forward slash is necessary /mnt/secrets):
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -n production -- ls /mnt/secrets
+kubectl exec -i deployment/nginx-secure-deployment -- ls //mnt/secrets
 ```
 
 To print out the actual secret value:
 
 ```
-kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/secrets/MY_NGINX_PASSWORD
+kubectl exec -i deployment/nginx-secure-deployment -- cat //mnt/secrets/MY_NGINX_PASSWORD
 ```
 
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
@@ -67,7 +67,7 @@ kubectl exec -it deployment/nginx-secure-deployment -n production -- cat /mnt/se
 ## EBS CSI Driver Test
 
 
-This test is done with files in `ebs-test`.
+This test is done with files in `ebs-volumes-test`.
 
 1. Verify the PVC status (initially, the PVC will be in a Pending state due to `WaitForFirstConsumer`, once the Nginx Pod is scheduled, the status should change to `Bound`):
 ```
@@ -81,7 +81,17 @@ kubectl get pods -l app=nginx
 
 3. Test data persistence (create a file inside the mounted EBS directory):
 ```
-kubectl exec -it $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EBS Working' > /usr/share/nginx/html/index.html"
+kubectl exec -i $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EBS Working' > /usr/share/nginx/html/index.html"
+```
+
+Now, exec into the Nginx pod:
+```
+kubectl exec -i deployment/nginx-ebs-test -- //bin/sh
+```
+
+and print the `index.html` file:
+```
+cat /usr/share/nginx/html/index.html
 ```
 
 This should print "EBS Working" if EBS has correctly been provisioned.
@@ -93,23 +103,30 @@ kubectl delete pod -l app=nginx
 
 5.  Once the new pod spins up, test if data has remained persisted:
 ```
-kubectl exec -it $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- cat /usr/share/nginx/html/index.html
+kubectl exec -i $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- cat //usr/share/nginx/html/index.html
 ```
 
 This should also print "EBS Working".
 
 6. Delete all K8s objects with:
 ```
-kubectl delete -f k8s-files
+kubectl delete -f kubernetes-files/ebs-volumes-test
 ```
 
 7. Verify that the PersistentVolume and PersistentVolumeClaim are still present:
 ```
-kubectl get pv -n production
-kubectl get pvc -n production
+kubectl get pv
+kubectl get pvc
 ```
 
-Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These need to be deleted manually but only the PVC needs to be deleted and PV is deleted automatically:
+Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These may need to be deleted manually but only the PVC needs to be deleted and PV is deleted automatically:
 ```
 kubectl delete pvc <PVC_NAME>
+```
+
+8. Force delete the secret in SecretsManager:
+```
+aws secretsmanager delete-secret \
+    --secret-id <secret_name_or_ARN> \
+    --force-delete-without-recovery
 ```
