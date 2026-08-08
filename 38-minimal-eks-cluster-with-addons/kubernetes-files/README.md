@@ -81,7 +81,17 @@ kubectl get pods -l app=nginx
 
 3. Test data persistence (create a file inside the mounted EBS directory):
 ```
-kubectl exec -it $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EBS Working' > /usr/share/nginx/html/index.html"
+kubectl exec -i $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EBS Working' > /usr/share/nginx/html/index.html"
+```
+
+Now, exec into the Nginx pod:
+```
+kubectl exec -i deployment/nginx-ebs-test -- //bin/sh
+```
+
+and print the `index.html` file:
+```
+cat /usr/share/nginx/html/index.html
 ```
 
 This should print "EBS Working" if EBS has correctly been provisioned.
