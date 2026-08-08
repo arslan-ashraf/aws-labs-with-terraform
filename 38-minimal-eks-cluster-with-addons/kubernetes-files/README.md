@@ -52,13 +52,13 @@ For ours example files, use the commands below.
 To list out the files containing secrets:
 
 ```
-kubectl exec -i deployment/nginx-secure-deployment -- ls /mnt/secrets
+kubectl exec -i deployment/nginx-secure-deployment -- ls //mnt/secrets
 ```
 
 To print out the actual secret value:
 
 ```
-kubectl exec -i deployment/nginx-secure-deployment -- cat /mnt/secrets/MY_NGINX_PASSWORD
+kubectl exec -i deployment/nginx-secure-deployment -- cat //mnt/secrets/MY_NGINX_PASSWORD
 ```
 
 `MY_NGINX_PASSWORD` is coming from `SecretProviderClass`.
