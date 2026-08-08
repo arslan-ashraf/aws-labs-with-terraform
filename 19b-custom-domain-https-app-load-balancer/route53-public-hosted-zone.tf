@@ -19,7 +19,7 @@
 
 
 # removed block untracks the resource from the state file
-# prevents destruction of resource when "terraform destroy command" is executed
+# prevents destruction of resource when "terraform destroy" command is executed
 # but it requires that the resource to be untracked should be  commented out first
 # removed {
 #   from = aws_route53_zone.route53_zone_for_custom_domain
