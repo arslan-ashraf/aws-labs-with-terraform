@@ -1,6 +1,6 @@
 # resource "aws_iam_role" "external_dns_role" {
 #   name = "external_dns_role"
-#   assume_role_policy = data.aws_iam_policy_document.assume_role.json
+#   assume_role_policy = data.aws_iam_policy_document.pod_identity_trust_policy.json
 # }
 
 # resource "aws_iam_role_policy_attachment" "external_dns_policy_attach" {
