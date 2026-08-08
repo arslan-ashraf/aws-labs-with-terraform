@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "load_balancer_controller_document" {
   # this policy allows the Load Balancer Controller to manage
   # AWS resources such as ELBs, Target Groups, and Security Groups
   source_policy_documents = [
-    file("${path.module}/10-load-balancer-controller-iam-policy.json")
+    file("${path.module}/11-load-balancer-controller-iam-policy.json")
   ]
 }
 
