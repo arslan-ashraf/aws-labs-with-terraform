@@ -6,7 +6,9 @@
 resource "aws_eks_pod_identity_association" "load_balancer_controller_PIA" {
   cluster_name    = var.eks_cluster_name
   namespace       = "kube-system"
-  service_account = "aws-load-balancer-controller-sa"
+  # must match service account defined in load balancer controller 
+  # Helm install
+  service_account = "aws-load-balancer-controller-sa" 
   role_arn        = aws_iam_role.load_balancer_controller_role.arn
 
   # wait for the pod identity agent addon to be created first

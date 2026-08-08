@@ -3,7 +3,7 @@ resource "helm_release" "load_balancer_controller" {
     aws_iam_role.load_balancer_controller_role,
     aws_eks_node_group.eks_worker_nodes,
     aws_eks_pod_identity_association.load_balancer_controller_PIA,
-    aws_eks_addon.podidentity
+    aws_eks_addon.pod_identity_agent
   ]        
 
   name       = "aws-load-balancer-controller"
