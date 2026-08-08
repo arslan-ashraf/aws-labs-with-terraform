@@ -115,11 +115,11 @@ kubectl delete -f kubernetes-files/ebs-volumes-test
 
 7. Verify that the PersistentVolume and PersistentVolumeClaim are still present:
 ```
-kubectl get pv -n production
-kubectl get pvc -n production
+kubectl get pv
+kubectl get pvc
 ```
 
-Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These need to be deleted manually but only the PVC needs to be deleted and PV is deleted automatically:
+Also check in the AWS EC2 console under Volumes on the left menu that these EBS volumes are still present.  These may need to be deleted manually but only the PVC needs to be deleted and PV is deleted automatically:
 ```
 kubectl delete pvc <PVC_NAME>
 ```
