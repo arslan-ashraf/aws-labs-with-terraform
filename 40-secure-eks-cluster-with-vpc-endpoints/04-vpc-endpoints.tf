@@ -4,7 +4,7 @@
 # AWS-owned ECR registries. The private ECR endpoint combined
 # with the S3 Gateway endpoint safely fulfills these requests
 # within the internal AWS network structure
-resource "aws_vpc_endpoint" "s3" {
+resource "aws_vpc_endpoint" "s3_gateway_endpoint" {
   vpc_id            = aws_vpc.eks_vpc.id
   service_name      = "com.amazonaws.${var.aws_region}.s3"
   vpc_endpoint_type = "Gateway"
@@ -33,6 +33,7 @@ resource "aws_vpc_endpoint" "interface_endpoints" {
   service_name        = each.value
   vpc_endpoint_type   = "Interface"
   security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
+  
   subnet_ids          = [
     aws_subnet.private_subnet_1.id, 
     aws_subnet.private_subnet_2.id
