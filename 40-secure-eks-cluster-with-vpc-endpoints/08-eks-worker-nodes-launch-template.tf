@@ -9,7 +9,7 @@ data "aws_ami" "eks_worker" {
 }
 
 
-resource "aws_launch_template" "eks_nodes" {
+resource "aws_launch_template" "eks_worker_nodes_config" {
   name_prefix   = "eks-isolated-nodes-"
   image_id      = data.aws_ami.eks_worker.id
   instance_type = "t3.medium"
