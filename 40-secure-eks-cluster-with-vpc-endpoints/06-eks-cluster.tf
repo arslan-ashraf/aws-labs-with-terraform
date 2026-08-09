@@ -1,5 +1,6 @@
 resource "aws_eks_cluster" "example_eks_cluster" {
   name     = var.eks_cluster_name
+  version  = var.kubernetes_version
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {

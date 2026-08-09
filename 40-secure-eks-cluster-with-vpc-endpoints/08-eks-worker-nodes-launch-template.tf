@@ -2,7 +2,7 @@
 data "aws_ami" "eks_worker" {
   filter {
     name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.main.version}-v*"]
+    values = ["amazon-eks-node-${aws_eks_cluster.example_eks_cluster.version}-v*"]
   }
   most_recent = true
   owners      = ["602401143452"] # Amazon Web Services owner ID for EKS AMIs
