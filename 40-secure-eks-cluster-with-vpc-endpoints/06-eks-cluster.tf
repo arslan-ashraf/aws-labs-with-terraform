@@ -13,6 +13,12 @@ resource "aws_eks_cluster" "example_eks_cluster" {
     endpoint_public_access  = true # set to false for more security
   }
 
+  access_config {
+    # three options for authentication_mode: CONFIG_MAP, API, API_AND_CONFIG_MAP
+    authentication_mode                         = "API_AND_CONFIG_MAP" # 
+    bootstrap_cluster_creator_admin_permissions = true
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.eks_cluster_policy,
     aws_vpc_endpoint.interface_endpoints
