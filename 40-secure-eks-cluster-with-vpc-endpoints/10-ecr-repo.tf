@@ -1,11 +1,11 @@
 resource "aws_ecr_repository" "image_repo" {
-  name                 = "image_repo"
-  image_tag_mutability = "IMMUTABLE"
+  name                 = "example_repo"
+  image_tag_mutability = "MUTABLE"
 
-  encryption_configuration {
-    encryption_type = "KMS"
-    kms_key         = "default"
-  }
+  # encryption_configuration {
+  #   encryption_type = "KMS"
+  #   kms_key         = "default"
+  # }
 
   image_scanning_configuration {
     scan_on_push = false
