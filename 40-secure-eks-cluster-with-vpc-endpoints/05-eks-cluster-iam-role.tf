@@ -21,3 +21,11 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam:aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.eks_cluster_role.name
 }
+
+resource "aws_iam_role_policy_attachment" "eks_vpc_resource_controller_policy" {
+  role = aws_iam_role.eks_cluster_role.name
+
+  # this policy is required for advanced networking, Fargate, and
+  # Karpenter
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+}
