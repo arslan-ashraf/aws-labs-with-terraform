@@ -1,4 +1,3 @@
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 # EKS Cluster Security Group (Control Plane)
 resource "aws_security_group" "eks_cluster" {
   name        = "${var.name}-eks-cluster-sg"
@@ -6,7 +5,6 @@ resource "aws_security_group" "eks_cluster" {
   vpc_id      = module.vpc.vpc.id
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 # Allow worker nodes to communicate with the cluster API server
 resource "aws_security_group_rule" "cluster_ingress_from_nodes" {
   description              = "Allow nodes to communicate with cluster API"
@@ -18,7 +16,6 @@ resource "aws_security_group_rule" "cluster_ingress_from_nodes" {
   type                     = "ingress"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 # Allow cluster to reach AWS APIs and services over HTTPS
 resource "aws_security_group_rule" "cluster_egress_https" {
   description       = "HTTPS egress for cluster"
@@ -30,7 +27,6 @@ resource "aws_security_group_rule" "cluster_egress_https" {
   type              = "egress"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 # Allow cluster to communicate with worker nodes (kubelet, logs, exec, webhooks)
 resource "aws_security_group_rule" "cluster_egress_to_nodes" {
   description              = "Allow cluster to communicate with nodes"
@@ -42,7 +38,6 @@ resource "aws_security_group_rule" "cluster_egress_to_nodes" {
   type                     = "egress"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 # EKS Worker Nodes Security Group (Data Plane)
 resource "aws_security_group" "eks_nodes" {
   name        = "${var.name}-eks-nodes-sg"
@@ -54,7 +49,6 @@ resource "aws_security_group" "eks_nodes" {
   }
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 # Node-to-node communication for pod networking and cluster DNS
 resource "aws_security_group_rule" "nodes_internal" {
   description              = "Allow nodes to communicate with each other"
@@ -66,7 +60,6 @@ resource "aws_security_group_rule" "nodes_internal" {
   type                     = "ingress"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 # Allow cluster control plane to reach kubelet, webhooks, and other node services
 resource "aws_security_group_rule" "nodes_ingress_from_cluster" {
   description              = "Allow cluster to communicate with nodes"
@@ -78,7 +71,6 @@ resource "aws_security_group_rule" "nodes_ingress_from_cluster" {
   type                     = "ingress"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 # Allow nodes to pull images, reach AWS APIs, and communicate externally
 resource "aws_security_group_rule" "nodes_egress" {
   description       = "Allow all outbound traffic from nodes"
