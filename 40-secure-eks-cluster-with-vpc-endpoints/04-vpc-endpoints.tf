@@ -27,10 +27,14 @@ locals {
 
 resource "aws_vpc_endpoint" "interface_endpoints" {
   for_each            = local.services
+  private_dns_enabled = true
+  private_dns_host    = true
   vpc_id              = aws_vpc.eks_vpc.id
   service_name        = each.value
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = [aws_subnet.private_1.id, aws_subnet.private_2.id]
-  security_group_ids  = [aws_security_group.vpc_endpoints.id]
-  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
+  subnet_ids          = [
+    aws_subnet.private_subnet_1.id, 
+    aws_subnet.private_subnet_2.id
+  ]
 }
