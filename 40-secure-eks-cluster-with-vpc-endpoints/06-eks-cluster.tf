@@ -30,6 +30,7 @@ resource "aws_eks_cluster" "example_eks_cluster" {
 
   depends_on = [
     aws_iam_role_policy_attachment.eks_cluster_policy,
+    aws_iam_role_policy_attachment.eks_vpc_resource_controller_policy,
     aws_vpc_endpoint.interface_endpoints
   ]
 }
