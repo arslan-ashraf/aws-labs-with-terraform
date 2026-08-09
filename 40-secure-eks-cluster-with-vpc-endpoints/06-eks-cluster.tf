@@ -19,6 +19,15 @@ resource "aws_eks_cluster" "example_eks_cluster" {
     bootstrap_cluster_creator_admin_permissions = true
   }
 
+  # enable EKS control plane logging for visibility and debugging
+  enabled_cluster_log_types = [
+    "api",               # API server audit logs
+    "audit",             # Kubernetes audit logs
+    "authenticator",     # Authenticator logs for IAM auth
+    "controllerManager", # Logs for controller manager
+    "scheduler"          # Logs for pod scheduling
+  ]
+
   depends_on = [
     aws_iam_role_policy_attachment.eks_cluster_policy,
     aws_vpc_endpoint.interface_endpoints
