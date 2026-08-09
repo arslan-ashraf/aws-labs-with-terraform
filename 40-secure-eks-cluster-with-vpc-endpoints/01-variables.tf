@@ -51,7 +51,7 @@ variable "node_capacity_type" {
 
 # root volume size (GiB) for worker nodes
 variable "node_disk_size" {
-  description = "Minimum required disk size for AL2023_x86_64_STANDARD ami-type for worker nodes"
+  description = "Minimum 20 GiB is required disk size for AL2023_x86_64_STANDARD ami-type for worker nodes"
   type        = number
   default     = 20 #  in GiB
 }
