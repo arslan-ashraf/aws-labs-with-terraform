@@ -23,5 +23,5 @@ resource "aws_vpc_security_group_egress_rule" "cluster_egress_https" {
   security_group_id = aws_security_group.vpc_endpoints_sg.id
 
   cidr_ipv4 = "0.0.0.0/0"
-  ip_protocol = "-1"
+  ip_protocol = "-1"  # all protocols
 }
