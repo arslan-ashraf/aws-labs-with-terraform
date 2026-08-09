@@ -1,19 +1,5 @@
 # EKS Cluster
-resource "aws_eks_cluster" "main" {
-  name     = "isolated-eks-cluster"
-  role_arn = aws_iam_role.cluster.arn
 
-  vpc_config {
-    subnet_ids              = [aws_subnet.private_1.id, aws_subnet.private_2.id]
-    endpoint_private_access = true
-    endpoint_public_access  = true # Set to false for absolute air-gapped security
-  }
-
-  depends_on = [
-    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
-    aws_vpc_endpoint.interfaces
-  ]
-}
 
 # Managed Node Group
 resource "aws_eks_node_group" "nodes" {

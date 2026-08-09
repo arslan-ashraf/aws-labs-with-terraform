@@ -25,7 +25,7 @@ locals {
   }
 }
 
-resource "aws_vpc_endpoint" "interfaces" {
+resource "aws_vpc_endpoint" "interface_endpoints" {
   for_each            = local.services
   vpc_id              = aws_vpc.eks_vpc.id
   service_name        = each.value
