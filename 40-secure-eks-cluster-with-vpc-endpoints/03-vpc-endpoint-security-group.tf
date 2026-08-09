@@ -4,20 +4,7 @@ resource "aws_security_group" "vpc_endpoints_sg" {
   description = "Allow TLS traffic from VPC to Endpoints"
   vpc_id      = aws_vpc.eks_vpc.id
 
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [aws_vpc.eks_vpc.cidr_block]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  tag = { Name = "eks_vpc_endpoints_sg" }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "within_vpc_communication" {
@@ -36,8 +23,5 @@ resource "aws_vpc_security_group_egress_rule" "cluster_egress_https" {
   security_group_id = aws_security_group.vpc_endpoints_sg.id
 
   cidr_ipv4 = "0.0.0.0/0"
-
-  from_port   = 443
-  to_port     = 443
-  ip_protocol = "tcp"
+  ip_protocol = "-1"
 }
