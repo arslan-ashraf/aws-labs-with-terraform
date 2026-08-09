@@ -1,14 +1,14 @@
-# 1. Retrieve the latest Amazon Linux 2 EKS-optimized AMI dynamically
+# retrieve the latest Amazon Linux 2 EKS-optimized AMI
 data "aws_ami" "eks_worker" {
   filter {
     name   = "name"
     values = ["amazon-eks-node-${aws_eks_cluster.example_eks_cluster.version}-v*"]
   }
   most_recent = true
-  owners      = ["602401143452"] # Amazon Web Services owner ID for EKS AMIs
+  owners      = ["602401143452"] # AWS owner ID for EKS AMIs
 }
 
-# 2. Custom Launch Template
+
 resource "aws_launch_template" "eks_nodes" {
   name_prefix   = "eks-isolated-nodes-"
   image_id      = data.aws_ami.eks_worker.id
