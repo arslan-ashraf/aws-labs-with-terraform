@@ -26,7 +26,7 @@ locals {
 }
 
 resource "aws_vpc_endpoint" "interface_endpoints" {
-  for_each            = local.services
+  for_each            = local.aws_services
   private_dns_enabled = true
   private_dns_host    = true
   vpc_id              = aws_vpc.eks_vpc.id
