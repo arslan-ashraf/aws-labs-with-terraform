@@ -1,5 +1,7 @@
 Missing:
 
+ECR repo and its permissions
+
 eks cluster missing security group:
 ```
 vpc_config {
