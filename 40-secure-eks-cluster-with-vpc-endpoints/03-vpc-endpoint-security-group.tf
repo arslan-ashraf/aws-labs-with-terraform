@@ -1,6 +1,6 @@
 # security group shared by all VPC Interface Endpoints
-resource "aws_security_group" "vpc_endpoints" {
-  name        = "vpc-endpoints-sg"
+resource "aws_security_group" "vpc_endpoints_sg" {
+  name        = "vpc_endpoints_sg"
   description = "Allow TLS traffic from VPC to Endpoints"
   vpc_id      = aws_vpc.eks_vpc.id
 
