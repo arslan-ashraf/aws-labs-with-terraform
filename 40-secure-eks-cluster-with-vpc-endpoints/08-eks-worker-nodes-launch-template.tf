@@ -31,8 +31,9 @@ resource "aws_launch_template" "eks_worker_nodes_config" {
     }
   }
 
-  # Critical User Data for Private / Air-gapped Clusters
-  # Explictly instructs the bootstrap script to use the internal endpoint
+  # critical user data for private / air-tight clusters
+  # explictly the bootstrap script to use the internal endpoint
+  # and not the public internet to find the control EKS plane
   user_data = base64encode(<<-EOF
     #!/bin/bash
     set -o xtrace
