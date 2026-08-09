@@ -1,4 +1,4 @@
-# Security Group shared by all Interface VPC Endpoints
+# security group shared by all VPC Interface Endpoints
 resource "aws_security_group" "vpc_endpoints" {
   name        = "vpc-endpoints-sg"
   description = "Allow TLS traffic from VPC to Endpoints"
