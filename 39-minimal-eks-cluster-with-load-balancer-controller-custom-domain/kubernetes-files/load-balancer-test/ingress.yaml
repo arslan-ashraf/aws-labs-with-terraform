@@ -7,9 +7,9 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing # or internal
     alb.ingress.kubernetes.io/target-type: ip  # or instance
     # ExternalDNS will create the Route53 record for this domain
-    external-dns.alpha.kubernetes.io/hostname: arslanashraf.site
+    external-dns.alpha.kubernetes.io/hostname: <hostname>
     # attach the ACM Certificate ARN
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:533267121089:certificate/2e499572-af1f-4572-8494-eaeb3acf79b5
+    alb.ingress.kubernetes.io/certificate-arn: <certificate-arn>
     # ports the load balancer will listen on (exposing HTTP and HTTPS)
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     # redirect HTTP traffic to HTTPS
@@ -22,7 +22,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: / # arslanashraf.site
+          - path: / # or <hostname>
             pathType: Prefix
             backend:
               service:
