@@ -63,7 +63,7 @@ resource "aws_subnet" "subnets_in_main_vpc" {
       # this tag is required to launch EC2 instances in private
       # subnets with custom launch template, otherwise EKS launches
       # EC2 instances with its own default template and security groups
-      "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared" # or owned
+      "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned" # or shared
     } : {}
   )
 
