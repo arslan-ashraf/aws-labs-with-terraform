@@ -9,3 +9,4 @@ setup.sh
 
 /40-secure-eks-cluster-with-vpc-endpoints/.terraform*
 /40-secure-eks-cluster-with-vpc-endpoints/terraform*
+/40-secure-eks-cluster-with-vpc-endpoints/README.md

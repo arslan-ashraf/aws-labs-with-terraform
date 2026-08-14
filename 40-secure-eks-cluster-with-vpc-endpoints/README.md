@@ -20,6 +20,14 @@ resource "aws_launch_template" "eks_nodes" {
 ```
 
 
+```
+aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+```
+
+
+
+
+
 
 ```
 kubectl exec -i $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EKS Cluster up and running!' > /usr/share/nginx/html/index.html"

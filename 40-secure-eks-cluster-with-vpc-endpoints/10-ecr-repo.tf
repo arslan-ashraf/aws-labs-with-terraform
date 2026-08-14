@@ -1,4 +1,4 @@
-resource "aws_ecr_repository" "image_repo" {
+resource "aws_ecr_repository" "example_repo" {
   name                 = "example_repo"
   image_tag_mutability = "MUTABLE"
 
@@ -12,8 +12,8 @@ resource "aws_ecr_repository" "image_repo" {
   }
 }
 
-resource "aws_ecr_lifecycle_policy" "image_repo_policy" {
-  repository = aws_ecr_repository.image_repo.name
+resource "aws_ecr_lifecycle_policy" "example_repo_policy" {
+  repository = aws_ecr_repository.example_repo.name
 
   policy = jsonencode({
     rules = [
