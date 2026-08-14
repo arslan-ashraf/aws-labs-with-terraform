@@ -1,0 +1,61 @@
+locals {
+  output_public_subnets = {
+    # local.public_subnets is defined in vpc-network.tf
+    # key takes on strings like subnet_a, subnet_b
+    for key in keys(local.public_subnets) : key => {
+      subnet_id         = aws_subnet.subnets_in_main_vpc[key].id
+      availability_zone = aws_subnet.subnets_in_main_vpc[key].availability_zone
+    }
+  }
+
+  output_private_subnets = {
+    for key in keys(local.private_subnets) : key => {
+      subnet_id         = aws_subnet.subnets_in_main_vpc[key].id
+      availability_zone = aws_subnet.subnets_in_main_vpc[key].availability_zone
+    }
+  }
+}
+
+output "vpc_id" {
+  value       = aws_vpc.main_vpc.id
+  description = "The ID of the VPC"
+}
+
+output "public_subnets" {
+  value       = local.output_public_subnets
+  description = "Map of public subnets and their AZs"
+}
+
+output "public_subnet_ids" {
+  value       = [for subnet in local.output_public_subnets : subnet.subnet_id]
+  description = "List of public subnet IDs"
+}
+
+output "private_subnets" {
+  value       = local.output_private_subnets
+  description = "Map of private subnets and their AZs"
+}
+
+output "private_subnet_ids" {
+  value       = [for subnet in local.output_private_subnets : subnet.subnet_id]
+  description = "List of private subnet IDs"
+}
+
+output "NAT_instance_network_interface_id" {
+  value       = aws_instance.nat_instance.primary_network_interface_id
+  description = "The Network Interface ID of the NAT Instance"
+}
+
+output "NAT_instance_subnet_names" {
+  value = keys(local.public_subnets_for_NAT_instance)
+}
+
+# output "eks_cluster_security_group_id" {
+#   value       = aws_security_group.eks_cluster_security_group.id
+#   description = "Security group for EKS cluster control plane."
+# }
+
+# output "eks_worker_nodes_security_group_id" {
+#   value       = aws_security_group.eks_worker_nodes_security_group.id
+#   description = "Security group for EKS worker nodes with outbound access to NAT Instance."
+# }
