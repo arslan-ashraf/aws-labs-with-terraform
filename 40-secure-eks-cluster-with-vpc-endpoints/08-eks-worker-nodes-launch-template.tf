@@ -1,11 +1,19 @@
 # retrieve the latest Amazon Linux 2 EKS-optimized AMI
 data "aws_ami" "eks_worker_ami" {
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.example_eks_cluster.version}-v*"]
-  }
   most_recent = true
   owners      = ["602401143452"] # AWS owner ID for EKS AMIs
+  
+  filter {
+    name   = "name"
+    values = ["amazon-eks-node-1.31-*"] # x86_64 ami
+    # values = ["amazon-eks-arm64-node-1.31-*"] # arm ami
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
 }
 
 

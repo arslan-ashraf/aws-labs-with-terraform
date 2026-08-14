@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: nginx
@@ -16,15 +16,10 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:alpine
+        image: 533267121089.dkr.ecr.us-east-1.amazonaws.com/example_repo:latest
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: test-volume
-          mountPath: /usr/share/nginx/html
-      volumes:
-      - name: test-volume
-        emptyDir: {}
+        
 ---
 apiVersion: v1
 kind: Service
