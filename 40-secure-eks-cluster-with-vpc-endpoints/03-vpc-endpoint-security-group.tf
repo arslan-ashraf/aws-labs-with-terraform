@@ -4,7 +4,7 @@ resource "aws_security_group" "vpc_endpoints_sg" {
   description = "Allow TLS traffic from VPC to Endpoints"
   vpc_id      = aws_vpc.eks_vpc.id
 
-  tag = { Name = "eks_vpc_endpoints_sg" }
+  tags = { Name = "eks_vpc_endpoints_sg" }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "within_vpc_communication" {
