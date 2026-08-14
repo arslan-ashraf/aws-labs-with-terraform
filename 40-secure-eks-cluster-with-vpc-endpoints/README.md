@@ -1,4 +1,4 @@
-
+In this lab, we harden the security of the EKS cluster by removing all public access of the EKS worker nodes.  Worker nodes will only have access to ECR, S3, EKS control plane, autoscaling, EC2 APIs and more through VPC endpoints.
 
 
 ```
