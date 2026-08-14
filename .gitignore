@@ -1,10 +1,10 @@
 setup.sh
 
-/38-eks-cluster-with-nat-instance/terraform-eks-cluster/.terraform*
-/38-eks-cluster-with-nat-instance/terraform-eks-cluster/terraform*
+/41-eks-cluster-with-nat-instance/terraform-eks-cluster/.terraform*
+/41-eks-cluster-with-nat-instance/terraform-eks-cluster/terraform*
 
-/38-eks-cluster-with-nat-instance/terraform-vpc-network/.terraform*
-/38-eks-cluster-with-nat-instance/terraform-vpc-network/terraform*
+/41-eks-cluster-with-nat-instance/terraform-vpc-network/.terraform*
+/41-eks-cluster-with-nat-instance/terraform-vpc-network/terraform*
 
 
 /40-secure-eks-cluster-with-vpc-endpoints/.terraform*
