@@ -18,8 +18,8 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
 
   # Reference the Custom Launch Template
   launch_template {
-    id      = aws_launch_template.eks_nodes.id
-    version = aws_launch_template.eks_nodes.latest_version
+    id      = aws_launch_template.eks_worker_nodes_config.id
+    version = aws_launch_template.eks_worker_nodes_config.latest_version
   }
 
   depends_on = [

@@ -44,6 +44,6 @@ resource "aws_iam_role_policy_attachment" "ecr_read_only_policy" {
 
 # SSM access since there is no bastion host or NAT
 resource "aws_iam_role_policy_attachment" "node_AmazonSSMManagedInstanceCore" {
-  policy_arn = "arn:aws:iam:aws:policy/AmazonSSMManagedInstanceCore"
-  role       = aws_iam_role.node.name
+  role       = aws_iam_role.eks_node_group_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
