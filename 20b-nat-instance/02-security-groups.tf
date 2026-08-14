@@ -34,7 +34,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
 
 
 ########################################################################
-########### PRIVATE INSTANCE ENDPOINT SECURITY GROUP & RULES ###########
+###### PRIVATE INSTANCE CONNECTION ENDPOINT SECURITY GROUP & RULES #####
 ########################################################################
 
 
