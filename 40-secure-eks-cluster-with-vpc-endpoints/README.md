@@ -25,9 +25,6 @@ aws ecr get-login-password --region <region> | docker login --username AWS --pas
 ```
 
 
-klkl
-
-
 
 ```
 kubectl exec -i $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EKS Cluster up and running!' > /usr/share/nginx/html/index.html"
