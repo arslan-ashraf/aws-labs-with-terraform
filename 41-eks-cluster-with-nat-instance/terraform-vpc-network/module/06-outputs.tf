@@ -49,13 +49,3 @@ output "NAT_instance_network_interface_id" {
 output "NAT_instance_subnet_names" {
   value = keys(local.public_subnets_for_NAT_instance)
 }
-
-# output "eks_cluster_security_group_id" {
-#   value       = aws_security_group.eks_cluster_security_group.id
-#   description = "Security group for EKS cluster control plane."
-# }
-
-# output "eks_worker_nodes_security_group_id" {
-#   value       = aws_security_group.eks_worker_nodes_security_group.id
-#   description = "Security group for EKS worker nodes with outbound access to NAT Instance."
-# }
