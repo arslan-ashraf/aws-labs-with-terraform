@@ -7,10 +7,5 @@ setup.sh
 /38-eks-cluster-with-nat-instance/terraform-vpc-network/terraform*
 
 
-/39-minimal-eks-cluster-with-load-balancer-controller/.terraform*
-/39-minimal-eks-cluster-with-load-balancer-controller/terraform*
-
-
-
-/39-minimal-eks-cluster-with-load-balancer-controller-custom-domain/.terraform*
-/39-minimal-eks-cluster-with-load-balancer-controller-custom-domain/terraform*
+/40-secure-eks-cluster-with-vpc-endpoints/.terraform*
+/40-secure-eks-cluster-with-vpc-endpoints/terraform*

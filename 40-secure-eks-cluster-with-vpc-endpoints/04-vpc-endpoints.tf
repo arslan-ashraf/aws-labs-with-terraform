@@ -13,14 +13,14 @@ resource "aws_vpc_endpoint" "s3_gateway_endpoint" {
 
 locals {
   aws_services = {
-    "eks"          = "com.amazonaws.${var.aws_region}.eks"
-    "ec2"          = "com.amazonaws.${var.aws_region}.ec2"
-    "ecr_api"      = "com.amazonaws.${var.aws_region}.ecr.api"
-    "ecr_dkr"      = "com.amazonaws.${var.aws_region}.ecr.dkr"
-    "sts"          = "com.amazonaws.${var.aws_region}.sts"
-    "logs"         = "com.amazonaws.${var.aws_region}.logs"
-    "ssm"          = "com.amazonaws.${var.aws_region}.ssm"
-    "autoscaling"  = "com.amazonaws.${var.aws_region}.autoscaling"
+    "eks"         = "com.amazonaws.${var.aws_region}.eks"
+    "ec2"         = "com.amazonaws.${var.aws_region}.ec2"
+    "ecr_api"     = "com.amazonaws.${var.aws_region}.ecr.api"
+    "ecr_dkr"     = "com.amazonaws.${var.aws_region}.ecr.dkr"
+    "sts"         = "com.amazonaws.${var.aws_region}.sts"
+    "logs"        = "com.amazonaws.${var.aws_region}.logs"
+    "ssm"         = "com.amazonaws.${var.aws_region}.ssm"
+    "autoscaling" = "com.amazonaws.${var.aws_region}.autoscaling"
   }
 }
 
@@ -31,9 +31,9 @@ resource "aws_vpc_endpoint" "interface_endpoints" {
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = true
   security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
-  
-  subnet_ids          = [
-    aws_subnet.private_subnet_1.id, 
+
+  subnet_ids = [
+    aws_subnet.private_subnet_1.id,
     aws_subnet.private_subnet_2.id
   ]
 }

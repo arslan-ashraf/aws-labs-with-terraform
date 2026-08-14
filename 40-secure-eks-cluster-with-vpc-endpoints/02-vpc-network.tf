@@ -14,9 +14,9 @@ resource "aws_subnet" "private_subnet_1" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name                              = "eks-private-subnet-us-east-1a",
-    "kubernetes.io/role/internal-elb" = "1",
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
+    Name                                            = "eks-private-subnet-us-east-1a",
+    "kubernetes.io/role/internal-elb"               = "1",
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned" # or shared
   }
 }
 
@@ -26,9 +26,9 @@ resource "aws_subnet" "private_subnet_2" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name                              = "eks-private-subnet-us-east-1b",
-    "kubernetes.io/role/internal-elb" = "1",
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"  # or shared
+    Name                                            = "eks-private-subnet-us-east-1b",
+    "kubernetes.io/role/internal-elb"               = "1",
+    "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned" # or shared
   }
 }
 
