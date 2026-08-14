@@ -19,6 +19,12 @@ spec:
         image: nginx:alpine
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: test-volume
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: test-volume
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

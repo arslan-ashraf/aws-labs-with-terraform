@@ -18,3 +18,21 @@ resource "aws_launch_template" "eks_nodes" {
   ...
 }
 ```
+
+
+
+```
+kubectl exec -i $(kubectl get pods -l app=nginx -o jsonpath='{.items[0].metadata.name}') -- sh -c "echo 'EKS Cluster up and running!' > /usr/share/nginx/html/index.html"
+```
+
+Now, exec into the Nginx pod:
+```
+kubectl exec -i deployment/eks-test-nginx -- //bin/sh
+```
+
+and print the `index.html` file:
+```
+cat /usr/share/nginx/html/index.html
+```
+
+This should print "EKS Cluster up and running!" if everything is working correctly.
