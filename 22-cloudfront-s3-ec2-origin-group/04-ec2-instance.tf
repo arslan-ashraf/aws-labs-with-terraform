@@ -5,7 +5,7 @@ resource "aws_instance" "web_server" {
   instance_type               = "t2.nano"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_for_ec2.id
-  user_data                   = file("${path.module}/userdata.sh")
+  user_data                   = file("${path.module}/user_data.sh")
   key_name                    = aws_key_pair.public_SSH_key.key_name
 
   vpc_security_group_ids = [
