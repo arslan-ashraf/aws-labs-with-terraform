@@ -8,3 +8,4 @@ Network ACL Rules:
 
 3. Implicit Deny: Any traffic that does not match of the defined rules will hit the default rule (Rule \*) and be blocked automatically.
 
+The code that is in the `user_data.sh` srcipt is all in the `app-server` directory.  We run a very simply web application on the EC2 instance and try to test if it is accessible
