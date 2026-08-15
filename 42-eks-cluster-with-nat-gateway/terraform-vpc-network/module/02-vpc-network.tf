@@ -132,38 +132,3 @@ resource "aws_route_table_association" "rtb_private_subnets_assoc" {
   subnet_id      = aws_subnet.subnets_in_main_vpc[each.key].id
   route_table_id = aws_route_table.route_table_for_private_subnets.id
 }
-
-
-
-
-###################################################################
-########################## NAT GATEWAY ############################
-###################################################################
-
-
-# ============================================================
-# ===== WE DON'T USE THE MANAGED NAT GATEWAY IN THIS LAB =====
-# ===== INSTEAD WE'LL USE A MANUAL NAT INSTANCE          =====
-# ============================================================
-
-
-
-# # allocate elastic IP (EIP) for the nat gateway
-# resource "aws_eip" "nat_gateway_eip" {
-#   domain     = "vpc"
-#   depends_on = [aws_internet_gateway.main_vpc_internet_gateway]
-
-#   tags = { Name = "nat_gateway_elastic_ip" }
-# }
-
-# # create a single NAT Gateway in any public subnet
-# resource "aws_nat_gateway" "nat_gateway" {
-#   public_subnets = keys(local.public_subnets)
-#   allocation_id = aws_eip.nat_gateway_eip.id
-#   subnet_id     = aws_subnet.subnets_in_main_vpc[public_subnets[0]].id
-
-#   tags = { Name = "nat_gateway_in_public_subnet" }
-
-#   # Explicit dependency to ensure proper ordering during creation/destruction
-#   depends_on = [aws_internet_gateway.main_vpc_internet_gateway]
-# }
