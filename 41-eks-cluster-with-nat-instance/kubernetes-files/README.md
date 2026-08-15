@@ -28,11 +28,11 @@ kubectl config set-context --current --namespace=production
 5. Test the Pod Identity Agent using the directory in `read-s3-test`, run the commands:
 
 ```
-kubectl apply -f kubernetes-files/read-s3-service-account.yaml
+kubectl apply -f kubernetes-files/read-s3-test/read-s3-service-account.yaml
 ```
 
 ```
-kubectl apply -f kubernetes-files/aws-cli-pod.yaml
+kubectl apply -f kubernetes-files/read-s3-test/aws-cli-pod.yaml
 ```
 
 ```
