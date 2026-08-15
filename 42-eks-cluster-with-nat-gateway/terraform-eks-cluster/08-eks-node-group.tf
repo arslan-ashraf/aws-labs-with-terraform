@@ -45,8 +45,7 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
 
   # Apply labels to each EC2 instance for easier scheduling and management in Kubernetes
   labels = {
-    "env"  = "dev"
-    "team" = "engineering"
+    "Name" = "eks_worker_node"
   }
 
   # Tags for the node group and associated EC2 instances

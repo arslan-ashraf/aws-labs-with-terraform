@@ -21,3 +21,14 @@ resource "aws_network_acl_rule" "allow_https_inbound" {
   from_port      = 443
   to_port        = 443
 }
+
+resource "aws_network_acl_rule" "allow_ssh_inbound" {
+  network_acl_id = aws_network_acl.nacl_for_public_subnet.id
+  rule_number    = 400
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 22
+  to_port        = 22
+}
