@@ -1,29 +1,48 @@
-Create a secret in AWS Secrets Manager titled `my-secret` and create a key named `MY_NGINX_PASSWORD` with an arbitrary value.
+In this lab, we create a VPC with a NAT Gateway in a public subnet and an EKS cluster with two worker nodes in private subnets within that VPC.  The worker nodes will communicate to the EKS control plane as well as out to the internet via the NAT Gateway.
 
+We will perform an S3 list buckets test in the EKS cluster to see if the EKS Pod Identity Agen addon and Pod Identity Association are installed and access to them is working correctly.  
 
-
-
-Install AWS Load Balancer Controller:
-```
-helm repo add eks https://aws.github.io/eks-charts
-```
+1. Run Terraform with:
 
 ```
-helm repo update eks
-
+./terraform_apply.sh
 ```
 
+2. Connect local kubectl to the EKS cluster using the using the `aws eks update-cubeconfig ...` command found easily in Terraforms output.
+
+3. Create the production namespace:
+
 ```
-helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
-  -n kube-system \
-  --set clusterName=${CLUSTER_NAME} \
-  --set region=${AWS_REGION} \
-  --set vpcId=${VPC_ID} \
-  --set serviceAccount.create=true \
-  --set serviceAccount.name=aws-load-balancer-controller 
+kubectl apply -f kubernetes-files/production-namespace.yaml
 ```
 
-Verify:
+4. Then change into the production namespace so all kubectl commands are applied from there:
+
 ```
- kubectl get all -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller
+kubectl config set-context --current --namespace=production
+```
+
+## Pod Identity Agent Test 
+
+
+5. Test the Pod Identity Agent using the directory in `read-s3-test`, run the commands:
+
+```
+kubectl apply -f kubernetes-files/read-s3-test/read-s3-service-account.yaml
+```
+
+```
+kubectl apply -f kubernetes-files/read-s3-test/aws-cli-pod.yaml
+```
+
+```
+kubectl exec -i aws-cli -- aws s3 ls
+```
+
+If this doesn't work, delete the pod and recreate it.
+
+5. Cleanup:
+
+```
+./terraform_destroy.sh
 ```
