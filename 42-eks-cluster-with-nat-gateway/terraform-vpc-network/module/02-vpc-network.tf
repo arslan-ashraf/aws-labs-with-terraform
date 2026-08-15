@@ -117,7 +117,7 @@ resource "aws_route_table" "route_table_for_private_subnets" {
     cidr_block = "0.0.0.0/0"
 
     # target to reach destintion
-    network_interface_id = aws_instance.nat_instance.primary_network_interface_id
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
   tags = { Name = "route_table_for_private_subnets" }
