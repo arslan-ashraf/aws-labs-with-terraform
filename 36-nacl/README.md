@@ -4,5 +4,4 @@ Network ACL Rules:
 
 2. Ephemeral Port Trap: Forgetting to allow outbound traffic to ports 1024-65535 will cause web servers to successfully receive requests but fail to send responses back to clients.
 
-
-3. Implicit Deny: Any traffic that does not match defined rules will hit the default rule (Rule *) and be blocked automatically.
+3. Implicit Deny: Any traffic that does not match defined rules will hit the default rule (Rule \*) and be blocked automatically.
