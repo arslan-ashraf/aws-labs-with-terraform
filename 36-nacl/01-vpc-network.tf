@@ -12,7 +12,7 @@ resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
 
 resource "aws_subnet" "public_subnet_in_example_vpc" {
   availability_zone = "us-east-1a"
-  cidr_block        = "10.0.5.0/24"
+  cidr_block        = "10.0.1.0/24"
   vpc_id            = aws_vpc.example_vpc.id
 
   tags = { Name = "public_subnet_in_example_vpc" }
