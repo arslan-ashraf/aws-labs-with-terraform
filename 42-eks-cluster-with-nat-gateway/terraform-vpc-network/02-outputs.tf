@@ -10,7 +10,7 @@ output "public_subnet_ids" {
 }
 
 output "public_subnets" {
-  value = module.vpc_network_module.public_subnets
+  value       = module.vpc_network_module.public_subnets
   description = "Public subnets for ALB, NLB, etc."
 }
 
@@ -19,7 +19,7 @@ output "private_subnet_ids" {
   description = "IDs of private subnets for EKS worker nodes"
 }
 
-output "private_subnet" {
+output "private_subnets" {
   value       = module.vpc_network_module.private_subnets
   description = "Private subnets for EKS worker nodes"
 }
