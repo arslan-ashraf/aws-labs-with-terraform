@@ -8,7 +8,8 @@ resource "aws_eip" "nat_gateway_eip" {
 
 locals {
   # get the name of the first public subnet, something like
-  # public_subnet_c
+  # public_subnet_c, chosen arbitrarily to spin up only one 
+  # NAT Gateway
   first_public_subnet = keys(local.public_subnets)[0]
 }
 
