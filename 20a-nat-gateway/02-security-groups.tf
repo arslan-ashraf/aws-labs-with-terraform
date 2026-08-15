@@ -21,7 +21,8 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   ip_protocol = "tcp"
 }
 
-# allow traffic out to the NAT gateway
+# allow traffic out to the internet which will happen
+# through NAT Gateway
 resource "aws_vpc_security_group_egress_rule" "egress_nat_gateway_rule" {
   security_group_id = aws_security_group.security_group_for_ec2_instance.id
 
