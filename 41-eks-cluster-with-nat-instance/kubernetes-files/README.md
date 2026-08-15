@@ -1,10 +1,8 @@
-We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
+In this lab, we create a VPC with a NAT instance in a public subnet and an EKS cluster with two worker nodes in private subnets within that VPC.  The worker nodes will communicate to the EKS control plane as well as out to the internet via the NAT instance.
 
-1. Pod Identity Agent
-2. Amazon Secrets and Configuration Provider (ASCP) & Secrets Store CSI Driver
-3. EBS CSI Driver
+We will perform an S3 list buckets test in the EKS cluster to see if the EKS Pod Identity Agen addon and Pod Identity Association are installed and access to them is working correctly.  
 
-Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files in each directory to start testing.
+
 
 First create the production namespace:
 
