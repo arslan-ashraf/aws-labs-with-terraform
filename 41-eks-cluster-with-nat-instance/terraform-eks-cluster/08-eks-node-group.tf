@@ -1,6 +1,6 @@
 resource "aws_eks_node_group" "eks_worker_nodes" {
   cluster_name    = aws_eks_cluster.example_eks_cluster.name
-  node_group_name = "eks-cluster-private-node-group"
+  node_group_name = "eks-cluster-worker-node-group"
   node_role_arn   = aws_iam_role.eks_node_group_role.arn
 
   # subnets where the worker nodes will be launched (private subnets)
@@ -45,13 +45,12 @@ resource "aws_eks_node_group" "eks_worker_nodes" {
 
   # Apply labels to each EC2 instance for easier scheduling and management in Kubernetes
   labels = {
-    "env"  = "dev"
-    "team" = "engineering"
+    "Name" = "eks_worker_node"
   }
 
   # Tags for the node group and associated EC2 instances
   tags = {
-    Name = "eks-cluster-private-node-group"
+    Name = "eks-cluster-worker-node-group"
   }
 
   # Ensure IAM role policies are attached before creating the node group
