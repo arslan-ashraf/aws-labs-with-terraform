@@ -5,7 +5,8 @@ resource "aws_instance" "ec2_instance" {
   instance_type               = "t2.nano"
   associate_public_ip_address = true
   subnet_id                   = aws_subnet.public_subnet_in_example_vpc.id
-  key_name                    = aws.aws_key_pair.public_private_key_pair.key_name
+  key_name                    = aws.aws_key_pair.public_SSH_key.key_name
+  user_data                   = file("${path.module}/user_data.sh")
 
   vpc_security_group_ids = [
     aws_security_group.security_group_public_traffic.id
@@ -15,7 +16,7 @@ resource "aws_instance" "ec2_instance" {
 
 }
 
-resource "aws_key_pair" "public_private_key_pair" {
+resource "aws_key_pair" "public_SSH_key" {
   key_name   = "key-for-ec2-connection"
   public_key = file("~/.ssh/key-for-ec2-connection.pub")
 }
