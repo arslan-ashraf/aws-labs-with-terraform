@@ -2,7 +2,7 @@
 # return traffic for client requests
 resource "aws_network_acl_rule" "allow_ephemeral_outbound" {
   network_acl_id = aws_network_acl.nacl_for_public_subnet.id
-  rule_number    = 100
+  rule_number    = 300
   egress         = true
   protocol       = "tcp"
   rule_action    = "allow"
