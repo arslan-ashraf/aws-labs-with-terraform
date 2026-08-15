@@ -4,11 +4,11 @@ resource "aws_security_group" "security_group_public_traffic" {
   tags   = { Name = "sg-for-public-traffic" }
 }
 
+# allow SSH into the instance
 resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
   security_group_id = aws_security_group.security_group_public_traffic.id
-  cidr_ipv4         = "0.0.0.0/0" # where is the traffic coming from
+  cidr_ipv4         = "0.0.0.0/0" # where the is traffic coming from
 
-  # to allow ingress traffic for ssh
   from_port = 22
   to_port   = 22
 
