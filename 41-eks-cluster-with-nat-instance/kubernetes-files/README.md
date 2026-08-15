@@ -41,3 +41,8 @@ kubectl exec -i aws-cli -- aws s3 ls
 
 If this doesn't work, delete the pod and recreate it.
 
+5. Cleanup:
+
+```
+./terraform_destroy.sh
+```
