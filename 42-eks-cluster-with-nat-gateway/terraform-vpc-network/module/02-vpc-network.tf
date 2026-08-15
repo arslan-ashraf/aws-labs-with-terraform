@@ -116,7 +116,7 @@ resource "aws_route_table" "route_table_for_private_subnets" {
     # destination
     cidr_block = "0.0.0.0/0"
 
-    # target to reach destintion
+    # target used to get to destintion
     nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
