@@ -1,14 +1,4 @@
 setup.sh
 
-/41-eks-cluster-with-nat-instance/terraform-eks-cluster/.terraform*
-/41-eks-cluster-with-nat-instance/terraform-eks-cluster/terraform*
-
-/41-eks-cluster-with-nat-instance/terraform-vpc-network/.terraform*
-/41-eks-cluster-with-nat-instance/terraform-vpc-network/terraform*
-
-
-/42-eks-cluster-with-nat-gateway/terraform-eks-cluster/.terraform*
-/42-eks-cluster-with-nat-gateway/terraform-eks-cluster/terraform*
-
-/42-eks-cluster-with-nat-gateway/terraform-vpc-network/.terraform*
-/42-eks-cluster-with-nat-gateway/terraform-vpc-network/terraform*
+/36-nacl/.terraform*
+/36-nacl/terraform*
