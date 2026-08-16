@@ -4,8 +4,8 @@ resource "aws_instance" "ec2_instance" {
   availability_zone           = "us-east-1a"
   instance_type               = "t2.nano"
   associate_public_ip_address = true
-  subnet_id                   = aws_subnet.public_subnet_in_example_vpc.id
-  key_name                    = aws.aws_key_pair.public_SSH_key.key_name
+  subnet_id                   = aws_subnet.public_subnet.id
+  key_name                    = aws_key_pair.public_SSH_key.key_name
   user_data                   = file("${path.module}/user_data.sh")
 
   vpc_security_group_ids = [
