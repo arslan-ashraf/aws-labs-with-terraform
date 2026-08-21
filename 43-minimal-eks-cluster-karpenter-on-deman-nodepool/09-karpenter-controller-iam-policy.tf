@@ -4,7 +4,7 @@ resource "aws_iam_policy" "karpenter_controller_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "karpenter_controller_attach" {
-  role       = aws_iam_role.karpenter_controller.name
+  role       = aws_iam_role.karpenter_controller_role.name
   policy_arn = aws_iam_policy.karpenter_controller_policy.arn
 }
 
