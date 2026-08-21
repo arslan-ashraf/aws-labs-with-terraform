@@ -7,30 +7,21 @@ resource "helm_release" "karpenter" {
   create_namespace = false
 
   set = [
-    # EKS Cluster Name
     {
     name  = "settings.clusterName"
-    value = data.terraform_remote_state.eks.outputs.eks_cluster_name
+    value = var.eks_cluster_name
     },
-    # EKS Cluster Endpoint
     {
     name  = "settings.clusterEndpoint"
-    value = data.terraform_remote_state.eks.outputs.eks_cluster_endpoint
+    value = aws_eks_cluster.example_eks_cluster.endpoint
     },
-    # Interruption Queue
-    {
-    name  = "settings.interruptionQueue"
-    value = aws_sqs_queue.karpenter_interruption.name
-    },    
-    # This is the only required one
-    {
-      name  = "serviceAccount.name"
-      value = "karpenter"
-    },
-    # Karpenter ServiceAccount
     {
       name  = "serviceAccount.create"
       value = "true"
+    },
+    {
+      name  = "serviceAccount.name"
+      value = "karpenter-sa"
     }
   ]
 
