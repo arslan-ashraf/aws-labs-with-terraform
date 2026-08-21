@@ -4,9 +4,16 @@ resource "aws_security_group" "security_group_public_traffic" {
   tags   = { Name = "sg-for-public-traffic" }
 }
 
-resource "aws_vpc_security_group_egress_rule" "egress_internet_rule" {
+resource "aws_vpc_security_group_egress_rule" "egress_internet_ipv4_rule" {
   security_group_id = aws_security_group.security_group_public_traffic.id
   cidr_ipv4         = "0.0.0.0/0" # where the traffic is going
+
+  ip_protocol = "-1"
+}
+
+resource "aws_vpc_security_group_egress_rule" "egress_internet_ipv6_rule" {
+  security_group_id = aws_security_group.security_group_public_traffic.id
+  cidr_ipv6         = "::/0" # where the traffic is going
 
   ip_protocol = "-1"
 }
