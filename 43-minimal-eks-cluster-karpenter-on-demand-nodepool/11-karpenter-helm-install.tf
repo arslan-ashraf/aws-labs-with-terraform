@@ -28,11 +28,9 @@ resource "helm_release" "karpenter" {
   # IMPORTANT: Ensure IAM role and Pod Identity are created
   # BEFORE Helm deploys Karpenter
   depends_on = [
-    aws_iam_role.karpenter_controller,
-    aws_iam_policy.karpenter_controller,
+    aws_iam_role.karpenter_controller_role,
     aws_iam_role_policy_attachment.karpenter_controller_attach,
-    aws_eks_pod_identity_association.karpenter,
+    aws_eks_pod_identity_association.karpenter_PIA,
     aws_eks_access_entry.karpenter_node_access,
-    aws_sqs_queue.karpenter_interruption
   ]  
 }
