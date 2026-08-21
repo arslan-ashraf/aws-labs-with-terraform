@@ -13,7 +13,7 @@ resource "aws_network_acl_rule" "allow_http_inbound" {
 # allow inbound HTTPS traffic on port 443
 resource "aws_network_acl_rule" "allow_https_inbound" {
   network_acl_id = aws_network_acl.nacl_for_public_subnet.id
-  rule_number    = 200
+  rule_number    = 300
   egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
@@ -24,7 +24,7 @@ resource "aws_network_acl_rule" "allow_https_inbound" {
 
 resource "aws_network_acl_rule" "allow_ssh_inbound" {
   network_acl_id = aws_network_acl.nacl_for_public_subnet.id
-  rule_number    = 400
+  rule_number    = 500
   egress         = false
   protocol       = "tcp"
   rule_action    = "allow"
@@ -35,7 +35,7 @@ resource "aws_network_acl_rule" "allow_ssh_inbound" {
 
 resource "aws_network_acl_rule" "block_ipv4_inbound" {
   network_acl_id = aws_network_acl.nacl_for_public_subnet.id
-  rule_number    = 500
+  rule_number    = 700
   egress         = false
   protocol       = "tcp"
   rule_action    = "deny"
@@ -46,7 +46,7 @@ resource "aws_network_acl_rule" "block_ipv4_inbound" {
 
 resource "aws_network_acl_rule" "block_ipv6_inbound" {
   network_acl_id  = aws_network_acl.nacl_for_public_subnet.id
-  rule_number     = 600
+  rule_number     = 900
   egress          = false
   protocol        = "tcp"
   rule_action     = "deny"
