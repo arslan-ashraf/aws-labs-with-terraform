@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "karpenter_node_trust_policy" {
       type        = "Service"
       identifiers = ["ec2.amazonaws.com"]
     }
-    
+
     actions = ["sts:AssumeRole"]
   }
 }
@@ -16,7 +16,7 @@ resource "aws_iam_role" "karpenter_node_role" {
   assume_role_policy = data.aws_iam_policy_document.karpenter_node_trust_policy.json
 }
 
-resource "aws_iam_role_policy_attachment" "node_base_policies" {
+resource "aws_iam_role_policy_attachment" "karpenter_node_policies_attach" {
   for_each = toset([
     "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
