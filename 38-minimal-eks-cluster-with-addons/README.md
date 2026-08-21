@@ -19,19 +19,19 @@ Then we will test each addon by deploying various K8s objects.  Each yaml file i
 aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
 ```
 
-2. Create the production namespace:
+4. Create the production namespace:
 
 ```
 kubectl apply -f kubernetes-files/production-namespace.yaml
 ```
 
-3. Change into the production namespace so all kubectl commands are applied from there:
+5. Change into the production namespace so all kubectl commands are applied from there:
 
 ```
 kubectl config set-context --current --namespace=production
 ```
 
-4. Perform tests layed out above.
+5. Perform tests layed out above.
 
 ## Pod Identity Agent Test 
 

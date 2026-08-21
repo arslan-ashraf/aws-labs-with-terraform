@@ -8,17 +8,30 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files in each directory to start testing.
 
-First create the production namespace:
+
+1. Create a secret in Secrets Manager with the name `my-secret` and key with the name `MY_NGINX_PASSWORD` and any arbitrary password. 
+
+2. Run the Terraform config.
+
+3. Apply the Terraform config and configure the local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
+
+```
+aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
+```
+
+2. Create the production namespace:
 
 ```
 kubectl apply -f kubernetes-files/production-namespace.yaml
 ```
 
-Then change into the production namespace so all kubectl commands are applied from there:
+3. Change into the production namespace so all kubectl commands are applied from there:
 
 ```
 kubectl config set-context --current --namespace=production
 ```
+
+4. Perform tests layed out above.
 
 ## Pod Identity Agent Test 
 
