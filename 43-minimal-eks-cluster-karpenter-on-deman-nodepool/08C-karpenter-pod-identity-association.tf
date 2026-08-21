@@ -1,4 +1,4 @@
-resource "aws_eks_pod_identity_association" "karpenter" {
+resource "aws_eks_pod_identity_association" "karpenter_PIA" {
   cluster_name    = var.eks_cluster_name
   namespace       = "kube-system"
   service_account = "karpenter-sa"
