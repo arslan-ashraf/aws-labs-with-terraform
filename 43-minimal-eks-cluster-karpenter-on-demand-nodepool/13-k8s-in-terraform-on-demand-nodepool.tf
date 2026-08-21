@@ -1,9 +1,8 @@
 resource "kubernetes_manifest" "on_demand_nodepool" {
-
   depends_on = [
-    kubernetes_manifest.default_ec2nodeclass
+    kubernetes_manifest.example_ec2nodeclass
   ]
-  
+
   manifest = {
     apiVersion = "karpenter.sh/v1"
     kind       = "NodePool"
