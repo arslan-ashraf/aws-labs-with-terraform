@@ -1,3 +1,5 @@
+We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations to for pods in the EKS cluster to gain access to AWS services such as S3, EBS volumes and more.
+
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
 1. Pod Identity Agent
