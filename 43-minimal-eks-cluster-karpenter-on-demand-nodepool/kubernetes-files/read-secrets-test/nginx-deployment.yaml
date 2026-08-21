@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-secure-deployment
+  namespace: production
+  labels:
+    app: nginx-web-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-web-server
+  template:
+    metadata:
+      labels:
+        app: nginx-web-server
+    spec:
+      serviceAccountName: read-secrets-service-account # references service acount
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: secrets-in-aws-secrets-manager
+          mountPath: "/mnt/secrets"   # directory where secrets will appear in plain text files
+          readOnly: true
+      volumes:
+      - name: secrets-in-aws-secrets-manager
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "secrets-manager-provider" # references SecretProviderClass

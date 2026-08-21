@@ -1,13 +1,7 @@
-In this lab, we create a very basic AWS EKS cluster with only a single node in a public subnet to get the cluster up and running.
+We build on the previous lab by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations to for pods in the EKS cluster to gain access to AWS services such as S3, EBS volumes and more.
 
-Run the Terraform config and configure your local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
+Configure your local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
 
 ```
 aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
-```
-
-To see the worker nodes, run command and check the IP address of the EC2 instance:
-
-```
-kubectl get nodes -o wide
 ```
