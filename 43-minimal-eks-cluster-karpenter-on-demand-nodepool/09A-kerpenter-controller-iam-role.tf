@@ -1,3 +1,7 @@
+##############################################################
+# this is the role that Karpenter uses to provision the nodes
+##############################################################
+
 data "aws_iam_policy_document" "karpenter_controller_assume" {
   statement {
     effect = "Allow"
