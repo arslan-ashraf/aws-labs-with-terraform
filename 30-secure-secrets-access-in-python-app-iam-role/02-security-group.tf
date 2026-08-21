@@ -26,16 +26,9 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_python_server_rule" {
   ip_protocol = "tcp"
 }
 
-resource "aws_vpc_security_group_egress_rule" "egress_to_internet_ipv4_rule" {
+resource "aws_vpc_security_group_egress_rule" "egress_to_internet_rule" {
   security_group_id = aws_security_group.security_group_public_traffic.id
   cidr_ipv4         = "0.0.0.0/0" # where is the traffic going
-
-  ip_protocol = "-1"
-}
-
-resource "aws_vpc_security_group_egress_rule" "egress_internet_ipv6_rule" {
-  security_group_id = aws_security_group.security_group_public_traffic.id
-  cidr_ipv6         = "::/0" # where the traffic is going
 
   ip_protocol = "-1"
 }
