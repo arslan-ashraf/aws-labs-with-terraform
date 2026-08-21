@@ -1,3 +1,8 @@
+##################################################################
+# this is the role that EC2 instances (which have been provisioned
+# by Karpenter) use to find and become part of the EKS Cluster
+##################################################################
+
 data "aws_iam_policy_document" "karpenter_node_trust_policy" {
   statement {
     effect = "Allow"
