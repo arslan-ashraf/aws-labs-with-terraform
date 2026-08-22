@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-cd terraform-vpc-network
+cd /01-terraform-vpc-network
 
 terraform init
 
