@@ -1,8 +1,4 @@
 resource "kubernetes_manifest" "example_ec2_nodeclass" {
-  depends_on = [
-    helm_release.karpenter
-  ]
-
   manifest = {
     apiVersion = "karpenter.k8s.aws/v1"
     kind       = "EC2NodeClass"
@@ -20,7 +16,7 @@ resource "kubernetes_manifest" "example_ec2_nodeclass" {
         }
       ]
 
-      role = aws_iam_role.karpenter_node_role.arn
+      role = local.karpenter_node_role_arn
 
       subnetSelectorTerms = [
         {
