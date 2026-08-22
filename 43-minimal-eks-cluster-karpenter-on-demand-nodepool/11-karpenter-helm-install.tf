@@ -1,19 +1,19 @@
 resource "helm_release" "karpenter" {
-  name       = "karpenter"
-  repository = "oci://public.ecr.aws/karpenter"
-  chart      = "karpenter"
-  version    = "1.8.2"
-  namespace  = "kube-system"
+  name             = "karpenter"
+  repository       = "oci://public.ecr.aws/karpenter"
+  chart            = "karpenter"
+  version          = "1.8.2"
+  namespace        = "kube-system"
   create_namespace = false
 
   set = [
     {
-    name  = "settings.clusterName"
-    value = var.eks_cluster_name
+      name  = "settings.clusterName"
+      value = var.eks_cluster_name
     },
     {
-    name  = "settings.clusterEndpoint"
-    value = aws_eks_cluster.example_eks_cluster.endpoint
+      name  = "settings.clusterEndpoint"
+      value = aws_eks_cluster.example_eks_cluster.endpoint
     },
     {
       name  = "serviceAccount.create"
@@ -32,5 +32,5 @@ resource "helm_release" "karpenter" {
     aws_iam_role_policy_attachment.karpenter_controller_attach,
     aws_eks_pod_identity_association.karpenter_PIA,
     aws_eks_access_entry.karpenter_node_access,
-  ]  
+  ]
 }

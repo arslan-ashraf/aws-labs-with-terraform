@@ -52,7 +52,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
             {
               key      = "topology.kubernetes.io/zone"
               operator = "In"
-              values   = [
+              values = [
                 "us-east-1a",
                 "us-east-1b"
               ]

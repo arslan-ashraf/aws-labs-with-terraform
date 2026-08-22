@@ -137,7 +137,7 @@ data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
     condition {
       test     = "StringEquals"
       variable = "ec2:CreateAction"
-      values   = [
+      values = [
         "RunInstances",
         "CreateFleet",
         "CreateLaunchTemplate",
@@ -293,7 +293,7 @@ data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
 
     actions = [
       "sqs:DeleteMessage",
-      "sqs:GetQueueAttributes", 
+      "sqs:GetQueueAttributes",
       "sqs:GetQueueUrl",
       "sqs:ReceiveMessage",
     ]

@@ -14,7 +14,7 @@ data "aws_iam_policy_document" "karpenter_controller_assume" {
     actions = [
       "sts:AssumeRole",
       "sts:TagSession"
-    ]  
+    ]
   }
 }
 

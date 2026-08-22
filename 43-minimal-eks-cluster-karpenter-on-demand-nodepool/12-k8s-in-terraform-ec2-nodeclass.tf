@@ -22,7 +22,7 @@ resource "kubernetes_manifest" "example_ec2nodeclass" {
         {
           tags = {
             "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"
-            "kubernetes.io/role/elb"           = "1"
+            "kubernetes.io/role/elb"                        = "1"
           }
         }
       ]
@@ -53,7 +53,7 @@ resource "kubernetes_manifest" "example_ec2nodeclass" {
       ]
 
       metadataOptions = {
-        httpTokens            = "required"
+        httpTokens              = "required"
         httpPutResponseHopLimit = 2
       }
     }

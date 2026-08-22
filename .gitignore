@@ -1,4 +1,4 @@
 setup.sh
 
-/36-nacl/.terraform*
-/36-nacl/terraform*
+/43-minimal-eks-cluster-karpenter-on-demand-nodepool/.terraform*
+/43-minimal-eks-cluster-karpenter-on-demand-nodepool/terraform*
