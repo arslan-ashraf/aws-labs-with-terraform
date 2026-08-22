@@ -303,7 +303,8 @@ data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
     ]
 
     resources = [
-      aws_sqs_queue.karpenter_interruption.arn,
+      "*"
+      # aws_sqs_queue.karpenter_interruption_queue.arn,
     ]
   }
 
@@ -319,7 +320,7 @@ data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
     ]
 
     resources = [
-      aws_iam_role.karpenter_node.arn,
+      aws_iam_role.karpenter_node_role.arn,
     ]
 
     condition {
