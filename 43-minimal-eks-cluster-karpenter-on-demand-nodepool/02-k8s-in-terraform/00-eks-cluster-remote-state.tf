@@ -1,4 +1,4 @@
-data "terraform_remote_state" "eks_cluster" {
+data "terraform_remote_state" "example_eks_cluster" {
   backend = "local"
 
   config = {
