@@ -1,10 +1,10 @@
 # Helm installation outputs
 output "helm_karpenter_metadata" {
-  description = "Metadata Block outlining status of the deployed Helm release."
   value = helm_release.karpenter.metadata
+  description = "Metadata Block outlining status of the deployed Helm release."
 }
 
-output "eks_cluster_endpoint" {
-  value       = aws_eks_cluster.example_eks_cluster.endpoint
-  description = "EKS API Server endpoint"
+output "karpenter_node_role_arn" {
+  value       = aws_iam_role.karpenter_node_role.arn
+  description = "karpenter node role ARN"
 }
