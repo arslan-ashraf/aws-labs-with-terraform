@@ -13,7 +13,7 @@ We will perform an S3 list buckets test in the EKS cluster to see if the EKS Pod
 3. Create the production namespace:
 
 ```
-kubectl apply -f kubernetes-files/production-namespace.yaml
+kubectl apply -f 03-kubernetes-files/production-namespace.yaml
 ```
 
 4. Then change into the production namespace so all kubectl commands are applied from there:
@@ -28,11 +28,11 @@ kubectl config set-context --current --namespace=production
 5. Test the Pod Identity Agent using the directory in `read-s3-test`, run the commands:
 
 ```
-kubectl apply -f kubernetes-files/read-s3-test/read-s3-service-account.yaml
+kubectl apply -f 03-kubernetes-files/read-s3-test/read-s3-service-account.yaml
 ```
 
 ```
-kubectl apply -f kubernetes-files/read-s3-test/aws-cli-pod.yaml
+kubectl apply -f 03-kubernetes-files/read-s3-test/aws-cli-pod.yaml
 ```
 
 ```
