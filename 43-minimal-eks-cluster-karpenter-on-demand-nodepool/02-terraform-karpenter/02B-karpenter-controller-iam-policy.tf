@@ -1,6 +1,6 @@
 resource "aws_iam_policy" "karpenter_controller_policy" {
   name   = "karpenter-controller-policy-permissions"
-  policy = data.aws_iam_policy_document.karpenter_controller_trust_policy.json
+  policy = data.aws_iam_policy_document.karpenter_controller_permissions.json
 }
 
 resource "aws_iam_role_policy_attachment" "karpenter_controller_attach" {
@@ -12,7 +12,7 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
+data "aws_iam_policy_document" "karpenter_controller_permissions" {
 
   # ---------------------------------------------------------------------------
   # AllowScopedEC2InstanceAccessActions

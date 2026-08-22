@@ -2,7 +2,7 @@
 # this is the role that Karpenter uses to provision the nodes
 ##############################################################
 
-data "aws_iam_policy_document" "karpenter_controller_assume" {
+data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
   statement {
     effect = "Allow"
 
@@ -20,5 +20,5 @@ data "aws_iam_policy_document" "karpenter_controller_assume" {
 
 resource "aws_iam_role" "karpenter_controller_role" {
   name               = "karpenter_controller_role"
-  assume_role_policy = data.aws_iam_policy_document.karpenter_controller_assume.json
+  assume_role_policy = data.aws_iam_policy_document.karpenter_controller_trust_policy.json
 }
