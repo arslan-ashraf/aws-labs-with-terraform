@@ -1,4 +1,7 @@
 setup.sh
 
-/43-minimal-eks-cluster-karpenter-on-demand-nodepool/.terraform*
-/43-minimal-eks-cluster-karpenter-on-demand-nodepool/terraform*
+/43-minimal-eks-cluster-karpenter-on-demand-nodepool/terraform-eks-cluster/.terraform*
+/43-minimal-eks-cluster-karpenter-on-demand-nodepool/terraform-eks-cluster/terraform*
+
+/43-minimal-eks-cluster-karpenter-on-demand-nodepool/terraform-eks-cluster/.terraform*
+/43-minimal-eks-cluster-karpenter-on-demand-nodepool/terraform-eks-cluster/terraform*
