@@ -1,10 +1,14 @@
-resource "kubernetes_manifest" "example_ec2nodeclass" {
+resource "kubernetes_manifest" "example_ec2_nodeclass" {
+  depends_on = [
+    helm_release.karpenter
+  ]
+
   manifest = {
     apiVersion = "karpenter.k8s.aws/v1"
     kind       = "EC2NodeClass"
 
     metadata = {
-      name = "example_ec2nodeclass"
+      name = "example_ec2_nodeclass"
     }
 
     spec = {
@@ -22,7 +26,7 @@ resource "kubernetes_manifest" "example_ec2nodeclass" {
         {
           tags = {
             "kubernetes.io/cluster/${local.eks_cluster_name}" = "owned"
-            "kubernetes.io/role/elb"                        = "1"
+            "kubernetes.io/role/elb"                          = "1"
           }
         }
       ]

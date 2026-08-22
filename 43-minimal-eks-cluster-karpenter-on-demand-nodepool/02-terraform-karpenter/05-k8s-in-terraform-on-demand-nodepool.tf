@@ -1,6 +1,7 @@
 resource "kubernetes_manifest" "on_demand_nodepool" {
   depends_on = [
-    kubernetes_manifest.example_ec2nodeclass
+    helm_release.karpenter,
+    kubernetes_manifest.example_ec2_nodeclass
   ]
 
   manifest = {

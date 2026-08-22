@@ -31,6 +31,7 @@ resource "helm_release" "karpenter" {
     aws_iam_role.karpenter_controller_role,
     aws_iam_role_policy_attachment.karpenter_controller_attach,
     aws_eks_pod_identity_association.karpenter_PIA,
+    aws_iam_role_policy_attachment.karpenter_node_policies_attach,
     aws_eks_access_entry.karpenter_node_access,
   ]
 }
