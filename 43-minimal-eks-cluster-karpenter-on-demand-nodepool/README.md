@@ -11,5 +11,5 @@ aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
 3. Apply the Karpenter autoscaling test:
 
 ```
-kubectl apply -f kubernetes-files/karpenter-on-demand-autoscaling-test.yaml
+kubectl apply -f 03-kubernetes-files/karpenter-on-demand-autoscaling-test.yaml
 ```

@@ -1,12 +1,12 @@
 #!/usr/bin/bash
 
-cd 01-terraform-vpc-network
+cd 01-terraform-eks-cluster
 
 terraform init
 
 terraform apply -auto-approve
 
-cd ../02-terraform-eks-cluster
+cd ../02-terraform-karpenter
 
 terraform init
 
