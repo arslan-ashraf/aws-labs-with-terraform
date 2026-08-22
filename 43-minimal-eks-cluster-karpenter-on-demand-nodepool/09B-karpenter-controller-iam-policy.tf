@@ -8,6 +8,10 @@ resource "aws_iam_role_policy_attachment" "karpenter_controller_attach" {
   policy_arn = aws_iam_policy.karpenter_controller_policy.arn
 }
 
+data "aws_caller_identity" "current" {}
+
+data "aws_region" "current" {}
+
 data "aws_iam_policy_document" "karpenter_controller_trust_policy" {
 
   # ---------------------------------------------------------------------------
