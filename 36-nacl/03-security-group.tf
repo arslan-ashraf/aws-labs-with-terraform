@@ -21,3 +21,13 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_ssh_rule" {
 
   ip_protocol = "tcp"
 }
+
+resource "aws_vpc_security_group_ingress_rule" "ingress_internet_rule" {
+  security_group_id = aws_security_group.security_group_public_traffic.id
+  cidr_ipv4         = "0.0.0.0/0" # where the is traffic coming from
+
+  from_port = 80
+  to_port   = 80
+
+  ip_protocol = "tcp"
+}

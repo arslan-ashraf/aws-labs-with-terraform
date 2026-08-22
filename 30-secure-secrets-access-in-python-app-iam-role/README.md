@@ -3,7 +3,7 @@ This lab is a continuation of the previous lab.  We run a basic Python server on
 
 To implement this lab, follow these steps:
 
-1. To run this Terraform lab.
+1. Run this Terraform lab.
 
 2. SSH into the EC2 instance and copy all the files in `basic-python-app` folder into the EC2 instance.
 

@@ -19,7 +19,7 @@ echo "###########################################################"
 
 # install Docker
 # add Docker's official GPG key:
-echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
+# echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
 sudo apt update -y
 sudo apt install ca-certificates curl -y
 sudo install -m 0755 -d /etc/apt/keyrings

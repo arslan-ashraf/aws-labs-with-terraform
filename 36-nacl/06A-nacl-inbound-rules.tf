@@ -40,7 +40,7 @@ resource "aws_network_acl_rule" "block_ipv4_inbound" {
   protocol       = "tcp"
   rule_action    = "deny"
   cidr_block     = "${var.ipv4_address_to_block}/32"
-  from_port      = 1024
+  from_port      = 0
   to_port        = 65535
 }
 
@@ -51,6 +51,17 @@ resource "aws_network_acl_rule" "block_ipv6_inbound" {
   protocol        = "tcp"
   rule_action     = "deny"
   ipv6_cidr_block = "${var.ipv6_address_to_block}/128"
-  from_port       = 1024
+  from_port       = 0
   to_port         = 65535
+}
+
+resource "aws_network_acl_rule" "allow_ephemeral_inbound" {
+  network_acl_id = aws_network_acl.nacl_for_public_subnet.id
+  rule_number    = 1100
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 1024
+  to_port        = 65535
 }
