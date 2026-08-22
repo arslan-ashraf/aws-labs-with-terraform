@@ -1,4 +1,4 @@
-data "terraform_remote_state" "vpc_network" {
+data "terraform_remote_state" "eks_cluster" {
   backend = "local"
 
   config = {

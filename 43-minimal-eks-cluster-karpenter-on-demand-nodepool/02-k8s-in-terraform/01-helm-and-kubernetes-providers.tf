@@ -22,7 +22,7 @@ provider "aws" {
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = aws_eks_cluster.example_eks_cluster.id
+  name = data.terraform_remote_state.example_eks_cluster.id
 }
 
 # connect Helm Terraform API to EKS cluster
