@@ -41,8 +41,8 @@ provider "helm" {
 # allows creation of Kubernetes resources using Terraform instead
 # of yaml files, this is only a best practice when Terraform results
 # need to be dynamically injected into a Kubernetes resource
-provider "kubernetes" {
-  host                   = local.eks_cluster_endpoint
-  cluster_ca_certificate = base64decode(local.certificate_authority)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
+# provider "kubernetes" {
+#   host                   = local.eks_cluster_endpoint
+#   cluster_ca_certificate = base64decode(local.certificate_authority)
+#   token                  = data.aws_eks_cluster_auth.cluster.token
+# }
