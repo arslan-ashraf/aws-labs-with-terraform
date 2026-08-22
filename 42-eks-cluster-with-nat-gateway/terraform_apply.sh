@@ -6,7 +6,7 @@ terraform init
 
 terraform apply -auto-approve
 
-cd ../terraform-eks-cluster
+cd ../02-terraform-eks-cluster
 
 terraform init
 
