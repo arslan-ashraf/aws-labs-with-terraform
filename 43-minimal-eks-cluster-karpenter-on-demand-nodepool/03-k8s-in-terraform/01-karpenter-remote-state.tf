@@ -7,8 +7,6 @@ data "terraform_remote_state" "karpenter" {
 }
 
 locals {
-  karpenter_outputs     = data.terraform_remote_state.karpenter.outputs
-  eks_cluster_endpoint  = local.cluster_outputs.eks_cluster_endpoint
-  eks_cluster_name      = local.cluster_outputs.eks_cluster_name
-  certificate_authority = local.cluster_outputs.eks_cluster_certificate_authority_data
+  karpenter_outputs       = data.terraform_remote_state.karpenter.outputs
+  karpenter_node_role_arn = karpenter_outputs.karpenter_node_role_arn
 }
