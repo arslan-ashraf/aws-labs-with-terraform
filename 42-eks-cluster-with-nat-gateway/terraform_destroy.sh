@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
-cd terraform-eks-cluster
+cd 02-terraform-eks-cluster
 
 terraform destroy -auto-approve
 
-cd ../terraform-vpc-network
+cd ../01-terraform-vpc-network
 
 terraform destroy -auto-approve
