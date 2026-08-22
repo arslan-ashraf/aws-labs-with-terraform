@@ -22,7 +22,7 @@ provider "aws" {
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = data.terraform_remote_state.example_eks_cluster.id
+  name = local.eks_cluster_name
 }
 
 # connect Helm Terraform API to EKS cluster
@@ -30,7 +30,7 @@ data "aws_eks_cluster_auth" "cluster" {
 # to install the load balancer controller
 provider "helm" {
   kubernetes = {
-    host                   = local.cluster_endpoint
+    host                   = local.eks_cluster_endpoint
     cluster_ca_certificate = base64decode(local.certificate_authority)
     token                  = data.aws_eks_cluster_auth.cluster.token
   }
@@ -42,7 +42,7 @@ provider "helm" {
 # of yaml files, this is only a best practice when Terraform results
 # need to be dynamically injected into a Kubernetes resource
 provider "kubernetes" {
-  host                   = local.cluster_endpoint
+  host                   = local.eks_cluster_endpoint
   cluster_ca_certificate = base64decode(local.certificate_authority)
   token                  = data.aws_eks_cluster_auth.cluster.token
 }

@@ -21,7 +21,7 @@ resource "kubernetes_manifest" "example_ec2nodeclass" {
       subnetSelectorTerms = [
         {
           tags = {
-            "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"
+            "kubernetes.io/cluster/${local.eks_cluster_name}" = "owned"
             "kubernetes.io/role/elb"                        = "1"
           }
         }
@@ -30,13 +30,13 @@ resource "kubernetes_manifest" "example_ec2nodeclass" {
       securityGroupSelectorTerms = [
         {
           tags = {
-            "kubernetes.io/cluster/${var.eks_cluster_name}" = "owned"
+            "kubernetes.io/cluster/${local.eks_cluster_name}" = "owned"
           }
         }
       ]
 
       tags = {
-        "karpenter.sh/discovery" = var.eks_cluster_name
+        "karpenter.sh/discovery" = local.eks_cluster_name
       }
 
       blockDeviceMappings = [

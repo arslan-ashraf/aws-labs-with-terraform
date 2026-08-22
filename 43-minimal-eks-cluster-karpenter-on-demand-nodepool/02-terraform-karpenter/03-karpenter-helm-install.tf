@@ -9,11 +9,11 @@ resource "helm_release" "karpenter" {
   set = [
     {
       name  = "settings.clusterName"
-      value = local.cluster_name
+      value = local.eks_cluster_name
     },
     {
       name  = "settings.clusterEndpoint"
-      value = local.cluster_endpoint
+      value = local.eks_cluster_endpoint
     },
     {
       name  = "serviceAccount.create"

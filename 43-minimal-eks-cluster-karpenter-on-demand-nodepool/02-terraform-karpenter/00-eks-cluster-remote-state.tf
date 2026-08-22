@@ -8,7 +8,7 @@ data "terraform_remote_state" "example_eks_cluster" {
 
 locals {
   cluster_outputs       = data.terraform_remote_state.example_eks_cluster.outputs
-  cluster_endpoint      = local.cluster_outputs.eks_cluster_endpoint
+  eks_cluster_endpoint  = local.cluster_outputs.eks_cluster_endpoint
+  eks_cluster_name      = local.cluster_outputs.eks_cluster_name
   certificate_authority = local.eks_cluster_certificate_authority_data
-  cluster_name          = local.cluster_outputs.eks_cluster_name
 }
