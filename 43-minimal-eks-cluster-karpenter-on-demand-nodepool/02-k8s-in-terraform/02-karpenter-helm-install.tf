@@ -9,7 +9,7 @@ resource "helm_release" "karpenter" {
   set = [
     {
       name  = "settings.clusterName"
-      value = local.cluster_outputs.eks_cluster_name
+      value = local.cluster_name
     },
     {
       name  = "settings.clusterEndpoint"
