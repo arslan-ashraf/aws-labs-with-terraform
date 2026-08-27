@@ -42,7 +42,7 @@ resource "kubernetes_manifest" "spot_nodepool" {
             {
               key      = "karpenter.k8s.aws/instance-family"
               operator = "In"
-              values   = ["t3", "t3a"]
+              values   = ["t3", "t3a", "t2", "c5a", "c6a"]
             },
             {
               key      = "karpenter.k8s.aws/instance-size"
