@@ -24,4 +24,4 @@ terraform init
 
 terraform fmt -recursive
 
-terraform apply # auto-approve
+terraform apply auto-approve

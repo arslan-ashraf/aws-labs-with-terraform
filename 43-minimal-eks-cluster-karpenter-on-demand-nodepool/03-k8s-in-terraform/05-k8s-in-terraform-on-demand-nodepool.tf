@@ -8,7 +8,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
     kind       = "NodePool"
 
     metadata = {
-      name = "on_demand_nodepool"
+      name = "on-demand-nodepool"
     }
 
     spec = {
@@ -17,7 +17,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
           nodeClassRef = {
             group = "karpenter.k8s.aws"
             kind  = "EC2NodeClass"
-            name  = "example_ec2nodeclass"
+            name  = "example-ec2-nodeclass"
           }
 
           taints        = []

@@ -4,7 +4,7 @@ resource "kubernetes_manifest" "example_ec2_nodeclass" {
     kind       = "EC2NodeClass"
 
     metadata = {
-      name = "example_ec2_nodeclass"
+      name = "example-ec2-nodeclass"
     }
 
     spec = {
