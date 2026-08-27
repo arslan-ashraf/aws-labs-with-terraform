@@ -14,16 +14,23 @@ aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
 kubectl apply -f 03-kubernetes-files/karpenter-on-demand-autoscaling-test.yaml
 ```
 
-
+```
 $ kubectl get ec2nodeclass
+```
+
+```
 NAME                    READY   AGE
 example-ec2-nodeclass   True    15m
+```
 
+```
+kubectl get nodepool
+```
 
-$ kubectl get nodepool
+```
 NAME                 NODECLASS               NODES   READY   AGE
 on-demand-nodepool   example-ec2-nodeclass   0       True    16m
-
+```
 
 
 ```
