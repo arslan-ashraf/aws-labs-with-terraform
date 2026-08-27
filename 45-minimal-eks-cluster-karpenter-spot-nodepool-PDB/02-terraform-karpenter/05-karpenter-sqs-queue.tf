@@ -29,17 +29,18 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
   statement {
     effect    = "Deny"
 
-    actions   = ["sqs:*"]   # allow GetObject action
+    actions   = ["sqs:*"]
     resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
 
     principals {
-      identifiers = "*"
+      type        = "*"
+      identifiers = ["*"]
     }
 
     condition {
       test     = "Bool"
       variable = "aws:SecureTransport"
-      values   = false
+      values   = ["false"]
     }
   }
 }
