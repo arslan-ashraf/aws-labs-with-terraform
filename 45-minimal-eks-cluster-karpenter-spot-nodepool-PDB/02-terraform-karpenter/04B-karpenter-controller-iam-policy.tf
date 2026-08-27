@@ -289,7 +289,7 @@ data "aws_iam_policy_document" "karpenter_controller_permissions" {
 
   # ---------------------------------------------------------------------------
   # AllowInterruptionQueueActions
-  # (assumes aws_sqs_queue.karpenter_interruption exists)
+  # (assumes aws_sqs_queue.karpenter_ec2_spot_interruption_queue exists)
   # ---------------------------------------------------------------------------
   statement {
     sid    = "AllowInterruptionQueueActions"
@@ -303,8 +303,7 @@ data "aws_iam_policy_document" "karpenter_controller_permissions" {
     ]
 
     resources = [
-      "*"
-      # aws_sqs_queue.karpenter_interruption_queue.arn,
+      aws_sqs_queue.karpenter_ec2_spot_interruption_queue.arn,
     ]
   }
 

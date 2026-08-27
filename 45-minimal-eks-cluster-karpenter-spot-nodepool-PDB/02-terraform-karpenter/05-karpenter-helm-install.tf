@@ -16,6 +16,10 @@ resource "helm_release" "karpenter" {
       value = local.eks_cluster_endpoint
     },
     {
+    name  = "settings.interruptionQueue"
+    value = aws_sqs_queue.karpenter_ec2_spot_interruption_queue.name
+    },
+    {
       name  = "serviceAccount.create"
       value = "true"
     },
