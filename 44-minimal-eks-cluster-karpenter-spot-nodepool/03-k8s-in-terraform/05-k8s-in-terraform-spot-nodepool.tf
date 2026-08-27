@@ -1,4 +1,4 @@
-resource "kubernetes_manifest" "on_demand_nodepool" {
+resource "kubernetes_manifest" "spot_nodepool" {
   depends_on = [
     kubernetes_manifest.example_ec2_nodeclass
   ]
@@ -8,7 +8,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
     kind       = "NodePool"
 
     metadata = {
-      name = "on-demand-nodepool"
+      name = "spot-nodepool"
     }
 
     spec = {
