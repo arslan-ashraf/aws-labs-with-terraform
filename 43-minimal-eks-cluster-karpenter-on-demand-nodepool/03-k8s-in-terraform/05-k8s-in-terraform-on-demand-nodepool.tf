@@ -64,6 +64,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
 
       disruption = {
         consolidationPolicy = "WhenEmptyOrUnderutilized"
+         # how long to wait before terminating instances
         consolidateAfter    = "30s"
       }
     }
