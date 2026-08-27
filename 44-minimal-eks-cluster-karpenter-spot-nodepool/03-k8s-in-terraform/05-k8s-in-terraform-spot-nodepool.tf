@@ -37,7 +37,7 @@ resource "kubernetes_manifest" "spot_nodepool" {
             {
               key      = "karpenter.sh/capacity-type"
               operator = "In"
-              values   = ["on-demand"]
+              values   = ["spot"]
             },
             {
               key      = "karpenter.k8s.aws/instance-family"
