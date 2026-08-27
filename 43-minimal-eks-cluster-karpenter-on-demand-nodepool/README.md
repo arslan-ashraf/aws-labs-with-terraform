@@ -98,3 +98,9 @@ and this should
 ```
 No resources found
 ```
+
+5. Cleanup and destroy AWS resources:
+
+```
+./terraform_destroy.sh
+```
