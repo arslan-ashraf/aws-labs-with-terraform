@@ -16,14 +16,26 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
   statement {
     effect    = "Allow"
 
+    actions   = ["sqs:SendMessage"]
+    resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
+
     principals {
       type        = "Service"
       identifiers = ["events.amazonaws.com"]
     }
 
-    actions   = ["sqs:SendMessage"]   # allow GetObject action
-    resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
+  }
 
+  statement {
+    effect    = "Deny"
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+
+    actions   = ["sqs:*"]   # allow GetObject action
+    resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
 
     # restricts the "allow" and "actions"
     condition {
