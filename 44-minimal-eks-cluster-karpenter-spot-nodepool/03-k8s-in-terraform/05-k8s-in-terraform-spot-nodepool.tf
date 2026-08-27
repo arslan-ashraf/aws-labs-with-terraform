@@ -65,6 +65,13 @@ resource "kubernetes_manifest" "spot_nodepool" {
       disruption = {
         consolidationPolicy = "WhenEmptyOrUnderutilized"
         consolidateAfter    = "30s"
+
+        budgets = [
+          {
+            nodes  = "100%" # allow all nodes to be disrupted if needed
+            reasons = ["Drifted", "Underutilized", "Empty"]
+          }
+        ]
       }
     }
   }
