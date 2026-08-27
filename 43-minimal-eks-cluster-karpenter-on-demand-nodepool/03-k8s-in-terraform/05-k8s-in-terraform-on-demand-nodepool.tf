@@ -58,6 +58,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
         }
       }
 
+      # cluster wide max scaling limit in vCPUs
       limits = {
         cpu = "50"
       }
