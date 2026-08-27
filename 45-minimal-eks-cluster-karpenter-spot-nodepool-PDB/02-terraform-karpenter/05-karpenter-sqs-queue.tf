@@ -16,7 +16,7 @@ resource "aws_sqs_queue_policy" "ec2_spot_interruption_queue" {
       {
         Effect = "Allow"
         Principal = {
-          Service = ["events.amazonaws.com", "sqs.amazonaws.com"]
+          Service = ["events.amazonaws.com"]
         }
         Action   = "sqs:SendMessage"
         Resource = aws_sqs_queue.ec2_spot_interruption_queue.arn
