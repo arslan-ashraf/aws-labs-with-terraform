@@ -13,3 +13,17 @@ aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
 ```
 kubectl apply -f 03-kubernetes-files/karpenter-on-demand-autoscaling-test.yaml
 ```
+
+
+
+
+
+```
+kubectl get nodeclaims -o wide
+```
+
+```
+NAME                       TYPE        CAPACITY    ZONE         NODE
+on-demand-nodepool-4sfj2   t3a.small   on-demand   us-east-1b   ip-10-0-2-114.e
+on-demand-nodepool-fv8s6   t3a.small   on-demand   us-east-1b   ip-10-0-2-146.e
+```
