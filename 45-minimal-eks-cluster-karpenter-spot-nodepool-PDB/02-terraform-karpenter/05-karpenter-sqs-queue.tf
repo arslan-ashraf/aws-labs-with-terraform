@@ -1,5 +1,5 @@
-resource "aws_sqs_queue" "ec2_spot_interruption_queue" {
-  name                      = "ec2_spot_interruption_queue_for_${local.eks_cluster_name}"
+resource "aws_sqs_queue" "karpenter_ec2_spot_interruption_queue" {
+  name                      = "karpenter_ec2_spot_interruption_queue_for_${local.eks_cluster_name}"
   
   # EC2 spot interruption is at most 2 minutes (120 seconds)
   # and then AWS will take those instances back, so we must respond
@@ -8,7 +8,7 @@ resource "aws_sqs_queue" "ec2_spot_interruption_queue" {
   sqs_managed_sse_enabled   = true
   fifo_queue                = false
 
-  tags = { Name = "ec2_spot_interruption_queue_for_${local.eks_cluster_name}" }
+  tags = { Name = "karpenter_ec2_spot_interruption_queue_for_${local.eks_cluster_name}" }
 }
 
 # define the resource based policy for the queue
@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
     effect    = "Allow"
 
     actions   = ["sqs:SendMessage"]
-    resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
+    resources = [aws_sqs_queue.karpenter_ec2_spot_interruption_queue.arn]
 
     principals {
       type        = "Service"
@@ -36,7 +36,7 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
     effect    = "Deny"
 
     actions   = ["sqs:*"]
-    resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
+    resources = [aws_sqs_queue.karpenter_ec2_spot_interruption_queue.arn]
 
     principals {
       type        = "*"
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
   }
 }
 
-resource "aws_sqs_queue_policy" "ec2_spot_interruption_queue" {
-  queue_url = aws_sqs_queue.ec2_spot_interruption_queue.url
+resource "aws_sqs_queue_policy" "karpenter_ec2_spot_interruption_queue" {
+  queue_url = aws_sqs_queue.karpenter_ec2_spot_interruption_queue.url
   policy = data.aws_iam_policy_document.sqs_resource_policy.json
 }
