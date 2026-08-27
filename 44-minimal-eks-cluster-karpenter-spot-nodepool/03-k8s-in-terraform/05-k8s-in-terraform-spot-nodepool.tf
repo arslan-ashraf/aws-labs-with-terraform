@@ -52,10 +52,7 @@ resource "kubernetes_manifest" "spot_nodepool" {
             {
               key      = "topology.kubernetes.io/zone"
               operator = "In"
-              values = [
-                "us-east-1a",
-                "us-east-1b"
-              ]
+              values = ["us-east-1a", "us-east-1b"]
             }
           ]
         }
