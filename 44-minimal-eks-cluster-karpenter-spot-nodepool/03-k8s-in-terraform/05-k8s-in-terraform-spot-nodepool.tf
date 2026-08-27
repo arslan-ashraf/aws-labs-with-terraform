@@ -64,7 +64,7 @@ resource "kubernetes_manifest" "spot_nodepool" {
 
       disruption = {
         consolidationPolicy = "WhenEmptyOrUnderutilized"
-        consolidateAfter    = "30s"
+        consolidateAfter    = "30s" # how long to wait before consolidating
 
         budgets = [
           {
