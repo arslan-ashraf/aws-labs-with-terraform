@@ -8,5 +8,5 @@ data "terraform_remote_state" "karpenter" {
 
 locals {
   karpenter_outputs       = data.terraform_remote_state.karpenter.outputs
-  karpenter_node_role_arn = karpenter_outputs.karpenter_node_role_arn
+  karpenter_node_role_arn = local.karpenter_outputs.karpenter_node_role_arn
 }
