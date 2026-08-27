@@ -92,8 +92,10 @@ To see something like this:
 
 ```
 {"level":"ERROR","time":"2026-08-27T20:09:44.386Z","logger":"controller","message":"could not schedule pod","commit":"f913f41","controller":"provisioner","namespace":"","name":"","reconcileID":"d142ec5a-6ed6-4b34-a3af-821a7ad3c70a","Pod":{"name":"karpenter-autoscale-spot-test-5d6d65cd9b-mm9x7","namespace":"default"},"error":"nodepool requirements filtered out all available instance types"}
+
 {"level":"ERROR","time":"2026-08-27T20:09:44.386Z","logger":"controller","message":"could not schedule pod","commit":"f913f41","controller":"provisioner","namespace":"","name":"","reconcileID":"d142ec5a-6ed6-4b34-a3af-821a7ad3c70a","Pod":{"name":"karpenter-autoscale-spot-test-5d6d65cd9b-hhrld","namespace":"default"},"error":"nodepool requirements filtered out all available instance types"}
-{"level":"ERROR","time":"2026-08-27T20:09:44.386Z","logger":"controller","message":"could not schedule pod","commit":"f913f41","controller":"provisioner","namespace":"","name":"","reconcileID":"d142ec5a-6ed6-4b34-a3af-821a7ad3c70a","Pod":{"name":"karpenter-autoscale-spot-test-5d6d65cd9b-cmpb2","namespace":"
+
+{"level":"ERROR","time":"2026-08-27T20:09:44.386Z","logger":"controller","message":"could not schedule pod","commit":"f913f41","controller":"provisioner","namespace":"","name":"","reconcileID":"d142ec5a-6ed6-4b34-a3af-821a7ad3c70a","Pod":{"name":"karpenter-autoscale-spot-test-5d6d65cd9b-cmpb2","namespace":default"},"error":"nodepool requirements filtered out all available instance types"}
 ```
 
 4. Delete the deployment pods 
