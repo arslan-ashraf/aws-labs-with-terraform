@@ -1,7 +1,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: spot-test-app-pdb
+  name: spot-test-pod-disruption-budget
   namespace: default
 spec:
   minAvailable: 3  # allow 2 out of 5 pods to be evicted at once
