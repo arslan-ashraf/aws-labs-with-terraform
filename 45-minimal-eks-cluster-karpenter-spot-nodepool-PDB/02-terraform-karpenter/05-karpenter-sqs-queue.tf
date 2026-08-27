@@ -27,9 +27,7 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
     condition {
       test     = "ArnEquals"
       variable = "aws:SourceArn"
-      values   = [
-        aws_cloudwatch_event_rule.karpenter_spot_interruption.arn
-      ]
+      values   = [aws_cloudwatch_event_rule.karpenter_spot_interruption.arn]
     }
 
   }
