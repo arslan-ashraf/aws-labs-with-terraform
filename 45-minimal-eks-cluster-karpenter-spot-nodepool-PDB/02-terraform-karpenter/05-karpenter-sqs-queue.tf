@@ -6,6 +6,9 @@ resource "aws_sqs_queue" "ec2_spot_interruption_queue" {
   # in at most 120 seconds or else the message is meaningless
   message_retention_seconds = 120 # seconds
   sqs_managed_sse_enabled   = true
+  fifo_queue                = false
+
+  tags = { Name = "ec2_spot_interruption_queue_for_${local.eks_cluster_name}" }
 }
 
 resource "aws_sqs_queue_policy" "ec2_spot_interruption_queue" {
