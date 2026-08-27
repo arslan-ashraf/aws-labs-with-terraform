@@ -1,17 +1,15 @@
-This is a continuation of lab 38.  We remove all of the addons except for Pod Identity Agent which is always necessary for pods to have permission to call AWS APIs and we also install Karpenter in the EKS cluster so we can provision the worker nodes dynamically to perform autoscaling.
+This lab uses lab 38 as base.  We remove all of the addons except for Pod Identity Agent which is always necessary for pods to have IAM permissions to call the necessary AWS APIs and we also install Karpenter in the EKS cluster so we can provision the worker nodes dynamically to perform autoscaling.
 
-1. Run the Terraform config.
-
-2. Apply the Terraform config and configure the local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
+1. Run the Terraform config using the script:
 
 ```
-aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
+./terraform_apply.sh
 ```
 
-3. Apply the Karpenter autoscaling test:
+2. Apply the Karpenter autoscaling test:
 
 ```
-kubectl apply -f 03-kubernetes-files/karpenter-on-demand-autoscaling-test.yaml
+kubectl apply -f 04-kubernetes-files
 ```
 
 ```
