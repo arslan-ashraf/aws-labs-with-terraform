@@ -39,7 +39,7 @@ variable "cluster_endpoint_public_access_cidrs" {
 variable "worker_node_instance_type" {
   description = "List of EC2 instance types for the node group"
   type        = string
-  default     = "t3a.medium" # or t3.medium
+  default     = "t3.medium" # or t3a.medium
 }
 
 # capacity type for node group (ON_DEMAND or SPOT)

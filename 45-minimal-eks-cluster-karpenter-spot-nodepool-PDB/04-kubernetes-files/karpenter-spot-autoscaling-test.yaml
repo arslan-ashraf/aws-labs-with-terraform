@@ -1,29 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: karpenter-autoscale-spot-test
-  labels:
-    test: karpenter-spot
+  name: spot-test-app
+  namespace: default
 spec:
-  replicas: 5  # 5 pods with 0.5 vCPU each requires about 2.5 vCPUs
+  replicas: 5
   selector:
     matchLabels:
-      app: autoscale-test
+      app: spot-test
   template:
     metadata:
       labels:
-        app: autoscale-test
+        app: spot-test
     spec:
-      # force pods to run on spot nodes
       nodeSelector:
+        # force pods to run on spot nodes
         karpenter.sh/capacity-type: spot
+      terminationGracePeriodSeconds: 30   # allow graceful shutdown
       containers:
-        - name: pause
-          image: public.ecr.aws/eks-distro/kubernetes/pause:3.9
-          resources:
-            requests:
-              cpu: "500m"       # 0.5 vCPU per pod
-              memory: "256Mi"   # 256MB per pod
-            limits:
-              cpu: "500m"
-              memory: "256Mi"
+      - name: nginx
+        image: nginx:alpine
+        ports: 
+          - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi

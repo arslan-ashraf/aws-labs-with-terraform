@@ -24,11 +24,11 @@ data "aws_iam_policy_document" "sqs_resource_policy" {
       identifiers = ["events.amazonaws.com"]
     }
 
-    condition {
-      test     = "ArnEquals"
-      variable = "aws:SourceArn"
-      values   = [aws_cloudwatch_event_rule.karpenter_spot_interruption.arn]
-    }
+    # condition {
+    #   test     = "ArnEquals"
+    #   variable = "aws:SourceArn"
+    #   values   = [aws_cloudwatch_event_rule.karpenter_spot_interruption.arn]
+    # }
 
   }
 
