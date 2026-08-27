@@ -1,9 +1,13 @@
 #!/usr/bin/bash
 
-cd 02-terraform-eks-cluster
+cd 03-k8s-in-terraform
 
 terraform destroy -auto-approve
 
-cd ../01-terraform-vpc-network
+cd ../02-terraform-karpenter
+
+terraform destroy -auto-approve
+
+cd ../01-terraform-eks-cluster
 
 terraform destroy -auto-approve
