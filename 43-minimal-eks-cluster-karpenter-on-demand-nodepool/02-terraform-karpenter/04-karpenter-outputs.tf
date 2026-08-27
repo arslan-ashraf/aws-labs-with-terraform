@@ -1,6 +1,6 @@
 # Helm installation outputs
 output "helm_karpenter_metadata" {
-  value = helm_release.karpenter.metadata
+  value       = helm_release.karpenter.metadata
   description = "Metadata Block outlining status of the deployed Helm release."
 }
 

@@ -26,6 +26,7 @@ output "eks_cluster_name" {
 # its needed when setting up kubeconfig or accessing EKS via API
 output "eks_cluster_certificate_authority_data" {
   value       = aws_eks_cluster.example_eks_cluster.certificate_authority[0].data
+  sensitive   = true  # only hides from output logs but still present in state file
   description = "Base64 encoded CA certificate for kubectl config"
 }
 
