@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: karpenter-autoscale-on-demand-test
+  name: karpenter-autoscale-spot-test
   labels:
-    test: karpenter-on-demand
+    test: karpenter-spot
 spec:
-  replicas: 5
+  replicas: 5  # 5 pods with 0.5 vCPU each requires about 2.5 vCPUs
   selector:
     matchLabels:
       app: autoscale-test
@@ -14,7 +14,7 @@ spec:
       labels:
         app: autoscale-test
     spec:
-      # force pods to on-demand nodes
+      # force pods to run on spot nodes
       nodeSelector:
         karpenter.sh/capacity-type: spot
       containers:
@@ -22,8 +22,8 @@ spec:
           image: public.ecr.aws/eks-distro/kubernetes/pause:3.9
           resources:
             requests:
-              cpu: "500m"
-              memory: "256Mi"  
+              cpu: "500m"       # 0.5 vCPU per pod
+              memory: "256Mi"   # 256MB per pod
             limits:
               cpu: "500m"
               memory: "256Mi"
