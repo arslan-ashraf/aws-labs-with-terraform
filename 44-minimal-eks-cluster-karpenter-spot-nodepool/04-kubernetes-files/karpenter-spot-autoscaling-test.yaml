@@ -16,7 +16,7 @@ spec:
     spec:
       # force pods to on-demand nodes
       nodeSelector:
-        karpenter.sh/capacity-type: on-demand      
+        karpenter.sh/capacity-type: spot
       containers:
         - name: pause
           image: public.ecr.aws/eks-distro/kubernetes/pause:3.9

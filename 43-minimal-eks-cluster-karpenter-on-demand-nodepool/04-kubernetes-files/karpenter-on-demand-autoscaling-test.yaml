@@ -22,8 +22,8 @@ spec:
           image: public.ecr.aws/eks-distro/kubernetes/pause:3.9
           resources:
             requests:
-              cpu: "500m"
-              memory: "256Mi"  
+              cpu: "500m"       # 0.5 vCPU per pod
+              memory: "256Mi"   # 256MB per pod
             limits:
               cpu: "500m"
               memory: "256Mi"
