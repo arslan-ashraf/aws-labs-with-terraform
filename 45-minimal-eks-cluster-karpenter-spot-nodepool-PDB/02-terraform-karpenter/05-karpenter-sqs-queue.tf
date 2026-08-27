@@ -11,6 +11,29 @@ resource "aws_sqs_queue" "ec2_spot_interruption_queue" {
   tags = { Name = "ec2_spot_interruption_queue_for_${local.eks_cluster_name}" }
 }
 
+# define the resource based policy for the queue
+data "aws_iam_policy_document" "sqs_resource_policy" {
+  statement {
+    effect    = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+
+    actions   = ["sqs:SendMessage"]   # allow GetObject action
+    resources = [aws_sqs_queue.ec2_spot_interruption_queue.arn]
+
+
+    # restricts the "allow" and "actions"
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn" # but only if the sourceArn of the principal, ie: CloudFront's Arn
+      values   = [aws_cloudfront_distribution.s3_ec2_group_distribution.arn] # has this arn
+    }
+  }
+}
+
 resource "aws_sqs_queue_policy" "ec2_spot_interruption_queue" {
   queue_url = aws_sqs_queue.ec2_spot_interruption_queue.url
   policy = jsonencode({
