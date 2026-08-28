@@ -66,11 +66,11 @@ resource "kubernetes_manifest" "spot_nodepool" {
       disruption = {
         consolidationPolicy = "WhenEmptyOrUnderutilized"
         # how long to wait before terminating instances
-        consolidateAfter    = "30s"
+        consolidateAfter = "30s"
 
         budgets = [
           {
-            nodes  = "100%" # allow all nodes to be disrupted if needed
+            nodes   = "100%" # allow all nodes to be disrupted if needed
             reasons = ["Drifted", "Underutilized", "Empty"]
           }
         ]

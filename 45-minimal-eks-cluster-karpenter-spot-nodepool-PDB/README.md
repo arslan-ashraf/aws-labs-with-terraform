@@ -76,6 +76,37 @@ spot-nodepool-4sfj2   	   t3a.small   spot     	us-east-1b   ip-10-0-2-114.e
 spot-nodepool-fv8s6   	   t3a.small   spot     	us-east-1b   ip-10-0-2-146.e
 ```
 
+5. Simulate AWS spot interruption - we will send a message to the SQS queue which will be of the same type that AWS sends when it wants to take back a spot instance:
+
+Get the spot instance ID from command:
+```
+kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
+```
+
+Get the SQS queue URL and send interruption message:
+```
+aws sqs send-message \
+  --queue-url "$QUEUE_URL" \
+  --message-body "{
+    \"version\": \"0\",
+    \"id\": \"test-interrupt-$(date +%s)\",
+    \"detail-type\": \"EC2 Spot Instance Interruption Warning\",
+    \"source\": \"aws.ec2\",
+    \"account\": \"123456789012\",
+    \"time\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",
+    \"region\": \"us-east-1\",
+    \"resources\": [
+      \"arn:aws:ec2:us-east-1:123456789012:instance/$SPOT_INSTANCE_ID\"
+    ],
+    \"detail\": {
+      \"instance-id\": \"$SPOT_INSTANCE_ID\",
+      \"instance-action\": \"terminate\"
+    }
+  }"
+```
+
+
+
 4. Delete the deployment pods 
 
 ```

@@ -1,6 +1,6 @@
 # AWS Health Events
 resource "aws_cloudwatch_event_rule" "karpenter_health_event" {
-  name          = "${local.eks_cluster_name}_aws_health_events"
+  name = "${local.eks_cluster_name}_aws_health_events"
   event_pattern = jsonencode({
     source        = ["aws.health"]
     "detail-type" = ["AWS Health Event"]
@@ -18,9 +18,9 @@ resource "aws_cloudwatch_event_target" "karpenter_health_event_target" {
 
 # EC2 Spot Interruption Warning
 resource "aws_cloudwatch_event_rule" "karpenter_ec2_spot_interrupt" {
-  name          = "${local.eks_cluster_name}-ec2-spot-interruption-warning"
+  name = "${local.eks_cluster_name}-ec2-spot-interruption-warning"
   event_pattern = jsonencode({
-    source       = ["aws.ec2"]
+    source        = ["aws.ec2"]
     "detail-type" = ["EC2 Spot Instance Interruption Warning"]
   })
 
@@ -36,9 +36,9 @@ resource "aws_cloudwatch_event_target" "karpenter_ec2_spot_target" {
 
 # EC2 instance rebalance
 resource "aws_cloudwatch_event_rule" "karpenter_ec2_instance_rebalance" {
-  name          = "${local.eks_cluster_name}_karpenter_ec2_instance_rebalance"
+  name = "${local.eks_cluster_name}_karpenter_ec2_instance_rebalance"
   event_pattern = jsonencode({
-    source       = ["aws.ec2"]
+    source        = ["aws.ec2"]
     "detail-type" = ["EC2 Instance Rebalance"]
   })
 
@@ -54,9 +54,9 @@ resource "aws_cloudwatch_event_target" "karpenter_ec2_rebalance_target" {
 
 # EC2 instance state change notification
 resource "aws_cloudwatch_event_rule" "karpenter_ec2_instance_state" {
-  name        = "${local.eks_cluster_name}_karpenter_ec2_instance_state"
+  name = "${local.eks_cluster_name}_karpenter_ec2_instance_state"
   event_pattern = jsonencode({
-    source       = ["aws.ec2"]
+    source        = ["aws.ec2"]
     "detail-type" = ["EC2 Instance State-change Notification"]
   })
 
