@@ -1,4 +1,6 @@
-This lab uses lab 38 as base.  We remove all of the addons except for Pod Identity Agent which is always necessary for pods to have IAM permissions to call the necessary AWS APIs and we also install Karpenter in the EKS cluster so we can provision the worker nodes dynamically to perform autoscaling.
+This lab uses lab 38 as base and builds on lab 44.  This time we use Pod Disruption Budget to ensure our application running on spot instances has zero downtime.  We will ensure this with EventBridge rules and an SQS queue.
+
+When AWS wants to take back spot instances, it sends messages which we can pick using EventBridge rules and send them to the SQS queue.
 
 1. Run the Terraform config using the script:
 
