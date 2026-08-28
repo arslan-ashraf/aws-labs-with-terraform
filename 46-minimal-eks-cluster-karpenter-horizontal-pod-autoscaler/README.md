@@ -1,4 +1,8 @@
-This lab uses lab 38 as base.  We remove all of the addons except for Pod Identity Agent which is always necessary for pods to have IAM permissions to call the necessary AWS APIs and we also install Karpenter in the EKS cluster so we can provision the worker nodes dynamically to perform autoscaling.
+This lab uses lab 43 as base.  This time we implement **Pod Disruption Budget** along with **Horizontal Pod Autoscaler**.  Previously, we were manually running a test K8s deployment in `04-kubernetes-files` where the number of extra pods was known in advance and Karpenter was provisioning the compute to schedule those pods.
+
+But in production, traffic scales with users so we don't know how many pods we need in advance.  This is where the HPA or **Horizontal Pod Autoscaler** comes in.  HPA queries the **Metrics Server** which continuously collects metrics about pods and other things and HPA polls the Metrics Server every 15 seconds by default.
+
+HPA then determines whether we need more or less pods and Karpenter then provisions or deprovisions compute to serve the required pods.
 
 1. Run the Terraform config using the script:
 
