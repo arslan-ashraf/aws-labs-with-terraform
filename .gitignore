@@ -1,10 +1,10 @@
 setup.sh
 
-/45-minimal-eks-cluster-karpenter-spot-nodepool-PDB/01-terraform-eks-cluster/.terraform*
-/45-minimal-eks-cluster-karpenter-spot-nodepool-PDB/01-terraform-eks-cluster/terraform*
+/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/01-terraform-eks-cluster/.terraform*
+/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/01-terraform-eks-cluster/terraform*
 
-/45-minimal-eks-cluster-karpenter-spot-nodepool-PDB/02-terraform-karpenter/.terraform*
-/45-minimal-eks-cluster-karpenter-spot-nodepool-PDB/02-terraform-karpenter/terraform*
+/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/02-terraform-karpenter/.terraform*
+/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/02-terraform-karpenter/terraform*
 
-/45-minimal-eks-cluster-karpenter-spot-nodepool-PDB/03-k8s-in-terraform/.terraform*
-/45-minimal-eks-cluster-karpenter-spot-nodepool-PDB/03-k8s-in-terraform/terraform*
+/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/03-k8s-in-terraform/.terraform*
+/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/03-k8s-in-terraform/terraform*
