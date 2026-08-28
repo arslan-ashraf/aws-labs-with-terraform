@@ -27,7 +27,7 @@ resource "kubernetes_manifest" "spot_nodepool" {
             {
               key      = "kubernetes.io/arch"
               operator = "In"
-              values   = ["amd64", "arm64"]
+              values   = ["amd64"]
             },
             {
               key      = "kubernetes.io/os"

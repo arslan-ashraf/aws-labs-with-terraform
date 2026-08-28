@@ -1,3 +1,7 @@
+resource "aws_iam_service_linked_role" "ec2_spot" {
+  aws_service_name = "spot.amazonaws.com"
+}
+
 resource "aws_iam_policy" "karpenter_controller_policy" {
   name   = "karpenter-controller-policy-permissions"
   policy = data.aws_iam_policy_document.karpenter_controller_permissions.json
