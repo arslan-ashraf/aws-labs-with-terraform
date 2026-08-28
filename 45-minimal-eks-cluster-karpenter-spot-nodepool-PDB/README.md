@@ -141,7 +141,21 @@ kubectl get nodes -l karpenter.sh/capacity-type=spot -w
 
 This should show something like:
 ```
-{"level":"INFO","time":"2026-08-28T20:11:37.379Z","logger":"controller","message":"initiating delete from interruption message","commit":"f913f41","controller":"interruption","namespace":"","name":"","reconcileID":"e6294c15-ad3d-492f-8f15-f149e5406dd9","queue":"karpenter_ec2_spot_interruption_queue_for_example_eks_cluster","messageKind":"spot_interrupted","NodeClaim":{"name":"spot-nodepool-7lqht"},"action":"CordonAndDrain","Node":{"name":"ip-10-0-1-33.ec2.internal"}}
+{"level":"INFO",
+ "time":"2026-08-28T20:11:37.379Z",
+  "logger":"controller",
+  "message":"initiating delete from interruption message",
+  "commit":"f913f41",
+  "controller":"interruption",
+  "namespace":"",
+  "name":"",
+  "reconcileID":"e6294c15-ad3d-492f-8f15-f149e5406dd9",
+  "queue":"karpenter_ec2_spot_interruption_queue_for_example_eks_cluster",
+  "messageKind":"spot_interrupted",
+  "NodeClaim":{"name":"spot-nodepool-7lqht"},
+  "action":"CordonAndDrain",
+  "Node":{"name":"ip-10-0-1-33.ec2.internal"}
+}
 ```
 
 
