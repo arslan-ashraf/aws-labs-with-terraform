@@ -85,6 +85,50 @@ spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.intern
 
 # Open four terminal windows and run each command in each terminal
 
+Window 1. See spot nodes provisioned by Karpenter:
+```
+kubectl get nodes -l karpenter.sh/capacity-type=spot -w
+```
+
+Window 2. See the nodeclaims:
+```
+kubectl get nodeclaims -w
+```
+
+Window 3. See pods being moved from one spot node to another:
+```
+kubectl get pods -l app=spot-test -o wide -w
+```
+
+Window 4. Get the spot instance ID from command:
+```
+kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
+```
+
+6. Get the SQS queue URL, save them in environment variables and send the interruption message:
+```
+aws sqs send-message \
+  --queue-url "$QUEUE_URL" \
+  --message-body "{
+    \"version\": \"0\",
+    \"id\": \"test-interrupt-$(date +%s)\",
+    \"detail-type\": \"EC2 Spot Instance Interruption Warning\",
+    \"source\": \"aws.ec2\",
+    \"account\": \"123456789012\",
+    \"time\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",
+    \"region\": \"us-east-1\",
+    \"resources\": [
+      \"arn:aws:ec2:us-east-1:123456789012:instance/$SPOT_INSTANCE_ID\"
+    ],
+    \"detail\": {
+      \"instance-id\": \"$SPOT_INSTANCE_ID\",
+      \"instance-action\": \"terminate\"
+    }
+  }"
+```
+
+7. Watch the automation in action:
+
 Karpenter logs:
 ```
 kubectl logs -n kube-system -l app.kubernetes.io/name=karpenter -f | grep -E "interrupt|cordon|drain"
@@ -244,31 +288,7 @@ spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.inter
 spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
 ```
 
-6. Get the SQS queue URL, save them in environment variables and send the interruption message:
-```
-aws sqs send-message \
-  --queue-url "$QUEUE_URL" \
-  --message-body "{
-    \"version\": \"0\",
-    \"id\": \"test-interrupt-$(date +%s)\",
-    \"detail-type\": \"EC2 Spot Instance Interruption Warning\",
-    \"source\": \"aws.ec2\",
-    \"account\": \"123456789012\",
-    \"time\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",
-    \"region\": \"us-east-1\",
-    \"resources\": [
-      \"arn:aws:ec2:us-east-1:123456789012:instance/$SPOT_INSTANCE_ID\"
-    ],
-    \"detail\": {
-      \"instance-id\": \"$SPOT_INSTANCE_ID\",
-      \"instance-action\": \"terminate\"
-    }
-  }"
-```
-
-
-
-4. Delete the deployment pods 
+8. Delete the deployment pods 
 
 ```
 kubectl delete -f 04-kubernetes-files
@@ -295,7 +315,7 @@ and this should
 No resources found
 ```
 
-5. Cleanup and destroy AWS resources:
+9. Cleanup and destroy AWS resources:
 
 ```
 ./terraform_destroy.sh
