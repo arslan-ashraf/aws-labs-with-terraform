@@ -2,7 +2,13 @@ This lab uses lab 38 as base and builds on lab 44.  This time we use Pod Disrupt
 
 When AWS wants to take back spot instances, it sends messages which we can pick using EventBridge rules and send them to the SQS queue.  Karpenter (during installation) will be configured to poll this queue which it does by default every 10 seconds.
 
-Karpenter requires the IAM permissions which we add in its IAM policy.
+Karpenter requires the IAM permissions which we add in its IAM policy.  We need to create a service account for creating spot instances so we add the following:
+
+```
+resource "aws_iam_service_linked_role" "ec2_spot" {
+  aws_service_name = "spot.amazonaws.com"
+}
+```
 
 1. Run the Terraform config using the script:
 
@@ -71,19 +77,61 @@ kubectl get nodeclaims -o wide
 should show something like this:
 
 ```
-NAME                       TYPE        CAPACITY     ZONE         NODE
-spot-nodepool-4sfj2   	   t3a.small   spot     	us-east-1b   ip-10-0-2-114.e
-spot-nodepool-fv8s6   	   t3a.small   spot     	us-east-1b   ip-10-0-2-146.e
+NAME                  TYPE       CAPACITY   ZONE         NODE                        READY   AGE
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    7m25s
 ```
 
 5. Simulate AWS spot interruption - we will send a message to the SQS queue which will be of the same type that AWS sends when it wants to take back a spot instance:
 
-Get the spot instance ID from command:
+# Open four terminal windows and run each command in each terminal
+
+Karpenter logs:
+```
+kubectl logs -n kube-system -l app.kubernetes.io/name=karpenter -f | grep -E "interrupt|cordon|drain"
+```
+
+Window 1. See spot nodes provisioned by Karpenter:
+```
+kubectl get nodes -l karpenter.sh/capacity-type=spot -w
+```
+
+This should show something like:
+```
+
+```
+
+
+Window 2. See pods being moved from one spot node to another:
+```
+kubectl get pods -l app=spot-test -o wide -w
+```
+
+This should show something like:
+```
+
+```
+
+Window 3. See the nodeclaims:
+```
+kubectl get nodeclaims -w
+```
+
+This should show something like:
+```
+
+```
+
+Window 4. Get the spot instance ID from command:
 ```
 kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
 ```
 
-Get the SQS queue URL and send interruption message:
+This should show something like:
+```
+
+```
+
+6. Get the SQS queue URL, save them in environment variables and send the interruption message:
 ```
 aws sqs send-message \
   --queue-url "$QUEUE_URL" \
