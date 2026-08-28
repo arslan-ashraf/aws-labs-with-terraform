@@ -42,7 +42,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
             {
               key      = "karpenter.k8s.aws/instance-family"
               operator = "In"
-              values   = ["t3", "t3a"]
+              values   = ["t2", "t3", "t3a"]
             },
             {
               key      = "karpenter.k8s.aws/instance-size"
