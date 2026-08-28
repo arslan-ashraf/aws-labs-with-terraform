@@ -97,9 +97,8 @@ kubectl get nodes -l karpenter.sh/capacity-type=spot -w
 
 This should show something like:
 ```
-
+{"level":"INFO","time":"2026-08-28T20:11:37.379Z","logger":"controller","message":"initiating delete from interruption message","commit":"f913f41","controller":"interruption","namespace":"","name":"","reconcileID":"e6294c15-ad3d-492f-8f15-f149e5406dd9","queue":"karpenter_ec2_spot_interruption_queue_for_example_eks_cluster","messageKind":"spot_interrupted","NodeClaim":{"name":"spot-nodepool-7lqht"},"action":"CordonAndDrain","Node":{"name":"ip-10-0-1-33.ec2.internal"}}
 ```
-
 
 Window 2. See pods being moved from one spot node to another:
 ```
@@ -108,7 +107,34 @@ kubectl get pods -l app=spot-test -o wide -w
 
 This should show something like:
 ```
-
+ip-10-0-1-33.ec2.internal   Ready    <none>   6m16s   v1.36.3-eks-cb19647
+ip-10-0-1-33.ec2.internal   Ready    <none>   9m12s   v1.36.3-eks-cb19647
+ip-10-0-1-33.ec2.internal   Ready    <none>   9m12s   v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   1s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   1s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   1s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   2s      v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   10s     v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   14s     v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   14s     v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   17s     v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   17s     v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   31s     v1.36.3-eks-cb19647
+ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
+ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
+ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
+ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   4m7s    v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   4m7s    v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   Ready      <none>   4m7s    v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   4m8s    v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   4m8s    v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   4m12s   v1.36.3-eks-cb19647
+ip-10-0-1-49.ec2.internal   NotReady   <none>   4m39s   v1.36.3-eks-cb19647
 ```
 
 Window 3. See the nodeclaims:
