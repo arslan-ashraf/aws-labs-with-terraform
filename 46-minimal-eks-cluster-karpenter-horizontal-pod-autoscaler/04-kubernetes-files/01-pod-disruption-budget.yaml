@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: spot-test-pod-disruption-budget
+  namespace: default
+spec:
+  minAvailable: 3  # allow 2 out of 5 pods to be evicted at once
+  selector:
+    matchLabels:
+      app: spot-test  # must match pod/deployment label
