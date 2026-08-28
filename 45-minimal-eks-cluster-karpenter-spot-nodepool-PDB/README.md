@@ -152,34 +152,37 @@ kubectl get nodeclaims -w
 
 This should show something like:
 ```
-ip-10-0-1-33.ec2.internal   Ready    <none>   6m16s   v1.36.3-eks-cb19647
-ip-10-0-1-33.ec2.internal   Ready    <none>   9m12s   v1.36.3-eks-cb19647
-ip-10-0-1-33.ec2.internal   Ready    <none>   9m12s   v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   0s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   1s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   1s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   1s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   2s      v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   10s     v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   14s     v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   14s     v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   17s     v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   17s     v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   31s     v1.36.3-eks-cb19647
-ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
-ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
-ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
-ip-10-0-1-33.ec2.internal   NotReady   <none>   10m     v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   4m7s    v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   4m7s    v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   Ready      <none>   4m7s    v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   4m8s    v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   4m8s    v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   4m12s   v1.36.3-eks-cb19647
-ip-10-0-1-49.ec2.internal   NotReady   <none>   4m39s   v1.36.3-eks-cb19647
+NAME                  TYPE       CAPACITY   ZONE         NODE                        READY   AGE
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    7m25s
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    9m41s
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    9m41s
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    9m41s
+spot-nodepool-4dqlv                                                                          0s
+spot-nodepool-4dqlv                                                                          0s
+spot-nodepool-4dqlv                                                                  Unknown   0s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a                               Unknown   4s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a                               Unknown   4s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   27s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   29s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   41s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   41s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   42s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      44s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      53s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      63s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      93s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      11m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      3m45s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      3m45s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      4m15s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      4m34s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      4m34s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      4m34s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      5m6s
 ```
 
 
