@@ -1,7 +1,9 @@
 This lab uses lab 38 as base and builds on lab 44.  This time we use Pod Disruption Budget to ensure our application running on spot instances has zero downtime.  We will ensure this with EventBridge rules and an SQS queue.
 
 ## Pod Disruption Budget
-PDB is the Kubernetes resource that provides best effort guarantee that during any disruption, at least the `minAvailable` number of pods will be running somewhere.  Whether its due to voluntary node removal, upgrades or involuntary such as AWS spot node termination, PDB tries to ensure that `minAvailable` pods are running and then Karpenter finds those unscheduled pods to run elsewhere.
+PDB is the Kubernetes resource that provides best effort guarantee that during any disruption, at least the `minAvailable` number of pods will be running somewhere.  Whether its due to voluntary node removal, upgrades or involuntary such as AWS spot node termination, PDB tries to ensure that `minAvailable` pods are running and then Karpenter finds those unscheduled pods to run elsewhere.  
+
+**For spot instances, PDB is mandatory and for on-demand instances PDB usage is still a best practice**.
 
 When AWS wants to take back spot instances, it sends messages which we can pick using EventBridge rules and send them to the SQS queue.  Karpenter (during installation) will be configured to poll this queue which it does by default every 10 seconds.
 
