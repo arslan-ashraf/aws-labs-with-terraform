@@ -100,9 +100,10 @@ This should show something like:
 {"level":"INFO","time":"2026-08-28T20:11:37.379Z","logger":"controller","message":"initiating delete from interruption message","commit":"f913f41","controller":"interruption","namespace":"","name":"","reconcileID":"e6294c15-ad3d-492f-8f15-f149e5406dd9","queue":"karpenter_ec2_spot_interruption_queue_for_example_eks_cluster","messageKind":"spot_interrupted","NodeClaim":{"name":"spot-nodepool-7lqht"},"action":"CordonAndDrain","Node":{"name":"ip-10-0-1-33.ec2.internal"}}
 ```
 
-Window 2. See pods being moved from one spot node to another:
+
+Window 2. See the nodeclaims:
 ```
-kubectl get pods -l app=spot-test -o wide -w
+kubectl get nodeclaims -w
 ```
 
 This should show something like:
@@ -137,14 +138,81 @@ ip-10-0-1-49.ec2.internal   NotReady   <none>   4m12s   v1.36.3-eks-cb19647
 ip-10-0-1-49.ec2.internal   NotReady   <none>   4m39s   v1.36.3-eks-cb19647
 ```
 
-Window 3. See the nodeclaims:
+
+Window 3. See pods being moved from one spot node to another:
 ```
-kubectl get nodeclaims -w
+kubectl get pods -l app=spot-test -o wide -w
 ```
 
 This should show something like:
 ```
-
+spot-test-647b569fd7-c9jp6   1/1     Running   0          7m43s   10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   1/1     Running   0          7m43s   10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-fnhqp   1/1     Running   0          7m43s   10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-jrn4n   1/1     Running   0          7m43s   10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   1/1     Running   0          7m43s   10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-c9jp6   1/1     Running   0          10m     10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-c9jp6   1/1     Terminating   0          10m     10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-fnhqp   1/1     Running       0          10m     10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   0/1     Pending       0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-c9jp6   1/1     Terminating   0          10m     10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-fnhqp   1/1     Terminating   0          10m     10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   0/1     Pending       0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-fnhqp   1/1     Terminating   0          10m     10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-7lg8v   0/1     Pending       0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-7lg8v   0/1     Pending       0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-c9jp6   0/1     Completed     0          10m     10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-fnhqp   0/1     Completed     0          10m     10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-fnhqp   0/1     Completed     0          10m     10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-fnhqp   0/1     Completed     0          10m     10.0.1.233   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-c9jp6   0/1     Completed     0          10m     10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-c9jp6   0/1     Completed     0          10m     10.0.1.89    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   0/1     Pending       0          28s     <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-7lg8v   0/1     Pending       0          28s     <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-wl6vj   0/1     Pending       0          42s     <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-7lg8v   0/1     Pending       0          42s     <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   0/1     ContainerCreating   0          42s     <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-7lg8v   0/1     ContainerCreating   0          42s     <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   0/1     ContainerCreating   0          43s     <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-7lg8v   0/1     ContainerCreating   0          43s     <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-7lg8v   1/1     Running             0          45s     10.0.1.83    ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   1/1     Running             0          45s     10.0.1.98    ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   1/1     Running             0          11m     10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   1/1     Terminating         0          11m     10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   1/1     Terminating         0          11m     10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   1/1     Running             0          11m     10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   1/1     Terminating         0          11m     10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   1/1     Terminating         0          11m     10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-zw9v8   0/1     Pending             0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-zw9v8   0/1     Pending             0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-zw9v8   0/1     ContainerCreating   0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-9g7rv   0/1     Pending             0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-9g7rv   0/1     Pending             0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-9g7rv   0/1     ContainerCreating   0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   0/1     Completed           0          11m     10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   0/1     Completed           0          11m     10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-zw9v8   0/1     ContainerCreating   0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-9g7rv   0/1     ContainerCreating   0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   0/1     Completed           0          11m     10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-vn6rn   0/1     Completed           0          11m     10.0.1.219   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   0/1     Completed           0          11m     10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-cv6kq   0/1     Completed           0          11m     10.0.1.87    ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-zw9v8   1/1     Running             0          1s      10.0.1.244   ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-9g7rv   1/1     Running             0          1s      10.0.1.199   ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-jrn4n   1/1     Running             0          11m     10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-jrn4n   1/1     Terminating         0          11m     10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-gqzp7   0/1     Pending             0          0s      <none>       <none>                      <none>           <none>
+spot-test-647b569fd7-jrn4n   1/1     Terminating         0          11m     10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-gqzp7   0/1     Pending             0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-gqzp7   0/1     ContainerCreating   0          0s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-jrn4n   0/1     Completed           0          11m     10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-jrn4n   0/1     Completed           0          11m     10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-jrn4n   0/1     Completed           0          11m     10.0.1.215   ip-10-0-1-33.ec2.internal   <none>           <none>
+spot-test-647b569fd7-gqzp7   0/1     ContainerCreating   0          1s      <none>       ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-gqzp7   1/1     Running             0          1s      10.0.1.185   ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-7lg8v   1/1     Running             0          109s    10.0.1.83    ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-wl6vj   1/1     Running             0          2m      10.0.1.98    ip-10-0-1-49.ec2.internal   <none>           <none>
+spot-test-647b569fd7-zw9v8   1/1     Running             0          78s     10.0.1.244   ip-10-0-1-49.ec2.internal   <none>           <none>
 ```
 
 Window 4. Get the spot instance ID from command:
@@ -154,7 +222,26 @@ kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
 
 This should show something like:
 ```
-
+NAME                  TYPE       CAPACITY   ZONE         NODE                        READY   AGE
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    7m25s
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    9m41s
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    9m41s
+spot-nodepool-7lqht   t2.small   spot       us-east-1a   ip-10-0-1-33.ec2.internal   True    9m41s
+spot-nodepool-4dqlv                                                                          0s
+spot-nodepool-4dqlv                                                                          0s
+spot-nodepool-4dqlv                                                                  Unknown   0s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a                               Unknown   4s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a                               Unknown   4s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   27s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   29s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   41s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   41s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   Unknown   42s
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      44s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
+spot-nodepool-4dqlv   t3a.small   spot       us-east-1a   ip-10-0-1-49.ec2.internal   True      53s
+spot-nodepool-7lqht   t2.small    spot       us-east-1a   ip-10-0-1-33.ec2.internal   True      10m
 ```
 
 6. Get the SQS queue URL, save them in environment variables and send the interruption message:
