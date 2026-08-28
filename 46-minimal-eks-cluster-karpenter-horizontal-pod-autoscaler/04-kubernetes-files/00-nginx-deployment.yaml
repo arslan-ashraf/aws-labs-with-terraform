@@ -1,6 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: spot-test
+  namespace: default
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: spot-test
+  template:
+    metadata:
+      labels:
+        app: spot-test
+    spec:
+      nodeSelector:
+        # force pods to run on on-demand nodes
+        karpenter.sh/capacity-type: on-demand
+      terminationGracePeriodSeconds: 30   # allow graceful shutdown
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports: 
+          - containerPort: 80
+        resources:
+          requests:
+            cpu: "500m"       # 0.5 vCPU per pod
+            memory: "256Mi"   # 256MB per pod
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: karpenter-autoscale-on-demand-test
   labels:
     test: karpenter-on-demand
