@@ -1,6 +1,8 @@
 This lab uses lab 38 as base and builds on lab 44.  This time we use Pod Disruption Budget to ensure our application running on spot instances has zero downtime.  We will ensure this with EventBridge rules and an SQS queue.
 
-When AWS wants to take back spot instances, it sends messages which we can pick using EventBridge rules and send them to the SQS queue.
+When AWS wants to take back spot instances, it sends messages which we can pick using EventBridge rules and send them to the SQS queue.  Karpenter (during installation) will be configured to poll this queue which it does by default every 10 seconds.
+
+Karpenter requires the IAM permissions which we add in its IAM policy.
 
 1. Run the Terraform config using the script:
 
