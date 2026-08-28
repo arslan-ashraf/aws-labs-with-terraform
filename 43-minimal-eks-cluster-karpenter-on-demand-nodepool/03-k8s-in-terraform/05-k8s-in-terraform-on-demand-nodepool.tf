@@ -47,7 +47,7 @@ resource "kubernetes_manifest" "on_demand_nodepool" {
             {
               key      = "karpenter.k8s.aws/instance-size"
               operator = "In"
-              values   = ["micro", "small", "medium", "large"]
+              values   = ["micro", "small", "medium"]
             },
             {
               key      = "topology.kubernetes.io/zone"
