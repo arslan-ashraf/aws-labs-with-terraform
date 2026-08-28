@@ -41,7 +41,7 @@ should show something like this:
 
 ```
 NAME                 NODECLASS               NODES   READY   AGE
-on-demand-nodepool   example-ec2-nodeclass   0       True    16m
+spot-nodepool   	 example-ec2-nodeclass   0       True    16m
 ```
 
 3. Apply the Karpenter autoscaling test:
@@ -54,12 +54,12 @@ and check the test pods being created:
 
 ```
 $ kubectl get pods
-NAME                                                  READY   STATUS    RESTARTS   A
-karpenter-autoscale-on-demand-test-54cc68968f-5fhd8   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-7zjmx   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-c5bhl   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-pwjbb   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-z7dnd   0/1     Pending   0          6
+NAME                         READY   STATUS    RESTARTS   A
+spot-test-54cc68968f-5fhd8   0/1     Pending   0          6
+spot-test-54cc68968f-7zjmx   0/1     Pending   0          6
+spot-test-54cc68968f-c5bhl   0/1     Pending   0          6
+spot-test-54cc68968f-pwjbb   0/1     Pending   0          6
+spot-test-54cc68968f-z7dnd   0/1     Pending   0          6
 ```
 
 and the command below to see the nodes that Karpenter is spinning up on the fly to deploy those pods onto:
@@ -71,9 +71,9 @@ kubectl get nodeclaims -o wide
 should show something like this:
 
 ```
-NAME                       TYPE        CAPACITY    ZONE         NODE
-on-demand-nodepool-4sfj2   t3a.small   on-demand   us-east-1b   ip-10-0-2-114.e
-on-demand-nodepool-fv8s6   t3a.small   on-demand   us-east-1b   ip-10-0-2-146.e
+NAME                       TYPE        CAPACITY     ZONE         NODE
+spot-nodepool-4sfj2   	   t3a.small   spot     	us-east-1b   ip-10-0-2-114.e
+spot-nodepool-fv8s6   	   t3a.small   spot     	us-east-1b   ip-10-0-2-146.e
 ```
 
 4. Delete the deployment pods 
