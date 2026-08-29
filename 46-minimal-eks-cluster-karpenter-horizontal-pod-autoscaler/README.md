@@ -106,7 +106,7 @@ Run the command below after more than 30 seconds:
 kubectl get nodeclaims
 ```
 
-and this should 
+and this should show
 
 ```
 No resources found
