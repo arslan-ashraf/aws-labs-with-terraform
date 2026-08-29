@@ -15,7 +15,12 @@ aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
 ./run-docker.sh
 ```
 
-4. Create the Kubernetes resources:
+4. Update `eks-test.yaml` file with the name of the Docker image uploaded to ECR.  It should be like this:
+```
+<aws_account_id>.dkr.ecr.us-east-1.amazonaws.com/example_repo:latest
+```
+
+5. Create the Kubernetes resources:
 
 ```
 kubectl apply -f eks-test.yaml
