@@ -89,7 +89,7 @@ Window 4. See HPA in action (requires step 4 below):
 kubectl get hpa hpa-karpenter-test -w
 ```
 
-HPA should show logs like this:
+HPA should show logs like this as it scales the number of pods:
 ```
 NAME                 REFERENCE                       TARGETS                                     MINPODS   MAXPODS   REPLICAS   AGE
 hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: <unknown>/50%, memory: <unknown>/70%   1         10        0          7s
