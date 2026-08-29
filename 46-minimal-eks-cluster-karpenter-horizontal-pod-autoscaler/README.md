@@ -89,7 +89,7 @@ Window 4. See HPA in action:
 kubectl get hpa hpa-karpenter-test -w
 ```
 
-Window 5. See the pods being created/removed by HPA:
+Window 5. See the pods being created/removed by HPA (requires step 4 below):
 ```
 kubectl get pods -l app=hpa-karpenter-test -w
 ```
