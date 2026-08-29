@@ -85,7 +85,7 @@ on-demand-nodepool-fv8s6   t3a.small   on-demand   us-east-1b   ip-10-0-2-146.e
 kubectl apply -f 04-kubernetes-files
 ```
 
-4. Delete the deployment pods 
+5. Cleanup - delete the deployment pods:
 
 ```
 kubectl delete -f 04-kubernetes-files
@@ -112,7 +112,7 @@ and this should
 No resources found
 ```
 
-5. Cleanup and destroy AWS resources:
+6. Cleanup and destroy AWS resources:
 
 ```
 ./terraform_destroy.sh
