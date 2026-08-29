@@ -2,7 +2,30 @@ This lab uses lab 43 as base.  This time we implement **Pod Disruption Budget** 
 
 But in production, traffic scales with users so we don't know how many pods we need in advance.  This is where the HPA or **Horizontal Pod Autoscaler** comes in.  HPA queries the **Metrics Server** which continuously collects metrics about pods and other things and HPA polls the Metrics Server every 15 seconds by default.
 
-HPA then determines whether we need more or less pods and Karpenter then provisions or deprovisions compute to serve the required pods.
+HPA then determines whether we need more or less pods and Karpenter then provisions or deprovisions compute to serve the required pods.  However, we cannot provision all pods on the same EC2 instance or even multiple EC2 instances all in the same zone.
+
+To ensure high availability (HA), we add the following piece of code to the deployment resource:
+```
+nodeSelector:
+	karpenter.sh/capacity-type: on-demand
+  	
+  	topologySpreadConstraints:
+	    # deploy pods across instances (within same AZ)
+	    - maxSkew: 1
+	      topologyKey: kubernetes.io/hostname
+	      whenUnsatisfiable: ScheduleAnyway
+	      labelSelector:
+	        matchLabels:
+	          app: hpa-karpenter-test
+	    
+	    # deploy pods across availability zones
+	    - maxSkew: 1
+	      topologyKey: topology.kubernetes.io/zone
+	      whenUnsatisfiable: DoNotSchedule
+	      labelSelector:
+	        matchLabels:
+	          app: hpa-karpenter-test 
+```
 
 1. Run the Terraform config using the script:
 

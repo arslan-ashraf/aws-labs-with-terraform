@@ -23,9 +23,7 @@ spec:
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: catalog
-              app.kubernetes.io/component: service
-              app.kubernetes.io/instance: catalog
+              app: hpa-karpenter-test
         
         # deploy pods across availability zones
         - maxSkew: 1
@@ -33,9 +31,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: catalog
-              app.kubernetes.io/component: service
-              app.kubernetes.io/instance: catalog    
+              app: hpa-karpenter-test 
       containers:
         - name: cpu-burner
           image: busybox:1.36
