@@ -60,12 +60,12 @@ kubectl get events --sort-by=.lastTimestamp -w
 
 Window 3. See the nodes being provisioned:
 ```
-kubectl get nodes -w
+kubectl get nodes -l karpenter.sh/capacity-type=on-demand -w
 ```
 
-Window 4. Get the spot instance ID from command:
+Window 4. See the nodes and their status provisioned by Karpenter:
 ```
-kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
+kubectl get nodes -l karpenter.sh/capacity-type=spot -w
 ```
 
 ```
