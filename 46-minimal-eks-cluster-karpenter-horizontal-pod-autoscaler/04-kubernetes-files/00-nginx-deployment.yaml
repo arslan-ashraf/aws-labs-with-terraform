@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hpa-karpenter-test
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: hpa-karpenter-test
@@ -25,8 +25,8 @@ spec:
             - containerPort: 80
           resources:
             requests:
-              cpu: "500m"       # 0.5 vCPU per pod
-              memory: "256Mi"   # 256MB per pod
+              cpu: "100m"       # 0.1 vCPU per pod
+              memory: "128Mi"   # 128MB per pod
             limits:
-              cpu: "500m"
+              cpu: "200m"
               memory: "256Mi"
