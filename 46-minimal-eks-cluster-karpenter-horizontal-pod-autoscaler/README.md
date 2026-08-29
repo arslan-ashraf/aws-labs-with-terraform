@@ -89,6 +89,21 @@ Window 4. See HPA in action (requires step 4 below):
 kubectl get hpa hpa-karpenter-test -w
 ```
 
+HPA should show logs like this:
+```
+NAME                 REFERENCE                       TARGETS                                     MINPODS   MAXPODS   REPLICAS   AGE
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: <unknown>/50%, memory: <unknown>/70%   1         10        0          7s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: <unknown>/50%, memory: <unknown>/70%   1         10        1          15s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 201%/50%, memory: 0%/70%               1         10        1          60s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 201%/50%, memory: 0%/70%               1         10        5          75s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 200%/50%, memory: 0%/70%               1         10        5          105s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 201%/50%, memory: 0%/70%               1         10        5          2m
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 200%/50%, memory: 0%/70%               1         10        8          2m15s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 200%/50%, memory: 0%/70%               1         10        10         2m30s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 200%/50%, memory: 0%/70%               1         10        10         3m15s
+hpa-karpenter-test   Deployment/hpa-karpenter-test   cpu: 200%/50%, memory: 0%/70%               1         10        10         3m30s
+```
+
 Window 5. See the pods being created/removed by HPA:
 ```
 kubectl get pods -l app=hpa-karpenter-test -w
