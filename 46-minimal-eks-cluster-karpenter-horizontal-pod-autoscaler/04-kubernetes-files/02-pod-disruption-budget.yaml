@@ -1,3 +1,11 @@
+#####################################################################
+# NOTE: this resource is not strictly needed for this lab
+# Pod Disruption Budget is not necessary for on-demand instances
+# its only really needed for spot instances as those may be 
+# reclaimed by AWS any moment, however, using PDB is a best practice
+# even for on-demand instances as instances may fail any moment
+#####################################################################
+
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
