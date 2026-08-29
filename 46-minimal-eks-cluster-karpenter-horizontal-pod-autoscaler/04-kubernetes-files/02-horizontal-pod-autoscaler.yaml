@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: nginx-hpa
+  name: hpa-karpenter-test
   namespace: default
   labels:
-    app: nginx
+    name: hpa-karpenter-test
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: nginx
+    name: hpa-karpenter-test
   minReplicas: 1
   maxReplicas: 5
   metrics:
@@ -28,7 +28,7 @@ spec:
 
   behavior:
     scaleDown:
-      stabilizationWindowSeconds: 100
+      stabilizationWindowSeconds: 60
       policies:
         - type: Percent
           value: 50
