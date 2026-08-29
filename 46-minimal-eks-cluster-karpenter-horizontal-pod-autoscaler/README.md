@@ -44,9 +44,7 @@ NAME                 NODECLASS               NODES   READY   AGE
 on-demand-nodepool   example-ec2-nodeclass   0       True    16m
 ```
 
-3. Apply the HPA and Karpenter autoscaling test:
-
-# Open four terminal windows and run each command in each terminal
+3. Open five terminal windows and run each command in each terminal:
 
 Window 1. See HPA in action:
 ```
@@ -63,25 +61,14 @@ Window 3. See the nodes being provisioned:
 kubectl get nodes -l karpenter.sh/capacity-type=on-demand -w
 ```
 
-Window 4. See the nodes and their status provisioned by Karpenter:
-```
-kubectl get nodes -l karpenter.sh/capacity-type=spot -w
-```
-
-```
-kubectl apply -f 04-kubernetes-files
-```
-
-and check the test pods being created:
-
+Window 4. See the pods being created/removed by HPA:
 ```
 kubectl get pods -l app=hpa-karpenter-test -w
 ```
 
-and the command below to see the nodes that Karpenter is spinning up on the fly to deploy those pods onto:
-
+Window 5. See the nodeclaims:
 ```
-kubectl get nodeclaims -o wide
+kubectl get nodeclaims -o wide -w
 ```
 
 should show something like this:
@@ -90,6 +77,12 @@ should show something like this:
 NAME                       TYPE        CAPACITY    ZONE         NODE
 on-demand-nodepool-4sfj2   t3a.small   on-demand   us-east-1b   ip-10-0-2-114.e
 on-demand-nodepool-fv8s6   t3a.small   on-demand   us-east-1b   ip-10-0-2-146.e
+```
+
+4. Apply the HPA and Karpenter autoscaling test and observe the five open windows.
+
+```
+kubectl apply -f 04-kubernetes-files
 ```
 
 4. Delete the deployment pods 
