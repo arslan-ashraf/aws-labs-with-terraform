@@ -1,57 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spot-test
-  namespace: default
+  name: hpa-karpenter-test
+  labels:
+    app: hpa-karpenter-test
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
-      app: spot-test
+      app: hpa-karpenter-test
   template:
     metadata:
       labels:
-        app: spot-test
+        app: hpa-karpenter-test
     spec:
       nodeSelector:
         # force pods to run on on-demand nodes
         karpenter.sh/capacity-type: on-demand
       terminationGracePeriodSeconds: 30   # allow graceful shutdown
       containers:
-      - name: nginx
-        image: nginx:alpine
-        ports: 
-          - containerPort: 80
-        resources:
-          requests:
-            cpu: "500m"       # 0.5 vCPU per pod
-            memory: "256Mi"   # 256MB per pod
-          limits:
-            cpu: "500m"
-            memory: "256Mi"
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: karpenter-autoscale-on-demand-test
-  labels:
-    test: karpenter-on-demand
-spec:
-  replicas: 5  # 5 pods with 0.5 vCPU each requires about 2.5 vCPUs
-  selector:
-    matchLabels:
-      app: autoscale-test
-  template:
-    metadata:
-      labels:
-        app: autoscale-test
-    spec:
-      # force pods to on-demand nodes
-      nodeSelector:
-        karpenter.sh/capacity-type: on-demand      
-      containers:
-        - name: pause
-          image: public.ecr.aws/eks-distro/kubernetes/pause:3.9
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
           resources:
             requests:
               cpu: "500m"       # 0.5 vCPU per pod
