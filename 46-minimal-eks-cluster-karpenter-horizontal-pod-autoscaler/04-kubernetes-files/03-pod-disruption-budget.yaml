@@ -4,7 +4,7 @@ metadata:
   name: hpa-karpenter-test-PDB
   namespace: default
 spec:
-  minAvailable: 3  # allow 2 out of 5 pods to be evicted at once
+  minAvailable: 1  # must have at least 1 pod running at all times
   selector:
     matchLabels:
       app: hpa-karpenter-test  # must match pod/deployment label
