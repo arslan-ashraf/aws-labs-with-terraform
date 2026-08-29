@@ -17,6 +17,6 @@ resource "aws_eks_addon" "metrics_server" {
   addon_name                  = "metrics-server"
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
-  # Use the latest EKS addon version compatible with the cluster's Kubernetes version
+  # use the latest compatible EKS addon version
   addon_version               = data.aws_eks_addon_version.metrics_server_latest.version
 }
