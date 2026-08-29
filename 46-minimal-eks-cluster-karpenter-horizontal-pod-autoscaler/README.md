@@ -69,14 +69,14 @@ on-demand-nodepool   example-ec2-nodeclass   0       True    16m
 
 3. Open five terminal windows and run each command in each terminal:
 
-Window 1. See HPA in action:
-```
-kubectl get hpa hpa-karpenter-test -w
-```
-
-Window 2. See the events inside the EKS cluster:
+Window 1. See the events inside the EKS cluster:
 ```
 kubectl get events --sort-by=.lastTimestamp -w
+```
+
+Window 2. See the nodeclaims:
+```
+kubectl get nodeclaims -o wide -w
 ```
 
 Window 3. See the nodes being provisioned:
@@ -84,23 +84,16 @@ Window 3. See the nodes being provisioned:
 kubectl get nodes -l karpenter.sh/capacity-type=on-demand -w
 ```
 
-Window 4. See the pods being created/removed by HPA:
+Window 4. See HPA in action:
+```
+kubectl get hpa hpa-karpenter-test -w
+```
+
+Window 5. See the pods being created/removed by HPA:
 ```
 kubectl get pods -l app=hpa-karpenter-test -w
 ```
 
-Window 5. See the nodeclaims:
-```
-kubectl get nodeclaims -o wide -w
-```
-
-should show something like this:
-
-```
-NAME                       TYPE        CAPACITY    ZONE         NODE
-on-demand-nodepool-4sfj2   t3a.small   on-demand   us-east-1b   ip-10-0-2-114.e
-on-demand-nodepool-fv8s6   t3a.small   on-demand   us-east-1b   ip-10-0-2-146.e
-```
 
 4. Apply the HPA and Karpenter autoscaling test and observe the five open windows.
 
