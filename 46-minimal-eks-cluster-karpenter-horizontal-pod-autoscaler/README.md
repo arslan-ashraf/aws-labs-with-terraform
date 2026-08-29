@@ -84,12 +84,12 @@ Window 3. See the nodes being provisioned:
 kubectl get nodes -l karpenter.sh/capacity-type=on-demand -w
 ```
 
-Window 4. See HPA in action:
+Window 4. See HPA in action (requires step 4 below):
 ```
 kubectl get hpa hpa-karpenter-test -w
 ```
 
-Window 5. See the pods being created/removed by HPA (requires step 4 below):
+Window 5. See the pods being created/removed by HPA:
 ```
 kubectl get pods -l app=hpa-karpenter-test -w
 ```
