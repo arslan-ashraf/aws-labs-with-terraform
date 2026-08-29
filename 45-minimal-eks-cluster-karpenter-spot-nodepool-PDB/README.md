@@ -105,9 +105,9 @@ Window 3. See pods being moved from one spot node to another:
 kubectl get pods -l app=spot-test -o wide -w
 ```
 
-Window 4. Get the spot instance ID from command:
+Window 4. See the nodes and their status provisioned by Karpenter:
 ```
-kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
+kubectl get nodes -l karpenter.sh/capacity-type=spot -w
 ```
 
 6. Get the SQS queue URL, save them in environment variables and send the interruption message:
@@ -281,9 +281,9 @@ spot-test-647b569fd7-wl6vj   1/1     Running             0          2m      10.0
 spot-test-647b569fd7-zw9v8   1/1     Running             0          78s     10.0.1.244   ip-10-0-1-49.ec2.internal   <none>           <none>
 ```
 
-Window 4. Get the spot instance ID from command:
+Window 4. See the nodes and their status provisioned by Karpenter:
 ```
-kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
+kubectl get nodes -l karpenter.sh/capacity-type=spot -w
 ```
 
 This should show something like:

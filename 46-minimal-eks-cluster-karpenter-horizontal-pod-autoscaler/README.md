@@ -44,7 +44,29 @@ NAME                 NODECLASS               NODES   READY   AGE
 on-demand-nodepool   example-ec2-nodeclass   0       True    16m
 ```
 
-3. Apply the Karpenter autoscaling test:
+3. Apply the HPA and Karpenter autoscaling test:
+
+# Open four terminal windows and run each command in each terminal
+
+Window 1. See HPA in action:
+```
+kubectl get hpa hpa-karpenter-test -w
+```
+
+Window 2. See the events inside the EKS cluster:
+```
+kubectl get events --sort-by=.lastTimestamp -w
+```
+
+Window 3. See the nodes being provisioned:
+```
+kubectl get nodes -w
+```
+
+Window 4. Get the spot instance ID from command:
+```
+kubectl get nodes -l karpenter.sh/capacity-type=spot -o json
+```
 
 ```
 kubectl apply -f 04-kubernetes-files
@@ -53,13 +75,7 @@ kubectl apply -f 04-kubernetes-files
 and check the test pods being created:
 
 ```
-$ kubectl get pods
-NAME                                                  READY   STATUS    RESTARTS   A
-karpenter-autoscale-on-demand-test-54cc68968f-5fhd8   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-7zjmx   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-c5bhl   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-pwjbb   0/1     Pending   0          6
-karpenter-autoscale-on-demand-test-54cc68968f-z7dnd   0/1     Pending   0          6
+kubectl get pods -l app=hpa-karpenter-test -w
 ```
 
 and the command below to see the nodes that Karpenter is spinning up on the fly to deploy those pods onto:
