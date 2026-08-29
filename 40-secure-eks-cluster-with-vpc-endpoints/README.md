@@ -4,7 +4,10 @@ We test this labs as follows:
 
 1. Run Terraform.
 
-2. Connect local kubectl to the EKS cluster using the using the `aws eks update-cubeconfig ...` command found easily in Terraforms output.
+2. Connect local kubectl to the EKS cluster using the using the `aws eks update-cubeconfig ...` command found easily in Terraforms output.  It should be:
+```
+aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
+```
 
 3. Run the Docker script to create the Docker image and push it to ECR:
 
