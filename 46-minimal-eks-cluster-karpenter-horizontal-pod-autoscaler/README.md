@@ -94,7 +94,7 @@ Window 5. See the pods being created/removed by HPA:
 kubectl get pods -l app=hpa-karpenter-test -w
 ```
 
-Karpenter spins up EC2 instances in different AZs because we have the `toplogySpreadConstraints` in the deployment resource set as `whenUnsatisfiable: DoNotSchedule`.
+Karpenter spins up EC2 instances in different AZs because in the deployment resource, we have the `toplogySpreadConstraints` condition set as `whenUnsatisfiable: DoNotSchedule`.
 
 ![Alt Text](ec2-instances.png)
 
