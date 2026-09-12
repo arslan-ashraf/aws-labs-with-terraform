@@ -32,8 +32,8 @@ data "aws_iam_policy_document" "cloudwatch_permissions" {
 # here we create the policy that will take on persmissions defined
 # in the JSON document imported by aws_iam_policy_document.lambda_permissions
 resource "aws_iam_policy" "vpc_flow_logs_policy" {
-  policy = data.aws_iam_policy_document.cloudwatch_permissions.json
   name = "vpc_flow_logs_policy"
+  policy = data.aws_iam_policy_document.cloudwatch_permissions.json
 }
 
 resource "aws_iam_role_policy_attachment" "vpc_flow_logs_role_policy_attachment" {
