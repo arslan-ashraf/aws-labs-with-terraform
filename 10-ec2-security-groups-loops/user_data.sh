@@ -245,8 +245,12 @@ host_key_checking = False
 inventory = inventory/production_servers.yaml
 EOF
 
+cat << 'EOF' > custom_facts.fact
+
+EOF
+
 cat << 'EOF' > playbook.yaml
-- name: First play
+- name: First cloud play
   hosts: backend_servers             # must match in the inventory
   tasks:
     - name: Ping server
@@ -263,6 +267,30 @@ cat << 'EOF' > playbook.yaml
           "inventory_hostname": "{{ inventory_hostname }}",
           "playbook_dir": "{{ playbook_dir }}"
         }
+
+- name: Create facts.d directory and copy custom facts file
+  hosts: backend_servers             # must match in the inventory
+  tasks:
+    - name: Create facts.d directory
+      ansible.builtin.file:
+        path: /etc/ansible/facts.d
+        state: directory          # ensure this is a directory
+        mode: '0755'              # sets directory permissions
+        owner: ubuntu             # optional: sets directory owner
+        group: ubuntu             # optional: sets directory group
+
+    - name: Copying custom facts file
+      ansible.builtin.debug:
+        msg: {
+          "ansible_check_mode": "{{ ansible_check_mode }}",
+          "ansible_diff_mode": "{{ ansible_diff_mode }}",
+          "ansible_version": "{{ ansible_version['full'] }}",
+          "inventory_dir": "{{ inventory_dir }}",
+          "inventory_file": "{{ inventory_file }}",
+          "inventory_hostname": "{{ inventory_hostname }}",
+          "playbook_dir": "{{ playbook_dir }}"
+        }
+
 EOF
 
 cat << 'EOF' > ansible_dockerfile
@@ -284,6 +312,7 @@ RUN mkdir /ansible/inventory
 # /ansible directory has full permissions so, ansible ignores the ansible.cfg file
 # insufficient, need ENV or permission change
 COPY ansible.cfg /ansible
+COPY playbook.yaml /ansible
 COPY inventory/production_servers.yaml /ansible/inventory
 
 # bypasses the permissions check
