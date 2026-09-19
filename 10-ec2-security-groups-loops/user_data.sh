@@ -227,8 +227,9 @@ echo "#######################################################"
 echo "################# PREPARING ANSIBLE ###################"
 echo "#######################################################"
 
+mkdir inventory
 
-cat << 'EOF' > managed_hosts
+cat << 'EOF' > inventory/production_servers
 [ec2-servers]
 
 <IP_address> ansible_user=ubuntu ansible_ssh_private_key_file=/keys/key-for-ec2-connection
@@ -239,7 +240,7 @@ cat << 'EOF' > ansible.cfg
 
 host_key_checking = False
 
-inventory = managed_hosts
+inventory = inventory/production_servers
 EOF
 
 cat << 'EOF' > ansible_dockerfile
@@ -256,10 +257,12 @@ RUN pip install --no-cache-dir ansible-core
 
 WORKDIR /ansible
 
+RUN mkdir /ansible/inventory
+
 # /ansible directory has full permissions so, ansible ignores the ansible.cfg file
 # insufficient, need ENV or permission change
 COPY ansible.cfg /ansible
-COPY managed_hosts /ansible
+COPY inventory/production_servers /ansible/inventory
 
 # bypasses the permissions check
 ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
