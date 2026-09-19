@@ -237,6 +237,7 @@ backend_servers:
       ansible_ssh_private_key_file: /keys/key-for-ec2-connection
 EOF
 
+
 cat << 'EOF' > ansible.cfg
 [defaults]
 
@@ -245,11 +246,19 @@ host_key_checking = False
 inventory = inventory/production_servers.yaml
 EOF
 
+
 cat << 'EOF' > custom_facts.fact
 #!/bin/bash
 
+docker_version=$(docker --version | awk '{print $3}')
 
+cat << 'EOF_DOCKER_VERSION'
+{
+    "DOCKER_VERSION": "$docker_version"
+}
+EOF_DOCKER_VERSION
 EOF
+
 
 cat << 'EOF' > playbook.yaml
 - name: First cloud play
@@ -283,16 +292,11 @@ cat << 'EOF' > playbook.yaml
 
     - name: Copying custom facts file
       ansible.builtin.copy:
-        msg: {
-          "ansible_check_mode": "{{ ansible_check_mode }}",
-          "ansible_diff_mode": "{{ ansible_diff_mode }}",
-          "ansible_version": "{{ ansible_version['full'] }}",
-          "inventory_dir": "{{ inventory_dir }}",
-          "inventory_file": "{{ inventory_file }}",
-          "inventory_hostname": "{{ inventory_hostname }}",
-          "playbook_dir": "{{ playbook_dir }}"
-        }
-
+        src: custom_facts.fact
+        dest: /etc/ansible/facts.d
+        mode: '0755'               # set file permissions
+        owner: ubuntu              # optional: sets file owner
+        group: ubuntu              # optional: sets file group
 EOF
 
 cat << 'EOF' > ansible_dockerfile

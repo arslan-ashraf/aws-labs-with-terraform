@@ -2,3 +2,5 @@ setup.sh
 
 /10-ec2-security-groups-loops/.terraform*
 /10-ec2-security-groups-loops/terraform*
+
+!/10-ec2-security-groups-loops/terraform.tfvars
