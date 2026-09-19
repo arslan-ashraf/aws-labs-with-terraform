@@ -228,7 +228,7 @@ echo "################# PREPARING ANSIBLE ###################"
 echo "#######################################################"
 
 
-cat << 'EOF' > hosts
+cat << 'EOF' > managed_hosts
 [ec2-servers]
 
 <IP_address> ansible_user=ubuntu ansible_ssh_private_key_file=/keys/key-for-ec2-connection
@@ -239,7 +239,7 @@ cat << 'EOF' > ansible.cfg
 
 host_key_checking = False
 
-inventory = hosts
+inventory = managed_hosts
 EOF
 
 cat << 'EOF' > ansible_dockerfile
@@ -259,7 +259,7 @@ WORKDIR /ansible
 # /ansible directory has full permissions so, ansible ignores the ansible.cfg file
 # insufficient, need ENV or permission change
 COPY ansible.cfg /ansible
-COPY hosts /ansible
+COPY managed_hosts /ansible
 
 # bypasses the permissions check
 ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
@@ -277,6 +277,7 @@ echo "#######################################################"
 
 sudo docker build -t my-ansible-core -f ansible_dockerfile
 
+
 echo "#######################################################"
 echo "########### RUNNING ANSIBLE DOCKER CONTAINER ##########"
 echo "#######################################################"
@@ -284,3 +285,14 @@ echo "#######################################################"
 sudo docker run --rm -it \
   -v $(pwd):/ansible \
   my-ansible-core
+
+
+echo "#######################################################"
+echo "############### PING SERVER WITH ANSIBLE ##############"
+echo "#######################################################"
+
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
+  my-ansible-core \
+  ansible ec2-servers -m ping
