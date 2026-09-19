@@ -229,7 +229,7 @@ echo "#######################################################"
 
 mkdir inventory
 
-cat << 'EOF' > inventory/production_servers
+cat << 'EOF' > inventory/production_servers.yaml
 [backend-servers]
 
 <IP_address> ansible_user=ubuntu ansible_ssh_private_key_file=/keys/key-for-ec2-connection
@@ -242,7 +242,28 @@ cat << 'EOF' > ansible.cfg
 
 host_key_checking = False
 
-inventory = inventory/production_servers
+inventory = inventory/production_servers.yaml
+EOF
+
+cat << 'EOF' > playbook.yaml
+- name: First play
+  hosts: target_hosts             # must match in the inventory
+  tasks:
+    - name: Print message
+      ansible.builtin.debug:
+        msg: "Testing first message"
+
+    - name: Print builtin variables
+      ansible.builtin.debug:
+        msg: {
+          "ansible_check_mode": "{{ ansible_check_mode }}",
+          "ansible_diff_mode": "{{ ansible_diff_mode }}",
+          "ansible_version": "{{ ansible_version['full'] }}",
+          "inventory_dir": "{{ inventory_dir }}",
+          "inventory_file": "{{ inventory_file }}",
+          "inventory_hostname": "{{ inventory_hostname }}",
+          "playbook_dir": "{{ playbook_dir }}"
+        }
 EOF
 
 cat << 'EOF' > ansible_dockerfile
@@ -264,7 +285,7 @@ RUN mkdir /ansible/inventory
 # /ansible directory has full permissions so, ansible ignores the ansible.cfg file
 # insufficient, need ENV or permission change
 COPY ansible.cfg /ansible
-COPY inventory/production_servers /ansible/inventory
+COPY inventory/production_servers.yaml /ansible/inventory
 
 # bypasses the permissions check
 ENV ANSIBLE_CONFIG=/ansible/ansible.cfg
