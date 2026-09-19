@@ -60,7 +60,6 @@ resource "aws_instance" "create_instances_from_map" {
   availability_zone           = "us-east-1a"
   associate_public_ip_address = each.value.subnet_name == "private_subnet" ? false : true
   key_name                    = aws_key_pair.public_SSH_key.key_name
-  user_data                   = each.value.subnet_name == "public_subnet" ? file("${path.module}/user_data.sh") : null
 
   vpc_security_group_ids = [
     aws_security_group.multiple_security_groups[each.value.security_group].id
