@@ -246,6 +246,8 @@ inventory = inventory/production_servers.yaml
 EOF
 
 cat << 'EOF' > custom_facts.fact
+#!/bin/bash
+
 
 EOF
 
@@ -280,7 +282,7 @@ cat << 'EOF' > playbook.yaml
         group: ubuntu             # optional: sets directory group
 
     - name: Copying custom facts file
-      ansible.builtin.debug:
+      ansible.builtin.copy:
         msg: {
           "ansible_check_mode": "{{ ansible_check_mode }}",
           "ansible_diff_mode": "{{ ansible_diff_mode }}",
