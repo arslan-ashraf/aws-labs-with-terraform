@@ -1,10 +1,4 @@
 setup.sh
 
-/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/01-terraform-eks-cluster/.terraform*
-/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/01-terraform-eks-cluster/terraform*
-
-/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/02-terraform-karpenter/.terraform*
-/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/02-terraform-karpenter/terraform*
-
-/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/03-k8s-in-terraform/.terraform*
-/46-minimal-eks-cluster-karpenter-horizontal-pod-autoscaler/03-k8s-in-terraform/terraform*
+/10-ec2-security-groups-loops/.terraform*
+/10-ec2-security-groups-loops/terraform*
