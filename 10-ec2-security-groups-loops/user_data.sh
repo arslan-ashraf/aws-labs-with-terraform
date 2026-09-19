@@ -221,6 +221,21 @@ echo "#######################################################"
 echo "################# PREPARING ANSIBLE ###################"
 echo "#######################################################"
 
+
+cat << 'EOF' > hosts
+[ec2-servers]
+
+<IP_address> ansible_user=ubuntu ansible_ssh_private_key_file=/keys/key-for-ec2-connection
+EOF
+
+cat << 'EOF' > ansible.cfg
+[defaults]
+
+host_key_checking = False
+
+inventory = hosts
+EOF
+
 cat << 'EOF' > ansible_dockerfile
 FROM python:3.11-slim
 
