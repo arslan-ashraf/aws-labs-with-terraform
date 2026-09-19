@@ -230,11 +230,11 @@ echo "#######################################################"
 mkdir inventory
 
 cat << 'EOF' > inventory/production_servers.yaml
-[backend-servers]
-
-<IP_address> ansible_user=ubuntu ansible_ssh_private_key_file=/keys/key-for-ec2-connection
-
-[frontend-servers]
+backend_servers:
+  hosts:
+    <server_IP_address>:
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: /keys/key-for-ec2-connection
 EOF
 
 cat << 'EOF' > ansible.cfg
@@ -247,11 +247,10 @@ EOF
 
 cat << 'EOF' > playbook.yaml
 - name: First play
-  hosts: target_hosts             # must match in the inventory
+  hosts: backend_servers             # must match in the inventory
   tasks:
-    - name: Print message
-      ansible.builtin.debug:
-        msg: "Testing first message"
+    - name: Ping server
+      ansible.builtin.ping:
 
     - name: Print builtin variables
       ansible.builtin.debug:
@@ -322,3 +321,6 @@ docker run --rm -it \
   -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
   my-ansible-core \
   ansible backend-servers -m ping
+
+
+ansible-playbook playbook.yaml
