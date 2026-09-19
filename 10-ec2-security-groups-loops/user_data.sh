@@ -230,9 +230,11 @@ echo "#######################################################"
 mkdir inventory
 
 cat << 'EOF' > inventory/production_servers
-[ec2-servers]
+[backend-servers]
 
 <IP_address> ansible_user=ubuntu ansible_ssh_private_key_file=/keys/key-for-ec2-connection
+
+[frontend-servers]
 EOF
 
 cat << 'EOF' > ansible.cfg
@@ -298,4 +300,4 @@ docker run --rm -it \
   -v $(pwd):/ansible \
   -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
   my-ansible-core \
-  ansible ec2-servers -m ping
+  ansible backend-servers -m ping
