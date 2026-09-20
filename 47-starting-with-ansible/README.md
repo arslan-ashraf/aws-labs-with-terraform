@@ -11,5 +11,7 @@ All of the Ansible code is in the `user_data.sh` script.
 
 2. SSH into the EC2 instance in the public subnet and ping the EC2 instance in the private subnet using its private IP address.
 
-3. Visit the web application running on the public EC2 instance using its public IP address.
+3. After going into the public instance using SSH, read the cloud init logs to see the installation of Docker and the two Docker images that were built and run.
+
+4. Visit the web application running on the public EC2 instance using its public IP address.
 
