@@ -22,8 +22,10 @@ resource "aws_vpc_security_group_egress_rule" "egress_internet_rule" {
 
   security_group_id = aws_security_group.multiple_security_groups["public_traffic_sg"].id
   
-  cidr_ipv4   = "0.0.0.0/0" # where is the traffic coming from
-  
+  # target destination
+  cidr_ipv4 = "0.0.0.0/0"
+
+  # all protocols
   ip_protocol = "-1"
 }
 
