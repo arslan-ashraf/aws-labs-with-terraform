@@ -1,0 +1,39 @@
+resource "aws_vpc" "example_vpc" {
+  cidr_block = "10.0.0.0/16"
+  tags       = { Name = "example_vpc" }
+}
+
+resource "aws_internet_gateway" "internet_gateway_for_example_vpc" {
+  vpc_id = aws_vpc.example_vpc.id
+
+  tags = { Name = "internet_gateway_for_example_vpc" }
+
+}
+
+# create multiple subnets with for_each loop
+resource "aws_subnet" "subnets_in_example_vpc" {
+  for_each          = var.subnet_config
+  vpc_id            = aws_vpc.example_vpc.id
+  availability_zone = "us-east-1a"
+  cidr_block        = each.value.cidr_block
+
+  tags = { Name = "${each.key}_in_example_vpc" }
+}
+
+resource "aws_route_table" "route_table_for_public_subnet_in_example_vpc" {
+  vpc_id = aws_vpc.example_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.internet_gateway_for_example_vpc.id
+  }
+
+  tags = { Name = "route_table_for_public_subnet_in_example_vpc" }
+
+}
+
+# note: a subnet can only be attached to a single route table
+resource "aws_route_table_association" "route_table_association_public_subnet_example_vpc" {
+  subnet_id      = aws_subnet.subnets_in_example_vpc["public_subnet"].id
+  route_table_id = aws_route_table.route_table_for_public_subnet_in_example_vpc.id
+}

@@ -1,6 +1,6 @@
 setup.sh
 
-/10-ec2-security-groups-loops/.terraform*
-/10-ec2-security-groups-loops/terraform*
+/47-starting-with-ansible/.terraform*
+/47-starting-with-ansible/terraform*
 
-!/10-ec2-security-groups-loops/terraform.tfvars
+!/47-starting-with-ansible/terraform.tfvars
