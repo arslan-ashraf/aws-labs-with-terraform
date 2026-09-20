@@ -17,7 +17,7 @@ resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_public_sg" {
   ip_protocol = "tcp"
 }
 
-resource "aws_vpc_security_group_egress_rule" "egress_internet_rule" {
+resource "aws_vpc_security_group_egress_rule" "egress_internet_rule_public_sg" {
   description = "Allow outbound internet traffic from public EC2"
 
   security_group_id = aws_security_group.multiple_security_groups["public_traffic_sg"].id
