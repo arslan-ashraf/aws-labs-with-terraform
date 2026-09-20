@@ -18,7 +18,7 @@ ec2_instance_config = {
 
   instance2 = {
     instance_type  = "t2.nano"
-    ami            = "debian"
+    ami            = "ubuntu"
     subnet_name    = "public_subnet"
     security_group = "public_traffic_sg"
   }
