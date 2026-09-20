@@ -356,6 +356,3 @@ docker run --rm -it \
   -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
   my-ansible-core \
   ansible backend-servers -m ping
-
-
-ansible-playbook playbook.yaml

@@ -17,7 +17,9 @@ All of the Ansible code is in the `user_data.sh` script.
 
 5. In the public EC2 instance's terminal, in the file `inventory/production_servers.yaml`, add the private IP address of the private instance on line `<server_IP_address>`.
 
-6. Rebuild the Docker image, run it, and run the playbook:
+6. Create file `key-for-ec2-connection` and add the private key into to SSH into the private EC2 instance for running Ansible.
+
+7. Rebuild the Docker image, run it, and execute the playbook:
 ```
 sudo docker build -t my-ansible-core -f ansible_dockerfile
 ```
@@ -28,11 +30,18 @@ sudo docker run --rm -it \
   my-ansible-core
 ```
 
+```
 docker run --rm -it \
   -v $(pwd):/ansible \
   -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
   my-ansible-core \
   ansible backend-servers -m ping
+```
 
-
+```
+docker run --rm -it \
+  -v $(pwd):/ansible \
+  -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
+  my-ansible-core \
 ansible-playbook playbook.yaml
+```
