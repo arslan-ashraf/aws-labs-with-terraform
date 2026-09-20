@@ -15,3 +15,4 @@ All of the Ansible code is in the `user_data.sh` script.
 
 4. Visit the web application running on the public EC2 instance using its public IP address.
 
+5. In the public EC2 instance's terminal, in the file `inventory/production_servers.yaml`, add the private IP address of the private instance on line `<server_IP_address>`.
