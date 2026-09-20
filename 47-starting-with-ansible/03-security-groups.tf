@@ -17,15 +17,14 @@ resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_public_sg" {
   ip_protocol = "tcp"
 }
 
-resource "aws_vpc_security_group_egress_rule" "allow_ping_out_rule_public_sg" {
-  description = "Allow only outbound ICMP echo requests (using ping)"
+resource "aws_vpc_security_group_egress_rule" "egress_internet_rule" {
+  description = "Allow outbound internet traffic from public EC2"
 
   security_group_id = aws_security_group.multiple_security_groups["public_traffic_sg"].id
   
   cidr_ipv4   = "0.0.0.0/0" # where is the traffic coming from
-  from_port   = 8
-  to_port     = 0
-  ip_protocol = "icmp"
+  
+  ip_protocol = "-1"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_private_sg" {
