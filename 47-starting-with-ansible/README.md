@@ -20,16 +20,19 @@ All of the Ansible code is in the `user_data.sh` script.
 6. Create file `key-for-ec2-connection` and add the private key into to SSH into the private EC2 instance for running Ansible.
 
 7. Rebuild the Docker image, run it, and execute the playbook:
+
 ```
 sudo docker build -t my-ansible-core -f ansible_dockerfile
 ```
 
+Test if ansible is installed correctly:
 ```
 sudo docker run --rm -it \
   -v $(pwd):/ansible \
   my-ansible-core
 ```
 
+Ping private EC2 instance:
 ```
 docker run --rm -it \
   -v $(pwd):/ansible \
@@ -38,6 +41,7 @@ docker run --rm -it \
   ansible backend-servers -m ping
 ```
 
+Execute the playbook:
 ```
 docker run --rm -it \
   -v $(pwd):/ansible \
