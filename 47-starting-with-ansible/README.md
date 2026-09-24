@@ -4,28 +4,27 @@ Furthermore, security groups are attached to each EC2 instance to allow remote S
 
 The instance in the private subnet can only be accessed by other instances in the same VPC through PING and SSH.
 
-We add a `user_data.sh` script to the public EC2 instance which builds two Docker images, one for a basic Python application and the other for running ansible.
+All of the Ansible code is in the `user_data.sh` script which installs ansible and creates various ansible files.
 
-All of the Ansible code is in the `user_data.sh` script.
 
 The public EC2 instance will serve as the Ansible control node and the private instance will serve as the Ansible managed node.
 
 
 1. Run the Terraform lab.
 
-2. SSH into the EC2 instance in the public subnet and ping the EC2 instance in the private subnet using its private IP address.
+2. SSH into the EC2 instance in the public subnet.
 
-3. After going into the public instance using SSH, read the cloud init logs to see the installation of Docker and the two Docker images that were built and run.
+3. Ping the EC2 instance in the private subnet using its private IP address.
+
+3. Read the cloud init logs to see the installation of ansible.
 
 ```
 cat /var/log/cloud-init-output.log
 ```
 
-4. Visit the web application running on the public EC2 instance using its public IP address.
+5. In the file `inventory/production_servers.yaml`, add the private IP address of the private instance on line `<server_IP_address>`.
 
-5. In the public EC2 instance's terminal, in the file `inventory/production_servers.yaml`, add the private IP address of the private instance on line `<server_IP_address>`.
-
-6. Create file `key-for-ec2-connection` and add the private key into to SSH into the private EC2 instance for running Ansible.
+6. Copy the private SSH key into the file `key-for-ec2-connection`.
 
 7. Rebuild the Docker image, run it, and execute the playbook:
 
