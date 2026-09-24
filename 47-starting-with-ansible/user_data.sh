@@ -36,6 +36,8 @@ mkdir inventory
 
 touch key-for-ec2-connection
 
+sudo chmod 777 key-for-ec2-connection
+
 cat << 'EOF' > inventory/production_servers.yaml
 backend_servers:
   hosts:
@@ -120,3 +122,5 @@ cat << 'EOF' > playbook.yaml
         filter:
           - 'ansible_local*'
 EOF
+
+sudo chmod 777 playbook.yaml
