@@ -26,33 +26,20 @@ cat /var/log/cloud-init-output.log
 
 6. Copy the private SSH key into the file `key-for-ec2-connection`.
 
-7. Rebuild the Docker image, run it, and execute the playbook:
+7. Test Ansible:
 
 ```
-sudo docker build -t my-ansible-core -f ansible_dockerfile
+ansible --version
 ```
 
-Test if ansible is installed correctly:
+8. Ping backend server using Ansible:
+
 ```
-sudo docker run --rm -it \
-  -v $(pwd):/ansible \
-  my-ansible-core
+ansible backend-servers -m ping
 ```
 
-Ping private EC2 instance:
-```
-docker run --rm -it \
-  -v $(pwd):/ansible \
-  -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
-  my-ansible-core \
-  ansible backend-servers -m ping
-```
+8. Execute the playbook:
 
-Execute the playbook:
 ```
-docker run --rm -it \
-  -v $(pwd):/ansible \
-  -v "/key-for-ec2-connection:/keys/key-for-ec2-connection:ro" \
-  my-ansible-core \
 ansible-playbook playbook.yaml
 ```
