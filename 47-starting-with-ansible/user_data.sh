@@ -17,12 +17,20 @@ echo "###########################################################"
 echo "################# USER DATA SCRIPT RUNNING ################"
 echo "###########################################################"
 
+echo ""
+
 echo "###########################################################"
 echo "################### INSTALLING ANSIBLE ####################"
 echo "###########################################################"
 
 sudo apt update -y
 sudo apt install ansible -y
+
+echo "###########################################################"
+echo "################### ANSIBLE INSTALLED #####################"
+echo "###########################################################"
+
+cd home/ubuntu
 
 mkdir inventory
 
@@ -36,6 +44,8 @@ backend_servers:
       ansible_ssh_private_key_file: key-for-ec2-connection
 EOF
 
+chmod 777 inventory/production_servers.yaml
+
 
 cat << 'EOF' > ansible.cfg
 [defaults]
@@ -44,6 +54,8 @@ host_key_checking = False
 
 inventory = inventory/production_servers.yaml
 EOF
+
+sudo chmod 777 ansible.cfg
 
 
 cat << 'EOF' > custom_facts.fact
@@ -57,6 +69,8 @@ cat << 'EOF_LINUX_KERNEL_VERSION'
 }
 EOF_LINUX_KERNEL_VERSION
 EOF
+
+sudo chmod 777 custom_facts.fact
 
 
 cat << 'EOF' > playbook.yaml
@@ -80,6 +94,7 @@ cat << 'EOF' > playbook.yaml
 
 - name: Create facts.d directory and copy custom facts file
   hosts: backend_servers             # must match in the inventory
+  become: true
   tasks:
     - name: Create facts.d directory
       ansible.builtin.file:
@@ -103,5 +118,5 @@ cat << 'EOF' > playbook.yaml
     - name: Get custom facts
       ansible.builtin.setup:
         filter:
-          - 'ansible_local'
+          - 'ansible_local*'
 EOF
