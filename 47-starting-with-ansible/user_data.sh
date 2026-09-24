@@ -297,6 +297,14 @@ cat << 'EOF' > playbook.yaml
         mode: '0755'               # set file permissions
         owner: ubuntu              # optional: sets file owner
         group: ubuntu              # optional: sets file group
+
+- name: Use custom_facts.fact file to get custom facts
+  hosts: backend_servers             # must match in the inventory
+  tasks:
+    - name: Get custom facts
+      ansible.builtin.setup:
+        filter:
+          - 'ansible_local'
 EOF
 
 cat << 'EOF' > ansible_dockerfile
