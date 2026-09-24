@@ -102,7 +102,7 @@ cat << 'EOF' > playbook.yaml
       ansible.builtin.file:
         path: /etc/ansible/facts.d
         state: directory          # ensure this is a directory
-        mode: '0755'              # sets directory permissions
+        mode: '0777'              # sets directory permissions
         owner: ubuntu             # optional: sets directory owner
         group: ubuntu             # optional: sets directory group
 
