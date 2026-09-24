@@ -17,6 +17,10 @@ The public EC2 instance will serve as the Ansible control node and the private i
 
 3. After going into the public instance using SSH, read the cloud init logs to see the installation of Docker and the two Docker images that were built and run.
 
+```
+cat /var/log/cloud-init-output.log
+```
+
 4. Visit the web application running on the public EC2 instance using its public IP address.
 
 5. In the public EC2 instance's terminal, in the file `inventory/production_servers.yaml`, add the private IP address of the private instance on line `<server_IP_address>`.
