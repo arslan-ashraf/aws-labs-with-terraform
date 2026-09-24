@@ -67,7 +67,7 @@ resource "aws_instance" "create_instances_from_map" {
   ]
 
   tags = {
-    Name = "${each.value.ami}-machine"
+    Name = "${each.value.subnet_name == "public_subnet" ? "public" : "private"}-${each.value.ami}-machine"
   }
 
   # if the ami gets updated by the time the next apply happens, Terraform

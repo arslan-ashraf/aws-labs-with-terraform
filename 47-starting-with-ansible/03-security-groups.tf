@@ -17,6 +17,18 @@ resource "aws_vpc_security_group_ingress_rule" "ssh_connection_rule_public_sg" {
   ip_protocol = "tcp"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "inbound_internet_rule_public_sg" {
+  description = "Allow SSH connection to public EC2 from anywhere"
+
+  security_group_id = aws_security_group.multiple_security_groups["public_traffic_sg"].id
+  
+  cidr_ipv4 = "0.0.0.0/0" # where is the traffic coming from
+
+  from_port   = 80
+  to_port     = 80
+  ip_protocol = "tcp"
+}
+
 resource "aws_vpc_security_group_egress_rule" "egress_internet_rule_public_sg" {
   description = "Allow outbound internet traffic from public EC2"
 
