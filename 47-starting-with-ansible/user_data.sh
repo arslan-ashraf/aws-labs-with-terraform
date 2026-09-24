@@ -110,7 +110,7 @@ cat << 'EOF' > playbook.yaml
       ansible.builtin.copy:
         src: custom_facts.fact
         dest: /etc/ansible/facts.d
-        mode: '0755'               # set file permissions
+        mode: '0777'               # set file permissions
         owner: ubuntu              # optional: sets file owner
         group: ubuntu              # optional: sets file group
 
