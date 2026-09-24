@@ -44,7 +44,7 @@ backend_servers:
       ansible_ssh_private_key_file: key-for-ec2-connection
 EOF
 
-chmod 777 inventory/production_servers.yaml
+sudo chmod 777 inventory/production_servers.yaml
 
 
 cat << 'EOF' > ansible.cfg
