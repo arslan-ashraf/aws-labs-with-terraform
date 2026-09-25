@@ -139,20 +139,23 @@ cat << 'EOF' > playbook.yaml
           - 'ansible_local*'
 
 
+# this play stops at apache install, because the EC2 instance has
+# no network access
 - name: Install and run Apache Web Server
   hosts: backend_servers             # must match in the inventory
+  become: true
   tasks:
     - name: Install Apache on Debian/Ubuntu
       ansible.builtin.apt:
         name: apache2
-        state: latest
+        state: present
         update_cache: true
       when: ansible_os_family == "Debian"
 
     - name: Install Apache on RHEL/CentOS
       ansible.builtin.yum:
         name: httpd
-        state: latest
+        state: present
       when: ansible_os_family == "RedHat"
 
     - name: Enable and start Apache Web Server
