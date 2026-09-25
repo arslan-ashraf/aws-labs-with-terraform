@@ -139,8 +139,8 @@ cat << 'EOF' > playbook.yaml
           - 'ansible_local*'
 
 
-# this play stops at apache install, because the EC2 instance has
-# no network access
+# EXAMPLE ONLY: this play stops at apache install, because the
+# EC2 instance has no network access
 - name: Install and run Apache Web Server
   hosts: backend_servers             # must match in the inventory
   become: true
