@@ -108,6 +108,7 @@ cat << 'EOF' > playbook.yaml
           "selinux": "{{ ansible_facts['selinux'] }}",
         }
 
+
 - name: Create facts.d directory and copy custom facts file
   hosts: backend_servers             # must match in the inventory
   become: true
@@ -128,6 +129,7 @@ cat << 'EOF' > playbook.yaml
         owner: ubuntu              # optional: sets file owner
         group: ubuntu              # optional: sets file group
 
+
 - name: Use custom_facts.fact file to get custom facts
   hosts: backend_servers             # must match in the inventory
   tasks:
@@ -135,6 +137,29 @@ cat << 'EOF' > playbook.yaml
       ansible.builtin.setup:
         filter:
           - 'ansible_local*'
+
+
+- name: Install and run Apache Web Server
+  hosts: backend_servers             # must match in the inventory
+  tasks:
+    - name: Install Apache on Debian/Ubuntu
+      ansible.builtin.apt:
+        name: apache2
+        state: latest
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Install Apache on RHEL/CentOS
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+      when: ansible_os_family == "RedHat"
+
+    - name: Enable and start Apache Web Server
+      ansible.builtin.service:
+        name: "{{ 'apache2' if ansible_os_family == 'Debian' else 'httpd' }}"
+        enabled: yes
+        state: started
 EOF
 
 sudo chmod 777 playbook.yaml
