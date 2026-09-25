@@ -96,6 +96,18 @@ cat << 'EOF' > playbook.yaml
           "playbook_dir": "{{ playbook_dir }}"
         }
 
+    - name: Print managed node facts
+      ansible.builtin.debug:
+        # var: ansible_facts
+        # var: ansible_facts["distribution"]
+        msg: {
+          "dns": "{{ ansible_facts['dns'] }}",
+          "os_name": "{{ ansible_facts['distribution'] }}",
+          "os_version": "{{ ansible_facts['distribution_version'] }}",
+          "python_version": "{{ ansible_facts['python_version'] }}",
+          "selinux": "{{ ansible_facts['selinux'] }}",
+        }
+
 - name: Create facts.d directory and copy custom facts file
   hosts: backend_servers             # must match in the inventory
   become: true
