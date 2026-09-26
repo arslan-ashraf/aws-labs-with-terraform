@@ -132,6 +132,7 @@ cat << 'EOF' > playbook.yaml
 
 - name: Use custom_facts.fact file to get custom facts
   hosts: backend_servers             # must match in the inventory
+  gather_facts: false
   tasks:
     - name: Get custom facts
       ansible.builtin.setup:
