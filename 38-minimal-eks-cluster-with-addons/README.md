@@ -1,4 +1,6 @@
-We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations for pods in the EKS cluster to gain access to AWS services such as S3, EBS volumes and more.
+We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations (PIA) for pods in the EKS cluster.
+
+The purpose of PIA is to allow pods in the cluster to gain access to AWS services such as S3, EBS volumes, SQS, SecretsManager and more.
 
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
@@ -13,7 +15,7 @@ Then we will test each addon by deploying various K8s objects.  Each yaml file i
 
 2. Apply the Terraform config.
 
-3. Configure the local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
+3. Configure the local machine to connect to the EKS cluster by updating the local kubeconfig using the AWS CLI to point to the new cluster:
 
 ```
 aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster

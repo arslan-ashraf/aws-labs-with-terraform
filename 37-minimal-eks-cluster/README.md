@@ -1,6 +1,6 @@
 In this lab, we create a very basic AWS EKS cluster with only a single node in a public subnet to get the cluster up and running.
 
-Run the Terraform config and configure your local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
+Run the Terraform config and configure the local machine to connect to the EKS cluster by updating the local kubeconfig using the AWS CLI to point to the new cluster:
 
 ```
 aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
