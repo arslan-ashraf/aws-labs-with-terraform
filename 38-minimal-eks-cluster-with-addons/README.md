@@ -4,6 +4,10 @@ The purpose of PIA is to allow pods in the cluster to gain access to AWS service
 
 ![Alt Text](aws-eks-pod-identity-association.png)
 
+The purpose of EKS Addons is that they let Kubernetes applications use AWS resources as if they were native Kubernetes resources.
+
+The important distinction is that drivers provide functionality, while Pod Identity provides AWS credentials and permissions. 
+
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
 1. Pod Identity Agent
