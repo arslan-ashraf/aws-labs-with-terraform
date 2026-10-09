@@ -9,11 +9,11 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files in each directory to start testing.
 
 
-1. Create a secret in SecretsManager with the name `my-secret` and key with the name `MY_NGINX_PASSWORD` and any arbitrary password. 
+1. Create a secret in SecretsManager with the name `my-secret` and key with the name `MY_NGINX_PASSWORD` and any arbitrary password value. 
 
-2. Run the Terraform config.
+2. Apply the Terraform config.
 
-3. Apply the Terraform config and configure the local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
+3. Configure the local machine to connect to EKS cluster, update local kubeconfig using the AWS CLI to point to your new cluster:
 
 ```
 aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
