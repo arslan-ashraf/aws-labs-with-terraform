@@ -7,6 +7,15 @@ The purpose of PIA is to allow pods in the cluster to gain access to AWS service
 The purpose of EKS Addons is that they let Kubernetes applications use AWS resources as if they were native Kubernetes resources.
 
 The important distinction is that drivers provide functionality, while Pod Identity provides AWS credentials and permissions. 
+ 
+**EBS CSI Driver** - Connects Kubernetes persistent storage to Amazon EBS volumes. It can provision, attach, mount, and detach volumes for pods that need persistent disk storage.
+
+Example: a PostgreSQL pod needs a persistent disk that survives pod restarts.
+
+**AWS Secrets Store CSI Driver Provider** - Connects the Kubernetes Secrets Store CSI Driver to AWS SecretsManager and AWS Systems Manager Parameter Store. It lets a pod mount secret values as files, without necessarily storing them in Kubernetes Secret objects.
+
+Example: an application needs a database password stored in AWS Secrets Manager.
+
 
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
