@@ -1,4 +1,4 @@
-We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations to for pods in the EKS cluster to gain access to AWS services such as S3, EBS volumes and more.
+We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations for pods in the EKS cluster to gain access to AWS services such as S3, EBS volumes and more.
 
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
@@ -9,7 +9,7 @@ We will perform a bunch of tests in the EKS cluster to see if the EKS addons are
 Then we will test each addon by deploying various K8s objects.  Each yaml file is prefixed with the type of test. Apply the yaml files in each directory to start testing.
 
 
-1. Create a secret in Secrets Manager with the name `my-secret` and key with the name `MY_NGINX_PASSWORD` and any arbitrary password. 
+1. Create a secret in SecretsManager with the name `my-secret` and key with the name `MY_NGINX_PASSWORD` and any arbitrary password. 
 
 2. Run the Terraform config.
 
