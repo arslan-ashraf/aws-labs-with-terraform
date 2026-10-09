@@ -1,12 +1,6 @@
 We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations (PIA) for pods in the EKS cluster.
 
-The purpose of PIA is to allow pods in the cluster to gain access to AWS services such as S3, EBS volumes, SQS, SecretsManager and more without storing any AWS secret access keys.  PIA uses EKS Pod Identity Agent, an AWS-managed mechanism that associates a Kubernetes service account with an IAM role.
-
-![Alt Text](aws-eks-pod-identity-association.png)
-
-The purpose of EKS Addons is that they let Kubernetes applications use AWS resources as if they were native Kubernetes resources.
-
-The important distinction is that drivers provide functionality, while Pod Identity provides AWS credentials and permissions. 
+The purpose of EKS Addons is that they let Kubernetes applications use AWS resources as if they were native Kubernetes resources. 
  
 **EBS CSI Driver** - Connects Kubernetes persistent storage to Amazon EBS volumes. It can provision, attach, mount, and detach volumes for pods that need persistent disk storage.
 
@@ -15,6 +9,15 @@ Example: a PostgreSQL pod needs a persistent disk that survives pod restarts.
 **AWS Secrets Store CSI Driver Provider** - Connects the Kubernetes Secrets Store CSI Driver to AWS SecretsManager and AWS Systems Manager Parameter Store. It lets a pod mount secret values as files, without necessarily storing them in Kubernetes Secret objects.
 
 Example: an application needs a database password stored in AWS Secrets Manager.
+
+![Alt Text](aws-eks-driver-addons.png)
+
+
+The purpose of PIA is to allow pods in the cluster to gain access to AWS services such as S3, EBS volumes, SQS, SecretsManager and more without storing any AWS secret access keys.  PIA uses EKS Pod Identity Agent, an AWS-managed mechanism that associates a Kubernetes service account with an IAM role.
+
+![Alt Text](aws-eks-pod-identity-association.png)
+
+The important distinction between drivers and PIA is that drivers provide functionality, while Pod Identity provides AWS credentials and permissions.
 
 
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
