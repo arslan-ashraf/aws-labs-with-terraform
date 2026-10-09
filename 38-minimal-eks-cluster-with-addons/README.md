@@ -2,6 +2,7 @@ We build on lab 37 by keeping everything the same but adding various AWS EKS Add
 
 The purpose of PIA is to allow pods in the cluster to gain access to AWS services such as S3, EBS volumes, SQS, SecretsManager and more without storing any AWS secret access keys.  PIA uses EKS Pod Identity Agent, an AWS-managed mechanism that associates a Kubernetes service account with an IAM role.
 
+![Alt Text](aws-eks-pod-identity-association.png)
 
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:
 
