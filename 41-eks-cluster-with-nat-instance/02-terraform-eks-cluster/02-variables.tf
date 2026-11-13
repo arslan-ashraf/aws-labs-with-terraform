@@ -61,8 +61,9 @@ variable "kubernetes_version" {
   default = "1.36"
 }
 
-# we get this through manually typed arn:
+# we get database_secrets_arn through manually typed arn:
 # "arn:aws:secretsmanager:${local.region}:${local.account_id}:secret:my-secret*"
+# not needed
 # variable "database_secrets_arn" {
 #   type = string
 # }

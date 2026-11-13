@@ -1,4 +1,4 @@
-We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent and various others.  Additionally, we also configure Pod Identity Associations (PIA) for pods in the EKS cluster.
+We build on lab 37 by keeping everything the same but adding various AWS EKS Addons such as Pod Identity Agent (PIAgent) and various others.  Additionally, we also configure Pod Identity Associations (PIAssoc) for pods in the EKS cluster.
 
 The purpose of EKS Addons is that they let Kubernetes applications use AWS resources as if they were native Kubernetes resources. 
  
@@ -13,11 +13,13 @@ Example: an application needs a database password stored in AWS Secrets Manager.
 ![Alt Text](aws-eks-driver-addons.png)
 
 
-The purpose of PIA is to allow pods in the cluster to gain access to AWS services such as S3, EBS volumes, SQS, SecretsManager and more without storing any AWS secret access keys.  PIA uses EKS Pod Identity Agent, an AWS-managed mechanism that associates a Kubernetes service account with an IAM role.
+The purpose of PIAssoc is to allow pods in the cluster to gain access to AWS services such as S3, EBS volumes, SQS, SecretsManager and more without storing any AWS secret access keys.  
+
+PIAssoc is an AWS-managed mechanism that links a Kubernetes service account with an IAM role. The EKS Pod Identity Agent (PIAgent) is a pod running inside the EKS cluster that other pods access through the service account.  The PIAgent then reaches out to AWS services and its the PIAssoc that determines whether permission is allowed or not.
 
 ![Alt Text](aws-eks-pod-identity-association.png)
 
-The important distinction between drivers and PIA is that drivers provide functionality, while Pod Identity provides AWS credentials and permissions.
+The important distinction between drivers and PIAssoc is that drivers provide functionality, while PIAssoc provides AWS credentials and permissions.
 
 
 We will perform a bunch of tests in the EKS cluster to see if the EKS addons are installed and access to them is working correctly.  We install the following adds:

@@ -26,7 +26,7 @@ resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
 
 
 # AmazonEKS_CNI_Policy allows the VPC CNI plugin installed on worker
-# nodes the necessary permissions to manage network configurations 
+# nodes, ensures the necessary permissions to manage network configurations 
 # for pods, it allows the CNI to list, describe, attach, and modify
 # ENIs and IP addresses on your EC2 worker nodes
 resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
