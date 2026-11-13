@@ -1,6 +1,6 @@
 In this lab, we create a VPC with a NAT Instance in a public subnet and an EKS cluster with two worker nodes in private subnets within that VPC.  The worker nodes will communicate to the EKS control plane as well as out to the internet via the NAT Instance.
 
-We will perform an S3 list buckets test in the EKS cluster to see if the EKS Pod Identity Agen addon and Pod Identity Association are installed and access to them is working correctly.  
+We will perform an S3 list buckets test in the EKS cluster to see if the EKS Pod Identity Agent addon and Pod Identity Association are installed and access to them is working correctly.  
 
 1. Run Terraform with:
 
