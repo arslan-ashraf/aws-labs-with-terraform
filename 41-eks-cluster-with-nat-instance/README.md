@@ -10,6 +10,10 @@ We will perform an S3 list buckets test in the EKS cluster to see if the EKS Pod
 
 2. Connect local kubectl to the EKS cluster using the using the `aws eks update-cubeconfig ...` command found easily in Terraforms output.
 
+```
+aws eks update-kubeconfig --region us-east-1 --name example_eks_cluster
+```
+
 3. Create the production namespace:
 
 ```
