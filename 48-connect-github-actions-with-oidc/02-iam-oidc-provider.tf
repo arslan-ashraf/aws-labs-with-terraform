@@ -1,4 +1,7 @@
 resource "aws_iam_openid_connect_provider" "example" {
-  url            = "https://token.actions.githubusercontent.com"
-  client_id_list = ["sts.amazonaws.com"]
+  url = "https://token.actions.githubusercontent.com"
+  
+  client_id_list = [
+    "sts.amazonaws.com"
+  ]
 }
