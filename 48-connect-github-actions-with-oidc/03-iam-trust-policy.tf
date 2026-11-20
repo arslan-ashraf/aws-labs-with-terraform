@@ -24,12 +24,13 @@ data "aws_iam_policy_document" "github_trust" {
       ]
     }
 
+
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:my-company/infrastructure:ref:refs/heads/main"
+        "repo:aws-labs-with-terraform/48-connect-github-actions-with-oidc:ref:refs/heads/main"
       ]
     }
   }
