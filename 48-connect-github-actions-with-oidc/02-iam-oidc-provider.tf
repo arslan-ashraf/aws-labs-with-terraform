@@ -1,6 +1,6 @@
-resource "aws_iam_openid_connect_provider" "example" {
+resource "aws_iam_openid_connect_provider" "github_idp" {
   url = "https://token.actions.githubusercontent.com"
-  
+
   client_id_list = [
     "sts.amazonaws.com"
   ]

@@ -1,6 +1,6 @@
 setup.sh
 
-/47-starting-with-ansible/.terraform*
-/47-starting-with-ansible/terraform*
+/48-connect-github-actions-with-oidc/.terraform*
+/48-connect-github-actions-with-oidc/terraform*
 
-!/47-starting-with-ansible/terraform.tfvars
+/48-connect-github-actions-with-oidc/terraform.tfvars
