@@ -1,5 +1,4 @@
-
-data "aws_iam_policy_document" "github_trust" {
+data "aws_iam_policy_document" "github_trust_policy" {
   statement {
     effect = "Allow"
 
