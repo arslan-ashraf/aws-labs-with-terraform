@@ -10,6 +10,9 @@ permissions:
 jobs:
   aws-authentication:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./48-connect-github-actions-with-oidc
 
     permissions:
       id-token: write
