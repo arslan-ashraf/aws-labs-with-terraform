@@ -1,13 +1,13 @@
-# # this file is a base this router that calls other workflows
-# # File: .github/workflows/service-a.yml
-# name: Trigger Other CI Workflows
+# this file is a base this router that calls other workflows
+# File: .github/workflows/service-a.yml
+name: Trigger Other CI Workflows
 
-# on:
-#   push:
-#     branches: [ main ]
-#     paths:
-#       - '48-connect-github-actions-with-oidc/.github/workflows/connect-with-aws.yaml'
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '48-connect-github-actions-with-oidc/.github/workflows/connect-with-aws.yaml'
 
-# jobs:
-#   run-lab-48:
-#     uses: ./.github/workflows/../../my-service-a/.github/workflows/connect-with-aws.yaml
+jobs:
+  run-lab-48:
+    uses: ./.github/workflows/../../48-connect-github-actions-with-oidc/.github/workflows/connect-with-aws.yaml
