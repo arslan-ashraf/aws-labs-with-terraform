@@ -25,7 +25,7 @@ resource "aws_iam_policy" "github_actions_policy" {
   policy = data.aws_iam_policy_document.github_actions_role_permissions.json
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_s3_role_policy_attachment" {
+resource "aws_iam_role_policy_attachment" "github_actions" {
   role       = aws_iam_role.github_actions_role.name
   policy_arn = aws_iam_policy.github_actions_policy.arn
 }
