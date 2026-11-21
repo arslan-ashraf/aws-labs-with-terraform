@@ -4,12 +4,6 @@ on:
   # this workflow runs with a 'workflow_call' trigger
   workflow_call:
 
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - '.github/workflows/connect-with-aws.yaml'
-
 permissions:
   contents: read
 
