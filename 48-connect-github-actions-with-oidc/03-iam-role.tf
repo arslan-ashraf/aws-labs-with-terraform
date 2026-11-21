@@ -1,4 +1,5 @@
 resource "aws_iam_role" "github_actions_role" {
+  name        = "github_actions_role"
   description = "IAM role assumed by GitHub Actions through OIDC"
 
   assume_role_policy = data.aws_iam_policy_document.github_trust_policy.json
