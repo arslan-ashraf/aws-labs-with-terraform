@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "github_trust_policy" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:arslan-ashraf/48-connect-github-actions-with-oidc:ref:refs/heads/main"
+        "repo:arslan-ashraf@43149204/learning-github-actions@1350828765:ref:refs/heads/main"
       ]
     }
   }
