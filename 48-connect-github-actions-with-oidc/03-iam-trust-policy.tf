@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "github_trust_policy" {
 
 
     condition {
-      test     = "StringEquals"  # use StringLike with * wild card
+      test     = "StringEquals" # use StringLike with * wild card
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [

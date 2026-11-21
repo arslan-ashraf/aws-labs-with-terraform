@@ -9,9 +9,9 @@ resource "aws_iam_role" "github_actions_role" {
 data "aws_iam_policy_document" "github_actions_role_permissions" {
 
   statement {
-    effect    = "Allow"
+    effect = "Allow"
 
-    actions   = [
+    actions = [
       "s3:ListAllMyBuckets"
     ]
 
