@@ -1,8 +1,11 @@
 name: Connect GitHub Actions to AWS
 
 on:
-  # this workflow runs with a 'workflow_call' trigger
-  workflow_call:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/connect-with-aws.yaml'
 
 permissions:
   contents: read
@@ -10,9 +13,6 @@ permissions:
 jobs:
   aws-authentication:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./48-connect-github-actions-with-oidc
 
     permissions:
       id-token: write
